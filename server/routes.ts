@@ -1,24 +1,24 @@
 import * as express from 'express';
 
-import CatCtrl from './controllers/cat';
+import ShoeCtrl from './controllers/shoe';
 import UserCtrl from './controllers/user';
-import Cat from './models/cat';
+import Shoe from './models/shoe';
 import User from './models/user';
 
 export default function setRoutes(app) {
 
   const router = express.Router();
 
-  const catCtrl = new CatCtrl();
+  const shoeCtrl = new ShoeCtrl();
   const userCtrl = new UserCtrl();
 
-  // Cats
-  router.route('/cats').get(catCtrl.getAll);
-  router.route('/cats/count').get(catCtrl.count);
-  router.route('/cat').post(catCtrl.insert);
-  router.route('/cat/:id').get(catCtrl.get);
-  router.route('/cat/:id').put(catCtrl.update);
-  router.route('/cat/:id').delete(catCtrl.delete);
+  // Shoes
+  router.route('/shoes').get(shoeCtrl.getAll);
+  router.route('/shoes/count').get(shoeCtrl.count);
+  router.route('/shoe').post(shoeCtrl.insert);
+  router.route('/shoe/:id').get(shoeCtrl.get);
+  router.route('/shoe/:id').put(shoeCtrl.update);
+  router.route('/shoe/:id').delete(shoeCtrl.delete);
 
   // Users
   router.route('/login').post(userCtrl.login);
@@ -29,7 +29,7 @@ export default function setRoutes(app) {
   router.route('/user/:id').put(userCtrl.update);
   router.route('/user/:id').delete(userCtrl.delete);
 
-  // Apply the routes to our application with the prefix /api
+  // Apply the routes to our applishoeion with the prefix /api
   app.use('/api', router);
 
 }

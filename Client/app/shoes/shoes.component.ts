@@ -2,90 +2,90 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { CatService } from '../services/cat.service';
+import { ShoeService } from '../services/shoe.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
 @Component({
-  selector: 'app-cats',
-  templateUrl: './cats.component.html',
-  styleUrls: ['./cats.component.scss']
+  selector: 'app-shoes',
+  templateUrl: './shoes.component.html',
+  styleUrls: ['./shoes.component.scss']
 })
-export class CatsComponent implements OnInit {
+export class ShoesComponent implements OnInit {
 
-  cat = {};
-  cats = [];
+  shoe = {};
+  shoes = [];
   isLoading = true;
   isEditing = false;
 
-  addCatForm: FormGroup;
+  addShoesForm: FormGroup;
   name = new FormControl('', Validators.required);
   age = new FormControl('', Validators.required);
   weight = new FormControl('', Validators.required);
 
-  constructor(private catService: CatService,
+  constructor(private shoeService: ShoeService,
               private formBuilder: FormBuilder,
               private http: Http,
               public toast: ToastComponent) { }
 
   ngOnInit() {
-    this.getCats();
-    this.addCatForm = this.formBuilder.group({
+    this.getShoes();
+    this.addShoesForm = this.formBuilder.group({
       name: this.name,
       age: this.age,
       weight: this.weight
     });
   }
 
-  getCats() {
-    this.catService.getCats().subscribe(
-      data => this.cats = data,
+  getShoes() {
+    this.shoeService.getShoes().subscribe(
+      data => this.shoes = data,
       error => console.log(error),
       () => this.isLoading = false
     );
   }
 
-  addCat() {
-    this.catService.addCat(this.addCatForm.value).subscribe(
+  addShoe() {
+    this.shoeService.addShoe(this.addShoesForm.value).subscribe(
       res => {
-        const newCat = res.json();
-        this.cats.push(newCat);
-        this.addCatForm.reset();
+        const newShoes = res.json();
+        this.shoes.push(newShoes);
+        this.addShoesForm.reset();
         this.toast.setMessage('item added successfully.', 'success');
       },
       error => console.log(error)
     );
   }
 
-  enableEditing(cat) {
+  enableEditing(shoe) {
     this.isEditing = true;
-    this.cat = cat;
+    this.shoe = shoe;
   }
 
   cancelEditing() {
     this.isEditing = false;
-    this.cat = {};
+    this.shoe = {};
     this.toast.setMessage('item editing cancelled.', 'warning');
-    // reload the cats to reset the editing
-    this.getCats();
+    // reload the shoes to reset the editing
+    this.getShoes();
   }
 
-  editCat(cat) {
-    this.catService.editCat(cat).subscribe(
+  editShoes(shoe) {
+    this.shoeService.editShoe(shoe).subscribe(
       res => {
         this.isEditing = false;
-        this.cat = cat;
+        this.shoe = shoe;
         this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error)
     );
   }
 
-  deleteCat(cat) {
+  deleteShoes(shoe) {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.catService.deleteCat(cat).subscribe(
+      this.shoeService.deleteShoe(shoe).subscribe(
         res => {
-          const pos = this.cats.map(elem => elem._id).indexOf(cat._id);
-          this.cats.splice(pos, 1);
+          const pos = this.shoes.map(elem => elem._id).indexOf(shoe._id);
+          this.shoes.splice(pos, 1);
           this.toast.setMessage('item deleted successfully.', 'success');
         },
         error => console.log(error)
