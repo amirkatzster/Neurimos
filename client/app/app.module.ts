@@ -14,8 +14,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
-import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -26,12 +26,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
     LoginComponent,
     LogoutComponent,
     AccountComponent,
-    AdminComponent,
     NotFoundComponent
   ],
   imports: [
     RoutingModule,
-    SharedModule
+    SharedModule,
+    AdminModule
   ],
   providers: [
     AuthService,
