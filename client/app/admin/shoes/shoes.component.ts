@@ -56,17 +56,10 @@ export class ShoesComponent implements OnInit {
     );
   }
 
-  enableEditing(shoe) {
+  enableEditing(shoe,modal) {
     this.isEditing = true;
     this.shoe = shoe;
-  }
-
-  cancelEditing() {
-    this.isEditing = false;
-    this.shoe = {};
-    this.toast.setMessage('item editing cancelled.', 'warning');
-    // reload the shoes to reset the editing
-    this.getShoes();
+    modal.open();
   }
 
   editShoes(shoe) {
@@ -78,19 +71,6 @@ export class ShoesComponent implements OnInit {
       },
       error => console.log(error)
     );
-  }
-
-  deleteShoes(shoe) {
-    if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.shoeService.deleteShoe(shoe).subscribe(
-        res => {
-          const pos = this.shoes.map(elem => elem._id).indexOf(shoe._id);
-          this.shoes.splice(pos, 1);
-          this.toast.setMessage('item deleted successfully.', 'success');
-        },
-        error => console.log(error)
-      );
-    }
   }
 
 }

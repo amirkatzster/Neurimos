@@ -2,8 +2,8 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">Current shoes ({{shoes.length}})</h4>
+<div class="card" >
+  <h4 class="card-header">מספר נעליים במערכת ({{shoes.length}})</h4>
   <div class="card-block">
     <table class="table table-bordered table-striped" >
       <thead class="thead-default">
@@ -23,10 +23,10 @@
           <td colspan="4">אין נעליים</td>
         </tr>  
       </tbody>
-      <tbody *ngIf="!isEditing">
+      <tbody>
         <tr *ngFor="let shoe of shoes">
           <td>
-            <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe)"><i class="fa fa-pencil"></i>ערוך</button>
+            <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe,modal)"><i class="fa fa-pencil"></i>ערוך</button>
           </td>
           <td>{{shoe.active}}</td>
           <td>{{shoe.id}}</td>
@@ -41,39 +41,47 @@
   </div>
 </div>
 
+<modal #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">עריכה</h4>
+    </modal-header>
+    <modal-body>
+      <form class="form-inline" (ngSubmit)="addShoe()" style="text-align:center">
+        <div class="form-group">
+            <input class="form-control" type="text" name="active" [(ngModel)]="shoe.active" placeholder="IsActive" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="company" [(ngModel)]="shoe.company" placeholder="Age" min="0" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="name" [(ngModel)]="shoe.name" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="number" name="price" [(ngModel)]="shoe.price" placeholder="Price" step="any" min="0">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="gender" [(ngModel)]="shoe.gender" placeholder="Gender" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="kidOrAdult" [(ngModel)]="shoe.kidOrAdult" placeholder="kid or adult" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="season" [(ngModel)]="shoe.season" placeholder="season" required>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="information" [(ngModel)]="shoe.information" placeholder="information" required>
+        </div>
+        <div class="form-group">
+            <!-- <input class="form-control" type="text" name="images" [(ngModel)]="shoe.season" placeholder="season" required> -->
+        </div>  
+        <!-- <button class="btn btn-primary" type="submit" [disabled]="!addShoesForm.valid"> Add</button> -->
+      </form>
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close()">שמור</button>
+    </modal-footer>
+</modal>
 
-<div class="card" *ngIf="!isEditing">
-  <h4 class="card-header">ערוך</h4>
-  <div class="card-block">
-    <form class="form-inline" (ngSubmit)="addShoe()" style="text-align:center">
-      <div class="form-group">
-          <input class="form-control" type="text" name="active" [(ngModel)]="shoe.active" placeholder="IsActive" required>
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="text" name="company" [(ngModel)]="shoe.company" placeholder="Age" min="0" required>
-      </div>
-      <div class="form-group">
-          <input class="form-control" type="text" name="name" [(ngModel)]="shoe.name" placeholder="Name" required>
-      </div>
-      <div class="form-group">
-        <input class="form-control" type="number" name="price" [(ngModel)]="shoe.price" placeholder="Price" step="any" min="0">
-      </div>
-      <div class="form-group">
-          <input class="form-control" type="text" name="gender" [(ngModel)]="shoe.gender" placeholder="Gender" required>
-      </div>
-      <div class="form-group">
-          <input class="form-control" type="text" name="kidOrAdult" [(ngModel)]="shoe.kidOrAdult" placeholder="kid or adult" required>
-      </div>
-      <div class="form-group">
-          <input class="form-control" type="text" name="season" [(ngModel)]="shoe.season" placeholder="season" required>
-      </div>
-      <div class="form-group">
-          <input class="form-control" type="text" name="information" [(ngModel)]="shoe.information" placeholder="information" required>
-      </div>
-      <div class="form-group">
-          <!-- <input class="form-control" type="text" name="images" [(ngModel)]="shoe.season" placeholder="season" required> -->
-      </div>  
-      <button class="btn btn-primary" type="submit" [disabled]="!addShoesForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
-    </form>
-  </div>
-</div>
+  <!-- <button type="button" class="btn btn-default" (click)="modal.hide()">סגור</button>
+    <button type="button" class="btn btn-primary">שמור</button> -->
