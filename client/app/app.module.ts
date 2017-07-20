@@ -8,7 +8,6 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AppComponent } from './app.component';
-import { ShoesComponent } from './shoes/shoes.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +19,6 @@ import { AdminModule } from './admin/admin.module';
 @NgModule({
   declarations: [
     AppComponent,
-    ShoesComponent,
     AboutComponent,
     RegisterComponent,
     LoginComponent,

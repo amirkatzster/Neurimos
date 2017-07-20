@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { ShoeService } from '../services/shoe.service';
-import { ToastComponent } from '../shared/toast/toast.component';
+import { ShoeService } from '../../services/shoe.service';
+import { ToastComponent } from '../../shared/toast/toast.component';
 
 @Component({
   selector: 'app-shoes',

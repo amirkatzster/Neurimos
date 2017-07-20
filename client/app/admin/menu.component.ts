@@ -4,8 +4,9 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-menu',
   template: `
     <div>Users</div>
-    <app-users-admin>
+    <app-users-admin></app-users-admin>
     <div>Shoes</div>
+    <app-shoes>
   `
 })
 export class MenuComponent implements OnInit {
