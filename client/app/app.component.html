@@ -1,27 +1,27 @@
-<div class="container">
+<div class="container" dir="rtl">
 
   <nav class="navbar navbar-dark bg-primary">
-    <div class="nav navbar-nav">
+    <div class="nav navbar-nav nav-right">
       <a routerLink="/" class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <i class="fa fa-home"></i> Home
+        <i class="fa fa-home"></i> ראשי
       </a>
       <a routerLink="/shoes" class="nav-item nav-link" routerLinkActive="active">
-        <i class="fa fa-list"></i> Shoes
+        <i class="fa fa-list"></i> נעליים
       </a>
       <a routerLink="/login" class="nav-item nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">
-        <i class="fa fa-sign-in"></i> Login
+        <i class="fa fa-sign-in"></i> התחבר
       </a>
       <a routerLink="/register" class="nav-item nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">
-        <i class="fa fa-user-plus"></i> Register
+        <i class="fa fa-user-plus"></i> הרשם
       </a>
       <a routerLink="/account" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
-        <i class="fa fa-user"></i> Account ({{auth.currentUser.username}})
+        <i class="fa fa-user"></i> החשבון שלי ({{auth.currentUser.username}})
       </a>
       <a routerLink="/admin" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-        <i class="fa fa-lock"></i> Admin
+        <i class="fa fa-lock"></i> אדמין
       </a>
       <a routerLink="/logout" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
-        <i class="fa fa-sign-out"></i> Logout
+        <i class="fa fa-sign-out"></i> התנתק
       </a>
     </div>
   </nav>
