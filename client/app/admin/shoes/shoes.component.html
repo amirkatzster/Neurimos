@@ -42,13 +42,13 @@
 </div>
 
 <modal #modal>
+  <form (ngSubmit)="addEditShoe(shoe)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">עריכה</h4>
     </modal-header>
     <modal-body class="addForm">
-      <form (ngSubmit)="addShoe()">
         <div class="form-group">
-            <md-checkbox class="example-margin" [(ngModel)]="shoe.active">?להציג באתר</md-checkbox>
+            <md-checkbox name="active" class="example-margin" [(ngModel)]="shoe.active" [checked]="shoe.active">?להציג באתר</md-checkbox>
         </div>
         <div class="form-group">
           <label for="shoeId">חברה</label>
@@ -62,21 +62,21 @@
           <label for="shoeId">מחיר</label>
           <input class="form-control" type="number" name="price" [(ngModel)]="shoe.price" placeholder="199" step="any" min="0">
         </div>
-        <div class="form-group">
-            <md-radio-group [(ngModel)]="shoe.kidOrAdult">
+        <div class="form-group" >
+            <md-radio-group [(ngModel)]="shoe.kidOrAdult" name="kidOrAdult">
               <md-radio-button align="end" class="example-margin" value="kids">צעירים</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="adult">מבוגרים</md-radio-button>
             </md-radio-group>
         </div>
-        <div class="form-group">
-            <md-radio-group [(ngModel)]="shoe.gender">
+        <div class="form-group" >
+            <md-radio-group [(ngModel)]="shoe.gender" name="gender">
               <md-radio-button align="end" class="example-margin" value="unisex">שניהם</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="female">בת</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="male">בן</md-radio-button>
             </md-radio-group>
         </div>
-        <div class="form-group">
-            <md-radio-group [(ngModel)]="shoe.season">
+        <div class="form-group" >
+            <md-radio-group [(ngModel)]="shoe.season" name="season">
               <md-radio-button align="end" class="example-margin" value="winter">חורף</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="summer">קיץ</md-radio-button>
             </md-radio-group>
@@ -87,11 +87,11 @@
         <div class="form-group">
           <input type="file" accept="image/*" capture="camera" />
         </div>  
-        <!-- <button class="btn btn-primary" type="submit" [disabled]="!addShoesForm.valid"> Add</button> -->
-      </form>
     </modal-body>
     <modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close()">שמור</button>
+      <button type="submit" class="btn btn-primary" (click)="modal.close()">שמור</button>
+      <!-- [disabled]="!addShoesForm.valid" -->
     </modal-footer>
+    </form>
 </modal>

@@ -44,9 +44,11 @@ export class ShoesComponent implements OnInit {
     );
   }
 
-  addShoe() {
+  addShoes(shoe) {
+   console.log('addEditShoe');
     this.shoeService.addShoe(this.addShoesForm.value).subscribe(
       res => {
+        console.log('addEditShoe2');
         const newShoes = res.json();
         this.shoes.push(newShoes);
         this.addShoesForm.reset();
@@ -56,13 +58,13 @@ export class ShoesComponent implements OnInit {
     );
   }
 
-  enableEditing(shoe,modal) {
+  enableEditing(shoe, modal) {
     this.isEditing = true;
     this.shoe = shoe;
     modal.open();
   }
 
-  editShoes(shoe) {
+  addEditShoe(shoe) {
     this.shoeService.editShoe(shoe).subscribe(
       res => {
         this.isEditing = false;
