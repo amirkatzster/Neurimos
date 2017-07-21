@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdButtonModule, MdCheckboxModule, MdRadioModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,7 +15,10 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    Ng2Bs3ModalModule
+    Ng2Bs3ModalModule,
+    BrowserAnimationsModule,
+    MdCheckboxModule,
+    MdRadioModule
   ],
   exports: [
     // Shared Modules
@@ -22,6 +27,9 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     ReactiveFormsModule,
     HttpModule,
     Ng2Bs3ModalModule,
+    BrowserAnimationsModule,
+    MdCheckboxModule,
+    MdRadioModule,
     // Shared Components
     ToastComponent,
     LoadingComponent

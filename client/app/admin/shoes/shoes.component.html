@@ -45,34 +45,47 @@
     <modal-header [show-close]="true">
         <h4 class="modal-title">עריכה</h4>
     </modal-header>
-    <modal-body>
-      <form class="form-inline" (ngSubmit)="addShoe()" style="text-align:center">
+    <modal-body class="addForm">
+      <form (ngSubmit)="addShoe()">
         <div class="form-group">
-            <input class="form-control" type="text" name="active" [(ngModel)]="shoe.active" placeholder="IsActive" required>
+            <md-checkbox class="example-margin" [(ngModel)]="shoe.active">?להציג באתר</md-checkbox>
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="company" [(ngModel)]="shoe.company" placeholder="Age" min="0" required>
+          <label for="shoeId">חברה</label>
+          <input id="shoeId" class="form-control" type="text" name="company" [(ngModel)]="shoe.company" placeholder="נמרוד" min="0" required>
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="name" [(ngModel)]="shoe.name" placeholder="Name" required>
+            <label for="shoeId">דגם</label>
+            <input class="form-control" type="text" name="name" [(ngModel)]="shoe.name" placeholder="1234" required>
         </div>
         <div class="form-group">
-          <input class="form-control" type="number" name="price" [(ngModel)]="shoe.price" placeholder="Price" step="any" min="0">
+          <label for="shoeId">מחיר</label>
+          <input class="form-control" type="number" name="price" [(ngModel)]="shoe.price" placeholder="199" step="any" min="0">
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="gender" [(ngModel)]="shoe.gender" placeholder="Gender" required>
+            <md-radio-group [(ngModel)]="shoe.kidOrAdult">
+              <md-radio-button align="end" class="example-margin" value="kids">צעירים</md-radio-button>
+              <md-radio-button align="end" class="example-margin" value="adult">מבוגרים</md-radio-button>
+            </md-radio-group>
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="kidOrAdult" [(ngModel)]="shoe.kidOrAdult" placeholder="kid or adult" required>
+            <md-radio-group [(ngModel)]="shoe.gender">
+              <md-radio-button align="end" class="example-margin" value="unisex">שניהם</md-radio-button>
+              <md-radio-button align="end" class="example-margin" value="female">בת</md-radio-button>
+              <md-radio-button align="end" class="example-margin" value="male">בן</md-radio-button>
+            </md-radio-group>
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="season" [(ngModel)]="shoe.season" placeholder="season" required>
+            <md-radio-group [(ngModel)]="shoe.season">
+              <md-radio-button align="end" class="example-margin" value="winter">חורף</md-radio-button>
+              <md-radio-button align="end" class="example-margin" value="summer">קיץ</md-radio-button>
+            </md-radio-group>
         </div>
         <div class="form-group">
-            <input class="form-control" type="text" name="information" [(ngModel)]="shoe.information" placeholder="information" required>
+            <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="shoe.information" placeholder="...ספרו על הנעל" required></textarea>
         </div>
         <div class="form-group">
-            <!-- <input class="form-control" type="text" name="images" [(ngModel)]="shoe.season" placeholder="season" required> -->
+          <input type="file" accept="image/*" capture="camera" />
         </div>  
         <!-- <button class="btn btn-primary" type="submit" [disabled]="!addShoesForm.valid"> Add</button> -->
       </form>
@@ -82,6 +95,3 @@
       <button type="button" class="btn btn-primary" (click)="modal.close()">שמור</button>
     </modal-footer>
 </modal>
-
-  <!-- <button type="button" class="btn btn-default" (click)="modal.hide()">סגור</button>
-    <button type="button" class="btn btn-primary">שמור</button> -->
