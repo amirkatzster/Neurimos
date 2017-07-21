@@ -12,8 +12,8 @@ dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, '../public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: false }));
 
 app.use(morgan('dev'));
 mongoose.connect(process.env.MONGODB_URI);

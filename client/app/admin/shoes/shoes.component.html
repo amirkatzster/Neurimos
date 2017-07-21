@@ -5,10 +5,10 @@
 <div class="card" >
   <h4 class="card-header">מספר נעליים במערכת ({{shoes.length}})</h4>
   <div class="card-block">
-    <table class="table table-bordered table-striped" >
+    <table class="table table-bordered table-striped table-responsive" >
       <thead class="thead-default">
         <tr>
-          <th></th>
+          <th ></th>
           <th>?פעיל</th>
           <th>מספר מזהה</th>
           <th>שם דגם</th>
@@ -24,17 +24,26 @@
         </tr>  
       </tbody>
       <tbody>
-        <tr *ngFor="let shoe of shoes">
+        <tr *ngFor="let shoe of shoes;let i = index">
           <td>
-            <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe,modal)"><i class="fa fa-pencil"></i>ערוך</button>
+            <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe, i ,modal)"><i class="fa fa-pencil"></i></button>
           </td>
-          <td>{{shoe.active}}</td>
+          <td><md-checkbox [checked]="shoe.active" disabled="disabled"></md-checkbox></td>
           <td>{{shoe.id}}</td>
           <td>{{shoe.name}}</td>
           <td>{{shoe.company}}</td>
-          <td>{{shoe.gender}}</td>
-          <td>{{shoe.kidOrAdult}}</td>
-          <td>{{shoe.season}}</td>          
+          <td>
+            <i *ngIf="shoe.gender == 'male'" class="fa fa-mars" aria-hidden="true"></i>
+            <i *ngIf="shoe.gender == 'female'" class="fa fa-venus" aria-hidden="true"></i>
+            <i *ngIf="shoe.gender == 'unisex'" class="fa fa-transgender" aria-hidden="true"></i>
+          </td>
+          <td>
+            <i *ngIf="shoe.kidOrAdult == 'kid'" class="fa fa-male fa-1x" aria-hidden="true"></i>
+            <i *ngIf="shoe.kidOrAdult == 'adult'" class="fa fa-male fa-2x" aria-hidden="true"></i>
+          <td>
+            <i *ngIf="shoe.season == 'winter'" class="fa fa-cloud" aria-hidden="true"></i>
+            <i *ngIf="shoe.season == 'summer'" class="fa fa-sun-o" aria-hidden="true"></i>
+          </td>          
         </tr>  
       </tbody>      
     </table>
@@ -42,51 +51,63 @@
 </div>
 
 <modal #modal>
-  <form (ngSubmit)="addEditShoe(shoe)">
+  <form (ngSubmit)="doneEditShoe(currentShoe)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">עריכה</h4>
     </modal-header>
     <modal-body class="addForm">
         <div class="form-group">
-            <md-checkbox name="active" class="example-margin" [(ngModel)]="shoe.active" [checked]="shoe.active">?להציג באתר</md-checkbox>
+            <md-checkbox name="active" class="example-margin" [(ngModel)]="currentShoe.active" [checked]="currentShoe.active">?להציג באתר</md-checkbox>
         </div>
         <div class="form-group">
           <label for="shoeId">חברה</label>
-          <input id="shoeId" class="form-control" type="text" name="company" [(ngModel)]="shoe.company" placeholder="נמרוד" min="0" required>
+          <input id="shoeId" class="form-control" type="text" name="company" [(ngModel)]="currentShoe.company" placeholder="נמרוד" min="0" required>
         </div>
         <div class="form-group">
             <label for="shoeId">דגם</label>
-            <input class="form-control" type="text" name="name" [(ngModel)]="shoe.name" placeholder="1234" required>
+            <input class="form-control" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="1234" required>
         </div>
         <div class="form-group">
           <label for="shoeId">מחיר</label>
-          <input class="form-control" type="number" name="price" [(ngModel)]="shoe.price" placeholder="199" step="any" min="0">
+          <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="199" step="any" min="0">
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="shoe.kidOrAdult" name="kidOrAdult">
-              <md-radio-button align="end" class="example-margin" value="kids">צעירים</md-radio-button>
+            <md-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult">
+              <md-radio-button align="end" class="example-margin" value="kid">צעירים</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="adult">מבוגרים</md-radio-button>
             </md-radio-group>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="shoe.gender" name="gender">
+            <md-radio-group [(ngModel)]="currentShoe.gender" name="gender">
               <md-radio-button align="end" class="example-margin" value="unisex">שניהם</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="female">בת</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="male">בן</md-radio-button>
             </md-radio-group>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="shoe.season" name="season">
+            <md-radio-group [(ngModel)]="currentShoe.season" name="season">
               <md-radio-button align="end" class="example-margin" value="winter">חורף</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="summer">קיץ</md-radio-button>
             </md-radio-group>
         </div>
         <div class="form-group">
-            <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="shoe.information" placeholder="...ספרו על הנעל" required></textarea>
+            <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="currentShoe.information" placeholder="...ספרו על הנעל" required></textarea>
         </div>
         <div class="form-group">
-          <input type="file" accept="image/*" capture="camera" />
-        </div>  
+          <input type="file" accept="image/*" capture="camera" name="image" [(ngModel)]="currentShoe.image" (change)="handleInputChange($event)" />
+        </div> 
+        <div *ngFor="let img of currentShoe.images; let i = index">
+          <table>
+            <tr>
+              <td>
+                <button class="btn btn-lg btn-danger trashBtn" (click)="currentShoe.images.splice(i,1)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
+              </td>
+              <td>
+                <img [src]="img" class="rounded mx-auto d-block" width="200" height="200" >  
+              </td>
+            </tr>
+          </table>
+        </div> 
     </modal-body>
     <modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>

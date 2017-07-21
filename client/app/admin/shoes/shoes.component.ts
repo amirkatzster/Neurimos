@@ -12,7 +12,8 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 })
 export class ShoesComponent implements OnInit {
 
-  shoe = {};
+  currentShoe: any = {};
+  currentShoeIndex: number;
   shoes = [];
   isLoading = true;
   isEditing = false;
@@ -45,10 +46,8 @@ export class ShoesComponent implements OnInit {
   }
 
   addShoes(shoe) {
-   console.log('addEditShoe');
     this.shoeService.addShoe(this.addShoesForm.value).subscribe(
       res => {
-        console.log('addEditShoe2');
         const newShoes = res.json();
         this.shoes.push(newShoes);
         this.addShoesForm.reset();
@@ -58,21 +57,46 @@ export class ShoesComponent implements OnInit {
     );
   }
 
-  enableEditing(shoe, modal) {
+  enableEditing(shoe, ind, modal) {
     this.isEditing = true;
-    this.shoe = shoe;
+    this.currentShoe = JSON.parse(JSON.stringify(shoe));
+    this.currentShoeIndex = ind;
     modal.open();
   }
 
-  addEditShoe(shoe) {
+  doneEditShoe(shoe) {
     this.shoeService.editShoe(shoe).subscribe(
       res => {
         this.isEditing = false;
-        this.shoe = shoe;
-        this.toast.setMessage('item edited successfully.', 'success');
+        this.shoes[this.currentShoeIndex] = shoe;
+        this.toast.setMessage('עודכן בהצלחה', 'success');
       },
       error => console.log(error)
     );
+  }
+
+  handleInputChange(e) {
+    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
+
+    if (!file.type.match(pattern)) {
+        alert('invalid format');
+        return;
+    }
+
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+
+  _handleReaderLoaded(e) {
+      const reader = e.target;
+      if (!this.currentShoe.images)
+      {
+        this.currentShoe.images = [];
+      }
+      this.currentShoe.images.push(reader.result);
+      console.log(this.currentShoe.images.length);
   }
 
 }
