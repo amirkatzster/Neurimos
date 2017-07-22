@@ -45,16 +45,11 @@ export class ShoesComponent implements OnInit {
     );
   }
 
-  addShoes(shoe) {
-    this.shoeService.addShoe(this.addShoesForm.value).subscribe(
-      res => {
-        const newShoes = res.json();
-        this.shoes.push(newShoes);
-        this.addShoesForm.reset();
-        this.toast.setMessage('item added successfully.', 'success');
-      },
-      error => console.log(error)
-    );
+  addShoe(modal) {
+    this.isEditing = true;
+    this.currentShoe = { 'active': true};
+    this.currentShoeIndex = this.shoes.length;
+    modal.open();
   }
 
   enableEditing(shoe, ind, modal) {
@@ -65,14 +60,25 @@ export class ShoesComponent implements OnInit {
   }
 
   doneEditShoe(shoe) {
-    this.shoeService.editShoe(shoe).subscribe(
-      res => {
-        this.isEditing = false;
-        this.shoes[this.currentShoeIndex] = shoe;
-        this.toast.setMessage('עודכן בהצלחה', 'success');
-      },
-      error => console.log(error)
-    );
+    if (this.shoes.length === this.currentShoeIndex) {
+        this.shoeService.addShoe(shoe).subscribe(
+        res => {
+          this.isEditing = false;
+          this.shoes.push(shoe);
+          this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+        },
+        error => console.log(error)
+      );
+    } else {
+      this.shoeService.editShoe(shoe).subscribe(
+        res => {
+          this.isEditing = false;
+          this.shoes[this.currentShoeIndex] = shoe;
+          this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   handleInputChange(e) {

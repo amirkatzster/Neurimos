@@ -2,8 +2,10 @@ import * as express from 'express';
 
 import ShoeCtrl from './controllers/shoe';
 import UserCtrl from './controllers/user';
+import CompanyCtrl from './controllers/company';
 import Shoe from './models/shoe';
 import User from './models/user';
+import Company from './models/company';
 
 export default function setRoutes(app) {
 
@@ -11,6 +13,7 @@ export default function setRoutes(app) {
 
   const shoeCtrl = new ShoeCtrl();
   const userCtrl = new UserCtrl();
+  const companyCtrl = new CompanyCtrl();
 
   // Shoes
   router.route('/shoes').get(shoeCtrl.getAll);
@@ -19,6 +22,14 @@ export default function setRoutes(app) {
   router.route('/shoe/:id').get(shoeCtrl.get);
   router.route('/shoe/:id').put(shoeCtrl.update);
   router.route('/shoe/:id').delete(shoeCtrl.delete);
+
+  // Company
+  router.route('/companies').get(companyCtrl.getAll);
+  router.route('/companies/count').get(companyCtrl.count);
+  router.route('/company').post(companyCtrl.insert);
+  router.route('/company/:id').get(companyCtrl.get);
+  router.route('/company/:id').put(companyCtrl.update);
+  router.route('/company/:id').delete(companyCtrl.delete);
 
   // Users
   router.route('/login').post(userCtrl.login);

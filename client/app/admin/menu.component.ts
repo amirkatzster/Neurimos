@@ -19,7 +19,9 @@ import { Component, OnInit } from '@angular/core';
     <div class="tab-pane active" id="shoes" role="tabpanel">
       <app-shoes></app-shoes>
     </div>
-    <div class="tab-pane" id="companies" role="tabpanel">...</div>
+    <div class="tab-pane" id="companies" role="tabpanel">
+      <app-company></app-company>
+    </div>
     <div class="tab-pane" id="users" role="tabpanel">
       <app-users-admin></app-users-admin>
     </div>

@@ -5,14 +5,15 @@
 <div class="card" >
   <h4 class="card-header">מספר נעליים במערכת ({{shoes.length}})</h4>
   <div class="card-block">
-    <table class="table table-bordered table-striped table-responsive" >
+    <button type="button" (click)="addShoe(modal)" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <table class="table table-striped table-responsive" >
       <thead class="thead-default">
         <tr>
-          <th ></th>
-          <th>?פעיל</th>
+          <th></th>
           <th>מספר מזהה</th>
-          <th>שם דגם</th>
+          <th>?פעיל</th>
           <th>חברה</th>
+          <th>שם דגם</th>
           <th>מין</th>
           <th>קהל יעד</th>
           <th>עונה</th>       
@@ -20,7 +21,7 @@
       </thead>
       <tbody *ngIf="shoes.length === 0">
         <tr>
-          <td colspan="4">אין נעליים</td>
+          <td colspan="8">אין נעליים</td>
         </tr>  
       </tbody>
       <tbody>
@@ -28,10 +29,10 @@
           <td>
             <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe, i ,modal)"><i class="fa fa-pencil"></i></button>
           </td>
+          <td><strong>{{shoe.id}}</strong></td>
           <td><md-checkbox [checked]="shoe.active" disabled="disabled"></md-checkbox></td>
-          <td>{{shoe.id}}</td>
-          <td>{{shoe.name}}</td>
           <td>{{shoe.company}}</td>
+          <td>{{shoe.name}}</td>
           <td>
             <i *ngIf="shoe.gender == 'male'" class="fa fa-mars" aria-hidden="true"></i>
             <i *ngIf="shoe.gender == 'female'" class="fa fa-venus" aria-hidden="true"></i>
