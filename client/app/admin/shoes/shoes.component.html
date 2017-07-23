@@ -26,7 +26,7 @@
       </tbody>
       <tbody>
         <tr *ngFor="let shoe of shoes;let i = index">
-          <td>
+          <td>            
             <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe, i ,modal)"><i class="fa fa-pencil"></i></button>
           </td>
           <td><strong>{{shoe.id}}</strong></td>
@@ -42,8 +42,8 @@
             <i *ngIf="shoe.kidOrAdult == 'kid'" class="fa fa-male fa-1x" aria-hidden="true"></i>
             <i *ngIf="shoe.kidOrAdult == 'adult'" class="fa fa-male fa-2x" aria-hidden="true"></i>
           <td>
-            <i *ngIf="shoe.season == 'winter'" class="fa fa-cloud" aria-hidden="true"></i>
-            <i *ngIf="shoe.season == 'summer'" class="fa fa-sun-o" aria-hidden="true"></i>
+            <i *ngIf="shoe.season == 'winter' || shoe.season == 'allseason'" class="fa fa-cloud" aria-hidden="true"></i>
+            <i *ngIf="shoe.season == 'summer' || shoe.season == 'allseason'" class="fa fa-sun-o" aria-hidden="true"></i>
           </td>          
         </tr>  
       </tbody>      
@@ -52,7 +52,7 @@
 </div>
 
 <modal #modal>
-  <form (ngSubmit)="doneEditShoe(currentShoe)">
+  <form #addEditform="ngForm" (ngSubmit)="doneEditShoe(currentShoe)">
     <modal-header [show-close]="true">
         <h4 class="modal-title">עריכה</h4>
     </modal-header>
@@ -61,32 +61,38 @@
             <md-checkbox name="active" class="example-margin" [(ngModel)]="currentShoe.active" [checked]="currentShoe.active">?להציג באתר</md-checkbox>
         </div>
         <div class="form-group">
-          <label for="shoeId">חברה</label>
-          <input id="shoeId" class="form-control" type="text" name="company" [(ngModel)]="currentShoe.company" placeholder="נמרוד" min="0" required>
+          <label for="compId">חברה</label>
+          <select id="compId" dir="rtl" class="form-control" name="company" [(ngModel)]="currentShoe.company" required>
+            <option *ngFor="let company of companies" [value]="company.name" >{{company.name}}</option>
+          </select>
         </div>
         <div class="form-group">
             <label for="shoeId">דגם</label>
-            <input class="form-control" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="1234" required>
+            <input class="form-control" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="...הכנס דגם" required>
         </div>
         <div class="form-group">
           <label for="shoeId">מחיר</label>
-          <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="199" step="any" min="0">
+          <div class="input-group">
+            <span class="input-group-addon">₪</span>
+            <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="...הכנס מחיר" step="any" min="0">
+          </div>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult">
+            <md-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult" required>
               <md-radio-button align="end" class="example-margin" value="kid">צעירים</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="adult">מבוגרים</md-radio-button>
             </md-radio-group>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="currentShoe.gender" name="gender">
+            <md-radio-group [(ngModel)]="currentShoe.gender" name="gender" required>
               <md-radio-button align="end" class="example-margin" value="unisex">שניהם</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="female">בת</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="male">בן</md-radio-button>
             </md-radio-group>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="currentShoe.season" name="season">
+            <md-radio-group [(ngModel)]="currentShoe.season" name="season" required>
+              <md-radio-button align="end" class="example-margin" value="allseason">כל השנה</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="winter">חורף</md-radio-button>
               <md-radio-button align="end" class="example-margin" value="summer">קיץ</md-radio-button>
             </md-radio-group>
@@ -112,8 +118,7 @@
     </modal-body>
     <modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>
-      <button type="submit" class="btn btn-primary" (click)="modal.close()">שמור</button>
-      <!-- [disabled]="!addShoesForm.valid" -->
+      <button type="submit" class="btn btn-primary" (click)="modal.close()" [disabled]="!addEditform.form.valid">שמור</button>
     </modal-footer>
     </form>
 </modal>

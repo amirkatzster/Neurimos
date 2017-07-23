@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { ShoeService } from '../../services/shoe.service';
-import { ToastComponent } from '../../shared/toast/toast.component';
+import { ShoeService } from 'app/services/shoe.service';
+import { ToastComponent } from 'app/shared/toast/toast.component';
+import { CompanyService } from 'app/services/company.service';
 
 @Component({
   selector: 'app-shoes',
@@ -14,27 +15,33 @@ export class ShoesComponent implements OnInit {
 
   currentShoe: any = {};
   currentShoeIndex: number;
+  friendlyId: string;
   shoes = [];
+  companies = [];
   isLoading = true;
   isEditing = false;
 
-  addShoesForm: FormGroup;
-  name = new FormControl('', Validators.required);
-  age = new FormControl('', Validators.required);
-  weight = new FormControl('', Validators.required);
-
   constructor(private shoeService: ShoeService,
+              private companyService: CompanyService,
               private formBuilder: FormBuilder,
               private http: Http,
               public toast: ToastComponent) { }
 
   ngOnInit() {
     this.getShoes();
-    this.addShoesForm = this.formBuilder.group({
-      name: this.name,
-      age: this.age,
-      weight: this.weight
-    });
+    this.getCompanies();
+    this.genFriendlyId();
+  }
+
+  genFriendlyId()  {
+      this.shoeService.countShoes().subscribe(
+        data => {
+          console.log(data);
+          // count shoes in database + random number between 10-99
+          this.friendlyId = data.toString() + (Math.floor(Math.random() * 89) + 10).toString();
+        },
+        error => console.log(error),
+    );
   }
 
   getShoes() {
@@ -45,9 +52,17 @@ export class ShoesComponent implements OnInit {
     );
   }
 
+
+  getCompanies(): any {
+    this.companyService.getCompanies().subscribe(
+      data => {this.companies = data},
+      error => console.log(error)
+    )
+  }
+
   addShoe(modal) {
     this.isEditing = true;
-    this.currentShoe = { 'active': true};
+    this.currentShoe = { 'active': true , 'id': this.friendlyId };
     this.currentShoeIndex = this.shoes.length;
     modal.open();
   }
@@ -79,6 +94,7 @@ export class ShoesComponent implements OnInit {
         error => console.log(error)
       );
     }
+    this.genFriendlyId();
   }
 
   handleInputChange(e) {

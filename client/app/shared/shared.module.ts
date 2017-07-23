@@ -7,7 +7,7 @@ import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdCheckboxModule, MdRadioModule} from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdRadioModule, MdAutocompleteModule, MdSelectModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -18,7 +18,9 @@ import {MdButtonModule, MdCheckboxModule, MdRadioModule} from '@angular/material
     Ng2Bs3ModalModule,
     BrowserAnimationsModule,
     MdCheckboxModule,
-    MdRadioModule
+    MdRadioModule,
+    MdAutocompleteModule,
+    MdSelectModule,
   ],
   exports: [
     // Shared Modules
@@ -30,6 +32,8 @@ import {MdButtonModule, MdCheckboxModule, MdRadioModule} from '@angular/material
     BrowserAnimationsModule,
     MdCheckboxModule,
     MdRadioModule,
+    MdAutocompleteModule,
+    MdSelectModule,
     // Shared Components
     ToastComponent,
     LoadingComponent
