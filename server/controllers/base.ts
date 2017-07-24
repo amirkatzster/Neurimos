@@ -43,11 +43,17 @@ abstract class BaseCtrl {
 
   // Update by id
   update = (req, res) => {
+    this.updateProcess(req.body);
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
       if (err) { return console.error(err); }
       res.sendStatus(200);
     });
   };
+
+  updateProcess(body: any) {
+      console.log('base');
+  }
+
 
   // Delete by id
   delete = (req, res) => {

@@ -31,6 +31,7 @@
     "@angular/platform-browser-dynamic": "^4.3.1",
     "@angular/router": "^4.3.1",
     "angular2-jwt": "^0.2.3",
+    "aws-sdk": "^2.89.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "bootstrap": "4.0.0-alpha.5",
