@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import Shoe from '../models/shoe';
 import BaseCtrl from './base';
 import AWS = require('aws-sdk');
+import config = require('config');
 
 export default class ShoeCtrl extends BaseCtrl {
   model = Shoe;
@@ -9,20 +10,43 @@ export default class ShoeCtrl extends BaseCtrl {
   updateProcess(body: any) {
       console.log(body);
       AWS.config.loadFromPath('./server/s3_config.json');
-      const s3Bucket = new AWS.S3( { params: {Bucket: 'neurimos-dev'} } );
+      const bucketName = config.get('S3.BucketName');
+      console.log(bucketName);
+      const s3Bucket = new AWS.S3( { params: {Bucket: bucketName} } );
+      if (body.deleteImages) {
+        body.deleteImages.forEach((element, index) => {
+          console.log('deleting images');
+          const len = ('https://s3.eu-central-1.amazonaws.com/' + bucketName + '/').length;
+          const data: AWS.S3.Types.DeleteObjectRequest = {
+              Key: element.substring(len),
+              Bucket: bucketName,
+            };
+            console.log(data.Key);
+          s3Bucket.deleteObject(data, function(err, res) {
+            console.log('deleting images2');
+              if (err) {
+                console.log(err, err.stack);
+              } else {
+                console.log(res);
+              }
+          });
+          console.log('deleting images3');
+        }
+      }
+
 
       body.images.forEach((element, index) => {
         if (element.indexOf('data:image') === 0) {
-          console.log('start upload to s3');
           const buf = new Buffer(element.replace(/^data:image\/\w+;base64,/, ''), 'base64');
-          const path = 'Images/Shoes/' + body.id + '_' + index.toString();
+          const rand = Math.floor((Math.random() * 100) + 1);
+          const path = 'Images/Shoes/' + body.id + '_' + index.toString() + '_' + rand;
           console.log(path);
           const data: AWS.S3.Types.PutObjectRequest = {
             Key: path,
             Body: buf,
             ContentEncoding: 'base64',
             ContentType: 'image/jpeg',
-            Bucket: 'neurimos-dev',
+            Bucket: bucketName,
           };
           s3Bucket.putObject(data , function(err, d){
               if (err) {
@@ -32,9 +56,7 @@ export default class ShoeCtrl extends BaseCtrl {
                 console.log('succesfully uploaded the image!');
               }
           });
-          console.log('done upload to s3');
-          body.images[index] = 'https://s3.eu-central-1.amazonaws.com/neurimos-dev/' + path;
-          console.log(body.images);
+          body.images[index] = 'https://s3.eu-central-1.amazonaws.com/' + bucketName + '/' + path;
           }
       });
   }

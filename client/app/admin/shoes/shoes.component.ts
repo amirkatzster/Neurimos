@@ -52,6 +52,17 @@ export class ShoesComponent implements OnInit {
     );
   }
 
+  deleteImage(shoe, index) {
+    const url = shoe.images[index];
+    if (url.indexOf('data:image') !== 0) {
+      if (!shoe.deleteImages) {
+        shoe.deleteImages = [];
+      }
+      shoe.deleteImages.push(url);
+    }
+    shoe.images.splice(index, 1);
+  }
+
 
   getCompanies(): any {
     this.companyService.getCompanies().subscribe(
@@ -81,6 +92,10 @@ export class ShoesComponent implements OnInit {
           this.isEditing = false;
           this.shoes.push(shoe);
           this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+          this.shoeService.getShoe(shoe).subscribe(
+            resp => {debugger;this.shoes[this.currentShoeIndex] = resp},
+            error => console.log(error)
+          )
         },
         error => console.log(error)
       );
@@ -90,6 +105,10 @@ export class ShoesComponent implements OnInit {
           this.isEditing = false;
           this.shoes[this.currentShoeIndex] = shoe;
           this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+          this.shoeService.getShoe(shoe).subscribe(
+            resp => {debugger;this.shoes[this.currentShoeIndex] = resp},
+            error => console.log(error)
+          )
         },
         error => console.log(error)
       );
