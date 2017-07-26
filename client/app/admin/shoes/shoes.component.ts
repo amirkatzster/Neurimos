@@ -53,12 +53,12 @@ export class ShoesComponent implements OnInit {
   }
 
   deleteImage(shoe, index) {
-    const url = shoe.images[index];
-    if (url.indexOf('data:image') !== 0) {
+    const image = shoe.images[index];
+    if (image.urlMedium.indexOf('data:image') !== 0) {
       if (!shoe.deleteImages) {
         shoe.deleteImages = [];
       }
-      shoe.deleteImages.push(url);
+      shoe.deleteImages.push(image);
     }
     shoe.images.splice(index, 1);
   }
@@ -93,7 +93,7 @@ export class ShoesComponent implements OnInit {
           this.shoes.push(shoe);
           this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
           this.shoeService.getShoe(shoe).subscribe(
-            resp => {debugger;this.shoes[this.currentShoeIndex] = resp},
+            resp => {this.shoes[this.currentShoeIndex] = resp},
             error => console.log(error)
           )
         },
@@ -106,7 +106,7 @@ export class ShoesComponent implements OnInit {
           this.shoes[this.currentShoeIndex] = shoe;
           this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
           this.shoeService.getShoe(shoe).subscribe(
-            resp => {debugger;this.shoes[this.currentShoeIndex] = resp},
+            resp => {this.shoes[this.currentShoeIndex] = resp},
             error => console.log(error)
           )
         },
@@ -136,7 +136,7 @@ export class ShoesComponent implements OnInit {
       {
         this.currentShoe.images = [];
       }
-      this.currentShoe.images.push(reader.result);
+      this.currentShoe.images.push({ 'urlMedium' : reader.result });
       console.log(this.currentShoe.images.length);
   }
 

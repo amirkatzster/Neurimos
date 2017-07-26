@@ -3,62 +3,96 @@ import Shoe from '../models/shoe';
 import BaseCtrl from './base';
 import AWS = require('aws-sdk');
 import config = require('config');
+import Jimp = require('jimp');
 
 export default class ShoeCtrl extends BaseCtrl {
   model = Shoe;
 
-  updateProcess(body: any) {
-      console.log(body);
-      AWS.config.loadFromPath('./server/s3_config.json');
-      const bucketName = config.get('S3.BucketName');
-      console.log(bucketName);
-      const s3Bucket = new AWS.S3( { params: {Bucket: bucketName} } );
-      if (body.deleteImages) {
-        body.deleteImages.forEach((element, index) => {
-          console.log('deleting images');
-          const len = ('https://s3.eu-central-1.amazonaws.com/' + bucketName + '/').length;
+  bucketName: string;
+  s3Bucket: AWS.S3;
+  amazonDomain: String = 'https://s3.eu-central-1.amazonaws.com/';
+
+  constructor() {
+    super();
+    AWS.config.loadFromPath('./server/s3_config.json');
+    this.bucketName = config.get('S3.BucketName');
+    this.s3Bucket = new AWS.S3( { params: {Bucket: this.bucketName} } );
+  }
+
+  deleteImages(shoe) {
+     shoe.deleteImages.forEach((image: any, index) => {
+            this.deleteImageUrl(image.urlSmall);
+            this.deleteImageUrl(image.urlMedium);
+            this.deleteImageUrl(image.urlLarge);
+            this.deleteImageUrl(image.urlXL);
+        });
+  }
+
+  deleteImageUrl(imageUrl: String) {
+      const len = (this.amazonDomain + this.bucketName + '/').length;
           const data: AWS.S3.Types.DeleteObjectRequest = {
-              Key: element.substring(len),
-              Bucket: bucketName,
+              Key: imageUrl.substring(len),
+              Bucket: this.bucketName,
             };
-            console.log(data.Key);
-          s3Bucket.deleteObject(data, function(err, res) {
-            console.log('deleting images2');
+          this.s3Bucket.deleteObject(data, function(err, res) {
               if (err) {
                 console.log(err, err.stack);
               } else {
                 console.log(res);
               }
           });
-          console.log('deleting images3');
-        }
-      }
+  }
 
-
-      body.images.forEach((element, index) => {
-        if (element.indexOf('data:image') === 0) {
-          const buf = new Buffer(element.replace(/^data:image\/\w+;base64,/, ''), 'base64');
-          const rand = Math.floor((Math.random() * 100) + 1);
-          const path = 'Images/Shoes/' + body.id + '_' + index.toString() + '_' + rand;
-          console.log(path);
-          const data: AWS.S3.Types.PutObjectRequest = {
-            Key: path,
-            Body: buf,
-            ContentEncoding: 'base64',
-            ContentType: 'image/jpeg',
-            Bucket: bucketName,
-          };
-          s3Bucket.putObject(data , function(err, d){
-              if (err) {
-                console.log(err);
-                console.log('Error uploading data: ', d);
-              } else {
-                console.log('succesfully uploaded the image!');
-              }
-          });
-          body.images[index] = 'https://s3.eu-central-1.amazonaws.com/' + bucketName + '/' + path;
+  addImages(shoe) {
+    shoe.images.forEach((image, index) => {
+        if (image.urlMedium.indexOf('data:image') === 0) {
+            const imageStream = image.urlMedium;
+            image.urlSmall = this.addImage(imageStream, shoe, 'S', 55, index);
+            image.urlMedium = this.addImage(imageStream, shoe, 'M', 255, index);
+            image.urlLarge = this.addImage(imageStream, shoe, 'L', 480, index);
+            image.urlXL = this.addImage(imageStream, shoe, 'XL', 1920, index);
           }
       });
+  }
+
+  addImage(image, shoe, size: string, width: number, index: number) {
+      const rand = Math.floor((Math.random() * 100) + 1);
+      const path = 'Images/Shoes/' + shoe.id + '/' + size + '/' + shoe.name + '_' + shoe.company + '_' + rand + '_' + index;
+      this.addNewImage(image, path, width);
+      return this.amazonDomain + this.bucketName + '/' + path;
+  }
+
+  addNewImage(imageString: string, path: string, width: number) {
+    const buf = new Buffer(imageString.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+    Jimp.read(buf, (err, image) => {
+        image.resize(width, Jimp.AUTO)
+             .getBuffer(image.getMIME(), (error, buffer) => {
+                console.log('BUFFER: ' + buffer);
+                  const data: AWS.S3.Types.PutObjectRequest = {
+                  Key: path,
+                  Body: buffer,
+                  ContentEncoding: 'base64',
+                  ContentType: image.getMIME(),
+                  Bucket: this.bucketName,
+                };
+                this.s3Bucket.putObject(data , function(e, d){
+                  if (e) {
+                    console.log(e);
+                    console.log('Error uploading data: ', d);
+                  } else {
+                    console.log('succesfully uploaded the image!');
+                  }
+              });
+          });
+    });
+  }
+
+  updateProcess(shoe: any) {
+      console.log(shoe);
+      if (shoe.deleteImages) {
+        this.deleteImages(shoe);
+      }
+      this.addImages(shoe);
   }
 
 }

@@ -1,5 +1,14 @@
 import * as mongoose from 'mongoose';
 
+const ImageSchema = new mongoose.Schema({
+  urlSmall: String,
+  urlMedium: String,
+  urlLarge: String,
+  urlXL: String,
+  color: String
+});
+
+
 const shoeSchema = new mongoose.Schema({
   id: String,
   active: Boolean,
@@ -10,7 +19,7 @@ const shoeSchema = new mongoose.Schema({
   kidOrAdult: String,
   season: String,
   information: String,
-  images: [String],
+  images: [ ImageSchema ],
   updated: { type: Date, default: Date.now },
 });
 
