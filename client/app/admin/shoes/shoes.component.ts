@@ -12,7 +12,7 @@ import { CompanyService } from 'app/services/company.service';
   styleUrls: ['./shoes.component.scss']
 })
 export class ShoesComponent implements OnInit {
-
+  stateCtrl: FormControl;
   currentShoe: any = {};
   currentShoeIndex: number;
   friendlyId: string;
@@ -25,7 +25,9 @@ export class ShoesComponent implements OnInit {
               private companyService: CompanyService,
               private formBuilder: FormBuilder,
               private http: Http,
-              public toast: ToastComponent) { }
+              public toast: ToastComponent) {
+                this.stateCtrl = new FormControl();
+               }
 
   ngOnInit() {
     this.getShoes();

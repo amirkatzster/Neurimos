@@ -112,6 +112,16 @@
               <td>
                 <img [src]="img.urlMedium" class="rounded mx-auto d-block" width="200" height="200" >  
               </td>
+              <td>
+                  <!-- <input mdInput type="text" [name]="'color' + i" [(ngModel)]="img.color" placeholder="צבע" required> -->
+                <md-input-container>
+                  <input type="text" mdInput [mdAutocomplete]="auto"  [name]="'color' + i" [(ngModel)]="img.color" [formControl]="stateCtrl" placeholder="צבע" required>
+                </md-input-container>
+                <md-autocomplete #auto="mdAutocomplete">
+                  <md-option value="yellow">yellow</md-option>
+                  <md-option value="blue">blue</md-option>
+                </md-autocomplete>
+              </td>
             </tr>
           </table>
         </div> 

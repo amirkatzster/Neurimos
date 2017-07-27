@@ -67,7 +67,6 @@ export default class ShoeCtrl extends BaseCtrl {
     Jimp.read(buf, (err, image) => {
         image.resize(width, Jimp.AUTO)
              .getBuffer(image.getMIME(), (error, buffer) => {
-                console.log('BUFFER: ' + buffer);
                   const data: AWS.S3.Types.PutObjectRequest = {
                   Key: path,
                   Body: buffer,
@@ -88,7 +87,6 @@ export default class ShoeCtrl extends BaseCtrl {
   }
 
   updateProcess(shoe: any) {
-      console.log(shoe);
       if (shoe.deleteImages) {
         this.deleteImages(shoe);
       }
