@@ -15,6 +15,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminModule } from './admin/admin.module';
+import { AuthModule } from 'app/auth.module';
 
 @NgModule({
   declarations: [
@@ -29,14 +30,15 @@ import { AdminModule } from './admin/admin.module';
   imports: [
     RoutingModule,
     SharedModule,
-    AdminModule
+    AdminModule,
+    AuthModule
   ],
   providers: [
     AuthService,
     AuthGuardLogin,
     AuthGuardAdmin,
     ShoeService,
-    UserService
+    UserService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

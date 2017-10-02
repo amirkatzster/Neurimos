@@ -26,7 +26,7 @@ import { CompanyService } from 'app/services/company.service';
   ],
   providers: [
      ShoeService,
-     CompanyService
+     CompanyService,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
