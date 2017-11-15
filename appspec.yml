@@ -1,0 +1,7 @@
+    ## YAML Template.
+---
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/bitnami/www
