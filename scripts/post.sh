@@ -12,7 +12,7 @@ echo 'ownership changed'
 echo 'init'
 npm i 
 echo 'build ng'
-ng build -aot -prod
+./opt/bitnami/nodejs/bin/ng build -aot -prod
 
 echo 'end'
 
