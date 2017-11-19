@@ -11,7 +11,7 @@ echo 'ownership changed'
 ## Set up node
 echo 'init'
 npm i 
-echo 'build'
+echo 'build ng'
 ng build -aot -prod
 
 echo 'end'
