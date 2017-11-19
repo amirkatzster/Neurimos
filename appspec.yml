@@ -9,4 +9,4 @@ hooks:
     AfterInstall:
     - location: scripts/post.sh
       timeout: 180
-
+      runas: bitnami
