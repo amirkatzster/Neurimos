@@ -1,7 +1,7 @@
 #!/bin/bash
 pwd
 ls
-cd ~\www
+cd ~/www
 pwd
 ls
 
