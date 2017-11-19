@@ -1,4 +1,9 @@
 #!/bin/bash
+pwd
+ll
+whome
+
+
 echo 'starting to run post script'
 
 ## ownership
