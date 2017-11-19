@@ -5,3 +5,7 @@ os: linux
 files:
   - source: /
     destination: /home/bitnami/www
+hooks:
+    AfterInstall:
+    - location: Scripts/post.sh
+      timeout: 180
