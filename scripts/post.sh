@@ -4,6 +4,7 @@ set -e
 
 echo 'starting to run post script'
 ## ownership
+whoami
 chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 cd ~/www
 sudo chown -R bitnami:bitnami ../
