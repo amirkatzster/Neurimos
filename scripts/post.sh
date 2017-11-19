@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 echo 'starting to run post script'
 cd ~/www
 ## ownership
