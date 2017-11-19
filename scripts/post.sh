@@ -2,9 +2,6 @@
 
 set -e
 
-whoami
-pwd
-
 echo 'starting to run post script'
 cd ~/www
 ## ownership
