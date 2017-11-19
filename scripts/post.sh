@@ -2,10 +2,10 @@
 echo 'starting to run post script'
 
 ## ownership
-chown -R bitnami:bitnami ../
+sudo chown -R bitnami:bitnami ../
 echo 'ownership changed'
 
 ## Set up node
-npm -i 
+sudo npm -i 
 #ng build -prod
 
