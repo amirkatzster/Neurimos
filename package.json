@@ -50,6 +50,7 @@
     "ng2-bs3-modal": "^0.10.4",
     "rxjs": "^5.4.2",
     "tether": "1.4.0",
+    "typescript": "2.6.1",
     "zone.js": "^0.8.14",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2"
