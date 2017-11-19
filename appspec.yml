@@ -7,5 +7,5 @@ files:
     destination: /home/bitnami/www
 hooks:
     AfterInstall:
-    - location: Scripts/post.sh
+    - location: scripts/post.sh
       timeout: 180

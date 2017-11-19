@@ -1,6 +1,6 @@
 
 ## ownership
-chown -R bitnami:bitnami .
+chown -R bitnami:bitnami ../
 
 ## Set up node
 npm -i 
