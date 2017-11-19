@@ -7,6 +7,7 @@ echo 'starting to run post script'
 whoami
 chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 chown root:root /usr/lib/sudo/sudoers.so && chmod 4755 /usr/lib/sudo/sudoers.so; chown root:root /etc/sudoers; chown root:root /etc/sudoers;
+chown root:root /etc/sudoers.d && chmod 4755 /etc/sudoers.d; chown root:root /var/lib/sudo; chown root:root /var/lib/sudo;
 cd ~/www
 sudo chown -R bitnami:bitnami ../
 echo 'ownership changed'
