@@ -20,6 +20,7 @@
   "private": true,
   "dependencies": {
     "@angular/cli": "1.5.2",
+    "@angular/compiler-cli": "^4.3.1",
     "@angular/animations": "^4.3.1",
     "@angular/cdk": "^2.0.0-beta.8",
     "@angular/common": "^4.3.1",
@@ -49,10 +50,11 @@
     "ng2-bs3-modal": "^0.10.4",
     "rxjs": "^5.4.2",
     "tether": "1.4.0",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "ts-node": "~3.0.4",
+    "tslint": "~5.3.2"
   },
-  "devDependencies": {
-    "@angular/compiler-cli": "^4.3.1",
+  "devDependencies": {   
     "@angular/language-service": "^4.3.1",
     "@types/jasmine": "2.5.45",
     "@types/node": "^6.0.85",
@@ -67,8 +69,6 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "nodemon": "1.11.0",
-    "protractor": "~5.1.2",
-    "ts-node": "~3.0.4",
-    "tslint": "~5.3.2"
+    "protractor": "~5.1.2"   
   }
 }
