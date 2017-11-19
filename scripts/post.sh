@@ -1,4 +1,4 @@
-
+#!/bin/bash
 ## ownership
 chown -R bitnami:bitnami ../
 
