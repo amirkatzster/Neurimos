@@ -2,6 +2,9 @@
 
 set -e
 
+whoami
+pwd
+
 echo 'starting to run post script'
 cd ~/www
 ## ownership
@@ -12,7 +15,7 @@ echo 'ownership changed'
 echo 'init'
 npm i 
 echo 'build ng'
-./opt/bitnami/nodejs/bin/ng build -aot -prod
+/opt/bitnami/nodejs/bin/ng build -aot -prod
 
 echo 'end'
 
