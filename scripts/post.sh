@@ -1,7 +1,11 @@
 #!/bin/bash
 pwd
-ll
-whome
+ls
+cd ~\www
+pwd
+ls
+
+whoami
 
 
 echo 'starting to run post script'
