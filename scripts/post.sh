@@ -5,6 +5,7 @@ set -e
 echo 'starting to run post script'
 cd ~/www
 ## ownership
+chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 sudo chown -R bitnami:bitnami ../
 echo 'ownership changed'
 
