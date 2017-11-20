@@ -7,7 +7,7 @@ import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCheckboxModule, MdRadioModule, MdAutocompleteModule, MdSelectModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatRadioModule, MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -18,10 +18,10 @@ import { HeaderComponent } from './header/header.component';
     HttpModule,
     Ng2Bs3ModalModule,
     BrowserAnimationsModule,
-    MdCheckboxModule,
-    MdRadioModule,
-    MdAutocompleteModule,
-    MdSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatAutocompleteModule,
+    MatSelectModule,
   ],
   exports: [
     // Shared Modules
@@ -31,10 +31,10 @@ import { HeaderComponent } from './header/header.component';
     HttpModule,
     Ng2Bs3ModalModule,
     BrowserAnimationsModule,
-    MdCheckboxModule,
-    MdRadioModule,
-    MdAutocompleteModule,
-    MdSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatAutocompleteModule,
+    MatSelectModule,
     // Shared Components
     ToastComponent,
     LoadingComponent,
