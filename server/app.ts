@@ -16,7 +16,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false }));
 
 app.use(morgan('dev'));
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient : true });
+mongoose.connect(process.env.MONGODB_URI, { useMongoClient : true , auth: {authdb: 'admin'}});
 const db = mongoose.connection;
 (<any>mongoose).Promise = global.Promise;
 
