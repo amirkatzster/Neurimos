@@ -6,7 +6,16 @@ files:
   - source: /
     destination: /home/bitnami/www
 hooks:
+    BeforeInstall:
+    - location: scripts/pre.sh
+      timeout: 120
+      runas: bitnami
     AfterInstall:
     - location: scripts/post.sh
       timeout: 180
       runas: bitnami
+    ApplicationStart:
+    - location: scripts/start.sh     
+      timeout: 120
+      runas: bitnami
+
