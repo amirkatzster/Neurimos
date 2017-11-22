@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 
 echo 'kill all node instances'
-#kill -9 $(ps aux | grep '\snode\s' | awk '{print $2}')
+ps -ef | grep "node" | awk '{print $2}' | xargs kill -9
