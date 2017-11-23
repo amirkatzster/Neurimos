@@ -1,11 +1,31 @@
 .header
 {
+    margin: 0;
+    padding: 0;
     background-color: #0076BE;
     color: white;
+    text-decoration: none;
+}
+
+.row
+{
+    margin: 0 0 0 0;
+    padding: 10px 0 0 0 ;
+    vertical-align: baseline;    
+}
+.header-phone 
+{
+    margin: 0 0 0 15px;
+    padding: 0;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
 }
 
 .header-btn
 {
+    margin: 0;
+    padding: 0 0 10px 0;
     background-color: #0076BE;
     color: white;
 }
@@ -14,6 +34,85 @@
 {
     background-color: white;
     color: black;
-    min-height: 60px;
+    padding:20px 0 20px 0;
 }
 
+.search-text-box
+{
+    margin:7px 20px 0 0;
+    padding: 7px 20px 10px 30px;
+    color: #717171;
+    border: 2px solid #CDC;
+    border-radius: 0 6px 6px 0;
+    -webkit-box-flex: 1;
+    font:400 17px 'Arial',sans-serif;
+}
+
+.search-button
+{
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 6px 0 0 6px;
+    background: #004055;
+    
+}
+
+.my-cart
+{
+    border-radius: 6px;
+    border:2px solid #A8D677;
+    cursor: pointer;
+    padding: 10px 15px;
+    touch-action: manipulation;
+    text-decoration: none;
+
+}
+
+.cart-container
+{
+    margin: 16px 0 0 0;
+}
+
+.nav-link
+{
+    font-weight: bold;
+    cursor: pointer;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-float
+{
+    float: left;
+    cursor: default;
+}
+
+.nav-main
+{
+    background-color: #f5f5f6;
+    color:#003952;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 12px 0;
+}
+
+.or
+{
+    margin: 0 6px ;
+}
+
+.register-container
+{
+    margin: 0 20px;
+}
+
+.fa-phone
+{
+    vertical-align: middle;
+}
+
+.caret
+{
+    margin: 0 2px;
+}

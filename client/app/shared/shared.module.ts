@@ -9,6 +9,9 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatRadioModule, MatAutocompleteModule, MatSelectModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
+import { AuthService } from 'app/services/auth.service';
+import { RoutingModule } from 'app/routing.module';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @NgModule({
   imports: [
@@ -22,6 +25,7 @@ import { HeaderComponent } from './header/header.component';
     MatRadioModule,
     MatAutocompleteModule,
     MatSelectModule,
+    RoutingModule
   ],
   exports: [
     // Shared Modules
@@ -43,9 +47,11 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     ToastComponent,
     LoadingComponent,
-    HeaderComponent
+    HeaderComponent,
+    DropdownComponent
 ],
   providers: [
+    AuthService,
     ToastComponent
   ]
 })
