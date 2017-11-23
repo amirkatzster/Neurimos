@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     ToastComponent,
     LoadingComponent,
     HeaderComponent,
-    DropdownComponent
+    DropdownComponent,
+    FooterComponent
 ],
   providers: [
     AuthService,

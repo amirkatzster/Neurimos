@@ -15,6 +15,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminModule } from './admin/admin.module';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,9 @@ import { AdminModule } from './admin/admin.module';
     LoginComponent,
     LogoutComponent,
     AccountComponent,
-    NotFoundComponent
-  ],
+    NotFoundComponent,
+    LandingComponent
+],
   imports: [
     RoutingModule,
     SharedModule,

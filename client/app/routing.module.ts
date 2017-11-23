@@ -12,9 +12,10 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AdminModule } from 'app/admin/admin.module';
 import { MenuComponent } from 'app/admin/menu.component';
+import { LandingComponent } from 'app/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', component: AboutComponent },
+  { path: '', component: LandingComponent },
   // { path: 'shoes', component: ShoesComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
