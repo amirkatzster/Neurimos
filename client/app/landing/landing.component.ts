@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyService } from 'app/services/company.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  companies = [];
+
+  constructor(public CompanyService: CompanyService) {
+
+  }
 
   ngOnInit() {
+    this.loadCompanies();
   }
+
+  loadCompanies() {
+    this.CompanyService.getCompanies().subscribe(
+      data => {
+        if (data != null) {
+          this.companies = data;
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
 
 }
