@@ -30,7 +30,7 @@
             <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe, i ,modal)"><i class="fa fa-pencil"></i></button>
           </td>
           <td><strong>{{shoe.id}}</strong></td>
-          <td><md-checkbox [checked]="shoe.active" disabled="disabled"></md-checkbox></td>
+          <td><mat-checkbox [checked]="shoe.active" disabled="disabled"></mat-checkbox></td>
           <td>{{shoe.company}}</td>
           <td>{{shoe.name}}</td>
           <td>
@@ -58,7 +58,7 @@
     </modal-header>
     <modal-body class="addForm">
         <div class="form-group">
-            <md-checkbox name="active" class="example-margin" [(ngModel)]="currentShoe.active" [checked]="currentShoe.active">?להציג באתר</md-checkbox>
+            <mat-checkbox name="active" class="example-margin" [(ngModel)]="currentShoe.active" [checked]="currentShoe.active">?להציג באתר</mat-checkbox>
         </div>
         <div class="form-group">
           <label for="compId">חברה</label>
@@ -78,24 +78,24 @@
           </div>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult" required>
-              <md-radio-button align="end" class="example-margin" value="kid">צעירים</md-radio-button>
-              <md-radio-button align="end" class="example-margin" value="adult">מבוגרים</md-radio-button>
-            </md-radio-group>
+            <mat-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult" required>
+              <mat-radio-button align="end" class="example-margin" value="kid">צעירים</mat-radio-button>
+              <mat-radio-button align="end" class="example-margin" value="adult">מבוגרים</mat-radio-button>
+            </mat-radio-group>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="currentShoe.gender" name="gender" required>
-              <md-radio-button align="end" class="example-margin" value="unisex">שניהם</md-radio-button>
-              <md-radio-button align="end" class="example-margin" value="female">בת</md-radio-button>
-              <md-radio-button align="end" class="example-margin" value="male">בן</md-radio-button>
-            </md-radio-group>
+            <mat-radio-group [(ngModel)]="currentShoe.gender" name="gender" required>
+              <mat-radio-button align="end" class="example-margin" value="unisex">שניהם</mat-radio-button>
+              <mat-radio-button align="end" class="example-margin" value="female">בת</mat-radio-button>
+              <mat-radio-button align="end" class="example-margin" value="male">בן</mat-radio-button>
+            </mat-radio-group>
         </div>
         <div class="form-group" >
-            <md-radio-group [(ngModel)]="currentShoe.season" name="season" required>
-              <md-radio-button align="end" class="example-margin" value="allseason">כל השנה</md-radio-button>
-              <md-radio-button align="end" class="example-margin" value="winter">חורף</md-radio-button>
-              <md-radio-button align="end" class="example-margin" value="summer">קיץ</md-radio-button>
-            </md-radio-group>
+            <mat-radio-group [(ngModel)]="currentShoe.season" name="season" required>
+              <mat-radio-button align="end" class="example-margin" value="allseason">כל השנה</mat-radio-button>
+              <mat-radio-button align="end" class="example-margin" value="winter">חורף</mat-radio-button>
+              <mat-radio-button align="end" class="example-margin" value="summer">קיץ</mat-radio-button>
+            </mat-radio-group>
         </div>
         <div class="form-group">
             <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="currentShoe.information" placeholder="...ספרו על הנעל" required></textarea>
