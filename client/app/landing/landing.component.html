@@ -6,15 +6,17 @@
         <!-- Ny1vyUgidMg -->
     </picture>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-10"></div>
+<div class="companies-container">
+    <div class="row companies-header">
+        <div class="col-md-9"></div>
         <div class="col-md-2">חברות פופולריות</div>
+        <div class="col-md-1"></div>
     </div>
     <div class="row">
         <div *ngFor="let company of companies;let i = index">
-                <div class="col-md-2">{{ company.name }} <img src={{company.image}} width="180" height="230" /></div>
-                
+            <div class="col-md-2">
+                    <img src={{company.image}} width="180" height="230" alt="{{ company.name }}"/>
+            </div>
         </div>       
     </div>
 </div>

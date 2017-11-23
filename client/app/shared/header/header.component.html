@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="row search-bar">
-      <div class="col-md-2 cart-container"><a class="my-cart" href="#">העגלה שלי</a></div>
+      <div class="col-md-2 cart-container"><a class="my-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה שלי</a></div>
       <div class="col-md-8"><input class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה"><button class="btn header-btn btn-default search-button" >חפש</button></div>
       <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logos.jpg"></a></div>
       <div class="col-md-1"></div>
@@ -41,9 +41,70 @@
           </div>
         </div>
         <div class="col-md-2"></div>
-        <div class="col-md-6">
-          <app-dropdown></app-dropdown>
-        </div>
+        <div class="col-md-5">
+          <ul>
+            <li>
+                <a href="#" mat-icon-button [matMenuTriggerFor]="boysMenu" class="nav-item nav-link header-nav-btn">
+                    ילדים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </a>
+                <mat-menu #boysMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                     <button mat-menu-item>מגפיים</button>
+                     <button mat-menu-item>סניקרס וספורט</button>
+                     <button mat-menu-item>מוקסינים</button>
+                     <button mat-menu-item>נעלי בית</button>
+                     <button mat-menu-item>סנדלים</button>
+                     <button mat-menu-item>אלגנט</button>
+                </mat-menu>
+            </li>
+            <li>
+                <a href="#" mat-icon-button [matMenuTriggerFor]="girlMenu" class="nav-item nav-link">
+                    ילדות <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </a>
+                <mat-menu #girlMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                     <button mat-menu-item>מגפיים</button>
+                     <button mat-menu-item>סניקרס וספורט</button>
+                     <button mat-menu-item>שטוחות</button>
+                     <button mat-menu-item>נעלי בית</button>
+                     <button mat-menu-item>סנדלים</button>
+                     <button mat-menu-item>מוקסינים</button>
+                </mat-menu> 
+            </li>
+            <li>
+                <a href="#" mat-icon-button [matMenuTriggerFor]="womanMenu" class="nav-item nav-link">
+                    גברים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </a>
+                <mat-menu #manMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                     <button mat-menu-item>סניקרס וספורט</button>
+                     <button mat-menu-item>מגפיים</button>
+                     <button mat-menu-item>אלגנט</button>
+                     <button mat-menu-item>מוקסינים</button>
+                     <button mat-menu-item>סנדלים</button>
+                     <button mat-menu-item>נעלי בית</button>
+                     <button mat-menu-item>כפכפים</button>
+                     <button mat-menu-item>נעלי סירה</button>
+                </mat-menu>   
+            </li>
+            <li>
+                <a href="#" mat-icon-button  [matMenuTriggerFor]="womanMenu" class="nav-item nav-link">
+                    נשים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </a>
+                <mat-menu #womanMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                    <button mat-menu-item>סניקרס וספורט</button>
+                    <button mat-menu-item>מגפיים</button>
+                    <button mat-menu-item>שטוחות</button>
+                    <button mat-menu-item>נוחות</button>
+                    <button mat-menu-item>עקבים</button>
+                    <button mat-menu-item>סנדלים</button>
+                    <button mat-menu-item>מוקסינים</button>
+                    <button mat-menu-item>סנדלים</button>
+                    <button mat-menu-item>כפכפים</button>
+                    <button mat-menu-item>אלגנט</button>
+                    <button mat-menu-item>נעלי בית</button>
+                </mat-menu>     
+            </li>
+          </ul>
+          </div>
+          <div class="col-md-1"></div>
     </div>
   </nav>
 
