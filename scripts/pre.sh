@@ -3,4 +3,8 @@
 set +e
 
 echo 'kill all node instances'
-ps -ef | grep "node" | awk '{print $2}' | xargs kill -9
+NODE_PROCESS=ps -ef | grep "node" 
+if [ -n "$NODE_PROCESS"]
+   $NODE_PROCESS | awk '{print $2}' | xargs kill -9
+fi
+
