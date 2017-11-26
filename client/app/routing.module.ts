@@ -13,6 +13,7 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AdminModule } from 'app/admin/admin.module';
 import { MenuComponent } from 'app/admin/menu.component';
 import { LandingComponent } from 'app/landing/landing.component';
+import { CollectionComponent } from 'app/collection/collection.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
+  { path: 'collection', component: CollectionComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: '/notfound' },
 ];

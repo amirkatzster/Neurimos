@@ -1,0 +1,60 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" >
+  <h4 class="card-header">סוגי נעליים ({{classifications.length}})</h4>
+  <div class="card-block">
+    <button type="button" (click)="addClassification(modal)" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    <table class="table table-striped table-responsive" >
+      <thead class="thead-default">
+        <tr>
+          <th></th>
+          <th>סוג נעל</th>
+          <th>סדר הופעה</th>
+          <th>להראות בעמוד בראשון</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="classifications.length === 0">
+        <tr>
+          <td colspan="3">אין סוגים</td>
+        </tr>  
+      </tbody>
+      <tbody>
+        <tr *ngFor="let classification of classifications;let i = index">
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="enableEditing(classification, i ,modal)"><i class="fa fa-pencil"></i></button>
+          </td>
+          <td>{{classification.name}}</td>
+          <td>{{classification.order}}</td>  
+          <td>{{classification.show}}</td>            
+        </tr>  
+      </tbody>      
+    </table>
+  </div>
+</div>
+
+<modal #modal>
+  <form (ngSubmit)="doneEditClassification(currentClassification)">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">עריכה</h4>
+    </modal-header>
+    <modal-body class="addForm">
+        <div class="form-group">
+          <label for="Name">סוג נעל</label>
+          <input id="Name" class="form-control" type="text" name="name" [(ngModel)]="currentClassification.name" placeholder="סנדל" min="0" required>
+        </div>
+        <div class="form-group">
+          <mat-checkbox name="show" class="example-margin" [(ngModel)]="currentClassification.show" [checked]="currentClassification.show">לשים בחלון ראווה</mat-checkbox>
+        </div>
+        <div class="form-group">
+          <input id="Order" class="form-control" type="text" name="order" [(ngModel)]="currentClassification.order" placeholder="0" min="0">
+        </div>
+       
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>
+      <button type="submit" class="btn btn-primary" (click)="modal.close()">שמור</button>
+    </modal-footer>
+    </form>
+</modal>

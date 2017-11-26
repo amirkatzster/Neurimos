@@ -79,10 +79,11 @@
         </div>
         <div class="form-group" >
             <mat-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult" required>
-              <mat-radio-button align="end" class="example-margin" value="kid">צעירים</mat-radio-button>
+              <mat-radio-button align="end" class="example-margin" value="kid">ילדים</mat-radio-button>
               <mat-radio-button align="end" class="example-margin" value="adult">מבוגרים</mat-radio-button>
             </mat-radio-group>
         </div>
+        <hr>
         <div class="form-group" >
             <mat-radio-group [(ngModel)]="currentShoe.gender" name="gender" required>
               <mat-radio-button align="end" class="example-margin" value="unisex">שניהם</mat-radio-button>
@@ -90,6 +91,7 @@
               <mat-radio-button align="end" class="example-margin" value="male">בן</mat-radio-button>
             </mat-radio-group>
         </div>
+        <hr>
         <div class="form-group" >
             <mat-radio-group [(ngModel)]="currentShoe.season" name="season" required>
               <mat-radio-button align="end" class="example-margin" value="allseason">כל השנה</mat-radio-button>
@@ -97,6 +99,14 @@
               <mat-radio-button align="end" class="example-margin" value="summer">קיץ</mat-radio-button>
             </mat-radio-group>
         </div>
+        <hr>
+        <div class="form-group" >
+          <mat-radio-group [(ngModel)]="currentShoe.classification" name="classification">
+            <mat-radio-button *ngFor="let classification of classifications" align="end" class="example-margin" [value]="classification.name">{{classification.name}}</mat-radio-button> -->
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </mat-radio-group>
+      </div>
+      <hr>
         <div class="form-group">
             <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="currentShoe.information" placeholder="...ספרו על הנעל" required></textarea>
         </div>

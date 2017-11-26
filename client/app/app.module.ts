@@ -5,6 +5,7 @@ import { SharedModule } from './shared/shared.module';
 import { ShoeService } from './services/shoe.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { ClassificationService } from './services/classification.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { AccountComponent } from './account/account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminModule } from './admin/admin.module';
 import { LandingComponent } from './landing/landing.component';
+import { CollectionComponent } from './collection/collection.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { LandingComponent } from './landing/landing.component';
     LogoutComponent,
     AccountComponent,
     NotFoundComponent,
-    LandingComponent
+    LandingComponent,
+    CollectionComponent
 ],
   imports: [
     RoutingModule,
@@ -38,6 +41,7 @@ import { LandingComponent } from './landing/landing.component';
     AuthGuardLogin,
     AuthGuardAdmin,
     ShoeService,
+    ClassificationService,
     UserService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

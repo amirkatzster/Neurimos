@@ -7,6 +7,8 @@ import { ShoeService } from '../../app/services/shoe.service';
 import { SharedModule } from '../../app/shared/shared.module';
 import { CompanyComponent } from '../../app/admin/company/company.component';
 import { CompanyService } from '../../app/services/company.service';
+import { ClassificationComponent } from './classification/classification.component';
+import { ClassificationService } from 'app/services/classification.service';
 
 
 
@@ -15,7 +17,8 @@ import { CompanyService } from '../../app/services/company.service';
     UsersComponent,
     MenuComponent,
     ShoesComponent,
-    CompanyComponent
+    CompanyComponent,
+    ClassificationComponent
 ],
   exports: [
     UsersComponent
@@ -26,7 +29,8 @@ import { CompanyService } from '../../app/services/company.service';
   ],
   providers: [
      ShoeService,
-     CompanyService
+     CompanyService,
+     ClassificationService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

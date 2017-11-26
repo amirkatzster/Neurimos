@@ -3,9 +3,12 @@ import * as express from 'express';
 import ShoeCtrl from './controllers/shoe';
 import UserCtrl from './controllers/user';
 import CompanyCtrl from './controllers/company';
+import ClassificationCtrl from './controllers/classification';
 import Shoe from './models/shoe';
 import User from './models/user';
 import Company from './models/company';
+import Classification from './models/classification';
+
 
 export default function setRoutes(app) {
 
@@ -14,6 +17,7 @@ export default function setRoutes(app) {
   const shoeCtrl = new ShoeCtrl();
   const userCtrl = new UserCtrl();
   const companyCtrl = new CompanyCtrl();
+  const classificationCtrl = new ClassificationCtrl();
 
   // Shoes
   router.route('/shoes').get(shoeCtrl.getAll);
@@ -22,6 +26,14 @@ export default function setRoutes(app) {
   router.route('/shoe/:id').get(shoeCtrl.get);
   router.route('/shoe/:id').put(shoeCtrl.update);
   router.route('/shoe/:id').delete(shoeCtrl.delete);
+
+  // Classification
+  router.route('/classifications').get(classificationCtrl.getAll);
+  router.route('/classifications/count').get(classificationCtrl.count);
+  router.route('/classification').post(classificationCtrl.insert);
+  router.route('/classification/:id').get(classificationCtrl.get);
+  router.route('/classification/:id').put(classificationCtrl.update);
+  router.route('/classification/:id').delete(classificationCtrl.delete);
 
   // Company
   router.route('/companies').get(companyCtrl.getAll);

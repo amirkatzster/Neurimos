@@ -14,6 +14,9 @@ import { Component, OnInit } from '@angular/core';
     <li class="nav-item nav-right">
       <a class="nav-link" data-toggle="tab" href="#users" role="tab">משתמשים</a>
     </li>
+    <li class="nav-item nav-right">
+      <a class="nav-link" data-toggle="tab" href="#classifications" role="tab">סוגי נעליים</a>
+    </li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="shoes" role="tabpanel">
@@ -24,6 +27,9 @@ import { Component, OnInit } from '@angular/core';
     </div>
     <div class="tab-pane" id="users" role="tabpanel">
       <app-users-admin></app-users-admin>
+    </div>
+    <div class="tab-pane" id="classifications" role="tabpanel">
+      <app-classification></app-classification>
     </div>
   </div>
   `

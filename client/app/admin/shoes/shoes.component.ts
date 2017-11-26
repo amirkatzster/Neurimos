@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ShoeService } from 'app/services/shoe.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { CompanyService } from 'app/services/company.service';
+import { ClassificationService } from '../../services/classification.service';
 
 @Component({
   selector: 'app-shoes',
@@ -18,12 +19,14 @@ export class ShoesComponent implements OnInit {
   friendlyId: string;
   shoes = [];
   companies = [];
+  classifications = [];
   isLoading = true;
   isEditing = false;
 
   constructor(private shoeService: ShoeService,
               private companyService: CompanyService,
               private formBuilder: FormBuilder,
+              private ClassificationService: ClassificationService,
               private http: Http,
               public toast: ToastComponent) { }
 
@@ -31,6 +34,7 @@ export class ShoesComponent implements OnInit {
     this.getShoes();
     this.getCompanies();
     this.genFriendlyId();
+    this.getClassifications();
   }
 
   genFriendlyId()  {
@@ -138,6 +142,18 @@ export class ShoesComponent implements OnInit {
       }
       this.currentShoe.images.push({ 'urlMedium' : reader.result });
       console.log(this.currentShoe.images.length);
+  }
+
+  getClassifications() {
+    this.ClassificationService.getClassifications().subscribe(
+      data => {
+        if (data != null) {
+          this.classifications = data;
+        }
+      },
+      error => console.log(error),
+      () => this.isLoading = false
+    );
   }
 
 }
