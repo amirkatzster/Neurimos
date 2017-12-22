@@ -6,6 +6,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { CompanyService } from 'app/services/company.service';
 import { ClassificationService } from '../../services/classification.service';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-shoes',
@@ -20,6 +21,12 @@ export class ShoesComponent implements OnInit {
   shoes = [];
   companies = [];
   classifications = [];
+  sizes = [];
+  genders = [
+    {name: 'ילדות', mark: false},
+    {name: 'ילדים', mark: false},
+    {name: 'נשים', mark: false},
+    {name: 'גברים', mark: false}];
   isLoading = true;
   isEditing = false;
 
@@ -28,7 +35,9 @@ export class ShoesComponent implements OnInit {
               private formBuilder: FormBuilder,
               private ClassificationService: ClassificationService,
               private http: Http,
-              public toast: ToastComponent) { }
+              public toast: ToastComponent) {
+                this.sizes = new Array(31).fill(0).map((x, i) => i + 19);
+              }
 
   ngOnInit() {
     this.getShoes();
@@ -50,7 +59,9 @@ export class ShoesComponent implements OnInit {
 
   getShoes() {
     this.shoeService.getShoes().subscribe(
-      data => this.shoes = data,
+      data => {
+         this.shoes = data;
+      },
       error => console.log(error),
       () => this.isLoading = false
     );
@@ -85,11 +96,24 @@ export class ShoesComponent implements OnInit {
   enableEditing(shoe, ind, modal) {
     this.isEditing = true;
     this.currentShoe = JSON.parse(JSON.stringify(shoe));
+    if (this.currentShoe.gender) {
+       this.genders.forEach(g => {
+          if (this.currentShoe.gender.indexOf(g.name) > -1) {
+            g.mark = true;
+          } else {
+            g.mark = false;
+          }
+      });
+   }
     this.currentShoeIndex = ind;
     modal.open();
   }
 
+
   doneEditShoe(shoe) {
+    debugger;
+    shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
+    this.genders.forEach(g => g.mark = false);
     if (this.shoes.length === this.currentShoeIndex) {
         this.shoeService.addShoe(shoe).subscribe(
         res => {
@@ -136,8 +160,7 @@ export class ShoesComponent implements OnInit {
 
   _handleReaderLoaded(e) {
       const reader = e.target;
-      if (!this.currentShoe.images)
-      {
+      if (!this.currentShoe.images) {
         this.currentShoe.images = [];
       }
       this.currentShoe.images.push({ 'urlMedium' : reader.result });

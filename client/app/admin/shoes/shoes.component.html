@@ -14,9 +14,7 @@
           <th>?פעיל</th>
           <th>חברה</th>
           <th>שם דגם</th>
-          <th>מין</th>
-          <th>קהל יעד</th>
-          <th>עונה</th>       
+          <th>קהל יעד</th>     
         </tr>
       </thead>
       <tbody *ngIf="shoes.length === 0">
@@ -34,17 +32,11 @@
           <td>{{shoe.company}}</td>
           <td>{{shoe.name}}</td>
           <td>
-            <i *ngIf="shoe.gender == 'male'" class="fa fa-mars" aria-hidden="true"></i>
-            <i *ngIf="shoe.gender == 'female'" class="fa fa-venus" aria-hidden="true"></i>
-            <i *ngIf="shoe.gender == 'unisex'" class="fa fa-transgender" aria-hidden="true"></i>
-          </td>
-          <td>
-            <i *ngIf="shoe.kidOrAdult == 'kid'" class="fa fa-male fa-1x" aria-hidden="true"></i>
-            <i *ngIf="shoe.kidOrAdult == 'adult'" class="fa fa-male fa-2x" aria-hidden="true"></i>
-          <td>
-            <i *ngIf="shoe.season == 'winter' || shoe.season == 'allseason'" class="fa fa-cloud" aria-hidden="true"></i>
-            <i *ngIf="shoe.season == 'summer' || shoe.season == 'allseason'" class="fa fa-sun-o" aria-hidden="true"></i>
-          </td>          
+            <i *ngIf="shoe.gender.indexOf('גברים') > -1" class="fa fa-mars fa-male fa-2x" aria-hidden="true"></i>
+            <i *ngIf="shoe.gender.indexOf('נשים') > -1" class="fa fa-venus fa-male fa-2x" aria-hidden="true"></i>
+            <i *ngIf="shoe.gender.indexOf('ילדים') > -1" class="fa fa-mars fa-male fa-1x" aria-hidden="true"></i>
+            <i *ngIf="shoe.gender.indexOf('ילדות') > -1" class="fa fa-venus fa-male fa-1x" aria-hidden="true"></i>
+          </td>         
         </tr>  
       </tbody>      
     </table>
@@ -77,33 +69,14 @@
             <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="...הכנס מחיר" step="any" min="0">
           </div>
         </div>
-        <div class="form-group" >
-            <mat-radio-group [(ngModel)]="currentShoe.kidOrAdult" name="kidOrAdult" required>
-              <mat-radio-button align="end" class="example-margin" value="kid">ילדים</mat-radio-button>
-              <mat-radio-button align="end" class="example-margin" value="adult">מבוגרים</mat-radio-button>
-            </mat-radio-group>
-        </div>
         <hr>
         <div class="form-group" >
-            <mat-radio-group [(ngModel)]="currentShoe.gender" name="gender" required>
-              <mat-radio-button align="end" class="example-margin" value="unisex">שניהם</mat-radio-button>
-              <mat-radio-button align="end" class="example-margin" value="female">בת</mat-radio-button>
-              <mat-radio-button align="end" class="example-margin" value="male">בן</mat-radio-button>
-            </mat-radio-group>
-        </div>
-        <hr>
-        <div class="form-group" >
-            <mat-radio-group [(ngModel)]="currentShoe.season" name="season" required>
-              <mat-radio-button align="end" class="example-margin" value="allseason">כל השנה</mat-radio-button>
-              <mat-radio-button align="end" class="example-margin" value="winter">חורף</mat-radio-button>
-              <mat-radio-button align="end" class="example-margin" value="summer">קיץ</mat-radio-button>
-            </mat-radio-group>
+            <mat-checkbox *ngFor="let gen of genders" [name]="'gender' + gen.name" class="example-margin" [(ngModel)]="gen.mark" [checked]="gen.mark">{{ gen.name }}</mat-checkbox>
         </div>
         <hr>
         <div class="form-group" >
           <mat-radio-group [(ngModel)]="currentShoe.classification" name="classification">
-            <mat-radio-button *ngFor="let classification of classifications" align="end" class="example-margin" [value]="classification.name">{{classification.name}}</mat-radio-button> -->
-            <i class="fa fa-plus" aria-hidden="true"></i>
+            <mat-radio-button *ngFor="let classification of classifications"  class="example-margin" [value]="classification._id" >{{classification.name}}</mat-radio-button>
           </mat-radio-group>
       </div>
       <hr>
@@ -120,7 +93,13 @@
                 <button class="btn btn-lg btn-danger trashBtn" (click)="deleteImage(currentShoe,i)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
               </td>
               <td>
-                <img [src]="img.urlMedium" class="rounded mx-auto d-block" width="200" height="200" >  
+                <img [src]="img.urlMedium" class="mx-auto d-block" width="255" >  
+              </td>
+              <td>
+                <label >צבע</label>
+                <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="img.color" placeholder="צבע בתמונה" required>
+                <label >מידות</label>
+                <mat-checkbox *ngFor="let size of sizes" name="'size' + i + '_' + size" class="example-margin" [checked]="img.sizes.indexOf(size) > -1">{{ size }}</mat-checkbox>
               </td>
             </tr>
           </table>
