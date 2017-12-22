@@ -44,15 +44,18 @@ export default class ShoeCtrl extends BaseCtrl {
   }
 
   addImages(shoe) {
-    shoe.images.forEach((image, index) => {
-        if (image.urlMedium.indexOf('data:image') === 0) {
-            const imageStream = image.urlMedium;
-            image.urlSmall = this.addImage(imageStream, shoe, 'S', 55, index);
-            image.urlMedium = this.addImage(imageStream, shoe, 'M', 255, index);
-            image.urlLarge = this.addImage(imageStream, shoe, 'L', 480, index);
-            image.urlXL = this.addImage(imageStream, shoe, 'XL', 1920, index);
-          }
-      });
+    shoe.imagesGroup.forEach((imageGroup, i) => {
+      if (imageGroup.images) {
+        imageGroup.images.forEach((image, j) => {
+          if (image.urlMedium.indexOf('data:image') === 0) {
+              const number = i * 2 + j * 3;
+              const imageStream = image.urlMedium;
+              image.urlSmall = this.addImage(imageStream, shoe, 'S', 55, number);
+              image.urlMedium = this.addImage(imageStream, shoe, 'M', 255, number);
+              image.urlLarge = this.addImage(imageStream, shoe, 'L', 480, number);
+              image.urlXL = this.addImage(imageStream, shoe, 'XL', 1920, number);
+            }
+      })}});
   }
 
   addImage(image, shoe, size: string, width: number, index: number) {

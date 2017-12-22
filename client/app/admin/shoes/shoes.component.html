@@ -83,23 +83,28 @@
         <div class="form-group">
             <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="currentShoe.information" placeholder="...ספרו על הנעל" required></textarea>
         </div>
-        <div class="form-group">
-          <input type="file" accept="image/*" capture="camera" name="image" [(ngModel)]="currentShoe.image" (change)="handleInputChange($event)" />
-        </div> 
-        <div *ngFor="let img of currentShoe.images; let i = index">
+         
+        <div *ngFor="let ig of currentShoe.imagesGroup; let i = index" class="groupSeperator">
           <table>
             <tr>
               <td>
-                <button class="btn btn-lg btn-danger trashBtn" (click)="deleteImage(currentShoe,i)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
+                  <label >צבע</label>
+                  <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
+                  <label >מידות</label><br>
+                  <mat-checkbox *ngFor="let sizeOption of ig.sizeOptions" [title]="sizeOption.mark" [name]="'size' + i + '_' + sizeOption.name" class="example-margin" [(ngModel)]="sizeOption.mark" [checked]="sizeOption.mark">{{ sizeOption.name }}</mat-checkbox>                
               </td>
+            </tr>
+            <tr>
               <td>
-                <img [src]="img.urlMedium" class="mx-auto d-block" width="255" >  
-              </td>
-              <td>
-                <label >צבע</label>
-                <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="img.color" placeholder="צבע בתמונה" required>
-                <label >מידות</label>
-                <mat-checkbox *ngFor="let size of sizes" name="'size' + i + '_' + size" class="example-margin" [checked]="img.sizes.indexOf(size) > -1">{{ size }}</mat-checkbox>
+                  <table>
+                      <tr *ngFor="let img of ig.images; let j = index">
+                        <td><button class="btn btn-lg btn-danger trashBtn" (click)="deleteImage(currentShoe,i,j)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button></td>
+                        <td><img [src]="img.urlMedium" class="mx-auto d-block" width="255" ></td>
+                      </tr>
+                      <tr>
+                          <input type="file" accept="image/*" capture="camera" [name]="'image_' + i + '_' + j" [(ngModel)]="currentShoe.image" (change)="handleInputChange($event,ig)" />
+                      </tr>
+                  </table>
               </td>
             </tr>
           </table>

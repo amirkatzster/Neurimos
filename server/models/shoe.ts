@@ -1,13 +1,17 @@
 import * as mongoose from 'mongoose';
 import Classification from './classification'
 
-const ImageSchema = new mongoose.Schema({
+const ImageUrlSchema = new mongoose.Schema({
   urlSmall: String,
   urlMedium: String,
   urlLarge: String,
   urlXL: String,
+});
+
+const ImageSchema = new mongoose.Schema({
   color: String,
-  sizes: [String]
+  sizes: [String],
+  images: [ ImageUrlSchema ]
 });
 
 
@@ -25,7 +29,7 @@ const shoeSchema = new mongoose.Schema({
   },
   searchWords: [String],
   information: String,
-  images: [ ImageSchema ],
+  imagesGroup: [ ImageSchema ],
   updated: { type: Date, default: Date.now },
 });
 

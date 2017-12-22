@@ -29,6 +29,7 @@ export class ShoesComponent implements OnInit {
     {name: 'גברים', mark: false}];
   isLoading = true;
   isEditing = false;
+  currentImageGroup: any = {};
 
   constructor(private shoeService: ShoeService,
               private companyService: CompanyService,
@@ -50,8 +51,8 @@ export class ShoesComponent implements OnInit {
       this.shoeService.countShoes().subscribe(
         data => {
           console.log(data);
-          // count shoes in database + random number between 10-99
-          this.friendlyId = data.toString() + (Math.floor(Math.random() * 89) + 10).toString();
+          // count shoes in database * 2 + random number between 10-99 * 3
+          this.friendlyId = (data * 2 + (Math.floor(Math.random() * 89) + 10) * 3).toString();
         },
         error => console.log(error),
     );
@@ -67,15 +68,16 @@ export class ShoesComponent implements OnInit {
     );
   }
 
-  deleteImage(shoe, index) {
-    const image = shoe.images[index];
+  deleteImage(shoe, index, jIndex) {
+    debugger;
+    const image = shoe.imagesGroup[index].images[jIndex];
     if (image.urlMedium.indexOf('data:image') !== 0) {
       if (!shoe.deleteImages) {
         shoe.deleteImages = [];
       }
       shoe.deleteImages.push(image);
     }
-    shoe.images.splice(index, 1);
+    shoe.imagesGroup[index].images.splice(jIndex, 1);
   }
 
 
@@ -104,7 +106,20 @@ export class ShoesComponent implements OnInit {
             g.mark = false;
           }
       });
-   }
+    }
+    if (!this.currentShoe.imagesGroup || this.currentShoe.imagesGroup.length === 0) {
+      this.currentShoe.imagesGroup = [];
+      this.currentShoe.imagesGroup.push({'sizes': []});
+    }
+    this.currentShoe.imagesGroup.forEach(ig => {
+      ig.sizeOptions  = [];
+      this.sizes.forEach(s => {
+        if (ig.sizes.indexOf(s.toString()) > -1) {
+          ig.sizeOptions.push({'name': s, 'mark': true});
+        } else {
+          ig.sizeOptions.push({'name': s, 'mark': false});
+        }
+      })});
     this.currentShoeIndex = ind;
     modal.open();
   }
@@ -114,6 +129,10 @@ export class ShoesComponent implements OnInit {
     debugger;
     shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
     this.genders.forEach(g => g.mark = false);
+    this.currentShoe.imagesGroup.forEach(ig => {
+      ig.sizes = ig.sizeOptions.filter(g => g.mark).map(g => g.name);
+    });
+
     if (this.shoes.length === this.currentShoeIndex) {
         this.shoeService.addShoe(shoe).subscribe(
         res => {
@@ -144,7 +163,8 @@ export class ShoesComponent implements OnInit {
     this.genFriendlyId();
   }
 
-  handleInputChange(e) {
+  handleInputChange(e, imageGroup) {
+    this.currentImageGroup = imageGroup;
     const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     const pattern = /image-*/;
     const reader = new FileReader();
@@ -159,12 +179,9 @@ export class ShoesComponent implements OnInit {
   }
 
   _handleReaderLoaded(e) {
+    debugger;
       const reader = e.target;
-      if (!this.currentShoe.images) {
-        this.currentShoe.images = [];
-      }
-      this.currentShoe.images.push({ 'urlMedium' : reader.result });
-      console.log(this.currentShoe.images.length);
+      this.currentImageGroup.images.push({ 'urlMedium' : reader.result });
   }
 
   getClassifications() {
