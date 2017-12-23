@@ -112,9 +112,7 @@ export class ShoesComponent implements OnInit {
     modal.open();
   }
 
-
-  doneEditShoe(shoe) {
-    debugger;
+  beforeSubmitting(shoe) {
     shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
     this.genders.forEach(g => g.mark = false);
     this.currentShoe.imagesGroup.forEach(ig => {
@@ -122,7 +120,22 @@ export class ShoesComponent implements OnInit {
         ig.sizes = ig.sizeOptions.filter(g => g.mark).map(g => g.name);
       }
     });
+    // arrange searchwords
+    const searchWords: String[] = [];
+    this.classifications.forEach(c => {
+      if (c._id === shoe.classification) {
+        searchWords.push(c.name);
+      }})
+    searchWords.push(shoe.id);
+    searchWords.push(shoe.company);
+    searchWords.push(shoe.name);
+    shoe.gender.forEach(g => searchWords.push(g));
+    shoe.imagesGroup.forEach(ig => searchWords.push(ig.color));
+    shoe.searchWords = searchWords;
+  }
 
+  doneEditShoe(shoe) {
+    this.beforeSubmitting(shoe);
     if (this.shoes.length === this.currentShoeIndex) {
         this.shoeService.addShoe(shoe).subscribe(
         res => {
@@ -154,7 +167,6 @@ export class ShoesComponent implements OnInit {
   }
 
   handleInputChange(e, imageGroup) {
-    debugger;
     this.currentImageGroup = imageGroup;
     const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     const pattern = /image-*/;
@@ -170,7 +182,6 @@ export class ShoesComponent implements OnInit {
   }
 
   _handleReaderLoaded(e) {
-    debugger;
       const reader = e.target;
       this.currentImageGroup.images.push({ 'urlMedium' : reader.result });
   }
