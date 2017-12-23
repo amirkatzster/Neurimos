@@ -231,4 +231,18 @@ export class ShoesComponent implements OnInit {
     this.initGroupImages();
   }
 
+  sizeUp(sizeOption) {
+    sizeOption.amount++;
+    sizeOption.mark = true;
+  }
+
+  sizeDown(sizeOption) {
+    if (sizeOption.amount > 0) {
+      sizeOption.amount--;
+      if (sizeOption.amount === 0) {
+         sizeOption.mark = false;
+      }
+    }
+  }
+
 }

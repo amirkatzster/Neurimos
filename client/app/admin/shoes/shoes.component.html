@@ -85,14 +85,19 @@
         </div>
          
         <div *ngFor="let ig of currentShoe.imagesGroup; let i = index" class="groupSeperator">
-          <table>
+          <table style="width:100%">
             <tr>
               <td>
                   <button type="button" (click)="removeGroupImage(i)" class="btn btn-danger"><i class="fa fa-trash fa-1x" aria-hidden="true"></i>הסרת צבע</button><br>
                   <label >צבע</label>
                   <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
                   <label >מידות</label><br>
-                  <mat-checkbox *ngFor="let sizeOption of ig.sizeOptions" [title]="sizeOption.mark" [name]="'size' + i + '_' + sizeOption.name" class="example-margin" [(ngModel)]="sizeOption.mark" [checked]="sizeOption.mark">{{ sizeOption.name }} ({{ sizeOption.amount }})</mat-checkbox>                
+                  <mat-grid-list cols="5" rowHeight="30px">
+                      <mat-grid-tile *ngFor="let sizeOption of ig.sizeOptions" colspan="1" rowspan="1" [ngClass]="{'showInStock': sizeOption.amount > 0 }" >
+                      <i class="fa fa-chevron-circle-up fa-1" aria-hidden="true" (click)="sizeUp(sizeOption)"></i>{{ sizeOption.name }} ({{ sizeOption.amount }})
+                      <i class="fa fa-chevron-circle-down fa-1" [ngClass]="{'downDisabled': sizeOption.amount === 0 }"  aria-hidden="true" (click)="sizeDown(sizeOption)"></i>
+                    </mat-grid-tile>                
+                  </mat-grid-list>
               </td>
             </tr>
             <tr>
