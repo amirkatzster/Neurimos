@@ -69,7 +69,6 @@ export class ShoesComponent implements OnInit {
   }
 
   deleteImage(shoe, index, jIndex) {
-    debugger;
     const image = shoe.imagesGroup[index].images[jIndex];
     if (image.urlMedium.indexOf('data:image') !== 0) {
       if (!shoe.deleteImages) {
@@ -92,6 +91,7 @@ export class ShoesComponent implements OnInit {
     this.isEditing = true;
     this.currentShoe = { 'active': true , 'id': this.friendlyId };
     this.currentShoeIndex = this.shoes.length;
+    this.initGroupImages();
     modal.open();
   }
 
@@ -107,19 +107,7 @@ export class ShoesComponent implements OnInit {
           }
       });
     }
-    if (!this.currentShoe.imagesGroup || this.currentShoe.imagesGroup.length === 0) {
-      this.currentShoe.imagesGroup = [];
-      this.currentShoe.imagesGroup.push({'sizes': []});
-    }
-    this.currentShoe.imagesGroup.forEach(ig => {
-      ig.sizeOptions  = [];
-      this.sizes.forEach(s => {
-        if (ig.sizes.indexOf(s.toString()) > -1) {
-          ig.sizeOptions.push({'name': s, 'mark': true});
-        } else {
-          ig.sizeOptions.push({'name': s, 'mark': false});
-        }
-      })});
+    this.initGroupImages();
     this.currentShoeIndex = ind;
     modal.open();
   }
@@ -130,7 +118,9 @@ export class ShoesComponent implements OnInit {
     shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
     this.genders.forEach(g => g.mark = false);
     this.currentShoe.imagesGroup.forEach(ig => {
-      ig.sizes = ig.sizeOptions.filter(g => g.mark).map(g => g.name);
+      if (ig.sizeOptions) {
+        ig.sizes = ig.sizeOptions.filter(g => g.mark).map(g => g.name);
+      }
     });
 
     if (this.shoes.length === this.currentShoeIndex) {
@@ -164,6 +154,7 @@ export class ShoesComponent implements OnInit {
   }
 
   handleInputChange(e, imageGroup) {
+    debugger;
     this.currentImageGroup = imageGroup;
     const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     const pattern = /image-*/;
@@ -194,6 +185,32 @@ export class ShoesComponent implements OnInit {
       error => console.log(error),
       () => this.isLoading = false
     );
+  }
+
+  initGroupImages() {
+    if (!this.currentShoe.imagesGroup || this.currentShoe.imagesGroup.length === 0) {
+      this.currentShoe.imagesGroup = [];
+      this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
+    }
+    this.currentShoe.imagesGroup.forEach(ig => {
+      ig.sizeOptions  = [];
+      this.sizes.forEach(s => {
+        if (ig.sizes.indexOf(s.toString()) > -1) {
+          ig.sizeOptions.push({'name': s, 'mark': true});
+        } else {
+          ig.sizeOptions.push({'name': s, 'mark': false});
+        }
+      })});
+  }
+  addGroupImage() {
+    this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
+    this.initGroupImages();
+  }
+
+  removeGroupImage(index) {
+    this.currentShoe.imagesGroup[index].images.forEach((img , j) => { this.deleteImage(this.currentShoe, index, j) });
+    this.currentShoe.imagesGroup.splice(index, 1);
+    this.initGroupImages();
   }
 
 }

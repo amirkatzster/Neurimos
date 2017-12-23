@@ -88,6 +88,7 @@
           <table>
             <tr>
               <td>
+                  <button type="button" (click)="removeGroupImage(i)" class="btn btn-danger"><i class="fa fa-trash fa-1x" aria-hidden="true"></i>הסרת צבע</button><br>
                   <label >צבע</label>
                   <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
                   <label >מידות</label><br>
@@ -109,6 +110,7 @@
             </tr>
           </table>
         </div> 
+        <button type="button" (click)="addGroupImage()" class="btn"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת צבע</button>
     </modal-body>
     <modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>
