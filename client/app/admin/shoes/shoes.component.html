@@ -92,7 +92,7 @@
                   <label >צבע</label>
                   <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
                   <label >מידות</label><br>
-                  <mat-checkbox *ngFor="let sizeOption of ig.sizeOptions" [title]="sizeOption.mark" [name]="'size' + i + '_' + sizeOption.name" class="example-margin" [(ngModel)]="sizeOption.mark" [checked]="sizeOption.mark">{{ sizeOption.name }}</mat-checkbox>                
+                  <mat-checkbox *ngFor="let sizeOption of ig.sizeOptions" [title]="sizeOption.mark" [name]="'size' + i + '_' + sizeOption.name" class="example-margin" [(ngModel)]="sizeOption.mark" [checked]="sizeOption.mark">{{ sizeOption.name }} ({{ sizeOption.amount }})</mat-checkbox>                
               </td>
             </tr>
             <tr>

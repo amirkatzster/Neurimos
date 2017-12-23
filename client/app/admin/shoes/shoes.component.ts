@@ -116,8 +116,12 @@ export class ShoesComponent implements OnInit {
     shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
     this.genders.forEach(g => g.mark = false);
     this.currentShoe.imagesGroup.forEach(ig => {
+      debugger;
       if (ig.sizeOptions) {
-        ig.sizes = ig.sizeOptions.filter(g => g.mark).map(g => g.name);
+        ig.sizes = [];
+        ig.sizeOptions.filter(g => g.mark).forEach(so => {
+          ig.sizes.push({'size' : so.name , 'amount' : so.amount});
+        });
       }
     });
     // arrange searchwords
@@ -204,15 +208,18 @@ export class ShoesComponent implements OnInit {
       this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
     }
     this.currentShoe.imagesGroup.forEach(ig => {
+      debugger;
       ig.sizeOptions  = [];
       this.sizes.forEach(s => {
-        if (ig.sizes.indexOf(s.toString()) > -1) {
-          ig.sizeOptions.push({'name': s, 'mark': true});
+        const sizeIndex = ig.sizes.map(igs => igs.size).indexOf(s.toString());
+        if (sizeIndex > -1) {
+          ig.sizeOptions.push({'name': s, 'mark': true, 'amount': ig.sizes[sizeIndex].amount});
         } else {
-          ig.sizeOptions.push({'name': s, 'mark': false});
+          ig.sizeOptions.push({'name': s, 'mark': false, 'amount': 0});
         }
       })});
   }
+
   addGroupImage() {
     this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
     this.initGroupImages();

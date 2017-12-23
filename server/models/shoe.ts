@@ -8,9 +8,14 @@ const ImageUrlSchema = new mongoose.Schema({
   urlXL: String,
 });
 
+const SizeAmountSchema = new mongoose.Schema({
+  size: String,
+  amount: Number
+});
+
 const ImageSchema = new mongoose.Schema({
   color: String,
-  sizes: [String],
+  sizes: [ SizeAmountSchema ],
   images: [ ImageUrlSchema ]
 });
 
