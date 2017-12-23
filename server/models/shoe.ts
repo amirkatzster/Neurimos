@@ -19,6 +19,12 @@ const ImageSchema = new mongoose.Schema({
   images: [ ImageUrlSchema ]
 });
 
+const DiscountSchema = new mongoose.Schema({
+  isPercentage: Boolean,
+  percentage: Number,
+  newAmount: Number
+});
+
 
 
 const shoeSchema = new mongoose.Schema({
@@ -27,6 +33,7 @@ const shoeSchema = new mongoose.Schema({
   company: String,
   name: String,
   price: Number,
+  discount: DiscountSchema,
   gender: [String],
   classification: {
     type: mongoose.Schema.ObjectId,

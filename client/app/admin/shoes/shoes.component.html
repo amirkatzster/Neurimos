@@ -63,11 +63,37 @@
             <input class="form-control" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="...הכנס דגם" required>
         </div>
         <div class="form-group">
-          <label for="shoeId">מחיר</label>
-          <div class="input-group">
-            <span class="input-group-addon">₪</span>
-            <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="...הכנס מחיר" step="any" min="0">
-          </div>
+            <div class="input-group">
+              <label for="shoeId">מחיר לפני הנחה</label>
+              <mat-grid-list cols="3" rowHeight="40px">
+                    <mat-grid-tile  colspan="2">
+                          <span class="input-group-addon">₪</span>
+                          <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="...הכנס מחיר" step="any" min="0">
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <button *ngIf="!currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-success"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת הנחה</button>
+                        <button *ngIf="currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-danger"><i class="fa fa-minus fa-1x" aria-hidden="true"></i>הסרת הנחה</button>
+                    </mat-grid-tile>
+              </mat-grid-list>
+          </div>  
+        </div>
+        <div class="form-group" *ngIf="currentShoe.discount">
+            <div class="input-group">
+            <label for="shoeId">הנחה</label>
+            <mat-grid-list cols="5" rowHeight="40px">
+                <mat-grid-tile colspan="2">
+                    <input class="form-control" type="number" name="discountPer" [(ngModel)]="currentShoe.discount.percentage" placeholder="הנחה באחוזים" step="any" min="0" max="100">
+                    <span class="input-group-addon">%</span>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="OrDiscount">או</div>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                    <input class="form-control" type="number" name="discountCash" [(ngModel)]="currentShoe.discount.newAmount" placeholder="המחיר החדש" step="any" min="0">
+                    <span class="input-group-addon">₪</span> 
+                </mat-grid-tile>
+           </mat-grid-list>
+           </div>
         </div>
         <hr>
         <div class="form-group" >

@@ -208,7 +208,6 @@ export class ShoesComponent implements OnInit {
       this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
     }
     this.currentShoe.imagesGroup.forEach(ig => {
-      debugger;
       ig.sizeOptions  = [];
       this.sizes.forEach(s => {
         const sizeIndex = ig.sizes.map(igs => igs.size).indexOf(s.toString());
@@ -242,6 +241,14 @@ export class ShoesComponent implements OnInit {
       if (sizeOption.amount === 0) {
          sizeOption.mark = false;
       }
+    }
+  }
+
+  addRemoveDiscount(shoe) {
+    if (!this.currentShoe.discount) {
+      this.currentShoe.discount = {};
+    } else {
+      this.currentShoe.discount = null;
     }
   }
 
