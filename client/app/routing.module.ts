@@ -23,9 +23,8 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
-  { path: 'collection', component: CollectionComponent },
   { path: 'notfound', component: NotFoundComponent },
-  { path: '**', redirectTo: '/notfound' },
+  { path: ':query', component: CollectionComponent },
 ];
 
 @NgModule({

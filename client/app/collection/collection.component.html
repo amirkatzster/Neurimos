@@ -1,3 +1,41 @@
 <div style="position:initial">
-  collection works!
+  
+  <div class="container firstRow" >
+      <div class="row secondRow">
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select placeholder="מיון על פי">
+                <mat-option *ngFor="let sort of sortList" [value]="sort.value">
+                  {{ sort.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field></div>
+          <div class="col-md-10">
+              <h1><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">222</span> נעליים!</h1>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-9">
+            <mat-form-field style="width: 100%;">
+              <mat-chip-list #chipList selectable="true">
+                <mat-chip *ngFor="let filter of filters" selectable="false" removable="true" color="primary" (remove)="removeFilter(filter)">
+                    {{filter}}<i matChipRemove class="material-icons cancelIcon">cancel</i></mat-chip>
+                <input 
+                [matChipInputFor]="chipList" 
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addFilter($event)" 
+                placeholder="הבחירה שלך:">
+              </mat-chip-list>
+            </mat-form-field>  
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-2 narrow">צמצום הבחירה</div>
+        </div>
+      <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">[פה יהיה פילטר]</div>
+      </div>
+    </div>
 </div>

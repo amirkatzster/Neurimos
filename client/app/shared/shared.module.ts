@@ -8,7 +8,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatRadioModule, MatAutocompleteModule,
-         MatSelectModule, MatMenuModule, MatGridListModule } from '@angular/material';
+         MatSelectModule, MatMenuModule, MatGridListModule, MatChipsModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
@@ -29,7 +29,8 @@ import { FooterComponent } from './footer/footer.component';
     MatSelectModule,
     MatMenuModule,
     RoutingModule,
-    MatGridListModule
+    MatGridListModule,
+    MatChipsModule
   ],
   exports: [
     // Shared Modules
@@ -44,6 +45,7 @@ import { FooterComponent } from './footer/footer.component';
     MatAutocompleteModule,
     MatSelectModule,
     MatGridListModule,
+    MatChipsModule,
     // Shared Components
     ToastComponent,
     LoadingComponent,

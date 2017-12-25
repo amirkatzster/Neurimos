@@ -8,6 +8,7 @@ import { AuthService } from 'app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+  querySearch: String;
   constructor(public auth: AuthService) { }
 
   ngOnInit() {
