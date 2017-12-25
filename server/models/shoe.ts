@@ -39,7 +39,8 @@ const shoeSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'classificationSchema'
   },
-  searchWords: [String],
+  //TODO: Check if need to remove in prod?!
+  searchWords: { type: [String], index: true },
   information: String,
   imagesGroup: [ ImageSchema ],
   updated: { type: Date, default: Date.now },

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import {ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
+import { ShoeService } from 'app/services/shoe.service';
 
 @Component({
   selector: 'app-collection',
@@ -14,6 +15,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
   private sub: any;
   queries: String[];
   filters: String[];
+  shoes: any[];
+  isLoading: boolean;
   searchToShow: String[];
   sortList: any[] = [{'value': 'rel' , 'viewValue': 'רלוונטיות'},
                      {'value': 'new' , 'viewValue': 'חדשים'},
@@ -22,17 +25,30 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   separatorKeysCodes = [ENTER, 188];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private shoeService: ShoeService) {
     this.queries = [];
     this.filters = [];
-  } 
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.queries = this.replaceAll(params['query'].trim(), ' ', '-').split('-');
+      const searchQuery = (params['query'].replace(/\s\s+/g, ' ')).trim();
+      this.queries = this.replaceAll(searchQuery, ' ', '-').split('-');
       this.filters = this.queries;
-      // In a real app: dispatch action to load the details here.
+      // dispatch action to load the details here.
+      this.updateCollection();
    });
+  }
+
+  updateCollection() {
+    this.shoeService.searchShoes(this.queries).subscribe(
+      data => {
+         this.shoes = data;
+      },
+      error => console.log(error),
+      () => this.isLoading = false
+    );
   }
 
   ngOnDestroy() {

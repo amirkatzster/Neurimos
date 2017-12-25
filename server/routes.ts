@@ -22,6 +22,7 @@ export default function setRoutes(app) {
   // Shoes
   router.route('/shoes').get(shoeCtrl.getAll);
   router.route('/shoes/count').get(shoeCtrl.count);
+  router.route('/shoes/search').post(shoeCtrl.search);
   router.route('/shoe').post(shoeCtrl.insert);
   router.route('/shoe/:id').get(shoeCtrl.get);
   router.route('/shoe/:id').put(shoeCtrl.update);

@@ -11,11 +11,11 @@
           <li><a href="#">פרטי הגעה</a></li>
         </ul>
       </div>
-    </div>
+    </div> 
   </div>
   <div class="row search-bar">
       <div class="col-md-2 cart-container"><a class="my-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה שלי</a></div>
-      <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה"><button class="btn header-btn btn-default search-button" [(routerLink)]="querySearch">חפש</button></div>
+      <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" [(routerLink)]="querySearch">חפש</button></div>
       <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logos.jpg"></a></div>
       <div class="col-md-1"></div>
   </div>

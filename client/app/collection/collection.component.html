@@ -11,7 +11,9 @@
               </mat-select>
             </mat-form-field></div>
           <div class="col-md-10">
-              <h1><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">222</span> נעליים!</h1>
+              <h1 *ngIf="shoes?.length > 0"><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!</h1>
+              <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
+              
           </div>
       </div>
       <div class="row">
@@ -33,7 +35,14 @@
           <div class="col-md-2 narrow">צמצום הבחירה</div>
         </div>
       <div class="row">
-        <div class="col-md-9"></div>
+        <div class="col-md-9">
+          <div *ngFor="let shoe of shoes">
+            <!-- <a [routerLink]="'/s/' + s.company + '-' + s.name + '-' + s.imagesGroup.map(ig => ig.color).join('-')"> -->
+            {{shoe.name}}
+            <img [src]="shoe.imagesGroup[0].images[0].urlMedium" width="255"/>
+            <!-- </a> -->
+          </div>
+        </div>
         <div class="col-md-1"></div>
         <div class="col-md-2">[פה יהיה פילטר]</div>
       </div>
