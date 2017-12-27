@@ -44,7 +44,9 @@ const shoeSchema = new mongoose.Schema({
   searchWords: { type: [String], index: true },
   information: String,
   imagesGroup: [ ImageSchema ],
+  stock: Number,
   updated: { type: Date, default: Date.now },
+  inserted: { type: Date, default: Date.now },
 });
 
 const Shoe = mongoose.model('Shoe', shoeSchema);

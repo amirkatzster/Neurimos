@@ -26,18 +26,6 @@ export default class ShoeCtrl extends BaseCtrl {
       if (err) { return console.error(err); }
       res.json(docs);
     });
-    // searchWords
-    // const obj = new this.model(req.body);
-    // obj.save((err, item) => {
-    //   // 11000 is the code for duplicate key error
-    //   if (err && err.code === 11000) {
-    //     res.sendStatus(400);
-    //   }
-    //   if (err) {
-    //     return console.error(err);
-    //   }
-    //   res.status(200).json(item);
-    // });
   };
 
   deleteImages(shoe) {
@@ -117,8 +105,7 @@ export default class ShoeCtrl extends BaseCtrl {
         this.deleteImages(shoe);
       }
       this.addImages(shoe);
+      shoe.updated = new Date().getTime();
   }
-
-  
 
 }

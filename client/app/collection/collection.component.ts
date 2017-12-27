@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import {ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
@@ -26,6 +26,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   separatorKeysCodes = [ENTER, 188];
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private shoeService: ShoeService) {
     this.queries = [];
     this.filters = [];
@@ -75,6 +76,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.filters.splice(index, 1);
     }
+    this.router.navigateByUrl('/' + this.filters.join(' '));
   }
 
   escapeRegExp(str) {

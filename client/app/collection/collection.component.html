@@ -1,5 +1,4 @@
 <div style="position:initial">
-  
   <div class="container-fluid firstRow" >
       <div class="row secondRow">
           <div class="col-md-2">
@@ -22,12 +21,12 @@
               <mat-chip-list #chipList selectable="true">
                 <mat-chip *ngFor="let filter of filters" selectable="false" removable="true" color="primary" (remove)="removeFilter(filter)">
                     {{filter}}<i matChipRemove class="material-icons cancelIcon">cancel</i></mat-chip>
-                <input 
+                <!-- <input 
                 [matChipInputFor]="chipList" 
                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                 [matChipInputAddOnBlur]="addOnBlur"
                 (matChipInputTokenEnd)="addFilter($event)" 
-                placeholder="הבחירה שלך:">
+                placeholder="הבחירה שלך:"> -->
               </mat-chip-list>
             </mat-form-field>  
           </div>
@@ -35,8 +34,8 @@
         </div>
       <div class="row">
         <div class="col-md-10">
-          <div class="row">
-              <div *ngFor="let shoe of shoes" class="col-sm-5 col-md-4 col-lg-3 col-xl-3">
+          <div class="row shoesCollectionContainer">
+              <div *ngFor="let shoe of shoes" class="shoesCollection col-sm-5 col-md-4 col-lg-3 col-xl-3">
                   <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
               </div>
           </div>

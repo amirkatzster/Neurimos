@@ -115,15 +115,21 @@ export class ShoesComponent implements OnInit {
   beforeSubmitting(shoe) {
     shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
     this.genders.forEach(g => g.mark = false);
+    let countStock: Number = 0;
     this.currentShoe.imagesGroup.forEach(ig => {
       if (ig.sizeOptions) {
         ig.sizes = [];
         ig.sizeOptions.filter(g => g.mark).forEach(so => {
+          countStock += so.amount;
           ig.sizes.push({'size' : so.name , 'amount' : so.amount});
         });
       }
     });
-    // arrange searchwords
+    this.createSearchWords(shoe);
+    shoe.stock = countStock;
+  }
+
+  createSearchWords(shoe) {
     const searchWords: String[] = [];
     this.classifications.forEach(c => {
       if (c._id === shoe.classification) {
@@ -131,10 +137,18 @@ export class ShoesComponent implements OnInit {
       }})
     shoe.company = this.companies.find(c => c._id === shoe.companyId).name;
     searchWords.push(shoe.id);
-    searchWords.push(shoe.company);
-    searchWords.push(shoe.name);
+    shoe.company.split(' ').forEach(element => {
+      searchWords.push(element);
+    });
+    shoe.name.split(' ').forEach(element => {
+      searchWords.push(element);
+    });
     shoe.gender.forEach(g => searchWords.push(g));
-    shoe.imagesGroup.forEach(ig => searchWords.push(ig.color));
+    shoe.imagesGroup.forEach(ig => {
+      ig.color.split(' ').forEach(element => {
+        searchWords.push(element);
+      });
+    });
     shoe.searchWords = searchWords;
   }
 
