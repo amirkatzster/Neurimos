@@ -1,23 +1,23 @@
 <div style="position:initial">
   
-  <div class="container firstRow" >
+  <div class="container-fluid firstRow" >
       <div class="row secondRow">
           <div class="col-md-2">
-            <mat-form-field>
-              <mat-select placeholder="מיון על פי">
-                <mat-option *ngFor="let sort of sortList" [value]="sort.value">
-                  {{ sort.viewValue }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field></div>
+              <mat-form-field>
+                <mat-select placeholder="מיון על פי">
+                  <mat-option *ngFor="let sort of sortList" [value]="sort.value">
+                    {{ sort.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
           <div class="col-md-10">
               <h1 *ngIf="shoes?.length > 0"><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!</h1>
               <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
-              
           </div>
       </div>
       <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-10">
             <mat-form-field style="width: 100%;">
               <mat-chip-list #chipList selectable="true">
                 <mat-chip *ngFor="let filter of filters" selectable="false" removable="true" color="primary" (remove)="removeFilter(filter)">
@@ -31,20 +31,17 @@
               </mat-chip-list>
             </mat-form-field>  
           </div>
-          <div class="col-md-1"></div>
           <div class="col-md-2 narrow">צמצום הבחירה</div>
         </div>
       <div class="row">
-        <div class="col-md-9">
-          <div *ngFor="let shoe of shoes">
-            <!-- <a [routerLink]="'/s/' + s.company + '-' + s.name + '-' + s.imagesGroup.map(ig => ig.color).join('-')"> -->
-            {{shoe.name}}
-            <img [src]="shoe.imagesGroup[0].images[0].urlMedium" width="255"/>
-            <!-- </a> -->
+        <div class="col-md-10">
+          <div class="row">
+              <div *ngFor="let shoe of shoes" class="col-sm-5 col-md-4 col-lg-3 col-xl-3">
+                  <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
+              </div>
           </div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-2">[פה יהיה פילטר]</div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">[פה יהיה פילטר]</div>
       </div>
     </div>
 </div>

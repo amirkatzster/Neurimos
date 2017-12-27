@@ -32,6 +32,10 @@ export class ShoeService {
     return this.http.get(`/api/shoe/${shoe._id}`).map(res => res.json());
   }
 
+  getShoeById(id): Observable<any> {
+    return this.http.get(`/api/shoe/${id}`).map(res => res.json());
+  }
+
   editShoe(shoe): Observable<any> {
     return this.http.put(`/api/shoe/${shoe._id}`, JSON.stringify(shoe), this.options);
   }

@@ -1,0 +1,72 @@
+<div style="position:initial">
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-12" style="text-align:center">
+              [אנשים שאהבו את זה ראו גם...]
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                מספר מזהה {{ shoe?.id }}  
+           </div>
+            <div class="col-md-10">
+              <a href="#"><< חזרה</a> | <a href="#">נעליים</a> > <a href="#">{{shoe?.name}}</a> > <a href="#">{{shoe?.company}}</a>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-12 borderGray roundedBorder">
+                <div class="row">
+                <div class="col-md-3 leftSide" >
+                    <img class="companyLogo" src={{company?.image}} alt="{{ company?.name }}"/>
+                    <div class="delim"></div>
+                    <div class="grayArea">
+                        <div class="price">{{shoe?.price}} ₪</div>
+                        <div class="colors">
+                            <mat-form-field>
+                                <mat-select placeholder="בחר צבע">
+                                    <mat-option *ngFor="let ig of shoe?.imagesGroup" [value]="ig.color">
+                                    {{ ig.color }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                    <mat-select placeholder="מידה">
+                                        <mat-option *ngFor="let size of currentImageGroup?.sizes" [value]="size.size">
+                                        {{ size.size }}
+                                        </mat-option>
+                                    </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="buttonBuy">
+                            <button type="button" class="btn btn-success">הוסף לעגלה</button>
+                        </div>
+                    </div>
+                </div>
+                  <div class="col-md-9 borderShoes">
+                    <div class="shoeHeader"><a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a></div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-9">
+                            <picture>
+                                <img class="bigImg" [src]="currentImageGroup?.images[0].urlLarge"/>
+                            </picture>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1">
+                            <img *ngFor="let positionImg of currentImageGroup?.images" class="thumbnail" [src]="positionImg.urlSmall"/>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-1" *ngFor="let colorImg of shoe?.imagesGroup">
+                            <img class="thumbnail" [src]="colorImg.images[0].urlSmall"/>
+                        </div>
+                        <div class="col-md-2"></div>
+                  </div>
+                  </div>
+                  </div>               
+            </div>
+      </div>
+  </div>
+</div>

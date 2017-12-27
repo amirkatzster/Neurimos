@@ -1,0 +1,56 @@
+.shoeContainer
+{
+    box-sizing: border-box;
+    max-height: 300px;
+    min-height: 176px;
+    max-width: 250px;
+    min-width: 115px;
+    margin: 20px 20px;
+    text-align: center;
+}
+
+
+.imgContainer
+{
+     height:100px;
+     
+     @media(min-width: 768px)
+     {
+        height:92;
+     }
+}
+
+a {
+    color:#2d5887
+}
+
+a:active, a:hover {
+    color: #fe5200 !important;
+    text-decoration: none;
+}
+a:visited {
+    color: #629ddb
+}
+
+.shoeText
+{
+    margin: 30px 0;
+    text-align: center;
+    font-size: 12px;
+    line-height: 14px;
+    
+
+    .company {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .name {
+        text-decoration: underline;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #575B5D;
+    }
+}

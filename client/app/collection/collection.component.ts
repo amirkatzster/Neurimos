@@ -41,6 +41,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
    });
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
   updateCollection() {
     this.shoeService.searchShoes(this.queries).subscribe(
       data => {
@@ -51,9 +55,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+  
 
   addFilter(event: MatChipInputEvent): void {
     const input = event.input;

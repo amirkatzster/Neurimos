@@ -1,0 +1,80 @@
+.borderGray {
+    border: 1px solid #dddddd;
+    
+}
+
+.borderShoes {
+    border-left: 1px solid #dddddd;
+}
+
+.roundedBorder {
+  border-radius: 2px;
+}
+
+.shoeHeader
+{    
+    text-align: center;
+    margin: 15px;
+
+    a {
+        font-size: 24px;
+        font-family:"Georgia, Times New Roman, serif";
+        font-style: italic;
+        color: #575b5d;
+        -o-transition:.5s;
+        -ms-transition:.5s;
+        -moz-transition:.5s;
+        -webkit-transition:.5s;
+        /* ...and now for the proper property */
+        transition:.5s;       
+    }
+
+    :hover {
+        color: #9ca1a3;
+        text-decoration: none;
+    }
+}
+
+
+.leftSide{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    .companyLogo
+    {
+        height: 40px;
+    }
+
+    .delim
+    {
+        width:100%;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .grayArea
+    {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: #f2f2f2;
+    }
+
+    .price
+    {
+        padding:30px 0;
+        color: #fe5400;
+        font-size: 43px;
+    }
+
+    .buttonBuy
+    {
+        padding: 20px 0 70px 0;
+    }
+}
+
+.bigImg
+{
+    margin: 50px 0;
+}
+
+

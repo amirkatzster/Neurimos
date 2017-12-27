@@ -18,6 +18,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AdminModule } from './admin/admin.module';
 import { LandingComponent } from './landing/landing.component';
 import { CollectionComponent } from './collection/collection.component';
+import { CollectionShoeComponent } from './collection/collectionShoe/collectionShoe.component';
+import { ShoeDetailsComponent } from './collection/shoeDetails/shoeDetails.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CollectionComponent } from './collection/collection.component';
     AccountComponent,
     NotFoundComponent,
     LandingComponent,
-    CollectionComponent
+    CollectionComponent,
+    CollectionShoeComponent,
+    ShoeDetailsComponent
 ],
   imports: [
     RoutingModule,

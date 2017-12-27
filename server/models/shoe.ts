@@ -28,9 +28,10 @@ const DiscountSchema = new mongoose.Schema({
 
 
 const shoeSchema = new mongoose.Schema({
-  id: String,
+  id: { type: [String], index: true },
   active: Boolean,
   company: String,
+  companyId: String,
   name: String,
   price: Number,
   discount: DiscountSchema,

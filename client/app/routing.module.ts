@@ -14,10 +14,10 @@ import { AdminModule } from 'app/admin/admin.module';
 import { MenuComponent } from 'app/admin/menu.component';
 import { LandingComponent } from 'app/landing/landing.component';
 import { CollectionComponent } from 'app/collection/collection.component';
+import { ShoeDetailsComponent } from 'app/collection/shoeDetails/shoeDetails.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  // { path: 'shoes', component: ShoesComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
@@ -25,6 +25,9 @@ const routes: Routes = [
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },
   { path: ':query', component: CollectionComponent },
+  { path: ':desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
+  { path: ':desc/נעל/:id', component: ShoeDetailsComponent },
+  { path: ':company/נעלי', component: NotFoundComponent }
 ];
 
 @NgModule({

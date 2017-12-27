@@ -28,6 +28,10 @@ export class CompanyService {
     return this.http.get(`/api/company/${Company._id}`).map(res => res.json());
   }
 
+  getCompanyById(id): Observable<any> {
+    return this.http.get(`/api/company/${id}`).map(res => res.json());
+  }
+
   editCompany(Company): Observable<any> {
     return this.http.put(`/api/company/${Company._id}`, JSON.stringify(Company), this.options);
   }
