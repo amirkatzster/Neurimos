@@ -29,9 +29,9 @@ export default function setRoutes(app) {
   router.route('/shoe/:id').delete(shoeCtrl.delete);
 
   // Classification
+  router.route('/header').get(classificationCtrl.header);
   router.route('/classifications').get(classificationCtrl.getAll);
   router.route('/classifications/count').get(classificationCtrl.count);
-  router.route('/classifications/header').get(classificationCtrl.header);
   router.route('/classification').post(classificationCtrl.insert);
   router.route('/classification/:id').get(classificationCtrl.get);
   router.route('/classification/:id').put(classificationCtrl.update);

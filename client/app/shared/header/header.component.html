@@ -44,63 +44,36 @@
         <div class="col-md-5">
           <ul>
             <li>
+                <a href="#" mat-icon-button [matMenuTriggerFor]="menMenu" class="nav-item nav-link header-nav-btn">
+                    גברים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </a>
+                  <mat-menu #menMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                      <button *ngFor="let classification of men" mat-menu-item [routerLink]="['גברים ' + classification]">{{classification}}</button>
+                  </mat-menu>
+            </li>
+            <li>
+                <a href="#" mat-icon-button [matMenuTriggerFor]="womenMenu" class="nav-item nav-link header-nav-btn">
+                    נשים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </a>
+                  <mat-menu #womenMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                      <button *ngFor="let classification of women" mat-menu-item [routerLink]="['נשים ' + classification]">{{classification}}</button>
+                  </mat-menu>
+            </li>
+            <li>
                 <a href="#" mat-icon-button [matMenuTriggerFor]="boysMenu" class="nav-item nav-link header-nav-btn">
                     ילדים <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </a>
                 <mat-menu #boysMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                     <button mat-menu-item [routerLink]="['מגפיים']">מגפיים</button>
-                     <button mat-menu-item>סניקרס וספורט</button>
-                     <button mat-menu-item>מוקסינים</button>
-                     <button mat-menu-item>נעלי בית</button>
-                     <button mat-menu-item>סנדלים</button>
-                     <button mat-menu-item>אלגנט</button>
+                     <button *ngFor="let classification of boys" mat-menu-item [routerLink]="['ילדים ' + classification]">{{classification}}</button>
                 </mat-menu>
             </li>
             <li>
-                <a href="#" mat-icon-button [matMenuTriggerFor]="girlMenu" class="nav-item nav-link">
-                    ילדות <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </a>
-                <mat-menu #girlMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                     <button mat-menu-item>מגפיים</button>
-                     <button mat-menu-item>סניקרס וספורט</button>
-                     <button mat-menu-item>שטוחות</button>
-                     <button mat-menu-item>נעלי בית</button>
-                     <button mat-menu-item>סנדלים</button>
-                     <button mat-menu-item>מוקסינים</button>
-                </mat-menu> 
-            </li>
-            <li>
-                <a href="#" mat-icon-button [matMenuTriggerFor]="womanMenu" class="nav-item nav-link">
-                    גברים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </a>
-                <mat-menu #manMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                     <button mat-menu-item>סניקרס וספורט</button>
-                     <button mat-menu-item>מגפיים</button>
-                     <button mat-menu-item>אלגנט</button>
-                     <button mat-menu-item>מוקסינים</button>
-                     <button mat-menu-item>סנדלים</button>
-                     <button mat-menu-item>נעלי בית</button>
-                     <button mat-menu-item>כפכפים</button>
-                     <button mat-menu-item>נעלי סירה</button>
-                </mat-menu>   
-            </li>
-            <li>
-                <a href="#" mat-icon-button  [matMenuTriggerFor]="womanMenu" class="nav-item nav-link">
-                    נשים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </a>
-                <mat-menu #womanMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                    <button mat-menu-item>סניקרס וספורט</button>
-                    <button mat-menu-item>מגפיים</button>
-                    <button mat-menu-item>שטוחות</button>
-                    <button mat-menu-item>נוחות</button>
-                    <button mat-menu-item>עקבים</button>
-                    <button mat-menu-item>סנדלים</button>
-                    <button mat-menu-item>מוקסינים</button>
-                    <button mat-menu-item>סנדלים</button>
-                    <button mat-menu-item>כפכפים</button>
-                    <button mat-menu-item>אלגנט</button>
-                    <button mat-menu-item>נעלי בית</button>
-                </mat-menu>     
+              <a href="#" mat-icon-button [matMenuTriggerFor]="girlsMenu" class="nav-item nav-link header-nav-btn">
+                ילדות <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+              <mat-menu #girlsMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+                  <button *ngFor="let classification of girls" mat-menu-item [routerLink]="['ילדות ' + classification]">{{classification}}</button>
+              </mat-menu>
             </li>
           </ul>
           </div>

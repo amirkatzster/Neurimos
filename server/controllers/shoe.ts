@@ -4,6 +4,7 @@ import BaseCtrl from './base';
 import AWS = require('aws-sdk');
 import config = require('config');
 import Jimp = require('jimp');
+import cache = require('memory-cache');
 
 export default class ShoeCtrl extends BaseCtrl {
   model = Shoe;
@@ -106,6 +107,7 @@ export default class ShoeCtrl extends BaseCtrl {
       }
       this.addImages(shoe);
       shoe.updated = new Date().getTime();
+      cache.del('header');
   }
 
 }

@@ -20,8 +20,8 @@ export class ClassificationService {
     return this.http.get('/api/classifications/count').map(res => res.json());
   }
 
-  getHeaderClassification(): Observable<any> {
-    return this.http.get('/api/classification/header').map(res => res.json());
+  getHeader(): Observable<any> {
+    return this.http.get('/api/header').map(res => res.json());
   }
 
   addClassification(Classification): Observable<any> {
@@ -40,6 +40,5 @@ export class ClassificationService {
     return this.http.delete(`/api/classification/${Classification._id}`, this.options);
   }
 
-  
 
 }
