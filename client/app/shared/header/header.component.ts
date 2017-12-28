@@ -23,19 +23,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
               { }
 
   ngOnInit() {
-    this.subRoute = this.route.params.subscribe(param => {
       this.sub = this.classificationService.getHeader().subscribe(data => {
         this.boys = data.filter(o => o.gen === 'ילדים')[0].cls;
         this.girls = data.filter(o => o.gen === 'ילדות')[0].cls;
         this.men = data.filter(o => o.gen === 'גברים')[0].cls;
         this.women = data.filter(o => o.gen === 'נשים')[0].cls;
       });
-    });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-    this.subRoute.unsubscribe();
   }
 
 }
