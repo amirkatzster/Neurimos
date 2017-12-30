@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShoeService } from 'app/services/shoe.service';
 import { CompanyService } from 'app/services/company.service';
+import { MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-shoe-details',
@@ -17,7 +18,8 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   company: any;
   linkToShoe: String;
   linkToCompany: String;
-  currentImageGroup: String;
+  currentImageGroup: any;
+  currentImage: any;
   constructor(private route: ActivatedRoute,
               private shoeService: ShoeService,
               public companyService: CompanyService) { }
@@ -36,7 +38,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           } else {
             this.currentImageGroup = this.shoe.imagesGroup[0];
           }
-
+          this.currentImage = this.currentImageGroup.images[0];
           this.subComp = this.companyService.getCompanyById(this.shoe.companyId).subscribe(
             compData => {
               this.company = compData;
@@ -49,6 +51,22 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
       );
       
    });
+  }
+
+  colorChangeEvent(newValue) {
+     this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === newValue);
+     this.currentImage = this.currentImageGroup.images[0];
+  }
+
+  selectPosition(positionImg) {
+    this.currentImage = positionImg;
+    return false;
+  }
+
+  selectColor(imageGroup) {
+    this.currentImageGroup = imageGroup;
+    this.currentImage = imageGroup.images[0];
+    return false;
   }
 
   ngOnDestroy() {

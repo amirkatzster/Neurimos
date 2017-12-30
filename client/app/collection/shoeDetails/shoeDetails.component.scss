@@ -77,4 +77,57 @@
     margin: 50px 0;
 }
 
+.thumbnailContainer
+{
+    a {
+        
+
+        img {
+            opacity: 0.8;
+            border: 2px solid white;
+            border-radius: 4px;
+            padding: 4px 4px;
+            margin: 2px 2px;
+
+        }
+        img:hover {
+            border-color:#b4d5fb;
+        }
+        img.marked {
+            border-color:#254574 !important;
+        }
+    }
+
+}
+
+.breadCrumbs  {
+    a {
+        color: #2d5886;
+        text-decoration: none;
+    }
+   
+    a:hover {
+        color: #fe5400;
+    }
+}
+
+.information-header
+{
+    padding: 5px;
+    max-width: 200px;
+    background-color: #2d5886;
+    color: white
+}
+
+.buy-header {
+    padding: 5px;
+    background-color: #2d5886;
+    color: white
+}
+
+.infoContainer
+{
+    margin: 20px 0 100px 0;
+}
+
 

@@ -36,6 +36,7 @@ const shoeSchema = new mongoose.Schema({
   price: Number,
   discount: DiscountSchema,
   gender: [String],
+  classificationCache: String,
   classification: {
     type: mongoose.Schema.ObjectId,
     ref: 'classificationSchema'

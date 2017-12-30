@@ -9,8 +9,8 @@
             <div class="col-md-2">
                 מספר מזהה {{ shoe?.id }}  
            </div>
-            <div class="col-md-10">
-              <a href="#"><< חזרה</a> | <a href="#">נעליים</a> > <a href="#">{{shoe?.name}}</a> > <a href="#">{{shoe?.company}}</a>
+            <div class="col-md-10 breadCrumbs">
+              <a href="#"><< חזרה</a> | <a href="#" [routerLink]="'/נעליים'">נעליים</a> > <a href="#" [routerLink]="'/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> > <a href="#" [routerLink]="'/' +shoe?.company">{{shoe?.company}}</a>
             </div>
             
         </div>
@@ -24,7 +24,7 @@
                         <div class="price">{{shoe?.price}} ₪</div>
                         <div class="colors">
                             <mat-form-field>
-                                <mat-select placeholder="בחר צבע">
+                                <mat-select (ngModelChange)="colorChangeEvent($event)" placeholder="בחר צבע" [ngModel]="currentImageGroup?.color">
                                     <mat-option *ngFor="let ig of shoe?.imagesGroup" [value]="ig.color">
                                     {{ ig.color }}
                                     </mat-option>
@@ -49,21 +49,44 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-9">
                             <picture>
-                                <img class="bigImg" [src]="currentImageGroup?.images[0].urlLarge"/>
+                                <img class="bigImg" [src]="currentImage?.urlLarge"/>
                             </picture>
                         </div>
                         <div class="col-md-1"></div>
-                        <div class="col-md-1">
-                            <img *ngFor="let positionImg of currentImageGroup?.images" class="thumbnail" [src]="positionImg.urlSmall"/>
+                        <div class="col-md-1 thumbnailContainer">
+                            <a href="#" *ngFor="let positionImg of currentImageGroup?.images" (click)="selectPosition(positionImg)">
+                                <img class="thumbnail" [src]="positionImg.urlSmall" [ngClass]="{'marked': positionImg === currentImage }"/>
+                            </a>
                         </div>
                     </div> 
                     <div class="row">
                         <div class="col-md-2"></div>
-                        <div class="col-md-1" *ngFor="let colorImg of shoe?.imagesGroup">
-                            <img class="thumbnail" [src]="colorImg.images[0].urlSmall"/>
+                        <div class="col-md-1 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
+                            <a href="#" (click)="selectColor(colorImg)">
+                                <img  class="thumbnail" [src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
+                            </a>
                         </div>
                         <div class="col-md-2"></div>
-                  </div>
+                    </div>
+                    <div class="row">
+                        <div></div>
+                            
+                            <div class="col-md-12">
+                                <div>
+                                    <h2 class="information-header">אינפורמציה</h2>
+                                </div>
+                                <div class="infoContainer">
+                                   <ul>
+                                    <li>{{ shoe?.company}}</li> 
+                                    <li>{{ shoe?.classificationCache}}</li>  
+                                    <li>{{ shoe?.information}}</li> 
+                                   </ul> 
+                                </div>
+                                <div>
+                                    <h3 class="buy-header">נעורים מאז 1965 - קנה בביטחון</h3>
+                                </div>
+                            </div>
+                    </div>
                   </div>
                   </div>               
             </div>

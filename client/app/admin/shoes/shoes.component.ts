@@ -130,10 +130,11 @@ export class ShoesComponent implements OnInit {
   }
 
   createSearchWords(shoe) {
-    const searchWords: String[] = [];
+    const searchWords: String[] = ['נעליים'];
     this.classifications.forEach(c => {
       if (c._id === shoe.classification) {
         searchWords.push(c.name);
+        shoe.classificationCache = c.name;
       }})
     shoe.company = this.companies.find(c => c._id === shoe.companyId).name;
     searchWords.push(shoe.id);
