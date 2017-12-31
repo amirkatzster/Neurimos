@@ -50,7 +50,8 @@ import { FooterComponent } from './footer/footer.component';
     // Shared Components
     ToastComponent,
     LoadingComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   declarations: [
     ToastComponent,

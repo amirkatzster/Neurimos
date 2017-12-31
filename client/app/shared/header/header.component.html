@@ -1,10 +1,11 @@
 <div class="header navbar navbar-default">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-2">מאמינים בחיוך :)</div>
-      <div class="col-md-2"></div>
-      <div class="col-md-4"><a href="tel:035052769" class="header-phone">505-2769 (03) <i class="fa fa-phone" aria-hidden="true"></i></a>  9:00 עד 20:00 <i class="fa fa-clock-o" aria-hidden="true"></i></div>
-      <div class="col-md-4 dropdown">
+  <div class="container-fluid">
+    <div class="row first-row-header top-spacing">
+      <div class="col-md-2 hidden-xs-down">מאמינים בחיוך :)</div>
+      <div class="col-md-2 hidden-xs-down"></div>
+      <div class="col-md-2 col-xs-6"><a href="tel:035052769" class="header-phone">505-2769 (03) <i class="fa fa-phone" aria-hidden="true"></i></a></div>
+      <div class="col-md-2 hidden-xs-down"><div class="align-left">9:00 עד 20:00 <i class="fa fa-clock-o" aria-hidden="true"></i></div></div>
+      <div class="col-md-4 dropdown col-xs-6">
         <button class="btn header-btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">צרו קשר <span class="caret"></span></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
           <li><a href="#">שלחו לנו הודעה</a></li>
@@ -13,35 +14,65 @@
       </div>
     </div> 
   </div>
-  <div class="row search-bar">
+  <!-- For Desktop -->
+  <div class="row search-bar hidden-sm-down visible">
       <div class="col-md-2 cart-container"><a class="my-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה שלי</a></div>
       <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" [(routerLink)]="querySearch">חפש</button></div>
       <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logos.jpg"></a></div>
       <div class="col-md-1"></div>
   </div>
+  <!-- For Mobile -->
+  <div class="row login-mobile search-bar hidden-sm-up not-visible">
+      <div class="col-xs-12">
+          <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">התחבר</a>
+          <span class="nav-float or" *ngIf="!auth.loggedIn"> או </span>
+          <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">הרשם</a>
+          <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
+            <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
+          </a>
+          <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+            <i class="fa fa-lock" aria-hidden="true"></i> אדמין
+          </a>
+          <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
+            <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
+          </a><br>            
+          <span *ngIf="auth.loggedIn" class="nav-admin">
+            שלום :) {{auth.currentUser.username}}
+          </span>
+      </div>
+  </div>
+  <div class="row search-bar hidden-sm-up not-visible">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-5 cart-container"><div class="my-cart-mobile"><a class="my-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה שלי</a></div></div>
+      <div class="col-xs-1"></div>
+      <div class="col-xs-4"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logos.jpg"></a></div>
+  </div>
+  <div class="row search-bar hidden-sm-up not-visible">
+      <div class="col-xs-12"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" [(routerLink)]="querySearch">חפש</button></div>
+  </div>
   <nav class="navbar nav-main" >
-    <div class="nav navbar-nav nav-right row">
-        <div class="col-md-4">
-          <div class="register-container">
-            <a routerLink="/login" class="nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">התחבר</a>
-            <div class="nav-float or" *ngIf="!auth.loggedIn"> או </div>
-            <a routerLink="/register" class="nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">הרשם</a>
-            <a routerLink="/logout" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
+    <div class="nav navbar-nav nav-right row top-spacing">
+        <div class="col-md-4 col-xs-12">
+          <div class="register-container float-xs-right float-sm-left hidden-sm-down visible">
+            <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">התחבר</a>
+            <span class="nav-float or" *ngIf="!auth.loggedIn"> או </span>
+            <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">הרשם</a>
+            <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
               <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
             </a>
-            <a routerLink="/admin" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+            <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
               <i class="fa fa-lock" aria-hidden="true"></i> אדמין
             </a>
-            <a routerLink="/account" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
+            <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
               <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
-            </a>            
-            <div *ngIf="auth.loggedIn" class="nav-link">
+            </a><br>            
+            <span *ngIf="auth.loggedIn" class="nav-admin">
               שלום :) {{auth.currentUser.username}}
-            </div>
+            </span>
           </div>
         </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-5">
+        <div class="col-md-2 hidden-xs-down"></div>
+        <div class="col-md-5 col-xs-12">
           <ul>
             <li>
                 <a mat-icon-button [matMenuTriggerFor]="menMenu" class="nav-item nav-link header-nav-btn">
@@ -77,7 +108,7 @@
             </li>
           </ul>
           </div>
-          <div class="col-md-1"></div>
+          <div class="col-md-1 hidden-xs-down"></div>
     </div>
   </nav>
 

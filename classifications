@@ -9,3 +9,4 @@
 <button mat-menu-item>כפכפים</button>
 <button mat-menu-item>אלגנט</button>
 <button mat-menu-item>נעלי בית</button>
+<button mat-menu-item>נעלי סירה</button>
