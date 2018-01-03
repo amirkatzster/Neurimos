@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username: String,
-  role: String,
+  role: { type: String, default: 'user' },
   local          : {
     email        : { type: String, unique: true, lowercase: true, trim: true } ,
     password     : String,
@@ -34,7 +34,9 @@ userSchema.methods.validPassword = function(password) {
 // Omit the password when returning a user
 userSchema.set('toJSON', {
   transform: function(doc, ret, options) {
-    delete ret.local.password;
+    if (ret.local) {
+      delete ret.local.password;
+    }
     return ret;
   }
 });

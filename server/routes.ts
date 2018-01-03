@@ -55,19 +55,22 @@ export default function setRoutes(app, passport) {
   router.route('/company/:id').delete(companyCtrl.delete);
 
   // Users
-  router.route('/login').post(userCtrl.login);
-  router.route('/me').get(userCtrl.me);
-  router.route('/signup').post(userCtrl.signup);
   router.route('/users').all(isAdmin);
   router.route('/users').get(userCtrl.getAll);
   router.route('/users/count').get(userCtrl.count);
   router.route('/user').post(userCtrl.insert);
   router.route('/user/:id').get(userCtrl.get);
-  router.route('/user/fb/:id').get(userCtrl.getFaceBook);
   router.route('/user/:id').put(isAdmin);
   router.route('/user/:id').put(userCtrl.update);
   router.route('/user/:id').delete(isAdmin);
   router.route('/user/:id').delete(userCtrl.delete);
+
+  //auth
+  router.route('/auth/login').post(userCtrl.login);
+  router.route('/auth/me').get(userCtrl.me);
+  router.route('/auth/signup').post(userCtrl.signup);
+  router.route('/auth/facebook').get(userCtrl.facebookAuth);
+  router.route('/auth/facebook/callback').get(userCtrl.facebookAuthCallback);
 
   // Apply the routes to our applishoeion with the prefix /api
   app.use('/api', router);

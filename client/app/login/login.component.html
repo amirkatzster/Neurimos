@@ -2,13 +2,8 @@
 
 <div class="card">
     <div class="card-block">
-    <div class="fb-login-button" data-max-rows="1" 
-    data-size="medium" 
-    data-button-type="login_with" 
-    data-show-faces="false" 
-    data-auto-logout-link="false" 
-    data-use-continue-as="true"></div>
-    <h2>או</h2>
+    <a href="/api/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+    <h3>או</h3>
     <p>הכנס פרטי משתמש קיים</p>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="input-group" [ngClass]="setClassEmail()">

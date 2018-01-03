@@ -31,8 +31,17 @@ export default class UserCtrl extends BaseCtrl {
 
 
 
-  getFaceBook = (req, res) => {
-      return;
+  facebookAuth = (req, res) => {
+    passport.authenticate('facebook', {
+      scope : ['public_profile', 'email']
+    })(req, res)
+  }
+
+  facebookAuthCallback = (req, res) => {
+    passport.authenticate('facebook', {
+      successRedirect : '/',
+      failureRedirect : '/signup'
+    })(req, res)
   }
 
 }

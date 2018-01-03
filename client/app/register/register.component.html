@@ -3,6 +3,9 @@
 <div class="card">
   <h4>משתמש חדש</h4>
   <div class="card-block">
+    <a href="/api/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+    <h3>או</h3>
+    <p>הכנס פרטים</p>
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="input-group" [ngClass]="setClassUsername()">
         <span class="input-group-addon"><i class="fa fa-user"></i></span>

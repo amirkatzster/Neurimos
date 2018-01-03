@@ -32,7 +32,7 @@ export class AuthService {
       this.fb.getLoginStatus().then(res => {
         if (status === 'connected') {
           const userId = res.authResponse.userID;
-          this.fbLogin(userId);
+          //this.fbLogin(userId);
         }
       });
     }
@@ -51,14 +51,6 @@ export class AuthService {
   login(emailAndPassword) {
     return this.userService.login(emailAndPassword);
   }
-
-  fbLogin(userId) {
-    this.userService.getFacebookUser(userId).subscribe(
-      data => {
-        
-      }
-    );
-  };
 
   logout() {
     localStorage.removeItem('user');
