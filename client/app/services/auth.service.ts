@@ -1,48 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelper, AuthHttp } from 'angular2-jwt';
 
 import { UserService } from '../services/user.service';
+import { FacebookService, InitParams, LoginResponse, AuthResponse } from 'ngx-facebook';
+import { debug } from 'util';
 
 @Injectable()
 export class AuthService {
   loggedIn = false;
   isAdmin = false;
-
   jwtHelper: JwtHelper = new JwtHelper();
 
   currentUser = { _id: '', username: '', role: '' };
 
   constructor(private userService: UserService,
-              private router: Router) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedUser = this.decodeUserFromToken(token);
-      this.setCurrentUser(decodedUser);
+              private router: Router,
+              private fb: FacebookService) {
+    const initParams: InitParams = {
+      appId: '1764565033853258',
+      xfbml: true,
+      version: 'v2.11'
+    };
+    this.loadUser();
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.setCurrentUser(user);
+    } else {
+      fb.init(initParams);
+      // Check facebook...
+      this.fb.getLoginStatus().then(res => {
+        if (status === 'connected') {
+          const userId = res.authResponse.userID;
+          //this.fbLogin(userId);
+        }
+      });
     }
   }
 
+  loadUser() {
+    this.userService.me().subscribe(
+      data => {
+        if (data && data !== '0') {
+          localStorage.setItem('user', data);
+          this.setCurrentUser(data);
+        }
+      });
+  }
+
   login(emailAndPassword) {
-    return this.userService.login(emailAndPassword).map(res => res.json()).map(
-      res => {
-        localStorage.setItem('token', res.token);
-        const decodedUser = this.decodeUserFromToken(res.token);
-        this.setCurrentUser(decodedUser);
-        return this.loggedIn;
-      }
-    );
+    return this.userService.login(emailAndPassword);
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.loggedIn = false;
     this.isAdmin = false;
     this.currentUser = { _id: '', username: '', role: '' };
     this.router.navigate(['/']);
-  }
-
-  decodeUserFromToken(token) {
-    return this.jwtHelper.decodeToken(token).user;
   }
 
   setCurrentUser(decodedUser) {
