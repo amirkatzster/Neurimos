@@ -14,6 +14,7 @@ import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FooterComponent } from './footer/footer.component';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { FooterComponent } from './footer/footer.component';
     MatMenuModule,
     RoutingModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    FacebookModule.forRoot()
   ],
   exports: [
     // Shared Modules
@@ -51,7 +53,8 @@ import { FooterComponent } from './footer/footer.component';
     ToastComponent,
     LoadingComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FacebookModule
   ],
   declarations: [
     ToastComponent,

@@ -3,36 +3,38 @@ import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username: String,
-  email: { type: String, unique: true, lowercase: true, trim: true },
-  password: String,
-  role: String
+  role: String,
+  local          : {
+    email        : { type: String, unique: true, lowercase: true, trim: true } ,
+    password     : String,
+  },
+  facebook       : {
+    id           : String,
+    token        : String,
+    name         : String,
+    email        : String
+  },
+  google         : {
+    id           : String,
+    token        : String,
+    email        : String,
+    name         : String
+  }
 });
 
 // Before saving the user, hash the password
-userSchema.pre('save', function(next) {
-  const user = this;
-  if (!user.isModified('password')) { return next(); }
-  bcrypt.genSalt(10, function(err, salt) {
-    if (err) { return next(err); }
-    bcrypt.hash(user.password, salt, function(error, hash) {
-      if (error) { return next(error); }
-      user.password = hash;
-      next();
-    });
-  });
-});
+userSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-userSchema.methods.comparePassword = function(candidatePassword, callback) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) { return callback(err); }
-    callback(null, isMatch);
-  });
+userSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.local.password);
 };
 
 // Omit the password when returning a user
 userSchema.set('toJSON', {
   transform: function(doc, ret, options) {
-    delete ret.password;
+    delete ret.local.password;
     return ret;
   }
 });

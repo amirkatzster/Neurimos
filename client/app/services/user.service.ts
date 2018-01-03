@@ -16,12 +16,20 @@ export class UserService {
     return this.http.post('/api/user', JSON.stringify(user), this.options);
   }
 
+  signup(user): Observable<any> {
+    return this.http.post('/api/signup', JSON.stringify(user), this.options);
+  }
+
   login(credentials): Observable<any> {
     return this.http.post('/api/login', JSON.stringify(credentials), this.options);
   }
 
   getUsers(): Observable<any> {
     return this.http.get('/api/users').map(res => res.json());
+  }
+
+  me(): Observable<any> {
+    return this.http.get('/api/me').map(res => res.json());
   }
 
   countUsers(): Observable<any> {
@@ -34,6 +42,10 @@ export class UserService {
 
   getUser(user): Observable<any> {
     return this.http.get(`/api/user/${user._id}`).map(res => res.json());
+  }
+
+  getFacebookUser(userId): Observable<any> {
+    return this.http.get(`/api/user/fb/${userId}`).map(res => res.json());
   }
 
   editUser(user): Observable<any> {

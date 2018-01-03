@@ -1,8 +1,15 @@
 <app-toast [message]="toast.message"></app-toast>
 
 <div class="card">
-  <h4>הכנס פרטי משתמש</h4>
-  <div class="card-block">
+    <div class="card-block">
+    <div class="fb-login-button" data-max-rows="1" 
+    data-size="medium" 
+    data-button-type="login_with" 
+    data-show-faces="false" 
+    data-auto-logout-link="false" 
+    data-use-continue-as="true"></div>
+    <h2>או</h2>
+    <p>הכנס פרטי משתמש קיים</p>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="input-group" [ngClass]="setClassEmail()">
         <span class="input-group-addon "><i class="fa fa-envelope"></i></span>
@@ -16,3 +23,11 @@
     </form>
   </div>
 </div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=1764565033853258';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
