@@ -22,21 +22,14 @@ export class AuthService {
       xfbml: true,
       version: 'v2.11'
     };
+    fb.init(initParams);
     this.loadUser();
     const user = localStorage.getItem('user');
     if (user) {
       this.setCurrentUser(user);
-    } else {
-      fb.init(initParams);
-      // Check facebook...
-      this.fb.getLoginStatus().then(res => {
-        if (status === 'connected') {
-          const userId = res.authResponse.userID;
-          //this.fbLogin(userId);
-        }
-      });
     }
   }
+
 
   loadUser() {
     this.userService.me().subscribe(

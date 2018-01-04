@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShoeService } from 'app/services/shoe.service';
 import { CompanyService } from 'app/services/company.service';
 import { MatSelectChange } from '@angular/material';
+import { OrderService } from 'app/services/order.service';
 
 @Component({
   selector: 'app-shoe-details',
@@ -20,9 +21,12 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   linkToCompany: String;
   currentImageGroup: any;
   currentImage: any;
+  selectedSize: String;
   constructor(private route: ActivatedRoute,
               private shoeService: ShoeService,
-              public companyService: CompanyService) { }
+              public companyService: CompanyService,
+              private orderService: OrderService,
+              public router: Router) { }
 
 
   ngOnInit() {
@@ -49,13 +53,13 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
         error => console.log(error),
         //() => this.isLoading = false
       );
-      
    });
   }
 
   colorChangeEvent(newValue) {
      this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === newValue);
      this.currentImage = this.currentImageGroup.images[0];
+     this.selectedSize = null;
   }
 
   selectPosition(positionImg) {
@@ -73,6 +77,11 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
     this.subShoe.unsubscribe();
     this.subComp.unsubscribe();
+  }
+
+  addToCart() {
+    this.orderService.newOrder(this.shoe, this.currentImageGroup , this.selectedSize);
+    this.router.navigate(['orders']);
   }
 
 }

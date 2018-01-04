@@ -67,19 +67,28 @@ $header-background-color: #0076BE;
 {
     margin: 7% 0 0 0;
 }
-.my-cart
-{
-    border-radius: 6px;
-    border:2px solid #A8D677;
-    cursor: pointer;
-    padding: 4% 6%;
-    touch-action: manipulation;
-    text-decoration: none;
 
+.cartFull
+{
+    .my-cart
+    {
+        background-color: #A8D677; 
+    }
 }
 
 .cart-container
 {
+    .my-cart
+    {
+        border-radius: 6px;
+        border:2px solid #A8D677;
+        cursor: pointer;
+        padding: 4% 6%;
+        touch-action: manipulation;
+        text-decoration: none;
+    
+    }
+
     margin: 1% 0 0 0;
 }
 

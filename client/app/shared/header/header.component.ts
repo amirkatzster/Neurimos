@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { ClassificationService } from 'app/services/classification.service';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from 'app/services/order.service';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +17,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   men: any;
   women: any;
   sub: any;
+  cartCounterSub: any;
   subRoute: any;
+  cartCouter: Number;
+
   constructor(public auth: AuthService,
               private classificationService: ClassificationService,
-              private route: ActivatedRoute) 
+              private route: ActivatedRoute,
+              private orderService: OrderService)
               { }
 
   ngOnInit() {
@@ -29,10 +34,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.men = data.filter(o => o.gen === 'גברים')[0].cls;
         this.women = data.filter(o => o.gen === 'נשים')[0].cls;
       });
+      this.cartCounterSub = this.orderService.getOrdersCounter().subscribe(data => {
+          this.cartCouter = data;
+      })
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.cartCounterSub.unsubscribe();
   }
 
 }

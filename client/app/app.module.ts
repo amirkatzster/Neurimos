@@ -20,6 +20,8 @@ import { LandingComponent } from './landing/landing.component';
 import { CollectionComponent } from './collection/collection.component';
 import { CollectionShoeComponent } from './collection/collectionShoe/collectionShoe.component';
 import { ShoeDetailsComponent } from './collection/shoeDetails/shoeDetails.component';
+import { OrderService } from 'app/services/order.service';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { ShoeDetailsComponent } from './collection/shoeDetails/shoeDetails.compo
     LandingComponent,
     CollectionComponent,
     CollectionShoeComponent,
-    ShoeDetailsComponent
+    ShoeDetailsComponent,
+    OrdersComponent
 ],
   imports: [
     RoutingModule,
@@ -46,7 +49,8 @@ import { ShoeDetailsComponent } from './collection/shoeDetails/shoeDetails.compo
     AuthGuardAdmin,
     ShoeService,
     ClassificationService,
-    UserService
+    UserService,
+    OrderService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

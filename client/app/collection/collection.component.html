@@ -21,12 +21,6 @@
               <mat-chip-list #chipList selectable="true">
                 <mat-chip *ngFor="let filter of filters" selectable="false" removable="true" color="primary" (remove)="removeFilter(filter)">
                     {{filter}}<i matChipRemove class="material-icons cancelIcon">cancel</i></mat-chip>
-                <!-- <input 
-                [matChipInputFor]="chipList" 
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="addFilter($event)" 
-                placeholder="הבחירה שלך:"> -->
               </mat-chip-list>
             </mat-form-field>  
           </div>

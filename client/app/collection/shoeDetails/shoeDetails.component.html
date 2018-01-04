@@ -1,8 +1,8 @@
 <div style="position:initial">
     <div class="container" >
-        <div class="row">
+        <div class="row spacer">
             <div class="col-md-12" style="text-align:center">
-              [אנשים שאהבו את זה ראו גם...]
+              <!-- [אנשים שאהבו את זה ראו גם...] -->
             </div>
         </div>
         <div class="row">
@@ -24,22 +24,24 @@
                         <div class="price">{{shoe?.price}} ₪</div>
                         <div class="colors">
                             <mat-form-field>
-                                <mat-select (ngModelChange)="colorChangeEvent($event)" placeholder="בחר צבע" [ngModel]="currentImageGroup?.color">
+                                <mat-select name="color" (ngModelChange)="colorChangeEvent($event)" placeholder="בחר צבע" [ngModel]="currentImageGroup?.color" required>
                                     <mat-option *ngFor="let ig of shoe?.imagesGroup" [value]="ig.color">
                                     {{ ig.color }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <mat-form-field>
-                                    <mat-select placeholder="מידה">
+                                <div>
+                                    <mat-select  placeholder="מידה" name="size" [(ngModel)]="selectedSize" required>
                                         <mat-option *ngFor="let size of currentImageGroup?.sizes" [value]="size.size">
                                         {{ size.size }}
                                         </mat-option>
                                     </mat-select>
+                                </div>
                             </mat-form-field>
                         </div>
                         <div class="buttonBuy">
-                            <button type="button" class="btn btn-success">הוסף לעגלה</button>
+                            <button type="button" [disabled]="!selectedSize" class="btn btn-success" (click)="addToCart()">הוסף לעגלה</button>
                         </div>
                     </div>
                 </div>
@@ -67,6 +69,18 @@
                             </a>
                         </div>
                         <div class="col-md-2"></div>
+                    </div>
+                    <div class="row">
+                        <!-- PREPROCESS-START -->
+                        <div class="col-md-12 hide">
+                            <div *ngFor="let ig of shoe?.imagesGroup">
+                                <div *ngFor="let positionImg of ig?.images">
+                                    <img [src]="positionImg.urlSmall" />
+                                    <img [src]="positionImg.urlLarge" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PREPROCESS-END -->
                     </div>
                     <div class="row">
                         <div></div>

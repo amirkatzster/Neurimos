@@ -14,8 +14,10 @@
     </div>
     <div class="row">
         <div *ngFor="let company of companies;let i = index">
-            <div class="col-md-2">
+            <div class="col-md-2 companyContainer">
+                <a [routerLink]="[company.name]">
                     <img src={{company.image}} width="180" alt="{{ company.name }}"/>
+                </a>
             </div>
         </div>       
     </div>

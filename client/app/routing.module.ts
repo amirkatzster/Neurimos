@@ -15,12 +15,14 @@ import { MenuComponent } from 'app/admin/menu.component';
 import { LandingComponent } from 'app/landing/landing.component';
 import { CollectionComponent } from 'app/collection/collection.component';
 import { ShoeDetailsComponent } from 'app/collection/shoeDetails/shoeDetails.component';
+import { OrdersComponent } from 'app/orders/orders.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'orders', component: OrdersComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },

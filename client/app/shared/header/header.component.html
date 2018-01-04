@@ -16,9 +16,9 @@
   </div>
   <!-- For Desktop -->
   <div class="row search-bar hidden-sm-down visible">
-      <div class="col-md-2 cart-container"><a class="my-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה שלי</a></div>
+      <div class="col-md-2 cart-container" [ngClass]="{'cartFull' : orderService.orders?.length > 0}"><a class="my-cart" routerLink="/orders"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orders?.length > 0">{{orderService.orders?.length}} פריטים בעגלה</span><span *ngIf="orderService.orders?.length === 0">העגלה שלי</span></a></div>
       <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" [(routerLink)]="querySearch">חפש</button></div>
-      <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logos.jpg"></a></div>
+      <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" height="60"></a></div>
       <div class="col-md-1"></div>
   </div>
   <!-- For Mobile -->
@@ -43,9 +43,9 @@
   </div>
   <div class="row search-bar hidden-sm-up not-visible">
       <div class="col-xs-1"></div>
-      <div class="col-xs-5 cart-container"><div class="my-cart-mobile"><a class="my-cart" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה שלי</a></div></div>
+      <div class="col-xs-5 cart-container" [ngClass]="{'cartFull' : orderService.orders?.length > 0}"><div class="my-cart-mobile"><a class="my-cart" routerLink="/orders"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orders?.length > 0">{{orderService.orders?.length}} פריטים</span><span *ngIf="orderService.orders?.length === 0">העגלה שלי</span></a></div></div>
       <div class="col-xs-1"></div>
-      <div class="col-xs-4"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logos.jpg"></a></div>
+      <div class="col-xs-4"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" height="50"></a></div>
   </div>
   <div class="row search-bar hidden-sm-up not-visible">
       <div class="col-xs-12"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" [(routerLink)]="querySearch">חפש</button></div>
