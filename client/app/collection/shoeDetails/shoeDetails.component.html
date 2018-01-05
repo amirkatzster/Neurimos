@@ -10,7 +10,7 @@
                 מספר מזהה {{ shoe?.id }}  
            </div>
             <div class="col-md-10 breadCrumbs">
-              <a href="#"><< חזרה</a> | <a href="#" [routerLink]="'/נעליים'">נעליים</a> > <a href="#" [routerLink]="'/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> > <a href="#" [routerLink]="'/' +shoe?.company">{{shoe?.company}}</a>
+              <a class="link" (click)="backClicked()"><< חזרה</a> | <a href="#" [routerLink]="'/נעליים'">נעליים</a> > <a href="#" [routerLink]="'/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> > <a href="#" [routerLink]="'/' +shoe?.company">{{shoe?.company}}</a>
             </div>
             
         </div>

@@ -22,6 +22,7 @@ import { CollectionShoeComponent } from './collection/collectionShoe/collectionS
 import { ShoeDetailsComponent } from './collection/shoeDetails/shoeDetails.component';
 import { OrderService } from 'app/services/order.service';
 import { OrdersComponent } from './orders/orders.component';
+import { CheckoutComponent } from 'app/orders/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { OrdersComponent } from './orders/orders.component';
     LandingComponent,
     CollectionComponent,
     CollectionShoeComponent,
-    ShoeDetailsComponent,
+    ShoeDetailsComponent,
+    CheckoutComponent,
     OrdersComponent
 ],
   imports: [

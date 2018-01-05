@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ShoeService } from 'app/services/shoe.service';
 
 @Component({
   selector: 'app-collection-shoe',
@@ -10,11 +11,10 @@ export class CollectionShoeComponent implements OnInit {
   @Input() shoe: any;
 
   linkToDetails: string;
-  constructor() { }
+  constructor(private shoeService: ShoeService) { }
 
   ngOnInit() {
-    const colors = this.shoe.imagesGroup.map(ig => ig.color).join('-');
-    this.linkToDetails = `/${this.shoe.company}-${this.shoe.name}-${colors}/נעל/${this.shoe._id}/צבע/${this.shoe.imagesGroup[0].color}`;
+    this.linkToDetails = this.shoeService.getShoeLink(this.shoe);
   }
 
 }

@@ -25,13 +25,17 @@ export class OrderService {
 
   newOrder(shoe: any, imageGroup: any, size: String ) {
     const currentUser = this.authService.currentUser;
-    const order: Order = new Order();
-    order.shoe = shoe;
-    order.imageGroup = imageGroup;
-    order.size = size;
-    order.status = OrderStatus.Created;
-    this.orders.push(order);
-    localStorage.setItem('orders', JSON.stringify(this.orders));
+    let order = this.orders.find(o => o.shoe._id === shoe._id && o.imageGroup.color === imageGroup.color && o.size === size);
+    if (!order) {
+      order = new Order();
+      order.shoe = shoe;
+      order.imageGroup = imageGroup;
+      order.size = size;
+      order.status = OrderStatus.Created;
+      this.orders.push(order);
+    }
+    order.amount++;
+    this.persist();
   }
 
   getOrders() {
@@ -42,5 +46,14 @@ export class OrderService {
     return Observable.from(this.orders);
   }
 
+  removeOrder(order) {
+    const index = this.orders.indexOf(order);
+    this.orders.splice(index, 1);
+    this.persist();
+  }
+
+  persist() {
+    localStorage.setItem('orders', JSON.stringify(this.orders));
+  }
 
 }

@@ -4,6 +4,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { CompanyService } from 'app/services/company.service';
 import { MatSelectChange } from '@angular/material';
 import { OrderService } from 'app/services/order.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-shoe-details',
@@ -26,7 +27,8 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               private shoeService: ShoeService,
               public companyService: CompanyService,
               private orderService: OrderService,
-              public router: Router) { }
+              public router: Router,
+              private location: Location) { }
 
 
   ngOnInit() {
@@ -62,6 +64,10 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
      this.selectedSize = null;
   }
 
+  backClicked() {
+    this.location.back();
+  }
+
   selectPosition(positionImg) {
     this.currentImage = positionImg;
     return false;
@@ -81,7 +87,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
 
   addToCart() {
     this.orderService.newOrder(this.shoe, this.currentImageGroup , this.selectedSize);
-    this.router.navigate(['orders']);
+    this.router.navigate(['order']);
   }
 
 }

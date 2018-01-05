@@ -44,4 +44,9 @@ export class ShoeService {
     return this.http.delete(`/api/shoe/${shoe._id}`, this.options);
   }
 
+  getShoeLink(shoe) {
+    const colors = shoe.imagesGroup.map(ig => ig.color).join('-');
+    return `/${shoe.company}-${shoe.name}-${colors}/נעל/${shoe._id}/צבע/${shoe.imagesGroup[0].color}`;
+  }
+
 }

@@ -1,3 +1,114 @@
-<p>
-  orders works!
-</p>
+<div style="position:initial">
+  <div class="container-fluid firstRow" >
+    <div class="row secondRow">
+        <div class="col-md-9">
+            <h1 *ngIf="orders.length > 0">יש לך <span class="cartHeader">{{ totalAmount() }}</span> מוצרים בעגלה!</h1>
+            <h1 *ngIf="orders.length === 0">העגלה ריקה</h1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-9 safe">
+          קנייה בנעורים היא בטוחה. שרתינו מאובטחים ואנחנו מתגאים במוניטין מאז 1965.
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row spacer">
+      <div class="col-md-4">
+          <button *ngIf="orders.length > 0" type="button" class="btn btn-primary">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+      </div>
+      <div class="col-md-5">
+          <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+      <div class="spacer"></div>
+    </div>
+    <div class="row" *ngIf="orders.length > 0">
+      <div class="col-md-2"></div>
+      <div class="col-md-7 cartTableHeader">
+          כרגע בתוך העגלה
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row" *ngIf="orders.length > 0">
+      <div class="col-md-2"></div>
+      <div class="col-md-7">
+        <div class="row cartTableHeaderItems">
+          <div class="col-md-2">מחיר</div>
+          <div class="col-md-2">כמות</div>
+          <div class="col-md-2">מחיר לנעל</div>
+          <div class="col-md-6">הנעל</div>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+    <div class="row" *ngIf="orders.length > 0">
+        <div class="col-md-2"></div>
+        <div class="col-md-7">
+          <div class="row orderItem" *ngFor="let order of orders">
+            <div class="col-md-2 orderPrice text-center">₪{{order.shoe.price * order.amount}}</div>
+            <div class="col-md-2 text-center">
+              <div>
+                  <input type="number" (ngModelChange)="onAmountChange($event)"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  class="form-control form-control-sm amountInput" [(ngModel)]="order.amount" min="1" max="20" step="1" >
+              </div>
+              <div><button type="button" class="btn btn-link removeBtn" (click)="removeOrder(order)"><i class="fa fa-times" aria-hidden="true"></i>הסר</button></div>
+            </div>
+            <div class="col-md-2 orderPrice">₪{{order.shoe.price}}</div>
+            <div class="col-md-2">
+              <div><a href="#" [routerLink]="shoeService.getShoeLink(order.shoe)" ><h2>{{order.shoe.name}}</h2></a></div>
+              <div><strong>צבע:</strong> {{order.imageGroup.color}}</div>
+              <div><strong>מידה:</strong> {{order.size}}</div>
+            </div>
+            <div class="col-md-4">
+              <picture>
+                  <source media="(max-width: 650px)" [srcset]="order.imageGroup.images[0].urlMedium">
+                  <img [src]="order.imageGroup.images[0].urlLarge" class="imgContainer"/>
+              </picture>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="row" *ngIf="orders.length > 0">
+          <div class="col-md-2"></div>
+          <div class="col-md-7">
+            <div class="row cartTableBeforeTotal">
+              <div class="col-md-2">₪{{subTotal()}}</div>
+              <div class="col-md-4">עבור ({{ totalAmount() }}) מוצרים</div>
+              <div class="col-md-6"></div>
+            </div>
+            <div class="row cartTableBeforeTotal">
+                <div class="col-md-2">₪{{shippment()}}</div>
+                <div class="col-md-4">משלוח</div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row cartTableTotal">
+                <div class="col-md-2">₪{{total()}}</div>
+                <div class="col-md-4">סה"כ</div>
+                <div class="col-md-6"></div>
+              </div>
+          </div>
+          <div class="col-md-3"></div>
+      </div>
+      <div class="row spacer">
+          <div class="col-md-4">
+              <button *ngIf="orders.length > 0" type="button" class="btn btn-primary">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+          </div>
+          <div class="col-md-5">
+              <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
+          </div>
+          <div class="col-md-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-9 safe">
+            <strong>צוות נעורים ישמח לעזור לכם תמיד בכל שאלה ובקשה</strong>
+            <strong>03-5052769</strong>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+  </div>
+</div>

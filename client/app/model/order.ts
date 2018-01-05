@@ -12,7 +12,9 @@ export class Order {
     public imageGroup: any;
     public size: String;
     public status: OrderStatus;
+    public amount: number;
 
     constructor() {
+        this.amount = 0;
     }
 }
