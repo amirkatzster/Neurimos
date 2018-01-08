@@ -7,8 +7,8 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 
 @Component({
   selector: 'app-classification',
-  templateUrl: './Classification.component.html',
-  styleUrls: ['./Classification.component.scss']
+  templateUrl: './classification.component.html',
+  styleUrls: ['./classification.component.scss']
 })
 export class ClassificationComponent implements OnInit {
 
