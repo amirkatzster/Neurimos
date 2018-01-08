@@ -26,7 +26,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private shoeService: ShoeService,
               public companyService: CompanyService,
-              private orderService: OrderService,
+              public orderService: OrderService,
               public router: Router,
               private location: Location) { }
 

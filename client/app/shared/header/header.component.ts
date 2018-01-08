@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(public auth: AuthService,
               private classificationService: ClassificationService,
               private route: ActivatedRoute,
-              private orderService: OrderService)
+              public orderService: OrderService)
               { }
 
   ngOnInit() {

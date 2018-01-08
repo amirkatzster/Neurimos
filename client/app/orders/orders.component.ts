@@ -11,8 +11,8 @@ import { ShoeService } from 'app/services/shoe.service';
 })
 export class OrdersComponent implements OnInit {
 
-  private orders: Order[];
-  constructor(private orderService: OrderService,
+  public orders: Order[];
+  constructor(public orderService: OrderService,
               private location: Location,
               public shoeService: ShoeService) { }
 
