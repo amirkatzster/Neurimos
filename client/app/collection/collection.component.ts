@@ -35,7 +35,19 @@ export class CollectionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       const searchQuery = (params['query'].replace(/\s\s+/g, ' ')).trim();
-      this.queries = this.replaceAll(searchQuery, ' ', '-').split('-');
+      const matches = searchQuery.match(/\[(.*?)\]/);
+      const words = [];
+      if (matches) {
+        matches.forEach(s => {
+          if (s.indexOf('[') > -1) {
+            searchQuery.replace(s,' ');
+          } else {
+            words.push(s);
+          }
+        });
+      }
+      this.queries = this.replaceAll(searchQuery, ' ', '-').split('-').concat(words);
+      this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1)
       this.filters = this.queries;
       // dispatch action to load the details here.
       this.updateCollection();
