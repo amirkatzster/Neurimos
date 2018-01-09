@@ -4,7 +4,8 @@ set +e
 
 echo 'kill all node instances'
 NODE_PROCESS=$(ps -ef | grep "node")
+echo NODE_PROCESS
 if [ -n "$NODE_PROCESS" ]; then
-   echo $NODE_PROCESS | awk '{print $2}' | xargs kill -9
+    $NODE_PROCESS | awk '{print $2}' | xargs kill -9
 fi
 
