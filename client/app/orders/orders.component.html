@@ -15,7 +15,7 @@
     </div>
     <div class="row spacer">
       <div class="col-md-4">
-          <button *ngIf="orders.length > 0" type="button" class="btn btn-danger">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+          <button *ngIf="orders.length > 0" type="button" class="btn btn-danger"  routerLink="/cashier">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
       </div>
       <div class="col-md-5">
           <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
@@ -96,7 +96,7 @@
       </div>
       <div class="row spacer">
           <div class="col-md-4">
-              <button *ngIf="orders.length > 0" type="button" class="btn btn-danger">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+              <button *ngIf="orders.length > 0" type="button" class="btn btn-danger" routerLink="/cashier">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
           </div>
           <div class="col-md-5">
               <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>

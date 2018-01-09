@@ -10,23 +10,19 @@ import { debug } from 'util';
 export class AuthService {
   loggedIn = false;
   isAdmin = false;
-  jwtHelper: JwtHelper = new JwtHelper();
 
   currentUser = { _id: '', username: '', role: '' };
 
   constructor(private userService: UserService,
               private router: Router,
               private fb: FacebookService) {
-    const initParams: InitParams = {
-      appId: '1764565033853258',
-      xfbml: true,
-      version: 'v2.11'
-    };
-    fb.init(initParams);
-    this.loadUser();
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
+      console.log('set user');
       this.setCurrentUser(user);
+    } else {
+      console.log('load user');
+      this.loadUser();
     }
   }
 
@@ -35,7 +31,7 @@ export class AuthService {
     this.userService.me().subscribe(
       data => {
         if (data && data !== '0') {
-          localStorage.setItem('user', data);
+          localStorage.setItem('user', JSON.stringify(data));
           this.setCurrentUser(data);
         }
       });

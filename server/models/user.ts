@@ -2,7 +2,8 @@ import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  username: String,
+  username : String,
+  email: String,
   role: { type: String, default: 'user' },
   local          : {
     email        : { type: String, unique: true, lowercase: true, trim: true } ,
@@ -19,7 +20,14 @@ const userSchema = new mongoose.Schema({
     token        : String,
     email        : String,
     name         : String
-  }
+  },
+  addresses      : [{
+    address1     : String,
+    address2     : String,
+    city         : String,
+    zip          : Number
+  }],
+  phone          : String
 });
 
 // Before saving the user, hash the password

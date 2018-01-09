@@ -52,6 +52,7 @@ export default function setPassport(passport) {
                 // set the user's local credentials
                 newUser.role = 'user';
                 newUser.username = req.body.username;
+                newUser.email    = email;
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
                 console.log(newUser);
@@ -135,6 +136,7 @@ export default function setPassport(passport) {
                     newUser.facebook.token = token; // we will save the token that facebook provides to the user
                     newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
                     newUser.username = newUser.facebook.name;
+                    newUser.email    = profile.emails[0].value;
                     newUser.role = 'user';
                     newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     // save our user to the database

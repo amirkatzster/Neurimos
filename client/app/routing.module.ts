@@ -16,7 +16,7 @@ import { LandingComponent } from 'app/landing/landing.component';
 import { CollectionComponent } from 'app/collection/collection.component';
 import { ShoeDetailsComponent } from 'app/collection/shoeDetails/shoeDetails.component';
 import { OrdersComponent } from 'app/orders/orders.component';
-import { CheckoutComponent } from 'app/orders/checkout/checkout.component';
+import { CashierComponent } from 'app/orders/cashier/cashier.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'order', component: OrdersComponent },
-  { path: 'checkout', component: CheckoutComponent },
+  { path: 'cashier', component: CashierComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },
