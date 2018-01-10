@@ -2,7 +2,7 @@
   <div class="container-fluid firstRow" >
     <div class="row secondRow">
         <div class="col-md-9">
-            <h1 *ngIf="orders.length > 0">יש לך <span class="cartHeader">{{ totalAmount() }}</span> מוצרים בעגלה!</h1>
+            <h1 *ngIf="orders.length > 0">יש לך <span class="cartHeader">{{ orderService.totalAmount() }}</span> מוצרים בעגלה!</h1>
             <h1 *ngIf="orders.length === 0">העגלה ריקה</h1>
         </div>
         <div class="col-md-3"></div>
@@ -77,17 +77,17 @@
           <div class="col-md-2"></div>
           <div class="col-md-7">
             <div class="row cartTableBeforeTotal">
-              <div class="col-md-2">₪{{subTotal()}}</div>
-              <div class="col-md-4">עבור ({{ totalAmount() }}) מוצרים</div>
+              <div class="col-md-2">₪{{orderService.subTotal()}}</div>
+              <div class="col-md-4">עבור ({{ orderService.totalAmount() }}) מוצרים</div>
               <div class="col-md-6"></div>
             </div>
             <div class="row cartTableBeforeTotal">
-                <div class="col-md-2">₪{{shippment()}}</div>
+                <div class="col-md-2">₪{{orderService.shippment()}}</div>
                 <div class="col-md-4">משלוח</div>
                 <div class="col-md-6"></div>
             </div>
             <div class="row cartTableTotal">
-                <div class="col-md-2">₪{{total()}}</div>
+                <div class="col-md-2">₪{{orderService.total()}}</div>
                 <div class="col-md-4">סה"כ</div>
                 <div class="col-md-6"></div>
               </div>

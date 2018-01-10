@@ -23,6 +23,7 @@ import { ShoeDetailsComponent } from './collection/shoeDetails/shoeDetails.compo
 import { OrderService } from 'app/services/order.service';
 import { OrdersComponent } from './orders/orders.component';
 import { CashierComponent } from 'app/orders/cashier/cashier.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CashierComponent } from 'app/orders/cashier/cashier.component';
   imports: [
     RoutingModule,
     SharedModule,
-    AdminModule
+    AdminModule,
+    AccordionModule.forRoot()
   ],
   providers: [
     AuthService,

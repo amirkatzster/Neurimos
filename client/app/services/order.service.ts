@@ -38,6 +38,30 @@ export class OrderService {
     this.persist();
   }
 
+  totalAmount() {
+    let totalAmount = 0;
+    this.orders.forEach(o => {
+      totalAmount += o.amount;
+    });
+    return totalAmount;
+  }
+
+  subTotal() {
+    let subTotal = 0;
+    this.orders.forEach(o => {
+      subTotal += o.amount * o.shoe.price;
+    });
+    return subTotal;
+  }
+
+  shippment() {
+    return 20;
+  }
+
+  total() {
+    return this.subTotal() + this.shippment();
+  }
+
   getOrders() {
     return this.orders;
   }
@@ -51,6 +75,8 @@ export class OrderService {
     this.orders.splice(index, 1);
     this.persist();
   }
+
+
 
   persist() {
     localStorage.setItem('orders', JSON.stringify(this.orders));

@@ -88,6 +88,7 @@ function isLoggedIn(req, res, next) {
 function isAdmin(req, res, next) {
   if (true) {//req.isAdmin()) {
       console.log('Check Admin');
+      //TODO
       console.log(req.isAuthenticated());
       return next();
   }

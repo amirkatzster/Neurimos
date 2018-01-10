@@ -2,95 +2,100 @@
   <div class="container-fluid" >
     <div class="row spacer">
         <div class="col-md-3">
-            
-        </div>
-        <div class="col-md-8">
-            <div id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="card">
-                  <div class="card-header" role="tab" id="headingOne">
-                    <h5 class="mb-0">
-                      <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        פרטי משלוח
-                      </a>
-                    </h5>
-                  </div>
-                  <div id="collapseOne" class="" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="card-block">
-                        <form>
-                            <div class="form-group">
-                              <label for="fullNameInput" class="control-label">שם מלא</label>
-                              <input [(ngModel)]="user.username" name="fullName" type="input" class="form-control" id="fullNameInput" required> 
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="control-label">דוא"ל</label>
-                                <input [(ngModel)]="user.email" name="email" type="input" class="form-control" id="inputEmail" >
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPhone" class="control-label">טלפון</label>
-                                <input [(ngModel)]="user.phone" name="phone" type="input" class="form-control" id="inputPhone" >
-                            </div>
-                            <div class="form-group">
-                                <label for="inputStreet" class="control-label">1 כתובת</label>
-                                <input [(ngModel)]="user.addresses[0].address1" name="street" type="input" class="form-control" id="inputStreet" placeholder="רחוב ומספר, תא דואר, שם חברה" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputStreet" class="control-label">כתובת 2</label>
-                                <input [(ngModel)]="user.addresses[0].address2" name="street" type="input" class="form-control" id="inputStreet" placeholder="דירה, קומה, כניסה" required>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputCity" class="control-label">עיר</label>
-                              <input type="input" [(ngModel)]="user.addresses[0].city" name="city" class="form-control" id="inputCity" placeholder="עיר" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputZip" class="control-label">מיקוד</label>
-                                <input type="input" [(ngModel)]="user.addresses[0].zip" name="zip" class="form-control" id="inputZip" placeholder="מיקוד">
-                            </div>       
-                            <div class="form-group">
-                              <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">המשך</button>
-                              </div>
-                            </div>
-                          </form>
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" role="tab" id="headingTwo">
-                    <h5 class="mb-0">
-                      <a class="collapsed" data-toggle="collapse" data-toggle="true" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        פרטי תשלום
-                      </a>
-                    </h5>
-                  </div>
-                  <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="card-block">
-                      PAL TODO
-                    </div>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-header" role="tab" id="headingThree">
-                    <h5 class="mb-0">
-                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        סיכום
-                      </a>
-                    </h5>
-                  </div>
-                  <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="card-block">
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      <div class="form-group">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> קראתי ואני מסכים עם התקנון
-                            </label>
-                          </div>
+            <div class="card" style="width: 20rem;">
+                <div class="card-block">
+                  <h5 class="card-title">סיכום ביניים</h5>
+                  <div class="row">
+                      <div class="col-md-6">
+                          ₪{{orderService.subTotal()}}
                       </div>
-                    </div>
+                      <div class="col-md-6">
+                          <p class="card-text">מוצרים ({{orderService.totalAmount()}}):</p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                          ₪{{orderService.shippment()}}
+                      </div>
+                      <div class="col-md-6">
+                          <p class="card-text">משלוח:</p>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="row total">
+                      <div class="col-md-6">
+                          ₪{{orderService.total()}}
+                      </div>
+                      <div class="col-md-6">
+                          <p class="card-text">סה"כ:</p>
+                      </div>
                   </div>
                 </div>
               </div>
+        </div>
+        <div class="col-md-8">
 
+            <accordion [closeOthers]="true">
+                <accordion-group [isOpen]="openStep == 1" (click)="openStep = 1" >
+                                 <div accordion-heading class="headerAccordion">
+                                    פרטי משלוח
+                                  </div>
+                        <form #shippmentForm="ngForm" (ngSubmit)="onSubmitStep1()" >
+                          <div class="form-group">
+                            <label for="usernameInput" class="control-label">שם מלא</label>
+                            <input [(ngModel)]="user.username" name="name" type="input" class="form-control" id="usernameInput" required>                            
+                          </div>
+                          <div class="form-group">
+                              <label for="inputEmail" class="control-label">דוא"ל</label>
+                              <input [(ngModel)]="user.email" name="email" type="input" class="form-control" id="inputEmail" required email>
+                          </div>
+                          <div class="form-group">
+                              <label for="inputPhone" class="control-label">טלפון</label>
+                              <input [(ngModel)]="user.phone" name="phone" type="input" class="form-control" id="inputPhone" required pattern="[0-9\-()]+" minlength="8">
+                          </div>
+                          <div class="form-group">
+                              <label for="inputStreet1" class="control-label">1 כתובת</label>
+                              <input [(ngModel)]="user.addresses[0].address1" name="street1" type="input" class="form-control" id="inputStreet1" placeholder="רחוב ומספר, תא דואר, שם חברה" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="inputStreet2" class="control-label">כתובת 2</label>
+                              <input [(ngModel)]="user.addresses[0].address2" name="street2" type="input" class="form-control" id="inputStreet2" placeholder="דירה, קומה, כניסה">
+                          </div>
+                          <div class="form-group">
+                            <label for="inputCity" class="control-label">עיר</label>
+                            <input type="input" [(ngModel)]="user.addresses[0].city" name="city" class="form-control" id="inputCity" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="inputZip" class="control-label">מיקוד</label>
+                              <input type="input" [(ngModel)]="user.addresses[0].zip" name="zip" class="form-control" id="inputZip">
+                          </div>       
+                          <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                              <button type="submit" class="btn btn-success" [disabled]="!shippmentForm.form.valid">המשך</button>
+                            </div>
+                          </div>
+                        </form>
+                </accordion-group>
+                <accordion-group [isOpen]="openStep == 2" (click)="openStep = 2">
+                    <div accordion-heading class="headerAccordion">
+                        פרטי תשלום
+                      </div>
+                  asdf
+                </accordion-group>
+                <accordion-group [isOpen]="openStep == 3" (click)="openStep = 3" [isDisabled]="true">
+                    <div accordion-heading class="headerAccordion">
+                        סיכום
+                      </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> קראתי ואני מסכים עם התקנון
+                          </label>
+                        </div>
+                    </div>
+                </accordion-group>
+                
+              </accordion>
         </div>
         <div class="col-md-1"></div>
     </div>

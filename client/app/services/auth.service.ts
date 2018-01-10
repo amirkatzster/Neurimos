@@ -8,8 +8,8 @@ import { debug } from 'util';
 
 @Injectable()
 export class AuthService {
-  loggedIn = false;
-  isAdmin = false;
+  public loggedIn = false;
+  public isAdmin = false;
 
   currentUser = { _id: '', username: '', role: '' };
 
@@ -18,10 +18,8 @@ export class AuthService {
               private fb: FacebookService) {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      console.log('set user');
       this.setCurrentUser(user);
     } else {
-      console.log('load user');
       this.loadUser();
     }
   }
@@ -35,6 +33,11 @@ export class AuthService {
           this.setCurrentUser(data);
         }
       });
+  }
+
+  injectUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.setCurrentUser(user);
   }
 
   login(emailAndPassword) {
