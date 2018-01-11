@@ -8,6 +8,8 @@ import Shoe from './models/shoe';
 import User from './models/user';
 import Company from './models/company';
 import Classification from './models/classification';
+import PaypalCtrl from './controllers/paypal';
+import OrderCtrl from './controllers/order';
 
 
 export default function setRoutes(app, passport) {
@@ -18,6 +20,8 @@ export default function setRoutes(app, passport) {
   const userCtrl = new UserCtrl();
   const companyCtrl = new CompanyCtrl();
   const classificationCtrl = new ClassificationCtrl();
+  const paypalCtrl = new PaypalCtrl();
+  const orderCtrl = new OrderCtrl();
 
   // Shoes
   router.route('/shoes').get(shoeCtrl.getAll);
@@ -71,6 +75,9 @@ export default function setRoutes(app, passport) {
   router.route('/auth/signup').post(userCtrl.signup);
   router.route('/auth/facebook').get(userCtrl.facebookAuth);
   router.route('/auth/facebook/callback').get(userCtrl.facebookAuthCallback);
+
+  //paypal
+  router.route('/paypal/payment/create/').post(paypalCtrl.create);
 
   // Apply the routes to our applishoeion with the prefix /api
   app.use('/api', router);

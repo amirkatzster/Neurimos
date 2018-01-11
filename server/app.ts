@@ -50,18 +50,6 @@ db.once('open', () => {
     console.log('Angular Full Stack listening on port ' + app.get('port'));
   });
 
-  // require('./config/passport')(passport); // pass passport for configuration
-  // passport.use(new FacebookTokenStrategy({
-  //   clientID: '1764565033853258',
-  //   clientSecret: process.env.FACEBOOK_SECRET
-  // },
-  // function (accessToken, refreshToken, profile, done) {
-  //   console.log(profile);
-  //   User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
-  //     return done(err, user);
-  //   });
-  // }));
-
 });
 
 export { app };

@@ -34,7 +34,6 @@
               </div>
         </div>
         <div class="col-md-8">
-
             <accordion [closeOthers]="true">
                 <accordion-group [isOpen]="openStep == 1" (click)="openStep = 1" >
                                  <div accordion-heading class="headerAccordion">
@@ -80,7 +79,20 @@
                     <div accordion-heading class="headerAccordion">
                         פרטי תשלום
                       </div>
-                  asdf
+                  <div>
+                      <i>קנייה בטוחה באמצעות פייפאל שתומך בכרטיס אשראי</i>
+                      <br>
+                      <i>לחץ על אמצעי תשלום</i>
+                    <paypal-button [props]="{
+                        env: paypalConfig.env,
+                        client: paypalConfig.client,
+                        commit: paypalConfig.commit,
+                        locale: 'he_IL',
+                        payment: payment,
+                        onAuthorize: onAuthorize,
+                        style: paypalConfig.style
+                    }"></paypal-button>
+                  </div>
                 </accordion-group>
                 <accordion-group [isOpen]="openStep == 3" (click)="openStep = 3" [isDisabled]="true">
                     <div accordion-heading class="headerAccordion">

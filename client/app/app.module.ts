@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import * as ngCore from '@angular/core';
 
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -25,6 +26,9 @@ import { OrdersComponent } from './orders/orders.component';
 import { CashierComponent } from 'app/orders/cashier/cashier.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +49,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     RoutingModule,
     SharedModule,
     AdminModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    window['paypal'].Button.driver('angular2', ngCore)
   ],
   providers: [
     AuthService,
@@ -59,5 +64,6 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
+
 
 export class AppModule { }
