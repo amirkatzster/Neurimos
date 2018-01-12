@@ -106,7 +106,7 @@ export class CashierComponent implements OnInit , OnDestroy {
     }
   }
 
-  private payment(data, actions) {
+  payment(data, actions) {
     debugger;
     const CREATE_URL = '/api/paypal/payment/create/';
     // Make a call to your server to set up the payment
@@ -114,23 +114,9 @@ export class CashierComponent implements OnInit , OnDestroy {
         .then(function(res) {
             return actions.payment.create(res);
         });
-
-    // return actions.payment.create({
-    //   payment: {
-    //       transactions: [
-    //           {
-    //               amount: { total: 1.00, currency: 'ILS' }
-    //           }
-    //       ]
-    //   },
-    //   experience: {
-    //       input_fields: {
-    //           no_shipping: 1
-    //       }
-    //   }
-    // });
   }
-  private onAuthorize(data, actions) {
+  
+  onAuthorize(data, actions) {
     debugger;
     console.log('Good buy!!!');
           console.log(data);
