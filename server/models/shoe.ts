@@ -20,7 +20,6 @@ const ImageSchema = new mongoose.Schema({
 });
 
 const DiscountSchema = new mongoose.Schema({
-  isPercentage: Boolean,
   percentage: Number,
   newAmount: Number
 });
@@ -35,6 +34,7 @@ const shoeSchema = new mongoose.Schema({
   name: String,
   price: Number,
   discount: DiscountSchema,
+  finalPrice: Number,
   gender: [String],
   classificationCache: String,
   classification: {

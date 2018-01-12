@@ -72,11 +72,16 @@ export class CashierComponent implements OnInit , OnDestroy {
   }
 
   openStep2() {
+    debugger;
     this.sub.unsubscribe();
-    this.openStep = 2;
-    if (this.maxStep === 1) {
-      this.maxStep = 2;
-    }
+    this.sub = this.orderService.createServerOrder(this.user).subscribe(data => {
+        localStorage.setItem('orderId', data._id);
+        this.openStep = 2;
+        if (this.maxStep === 1) {
+        this.maxStep = 2;
+      }
+    },
+    error => console.log(error));
   }
 
   openStep3() {

@@ -69,15 +69,22 @@ export default function setRoutes(app, passport) {
   router.route('/user/:id').delete(isAdmin);
   router.route('/user/:id').delete(userCtrl.delete);
 
-  //auth
+  // auth
   router.route('/auth/login').post(userCtrl.login);
   router.route('/auth/me').get(userCtrl.me);
   router.route('/auth/signup').post(userCtrl.signup);
   router.route('/auth/facebook').get(userCtrl.facebookAuth);
   router.route('/auth/facebook/callback').get(userCtrl.facebookAuthCallback);
 
-  //paypal
+  // paypal
   router.route('/paypal/payment/create/').post(paypalCtrl.create);
+
+  // orders
+  router.route('/order').all(isAdmin);
+  router.route('/order').get(orderCtrl.getAll);
+  router.route('/order/:id').get(orderCtrl.get);
+  router.route('/order').post(orderCtrl.insert);
+  router.route('/order/:id/:newStatus').post(orderCtrl.statusUpdate);
 
   // Apply the routes to our applishoeion with the prefix /api
   app.use('/api', router);

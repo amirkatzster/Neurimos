@@ -11,7 +11,11 @@ const ItemSchema = new mongoose.Schema({
 });
 
 const ShippmentSchema = new mongoose.Schema({
-  how: String,
+  deliveryMethod: {
+    type: String,
+    enum : ['mail', 'pickup'],
+    default: 'mail'
+  },
   price: Number
 });
 
@@ -26,12 +30,20 @@ const CustomerSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-  status: String,
+  status: {
+    type: String,
+    enum : ['created', 'payed', 'verify', 'shipped', 'deliverd', 'cancel'],
+    default: 'created'
+  },
   items: [ ItemSchema ],
   shippment: ShippmentSchema,
   customer: CustomerSchema,
   createdDate: { type: Date, default: Date.now },
-  totalPrice: Number
+  totalPrice: Number,
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'userSchema'
+  }
 });
 
 const Order = mongoose.model('Order', orderSchema);

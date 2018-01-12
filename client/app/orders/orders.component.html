@@ -48,7 +48,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-7">
           <div class="row orderItem" *ngFor="let order of orders">
-            <div class="col-md-2 orderPrice text-center">₪{{order.shoe.price * order.amount}}</div>
+            <div class="col-md-2 orderPrice text-center">₪{{order.shoe.finalPrice * order.amount}}</div>
             <div class="col-md-2 text-center">
               <div>
                   <input type="number" (ngModelChange)="onAmountChange($event)"
@@ -57,7 +57,10 @@
               </div>
               <div><button type="button" class="btn btn-link removeBtn" (click)="removeOrder(order)"><i class="fa fa-times" aria-hidden="true"></i>הסר</button></div>
             </div>
-            <div class="col-md-2 orderPrice">₪{{order.shoe.price}}</div>
+            <div class="col-md-2 orderPrice">
+                <div class="price" *ngIf="order.shoe.price !== order.shoe.finalPrice">{{order.shoe.finalPrice}} ₪</div>  
+                <div class="price" [ngClass]="{'discount': order.shoe.price !== order.shoe.finalPrice }">{{order.shoe.price}} ₪</div>
+            </div>
             <div class="col-md-2">
               <div><a href="#" [routerLink]="shoeService.getShoeLink(order.shoe)" ><h2>{{order.shoe.name}}</h2></a></div>
               <div><strong>צבע:</strong> {{order.imageGroup.color}}</div>

@@ -9,7 +9,9 @@
       <div class="shoeText">
         <div class="company">{{shoe.company}}</div>
         <div class="name">{{shoe.name}}</div>
-        <div class="price">{{shoe.price}} ₪</div>  
+        
+        <div class="price" *ngIf="shoe.price !== shoe.finalPrice">{{shoe.finalPrice}} ₪</div>  
+        <div class="price" [ngClass]="{'discount': shoe.price !== shoe.finalPrice }">{{shoe.price}} ₪</div>  
       </div>
    </a> 
   </div>

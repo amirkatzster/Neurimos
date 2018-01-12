@@ -69,9 +69,20 @@
 
     .price
     {
-        padding:30px 0;
+        padding:30px 0 0 0;
         color: #fe5400;
         font-size: 43px;
+    }
+
+    .discount {
+        padding: 0 !important;
+        color: #575b5d;
+        font-size: 27px;
+        text-decoration: line-through;
+    }
+    
+    .colors {
+        padding:30px 0 0 0;
     }
 
     .buttonBuy

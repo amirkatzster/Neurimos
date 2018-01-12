@@ -127,6 +127,17 @@ export class ShoesComponent implements OnInit {
     });
     this.createSearchWords(shoe);
     shoe.stock = countStock;
+    this.discountCalc(shoe);
+  }
+
+  discountCalc(shoe) {
+    shoe.finalPrice = shoe.price;
+    if (shoe.discount.percentage) {
+      shoe.finalPrice = (shoe.price * (1 - (shoe.discount.percentage / 100)));
+    }
+    if (shoe.discount.newAmount) {
+      shoe.finalPrice = shoe.discount.newAmount;
+    }
   }
 
   createSearchWords(shoe) {

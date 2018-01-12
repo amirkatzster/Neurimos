@@ -21,7 +21,8 @@
                     <img class="companyLogo" src={{company?.image}} alt="{{ company?.name }}"/>
                     <div class="delim"></div>
                     <div class="grayArea">
-                        <div class="price">{{shoe?.price}} ₪</div>
+                        <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
+                        <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
                         <div class="colors">
                             <mat-form-field>
                                 <mat-select name="color" (ngModelChange)="colorChangeEvent($event)" placeholder="בחר צבע" [ngModel]="currentImageGroup?.color" required>
