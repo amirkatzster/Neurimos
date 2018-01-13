@@ -114,8 +114,10 @@ export class OrderService {
         company: o.shoe.company,
         imageUrl: o.imageGroup.images[0].urlMedium,
         size: o.size,
+        color: o.imageGroup.color,
         amount: o.amount,
-        pricePerItem: o.shoe.finalPrice
+        pricePerItem: o.shoe.finalPrice,
+        sku: o.shoe.id
       }
       serverOrder.items.push(item);
     });

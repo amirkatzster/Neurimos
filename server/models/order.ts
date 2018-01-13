@@ -3,10 +3,12 @@ import * as mongoose from 'mongoose';
 const ItemSchema = new mongoose.Schema({
   model: String,
   company: String,
+  color: String,
   imageUrl: String,
   size: String,
   amount: Number,
-  pricePerItem: Number
+  pricePerItem: Number,
+  sku: String
 
 });
 

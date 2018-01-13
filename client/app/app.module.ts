@@ -25,6 +25,7 @@ import { OrderService } from 'app/services/order.service';
 import { OrdersComponent } from './orders/orders.component';
 import { CashierComponent } from 'app/orders/cashier/cashier.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TakanonComponent } from 'app/orders/takanon/takanon.component';
 
 
 
@@ -43,7 +44,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     CollectionShoeComponent,
     ShoeDetailsComponent,
     OrdersComponent,
-    CashierComponent
+    CashierComponent,
+    TakanonComponent
 ],
   imports: [
     RoutingModule,

@@ -132,10 +132,10 @@ export class ShoesComponent implements OnInit {
 
   discountCalc(shoe) {
     shoe.finalPrice = shoe.price;
-    if (shoe.discount.percentage) {
+    if (shoe.discount && shoe.discount.percentage) {
       shoe.finalPrice = (shoe.price * (1 - (shoe.discount.percentage / 100)));
     }
-    if (shoe.discount.newAmount) {
+    if (shoe.discount && shoe.discount.newAmount) {
       shoe.finalPrice = shoe.discount.newAmount;
     }
   }

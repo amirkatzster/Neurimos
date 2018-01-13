@@ -75,7 +75,7 @@ export class CashierComponent implements OnInit , OnDestroy {
     debugger;
     this.sub.unsubscribe();
     this.sub = this.orderService.createServerOrder(this.user).subscribe(data => {
-        localStorage.setItem('orderId', data._id);
+        localStorage.setItem('orderId', JSON.parse(data._body)._id);
         this.openStep = 2;
         if (this.maxStep === 1) {
         this.maxStep = 2;
@@ -108,14 +108,14 @@ export class CashierComponent implements OnInit , OnDestroy {
 
   payment(data, actions) {
     debugger;
-    const CREATE_URL = '/api/paypal/payment/create/';
+    const CREATE_URL = '/api/paypal/payment/create/' + localStorage.getItem('orderId');
     // Make a call to your server to set up the payment
     return window['paypal'].request.post(CREATE_URL)
         .then(function(res) {
             return actions.payment.create(res);
         });
   }
-  
+
   onAuthorize(data, actions) {
     debugger;
     console.log('Good buy!!!');

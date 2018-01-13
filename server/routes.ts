@@ -77,7 +77,7 @@ export default function setRoutes(app, passport) {
   router.route('/auth/facebook/callback').get(userCtrl.facebookAuthCallback);
 
   // paypal
-  router.route('/paypal/payment/create/').post(paypalCtrl.create);
+  router.route('/paypal/payment/create/:orderId').post(paypalCtrl.create);
 
   // orders
   router.route('/order').all(isAdmin);
