@@ -11,8 +11,9 @@ import { ShoeService } from 'app/services/shoe.service';
   styleUrls: ['./collection.component.scss']
 })
 export class CollectionComponent implements OnInit, OnDestroy {
-
+  
   private sub: any;
+  initQueries: String;
   queries: String[];
   filters: String[];
   shoes: any[];
@@ -28,31 +29,39 @@ export class CollectionComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private shoeService: ShoeService) {
+    this.initQueries = '';
     this.queries = [];
     this.filters = [];
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      const searchQuery = (params['query'].replace(/\s\s+/g, ' ')).trim();
-      const matches = searchQuery.match(/\[(.*?)\]/);
-      const words = [];
-      if (matches) {
-        matches.forEach(s => {
-          if (s.indexOf('[') > -1) {
-            searchQuery.replace(s,' ');
-          } else {
-            words.push(s);
-          }
-        });
-      }
-      this.queries = this.replaceAll(searchQuery, ' ', '-').split('-').concat(words);
+      this.initQueries = params['query'];
+      this.queries = this.createSearchQuery(this.initQueries);
       this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1)
       this.filters = this.queries;
       // dispatch action to load the details here.
       this.updateCollection();
    });
   }
+
+  createSearchQuery(query): any {
+    let searchQuery = (query.replace(/\s\s+/g, ' ')).trim();
+    const matches = searchQuery.match(/\[(.*?)\]/);
+    const words = [];
+    if (matches) {
+      matches.forEach(s => {
+        if (s.indexOf('[') > -1) {
+          searchQuery.replace(s, ' ');
+        } else {
+          words.push(s);
+        }
+      });
+    }
+    searchQuery = this.replaceAll(searchQuery, ' ', '-').split('-').concat(words);
+    return searchQuery;
+  }
+
 
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -67,28 +76,16 @@ export class CollectionComponent implements OnInit, OnDestroy {
       () => this.isLoading = false
     );
   }
-
   
-
-  addFilter(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-    // Add our filter
-    if ((value || '').trim()) {
-      this.filters.push(value.trim());
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
+  saleFilter() {
+    this.initQueries += ' SALE';
+    this.router.navigateByUrl('/' + this.initQueries);
   }
 
-  removeFilter(filter: String): void {
-    const index = this.filters.indexOf(filter);
-    if (index >= 0) {
-      this.filters.splice(index, 1);
-    }
-    this.router.navigateByUrl('/' + this.filters.join(' '));
+  removeFilter(filter: string): void {
+    if (filter.indexOf(' ') > -1) { filter = '[' + filter + ']'}
+    this.initQueries = this.initQueries.replace(filter, '').trim();
+    this.router.navigateByUrl('/' + this.initQueries);
   }
 
   escapeRegExp(str) {
@@ -98,5 +95,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   replaceAll(str, find, replace) {
     return str.replace(new RegExp(this.escapeRegExp(find), 'g'), replace);
   }
+
+  
 
 }

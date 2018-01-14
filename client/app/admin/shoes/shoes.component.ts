@@ -125,9 +125,9 @@ export class ShoesComponent implements OnInit {
         });
       }
     });
+    this.discountCalc(shoe);
     this.createSearchWords(shoe);
     shoe.stock = countStock;
-    this.discountCalc(shoe);
   }
 
   discountCalc(shoe) {
@@ -161,6 +161,9 @@ export class ShoesComponent implements OnInit {
         searchWords.push(element);
       });
     });
+    if (shoe.price !== shoe.finalPrice) {
+      searchWords.push('SALE');
+    }
     shoe.searchWords = searchWords;
   }
 

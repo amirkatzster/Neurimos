@@ -25,7 +25,7 @@
   <div class="row login-mobile search-bar hidden-sm-up not-visible">
       <div class="col-xs-12">
           <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
-          <span class="nav-float or" *ngIf="!auth.loggedIn"> או </span>
+          <span class="nav-float or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
           <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
           <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
             <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
@@ -58,7 +58,7 @@
                 שלום :) {{auth.currentUser.username}}
             </span>
             <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
-            <span class="nav-float or" *ngIf="!auth.loggedIn"> או </span>
+            <span class="nav-float or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
             <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
             <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
               <i class="fa fa-lock" aria-hidden="true"></i> אדמין

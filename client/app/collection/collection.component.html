@@ -34,7 +34,30 @@
               </div>
           </div>
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">[פה יהיה פילטר]</div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+          <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="saleFilter()" >רק מבצעים</button>
+          <accordion>
+            <accordion-group  [isOpen]="true"  >
+                <div accordion-heading class="headerAccordion text-muted">
+                    מידה
+                </div>
+                <div>
+
+                </div>
+            </accordion-group>
+            <accordion-group [isOpen]="true" >
+                <div accordion-heading class="headerAccordion text-muted">
+                    חברה  
+                </div>
+            </accordion-group>
+            <accordion-group [isOpen]="true">
+                <div accordion-heading class="headerAccordion">
+                    צבע
+                </div>
+            </accordion-group>         
+          </accordion>
+
+        </div>
       </div>
     </div>
 </div>

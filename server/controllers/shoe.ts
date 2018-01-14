@@ -23,7 +23,8 @@ export default class ShoeCtrl extends BaseCtrl {
   search = (req, res) => {
     this.model.find({
       searchWords: { $all: req.body }
-    }, (err, docs) => {
+      // return only those fields
+    }, 'company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes', (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
     });

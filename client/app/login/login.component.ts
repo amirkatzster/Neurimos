@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.loggedIn) {
-      this.router.navigate(['/']);
+      if (this.auth.currentUser.role === 'guest') {
+        this.auth.logout();
+      } else {
+        this.router.navigate(['/']);
+      }
     }
     this.loginForm = this.formBuilder.group({
       email: this.email,
