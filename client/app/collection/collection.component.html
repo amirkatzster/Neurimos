@@ -3,7 +3,7 @@
       <div class="row secondRow">
           <div class="col-md-2">
               <mat-form-field>
-                <mat-select placeholder="מיון על פי">
+                <mat-select placeholder="מיון על פי" [(ngModel)]="sort" (change)="sortChangeEvent($event)">
                   <mat-option *ngFor="let sort of sortList" [value]="sort.value">
                     {{ sort.viewValue }}
                   </mat-option>

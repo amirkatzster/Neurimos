@@ -6,7 +6,6 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 import * as passport from 'passport';
 import * as flash from 'connect-flash';
-
 import * as session from 'express-session';
 import setRoutes from './routes';
 import setPassport from './config/passport';

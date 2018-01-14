@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import {ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
@@ -19,6 +19,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   shoes: any[];
   isLoading: boolean;
   searchToShow: String[];
+  sort: String = 'rel';
   sortList: any[] = [{'value': 'rel' , 'viewValue': 'רלוונטיות'},
                      {'value': 'new' , 'viewValue': 'חדשים'},
                      {'value': 'priceLow' , 'viewValue': 'מחיר - נמוך לגבוהה'},
@@ -36,12 +37,16 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
+      this.route.queryParams.subscribe(qs => {
+      if (qs.sort) {
+        this.sort = qs.sort;
+      }
       this.initQueries = params['query'];
       this.queries = this.createSearchQuery(this.initQueries);
       this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1)
       this.filters = this.queries;
       // dispatch action to load the details here.
-      this.updateCollection();
+      this.updateCollection(qs); });
    });
   }
 
@@ -67,8 +72,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  updateCollection() {
-    this.shoeService.searchShoes(this.queries).subscribe(
+  updateCollection(qs: Params) {
+    let queryString = '';
+    if (qs.sort) {
+      queryString = '?sort=' + qs.sort;
+    }
+    const test = queryString.toString();
+    this.shoeService.searchShoes(this.queries, queryString).subscribe(
       data => {
          this.shoes = data;
       },
@@ -79,13 +89,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
   
   saleFilter() {
     this.initQueries += ' SALE';
-    this.router.navigateByUrl('/' + this.initQueries);
+    this.reload();
   }
 
   removeFilter(filter: string): void {
     if (filter.indexOf(' ') > -1) { filter = '[' + filter + ']'}
     this.initQueries = this.initQueries.replace(filter, '').trim();
-    this.router.navigateByUrl('/' + this.initQueries);
+    this.reload();
   }
 
   escapeRegExp(str) {
@@ -96,6 +106,15 @@ export class CollectionComponent implements OnInit, OnDestroy {
     return str.replace(new RegExp(this.escapeRegExp(find), 'g'), replace);
   }
 
-  
+  sortChangeEvent(event) {
+    this.reload();
+  }
 
+  reload() {
+    let str = '/' + this.initQueries;
+    if (this.sort !== 'rel') {
+      str += '?sort=' + this.sort;
+    }
+    this.router.navigateByUrl(str);
+  }
 }

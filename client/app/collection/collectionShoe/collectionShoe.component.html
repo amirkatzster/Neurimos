@@ -1,15 +1,17 @@
 <div class="shoeContainer">
    <a [routerLink]="linkToDetails"> 
-     <span>
-        <picture>
-            <source media="(max-width: 650px)" [srcset]="shoe.imagesGroup[0].images[0].urlMedium">
-            <img [src]="shoe.imagesGroup[0].images[0].urlMedium" class="imgContainer"/>
+     <div *ngIf="isNew(shoe)" class="newTag">חדש</div>
+     <div *ngIf="shoe.price !== shoe.finalPrice" class="saleTag">SALE</div>
+     <div class="imageParent">
+       <picture>
+         <source media="(max-width: 650px)" [srcset]="shoe.imagesGroup[0].images[0].urlMedium">
+          <img [src]="shoe.imagesGroup[0].images[0].urlMedium" class="imgContainer" [ngClass]="{'imageOutOfStock': shoe.stock === 0}"/>
         </picture>
-      </span>
+        <div *ngIf="shoe.stock === 0" class="outofstockTag">אזל המלאי</div>    
+      </div>
       <div class="shoeText">
         <div class="company">{{shoe.company}}</div>
         <div class="name">{{shoe.name}}</div>
-        
         <div class="price" *ngIf="shoe.price !== shoe.finalPrice">{{shoe.finalPrice}} ₪</div>  
         <div class="price" [ngClass]="{'discount': shoe.price !== shoe.finalPrice }">{{shoe.price}} ₪</div>  
       </div>

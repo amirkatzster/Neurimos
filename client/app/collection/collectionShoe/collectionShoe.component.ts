@@ -11,10 +11,18 @@ export class CollectionShoeComponent implements OnInit {
   @Input() shoe: any;
 
   linkToDetails: string;
+  private oneDay: number =  24 * 60 * 60 * 1000;
+  private today: Date = new Date();
   constructor(private shoeService: ShoeService) { }
 
   ngOnInit() {
     this.linkToDetails = this.shoeService.getShoeLink(this.shoe);
+  }
+
+  isNew(shoe) {
+    const shoeDate = new Date(shoe.inserted);
+    const diffDays = Math.round(Math.abs((this.today.getTime() - shoeDate.getTime()) / (this.oneDay)));
+    return diffDays <= 30;
   }
 
 }

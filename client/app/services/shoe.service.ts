@@ -20,8 +20,8 @@ export class ShoeService {
     return this.http.get('/api/shoes/count').map(res => res.json());
   }
 
-  searchShoes(query: String[]): Observable<any> {
-    return this.http.post('/api/shoes/search', JSON.stringify(query), this.options).map(res => res.json());
+  searchShoes(query: String[], queryString: String): Observable<any> {
+    return this.http.post('/api/shoes/search' + queryString, JSON.stringify(query), this.options).map(res => res.json());
   }
 
   addShoe(shoe): Observable<any> {

@@ -4,7 +4,7 @@ import BaseCtrl from './base';
 import AWS = require('aws-sdk');
 import config = require('config');
 import Jimp = require('jimp');
-import cache = require('memory-cache');
+import cache = require('memory-cache'); 
 
 export default class ShoeCtrl extends BaseCtrl {
   model = Shoe;
@@ -21,10 +21,29 @@ export default class ShoeCtrl extends BaseCtrl {
   }
 
   search = (req, res) => {
+    const sortQuery: any = {
+      skip: 0, // Starting Row
+      limit: 100, // Ending Row
+    }
+    if (req.query.sort) {
+      if (req.query.sort === 'priceLow') {
+        sortQuery.sort = { price: 1}
+      }
+      if (req.query.sort === 'priceHigh') {
+        sortQuery.sort = { price: -1}
+      }
+      if (req.query.sort === 'new') {
+        sortQuery.sort = { inserted: -1}
+      }
+    }
+
     this.model.find({
-      searchWords: { $all: req.body }
+      searchWords: { $all: req.body },
+      active: true
       // return only those fields
-    }, 'company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes', (err, docs) => {
+    }, 'company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock', 
+    sortQuery,
+    (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
     });
