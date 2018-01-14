@@ -1,6 +1,22 @@
 .image-container
 {
     text-align: center;
+    position: relative;
+}
+
+.insideImage {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+}
+
+.colorCard {
+    background-color: #cfc4b0;
+    
+    .btnInsideImage {
+        background-color: #9b8254;
+        color:white;
+    }
 }
 
 .companies-container
@@ -14,10 +30,7 @@
     font-size: 22px;
 }
 
-.image-container
-{
-    position: initial;
-}
+
 
 .companyContainer
 {
