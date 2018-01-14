@@ -85,21 +85,13 @@
                 </accordion-group>
                 <accordion-group [isOpen]="openStep == 2" [isDisabled]="openStep < 2">
                     <div accordion-heading class="headerAccordion" [ngClass]="{'text-muted': openStep < 2}">
-                        פרטי תשלום
+                        תשלום
                       </div>
                   <div>
                       <i>קנייה בטוחה באמצעות פייפאל שתומך בכרטיס אשראי</i>
                       <br>
                       <i>לחץ על אמצעי תשלום</i>
-                    <paypal-button [props]="{
-                        env: paypalConfig.env,
-                        client: paypalConfig.client,
-                        commit: paypalConfig.commit,
-                        locale: 'he_IL',
-                        payment: payment,
-                        onAuthorize: onAuthorize,
-                        style: paypalConfig.style
-                    }"></paypal-button>
+                      <div id="paypal-button-container"></div>
                   </div>
                 </accordion-group>
                 <accordion-group [isOpen]="openStep == 3" [isDisabled]="openStep < 3">

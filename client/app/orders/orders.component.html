@@ -102,7 +102,7 @@
               <button *ngIf="orders.length > 0" type="button" class="btn btn-danger" routerLink="/cashier">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
           </div>
           <div class="col-md-5">
-              <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
+              <button *ngIf="orders.length > 0" type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
           </div>
           <div class="col-md-3"></div>
       </div>

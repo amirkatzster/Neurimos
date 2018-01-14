@@ -1,0 +1,39 @@
+<div style="position:initial">
+  <div class="container-fluid" >
+    <div class="row spacer">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-8">
+            <accordion [closeOthers]="true">
+                <accordion-group  [isOpen]="false"  [isDisabled]="true" >
+                                 <div accordion-heading class="headerAccordion text-muted">
+                                    פרטי משלוח
+                                  </div>
+                </accordion-group>
+                <accordion-group [isOpen]="false" [isDisabled]="true">
+                    <div accordion-heading class="headerAccordion text-muted">
+                        תשלום
+                      </div>
+                </accordion-group>
+                <accordion-group [isOpen]="true">
+                    <div accordion-heading class="headerAccordion">
+                        סיכום
+                    </div>
+                    שלום <strong>{{ auth.currentUser.username}}</strong> <br> <br>
+                    בקשתך בטיפול <br>
+                    אנו נבצע את התשלום כאשר נוודא שכל מוכן 
+                    <h5>אנו תמיד לשרותכם צוות נעורים 03-5052769</h5>
+                    <h2>תודה שבחרתם בנו</h2>
+                    <h1> :)</h1>
+                    <br>
+                    <button type="button" class="btn btn-secondary" (click)="backClicked()" routerLink="/">חזור לחנות</button><br>
+                    <br>
+                    <small><i> מזהה הזמנה {{orderId()}}</i></small>
+                </accordion-group>
+                
+              </accordion>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+  </div>
+</div>

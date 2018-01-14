@@ -7,6 +7,7 @@ import { get } from 'selenium-webdriver/http';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
+import {  Router } from '@angular/router';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class CashierComponent implements OnInit , OnDestroy {
 
   constructor(public orderService: OrderService,
               public auth: AuthService,
-              private userService: UserService) {
+              private userService: UserService,
+              public router: Router) {
   }
 
   ngOnInit() {
@@ -49,6 +51,27 @@ export class CashierComponent implements OnInit , OnDestroy {
           fundingicons: true,
           branding: true,
       };
+      window['paypal'].Button.render({
+        env: 'sandbox',
+        client: this.paypalConfig.client,
+        commit: this.paypalConfig.commit,
+        locale: 'he_IL',
+        payment: this.payment,
+        onAuthorize:  (data, actions) => {
+          debugger;
+          const parent = this;
+          const dataParent = data;
+          return actions.payment.execute().then(function() {
+            // Update status
+            parent.orderService.createServerOrderStatus(localStorage.getItem('orderId'), 'payed', dataParent).subscribe(
+              info => {
+                parent.router.navigateByUrl('/summary')
+              }
+            );
+          });
+        },
+        style: this.paypalConfig.style
+      }, '#paypal-button-container');
   }
 
 
@@ -72,7 +95,6 @@ export class CashierComponent implements OnInit , OnDestroy {
   }
 
   openStep2() {
-    debugger;
     this.sub.unsubscribe();
     this.sub = this.orderService.createServerOrder(this.user).subscribe(data => {
         localStorage.setItem('orderId', JSON.parse(data._body)._id);
@@ -107,7 +129,6 @@ export class CashierComponent implements OnInit , OnDestroy {
   }
 
   payment(data, actions) {
-    debugger;
     const CREATE_URL = '/api/paypal/payment/create/' + localStorage.getItem('orderId');
     // Make a call to your server to set up the payment
     return window['paypal'].request.post(CREATE_URL)
@@ -116,20 +137,6 @@ export class CashierComponent implements OnInit , OnDestroy {
         });
   }
 
-  onAuthorize(data, actions) {
-    debugger;
-    console.log('Good buy!!!');
-          console.log(data);
-          console.log('----------');
-          console.log(actions);
-      return actions.payment.execute().then(function() {
-          // Show a success page to the buyer
-          console.log('Good buy!!!');
-          console.log(data);
-          console.log('----------');
-          console.log(actions);
-      });
-  }
 
 
   ngOnDestroy(): void {

@@ -24,19 +24,19 @@
   <!-- For Mobile -->
   <div class="row login-mobile search-bar hidden-sm-up not-visible">
       <div class="col-xs-12">
-          <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">התחבר</a>
+          <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
           <span class="nav-float or" *ngIf="!auth.loggedIn"> או </span>
-          <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">הרשם</a>
-          <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
+          <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
+          <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
             <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
           </a>
           <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
             <i class="fa fa-lock" aria-hidden="true"></i> אדמין
           </a>
-          <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
+          <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
             <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
           </a><br>            
-          <span *ngIf="auth.loggedIn" class="nav-admin">
+          <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">
             שלום :) {{auth.currentUser.username}}
           </span>
       </div>
@@ -54,19 +54,19 @@
     <div class="nav navbar-nav nav-right row top-spacing">
         <div class="col-md-4 col-xs-12">
           <div class="register-container float-xs-right float-sm-left hidden-sm-down visible">
-            <span *ngIf="auth.loggedIn" class="nav-admin">
+            <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">
                 שלום :) {{auth.currentUser.username}}
             </span>
-            <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">התחבר</a>
+            <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
             <span class="nav-float or" *ngIf="!auth.loggedIn"> או </span>
-            <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn">הרשם</a>
+            <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
             <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
               <i class="fa fa-lock" aria-hidden="true"></i> אדמין
             </a>
-            <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
+            <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
               <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
             </a>  
-            <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn">
+            <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
               <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
             </a>        
             

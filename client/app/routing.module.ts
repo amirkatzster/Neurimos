@@ -18,6 +18,7 @@ import { ShoeDetailsComponent } from 'app/collection/shoeDetails/shoeDetails.com
 import { OrdersComponent } from 'app/orders/orders.component';
 import { CashierComponent } from 'app/orders/cashier/cashier.component';
 import { TakanonComponent } from 'app/orders/takanon/takanon.component';
+import { SummaryComponent } from 'app/orders/summary/summary.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
   { path: 'notfound', component: NotFoundComponent },
   { path: 'takanon', component: TakanonComponent },
+  { path: 'summary', component: SummaryComponent },
   { path: ':query', component: CollectionComponent },
   { path: ':desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
   { path: ':desc/נעל/:id', component: ShoeDetailsComponent },

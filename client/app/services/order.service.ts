@@ -56,6 +56,11 @@ export class OrderService {
     return subTotal;
   }
 
+  cleanOrders() {
+    this.orders = [];
+    this.persist()
+  }
+
   shippment() {
     return 20;
   }
@@ -87,6 +92,7 @@ export class OrderService {
   persist() {
     localStorage.setItem('orders', JSON.stringify(this.orders));
   }
+
 
   createServerOrder(user): Observable<any> {
     const serverOrder = {

@@ -32,6 +32,7 @@ const CustomerSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
+  id: { type: [String], index: true },
   status: {
     type: String,
     enum : ['created', 'payed', 'verify', 'shipped', 'deliverd', 'cancel'],

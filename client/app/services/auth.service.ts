@@ -10,6 +10,7 @@ import { debug } from 'util';
 export class AuthService {
   public loggedIn = false;
   public isAdmin = false;
+  public isGuest = false;
 
   currentUser = { _id: '', username: '', role: '' };
 
@@ -48,6 +49,7 @@ export class AuthService {
     localStorage.removeItem('user');
     this.loggedIn = false;
     this.isAdmin = false;
+    this.isGuest = false;
     this.currentUser = { _id: '', username: '', role: '' };
     this.router.navigate(['/']);
   }
@@ -58,6 +60,7 @@ export class AuthService {
     this.currentUser.username = decodedUser.username;
     this.currentUser.role = decodedUser.role;
     decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
+    decodedUser.role === 'guest' ? this.isGuest = true : this.isGuest = false;
     delete decodedUser.role;
   }
 
