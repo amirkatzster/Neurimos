@@ -4,6 +4,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import {ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { ShoeService } from 'app/services/shoe.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
 
 @Component({
   selector: 'app-collection',
@@ -12,13 +14,17 @@ import { ShoeService } from 'app/services/shoe.service';
 })
 export class CollectionComponent implements OnInit, OnDestroy {
   
-  private sub: any;
+  private sub1: any;
+  private sub2: any;
   initQueries: String;
   queries: String[];
   filters: String[];
   shoes: any[];
   isLoading: boolean;
   searchToShow: String[];
+  sizes: String[];
+  companies: any[];
+  colors: any[];
   sort: String = 'rel';
   sortList: any[] = [{'value': 'rel' , 'viewValue': 'רלוונטיות'},
                      {'value': 'new' , 'viewValue': 'חדשים'},
@@ -33,21 +39,26 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.initQueries = '';
     this.queries = [];
     this.filters = [];
+    this.sizes = [];
+    this.companies = [];
+    this.colors = [];
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.route.queryParams.subscribe(qs => {
-      if (qs.sort) {
-        this.sort = qs.sort;
+    console.log('sort1...');
+    const obsComb = Observable.combineLatest(this.route.params, this.route.queryParams,
+      (params, qparams) => ({ params, qparams }))
+    this.sub1 = obsComb.subscribe( ap => {
+      if (ap.qparams.sort) {
+        this.sort = ap.qparams.sort;
       }
-      this.initQueries = params['query'];
+      this.initQueries = ap.params['query'];
       this.queries = this.createSearchQuery(this.initQueries);
       this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1)
       this.filters = this.queries;
       // dispatch action to load the details here.
-      this.updateCollection(qs); });
-   });
+      this.updateCollection(ap.qparams);
+    });
   }
 
   createSearchQuery(query): any {
@@ -68,9 +79,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
+ 
 
   updateCollection(qs: Params) {
     let queryString = '';
@@ -78,18 +87,49 @@ export class CollectionComponent implements OnInit, OnDestroy {
       queryString = '?sort=' + qs.sort;
     }
     const test = queryString.toString();
-    this.shoeService.searchShoes(this.queries, queryString).subscribe(
+    this.sub2 =this.shoeService.searchShoes(this.queries, queryString).subscribe(
       data => {
          this.shoes = data;
+         this.setFilters();
       },
       error => console.log(error),
       () => this.isLoading = false
     );
   }
+
+  setFilters() {
+    const sizeSet = new Set();
+    const companyArray = [];
+    const colorArray = [];
+    this.shoes.forEach(s => {
+      companyArray.push(s.company);
+      if (s.stock > 0) {
+        s.imagesGroup.forEach(ig => {
+          colorArray.push(ig.color);
+          ig.sizes.map(ns => ns.size).forEach(sz => {
+            sizeSet.add(sz);
+          });
+        });
+      }
+    });
+    this.sizes = Array.from(sizeSet).sort();
+    this.companies = this.count(companyArray);
+    this.colors = this.count(colorArray);
+  }
   
-  saleFilter() {
-    this.initQueries += ' SALE';
-    this.reload();
+ 
+
+  count(arr) {
+    const res = [];
+    const newObj = arr.reduce(function(m, e){
+      m[e] = (+m[e] || 0) + 1; return m
+    }, {});
+    for (const property in newObj) {
+      if (newObj.hasOwnProperty(property)) {
+          res.push({key: property, count : newObj[property]});
+      }
+  }
+    return res;
   }
 
   removeFilter(filter: string): void {
@@ -97,6 +137,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.initQueries = this.initQueries.replace(filter, '').trim();
     this.reload();
   }
+
+  addFiler(filter) {
+    this.initQueries += ' ' + filter;
+    this.reload();
+  }
+
+
 
   escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
@@ -116,5 +163,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
       str += '?sort=' + this.sort;
     }
     this.router.navigateByUrl(str);
+  }
+
+  ngOnDestroy() {
+    this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
   }
 }

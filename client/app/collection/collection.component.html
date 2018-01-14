@@ -35,24 +35,32 @@
           </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
-          <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="saleFilter()" >רק מבצעים</button>
+          <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')" >רק מבצעים</button>
           <accordion>
             <accordion-group  [isOpen]="true"  >
-                <div accordion-heading class="headerAccordion text-muted">
+                <div accordion-heading class="headerAccordion">
                     מידה
                 </div>
                 <div>
-
+                    <button class="btn btn-secondary btn-sm" *ngFor="let size of sizes">{{size}}</button>
                 </div>
             </accordion-group>
             <accordion-group [isOpen]="true" >
-                <div accordion-heading class="headerAccordion text-muted">
+                <div accordion-heading class="headerAccordion">
                     חברה  
+                </div>
+                <div *ngFor="let company of companies">
+                    <button class="btn btn-link btn-sm" (click)="addFiler(company.key)" >
+                        {{company.key}} ({{company.count}})</button>
                 </div>
             </accordion-group>
             <accordion-group [isOpen]="true">
                 <div accordion-heading class="headerAccordion">
                     צבע
+                </div>
+                <div *ngFor="let color of colors">
+                    <button class="btn btn-link btn-sm" (click)=filter (click)="addFiler(color.key)" >
+                        {{color.key}} ({{color.count}})</button>
                 </div>
             </accordion-group>         
           </accordion>
