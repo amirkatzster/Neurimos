@@ -58,7 +58,6 @@ export class CashierComponent implements OnInit , OnDestroy {
         locale: 'he_IL',
         payment: this.payment,
         onAuthorize:  (data, actions) => {
-          debugger;
           const parent = this;
           const dataParent = data;
           return actions.payment.execute().then(function() {
