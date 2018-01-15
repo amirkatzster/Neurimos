@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'app/services/order.service';
 import { AuthService } from 'app/services/auth.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-summary',
@@ -10,7 +11,8 @@ import { AuthService } from 'app/services/auth.service';
 export class SummaryComponent implements OnInit {
 
   constructor(public orderService: OrderService,
-              public auth: AuthService) { }
+              public auth: AuthService,
+              private location: Location) { }
 
   ngOnInit() {
     this.orderService.cleanOrders();
@@ -18,6 +20,10 @@ export class SummaryComponent implements OnInit {
 
   orderId() {
     return localStorage.getItem('orderId')
+  }
+
+  backClicked() {
+    this.location.back();
   }
 
 }
