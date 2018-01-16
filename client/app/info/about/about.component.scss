@@ -1,0 +1,17 @@
+.card-header {
+    text-align: center;
+    color: #3e2b14;
+}
+
+.card-block {
+    background: #a1ffce; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #a1ffce, #faffd1); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #a1ffce, #faffd1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #3e2b14;
+    font-weight: bold;
+}
+
+img {
+    border: 15px solid #3e2b14;
+   padding: 10px;
+ }

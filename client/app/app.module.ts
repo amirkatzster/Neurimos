@@ -10,7 +10,6 @@ import { ClassificationService } from './services/classification.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -27,6 +26,10 @@ import { CashierComponent } from 'app/orders/cashier/cashier.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TakanonComponent } from 'app/orders/takanon/takanon.component';
 import { SummaryComponent } from 'app/orders/summary/summary.component';
+import { FindusComponent } from 'app/info/findus/findus.component';
+import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
+import { AgmCoreModule } from '@agm/core';
+import { AboutComponent } from 'app/info/about/about.component';
 
 
 
@@ -47,14 +50,19 @@ import { SummaryComponent } from 'app/orders/summary/summary.component';
     OrdersComponent,
     CashierComponent,
     TakanonComponent,
-    SummaryComponent
+    SummaryComponent,
+    FindusComponent,
+    SendusmsgComponent
 ],
   imports: [
     RoutingModule,
     SharedModule,
     AdminModule,
     AccordionModule.forRoot(),
-    window['paypal'].Button.driver('angular2', ngCore)
+    window['paypal'].Button.driver('angular2', ngCore),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCdfSnui6ck0WUOBT-Q9wa1zoDcdoUFH5k'
+    })
   ],
   providers: [
     AuthService,

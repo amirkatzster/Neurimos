@@ -5,13 +5,18 @@
       <div class="col-md-2 hidden-xs-down"></div>
       <div class="col-md-2 col-xs-6"><a href="tel:035052769" class="header-phone">505-2769 (03) <i class="fa fa-phone" aria-hidden="true"></i></a></div>
       <div class="col-md-2 hidden-xs-down"><div class="align-left">9:00 עד 19:00 <i class="fa fa-clock-o" aria-hidden="true"></i></div></div>
-      <div class="col-md-4 dropdown col-xs-6">
-        <button class="btn header-btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">צרו קשר <span class="caret"></span></button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" >
-          <li><a href="#">שלחו לנו הודעה</a></li>
-          <li><a href="#">פרטי הגעה</a></li>
-        </ul>
+      <div class="col-md-3 dropdown col-xs-5">
+          <div class="dropdown show btn-group">
+              <a class="btn dropdown-toggle btnContact btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  צרו קשר
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" routerLink="/sendusmsg" href="#">שלחו לנו הודעה</a>
+                <a class="dropdown-item" routerLink="/findus" href="#">הגעה</a>
+              </div>
+            </div>
       </div>
+      <div class="col-md-1 dropdown col-xs-1"></div>
     </div> 
   </div>
   <!-- For Desktop -->

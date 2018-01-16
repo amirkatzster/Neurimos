@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -19,6 +18,9 @@ import { OrdersComponent } from 'app/orders/orders.component';
 import { CashierComponent } from 'app/orders/cashier/cashier.component';
 import { TakanonComponent } from 'app/orders/takanon/takanon.component';
 import { SummaryComponent } from 'app/orders/summary/summary.component';
+import { FindusComponent } from 'app/info/findus/findus.component';
+import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
+import { AboutComponent } from 'app/info/about/about.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -29,13 +31,16 @@ const routes: Routes = [
   { path: 'cashier', component: CashierComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
-  { path: 'notfound', component: NotFoundComponent },
+  { path: 'findus', component: FindusComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'sendusmsg', component: SendusmsgComponent },
   { path: 'takanon', component: TakanonComponent },
   { path: 'summary', component: SummaryComponent },
   { path: ':query', component: CollectionComponent },
   { path: ':desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
   { path: ':desc/נעל/:id', component: ShoeDetailsComponent },
-  { path: ':company/נעלי', component: NotFoundComponent }
+  { path: ':company/נעלי', component: NotFoundComponent },
+  { path: 'notfound', component: NotFoundComponent },
 ];
 
 @NgModule({
