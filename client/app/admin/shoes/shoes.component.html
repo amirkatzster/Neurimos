@@ -25,7 +25,7 @@
       <tbody>
         <tr *ngFor="let shoe of shoes;let i = index">
           <td>            
-            <button class="btn btn-sm btn-warning" (click)="enableEditing(shoe, i ,modal)"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe._id"><i class="fa fa-pencil"></i></button>
           </td>
           <td><strong>{{shoe.id}}</strong></td>
           <td><mat-checkbox [checked]="shoe.active" disabled="disabled"></mat-checkbox></td>
@@ -42,110 +42,3 @@
     </table>
   </div>
 </div>
-
-<modal #modal>
-  <form #addEditform="ngForm" (ngSubmit)="doneEditShoe(currentShoe)">
-    <modal-header [show-close]="true">
-        <h4 class="modal-title">{{currentShoe.id}} עריכה</h4>
-    </modal-header>
-    <modal-body class="addForm">
-        <div class="form-group">
-            <mat-checkbox name="active" class="example-margin" [(ngModel)]="currentShoe.active" [checked]="currentShoe.active">?להציג באתר</mat-checkbox>
-        </div>
-        <div class="form-group">
-          <label for="compId">חברה</label>
-          <select id="compId" dir="rtl" class="form-control" name="company" [(ngModel)]="currentShoe.companyId" required>
-            <option *ngFor="let company of companies" [value]="company._id" >{{company.name}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-            <label for="shoeId">דגם</label>
-            <input class="form-control" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="...הכנס דגם" required>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-              <label for="shoeId">מחיר לפני הנחה</label>
-              <mat-grid-list cols="3" rowHeight="40px">
-                    <mat-grid-tile  colspan="2">
-                          <span class="input-group-addon">₪</span>
-                          <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="...הכנס מחיר" step="any" min="0">
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <button *ngIf="!currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-success"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת הנחה</button>
-                        <button *ngIf="currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-danger"><i class="fa fa-minus fa-1x" aria-hidden="true"></i>הסרת הנחה</button>
-                    </mat-grid-tile>
-              </mat-grid-list>
-          </div>  
-        </div>
-        <div class="form-group" *ngIf="currentShoe.discount">
-            <div class="input-group">
-            <label for="shoeId">הנחה</label>
-            <mat-grid-list cols="5" rowHeight="40px">
-                <mat-grid-tile colspan="2">
-                    <input class="form-control" type="number" name="discountPer" [(ngModel)]="currentShoe.discount.percentage" placeholder="הנחה באחוזים" step="any" min="0" max="100">
-                    <span class="input-group-addon">%</span>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <div class="OrDiscount">או</div>
-                </mat-grid-tile>
-                <mat-grid-tile colspan="2">
-                    <input class="form-control" type="number" name="discountCash" [(ngModel)]="currentShoe.discount.newAmount" placeholder="המחיר החדש" step="any" min="0">
-                    <span class="input-group-addon">₪</span> 
-                </mat-grid-tile>
-           </mat-grid-list>
-           </div>
-        </div>
-        <hr>
-        <div class="form-group" >
-            <mat-checkbox *ngFor="let gen of genders" [name]="'gender' + gen.name" class="example-margin" [(ngModel)]="gen.mark" [checked]="gen.mark">{{ gen.name }}</mat-checkbox>
-        </div>
-        <hr>
-        <div class="form-group" >
-          <mat-radio-group [(ngModel)]="currentShoe.classification" name="classification">
-            <mat-radio-button *ngFor="let classification of classifications"  class="example-margin" [value]="classification._id" >{{classification.name}}</mat-radio-button>
-          </mat-radio-group>
-      </div>
-      <hr>
-        <div class="form-group">
-            <textarea  class="form-control" rows="3"  type="text" name="information" [(ngModel)]="currentShoe.information" placeholder="...ספרו על הנעל" required></textarea>
-        </div>
-         
-        <div *ngFor="let ig of currentShoe.imagesGroup; let i = index" class="groupSeperator">
-          <table style="width:100%">
-            <tr>
-              <td>
-                  <button type="button" (click)="removeGroupImage(i)" class="btn btn-danger"><i class="fa fa-trash fa-1x" aria-hidden="true"></i>הסרת צבע</button><br>
-                  <label >צבע</label>
-                  <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
-                  <label >מידות</label><br>
-                  <mat-grid-list cols="5" rowHeight="30px">
-                      <mat-grid-tile *ngFor="let sizeOption of ig.sizeOptions" colspan="1" rowspan="1" [ngClass]="{'showInStock': sizeOption.amount > 0 }" >
-                      <i class="fa fa-chevron-circle-up fa-1" aria-hidden="true" (click)="sizeUp(sizeOption)"></i>{{ sizeOption.name }} ({{ sizeOption.amount }})
-                      <i class="fa fa-chevron-circle-down fa-1" [ngClass]="{'downDisabled': sizeOption.amount === 0 }"  aria-hidden="true" (click)="sizeDown(sizeOption)"></i>
-                    </mat-grid-tile>                
-                  </mat-grid-list>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                  <table>
-                      <tr *ngFor="let img of ig.images; let j = index">
-                        <td><button class="btn btn-lg btn-danger trashBtn" (click)="deleteImage(currentShoe,i,j)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button></td>
-                        <td><img [src]="img.urlMedium" class="mx-auto d-block" width="255" ></td>
-                      </tr>
-                      <tr>
-                          <input type="file" accept="image/*" capture="camera" [name]="'image_' + i + '_' + j" [(ngModel)]="currentShoe.image" (change)="handleInputChange($event,ig)" />
-                      </tr>
-                  </table>
-              </td>
-            </tr>
-          </table>
-        </div> 
-        <button type="button" (click)="addGroupImage()" class="btn"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת צבע</button>
-    </modal-body>
-    <modal-footer>
-      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">סגור</button>
-      <button type="submit" class="btn btn-primary" (click)="modal.close()" [disabled]="!addEditform.form.valid">שמור</button>
-    </modal-footer>
-    </form>
-</modal>

@@ -21,6 +21,7 @@ import { SummaryComponent } from 'app/orders/summary/summary.component';
 import { FindusComponent } from 'app/info/findus/findus.component';
 import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
 import { AboutComponent } from 'app/info/about/about.component';
+import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'order', component: OrdersComponent },
   { path: 'cashier', component: CashierComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
+  { path: 'admin/shoeedit/:id', component: ShoeEditComponent, canActivate: [AuthGuardAdmin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
   { path: 'findus', component: FindusComponent },
   { path: 'about', component: AboutComponent },

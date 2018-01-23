@@ -9,6 +9,8 @@ import { CompanyComponent } from '../../app/admin/company/company.component';
 import { CompanyService } from '../../app/services/company.service';
 import { ClassificationComponent } from './classification/classification.component';
 import { ClassificationService } from 'app/services/classification.service';
+import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -18,14 +20,16 @@ import { ClassificationService } from 'app/services/classification.service';
     MenuComponent,
     ShoesComponent,
     CompanyComponent,
-    ClassificationComponent
+    ClassificationComponent,
+    ShoeEditComponent
 ],
   exports: [
     UsersComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   providers: [
      ShoeService,

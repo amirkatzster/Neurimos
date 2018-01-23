@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ShoeService } from 'app/services/shoe.service';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-collection-shoe',
@@ -13,7 +14,8 @@ export class CollectionShoeComponent implements OnInit {
   linkToDetails: string;
   private oneDay: number =  24 * 60 * 60 * 1000;
   private today: Date = new Date();
-  constructor(private shoeService: ShoeService) { }
+  constructor(private shoeService: ShoeService,
+              public auth: AuthService) { }
 
   ngOnInit() {
     this.linkToDetails = this.shoeService.getShoeLink(this.shoe);
