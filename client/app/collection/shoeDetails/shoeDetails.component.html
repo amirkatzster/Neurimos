@@ -47,7 +47,9 @@
                     </div>
                 </div>
                   <div class="col-md-9 borderShoes">
-                    <div class="shoeHeader"><a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a></div>
+                    <div class="shoeHeader">
+                            <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
+                        <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a></div>
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-9">
@@ -96,13 +98,13 @@
                                     <ul>
                                         <li>{{ shoe?.company}}</li> 
                                         <li>{{ shoe?.classificationCache}}</li>  
-                                        <li>{{ shoe?.information}}</li> 
+                                        <li *ngFor="let info of shoe?.information">{{ info }}</li> 
                                     </ul> 
                                     </blockquote>
                                 </div>
                                 </div>
                                 <div class="text-center">
-                                    <h3>נעורים מאז 1965</h3>
+                                    <h5>נעורים מאז 1965</h5>
                                 </div>
                             </div>
                     </div>

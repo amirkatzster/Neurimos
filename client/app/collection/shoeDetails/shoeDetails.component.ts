@@ -5,6 +5,7 @@ import { CompanyService } from 'app/services/company.service';
 import { MatSelectChange } from '@angular/material';
 import { OrderService } from 'app/services/order.service';
 import {Location} from '@angular/common';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-shoe-details',
@@ -28,7 +29,8 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               public companyService: CompanyService,
               public orderService: OrderService,
               public router: Router,
-              private location: Location) { }
+              private location: Location,
+              public auth: AuthService) { }
 
 
   ngOnInit() {
@@ -53,7 +55,6 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           );
         },
         error => console.log(error),
-        //() => this.isLoading = false
       );
    });
   }

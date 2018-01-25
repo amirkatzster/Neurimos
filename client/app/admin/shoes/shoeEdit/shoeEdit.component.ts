@@ -17,7 +17,6 @@ import {Location} from '@angular/common';
 })
 export class ShoeEditComponent implements OnInit, OnDestroy {
   currentShoe: any = {};
-  currentShoeIndex: number;
   friendlyId: string;
   companies = [];
   classifications = [];
@@ -45,12 +44,15 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.sub1 = this.shoeService.getShoeById(params['id']).subscribe(data => {
-        this.currentShoe = data;
-        this.initForm();
-      });
+      if (params['id']) {
+        this.sub1 = this.shoeService.getShoeById(params['id']).subscribe(data => {
+          this.currentShoe = data;
+          this.initForm();
+        });
+      } else {
+        this.addShoe();
+      }
    });
-    // this.genFriendlyId();
     this.getCompanies();
     this.getClassifications();
   }
@@ -65,6 +67,9 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
            g.mark = false;
          }
      });
+     if (!this.currentShoe.information || !Array.isArray(this.currentShoe.information)) {
+       this.currentShoe.information = [];
+     }
    }
   }
 
@@ -100,29 +105,22 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   }
 
 
-  // addShoe(modal) {
-  //   this.isEditing = true;
-  //   this.currentShoe = { 'active': true , 'id': this.friendlyId };
-  //   this.currentShoeIndex = this.shoes.length;
-  //   this.initGroupImages();
-  //   modal.open();
-  // }
+  addShoe() {
+    this.sub2 = this.shoeService.countShoes().subscribe(
+      data => {
+        console.log(data);
+        // count shoes in database * 2 + random number between 10-99 * 3
+        this.friendlyId = (data * 2 + (Math.floor(Math.random() * 89) + 10) * 3).toString();
+        this.currentShoe = { 'active': true , 'id': this.friendlyId , 'imagesGroup': [], 'information': []};
+        this.initGroupImages();
+      },
+      error => console.log(error),
+    );
+    if (!this.currentShoe.information || !Array.isArray(this.currentShoe.information)) {
+      this.currentShoe.information = [];
+     }
+  }
 
-  // enableEditing(shoe, ind, modal) {
-  //  
-  //   this.currentShoeIndex = ind;
-  //   modal.open();
-  // }
-
-  // genFriendlyId()  {
-  //   this.sub2 = this.shoeService.countShoes().subscribe(
-  //     data => {
-  //       console.log(data);
-  //       // count shoes in database * 2 + random number between 10-99 * 3
-  //       this.friendlyId = (data * 2 + (Math.floor(Math.random() * 89) + 10) * 3).toString();
-  //     },
-  //     error => console.log(error),
-  // );}
 
   deleteImage(shoe, index, jIndex) {
     const image = shoe.imagesGroup[index].images[jIndex];
@@ -136,8 +134,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   }
 
 
-// On SAVE  
-
+// On SAVE
 doneEditShoe(shoe) {
   this.beforeSubmitting(shoe);
   if (!this.currentShoe._id) {
@@ -298,6 +295,13 @@ beforeSubmitting(shoe) {
 
   backClicked() {
     this._location.back();
+  }
+
+  removeInfoIfEmpty(event, index) {
+    this.currentShoe.information[index] = event.target.value;
+    if (!event.target.value || event.target.value === '') {
+      this.currentShoe.information.splice(index, 1);
+    }
   }
 
 }

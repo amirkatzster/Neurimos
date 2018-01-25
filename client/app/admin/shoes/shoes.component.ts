@@ -39,10 +39,4 @@ export class ShoesComponent implements OnInit {
       () => this.isLoading = false
     );
   }
-
-
-
-
-  
-
 }

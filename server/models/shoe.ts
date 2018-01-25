@@ -27,7 +27,7 @@ const DiscountSchema = new mongoose.Schema({
 
 
 const shoeSchema = new mongoose.Schema({
-  id: { type: [String], index: true },
+  id: { type: [String], index: true, unique: true },
   active: Boolean,
   company: String,
   companyId: String,
@@ -43,7 +43,7 @@ const shoeSchema = new mongoose.Schema({
   },
   //TODO: Check if need to remove in prod?!
   searchWords: { type: [String], index: true },
-  information: String,
+  information: [String],
   imagesGroup: [ ImageSchema ],
   stock: Number,
   updated: { type: Date, default: Date.now },

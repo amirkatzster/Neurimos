@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'cashier', component: CashierComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin/shoeedit/:id', component: ShoeEditComponent, canActivate: [AuthGuardAdmin] },
+  { path: 'admin/shoeedit', component: ShoeEditComponent, canActivate: [AuthGuardAdmin] },
   { path: 'admin', component: MenuComponent, canActivate: [AuthGuardAdmin] },
   { path: 'findus', component: FindusComponent },
   { path: 'about', component: AboutComponent },
