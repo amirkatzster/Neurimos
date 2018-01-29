@@ -2,7 +2,7 @@
 set -e
 
 # update instance
-yum -y update
+#yum -y update
 
 # install general libraries like Java or ImageMagick
 #yum -y install default-jre ImageMagick
