@@ -13,5 +13,6 @@ set -e
 
 # install pm2 module globaly
 /opt/bitnami/nodejs/bin/npm install -g pm2
-pm2 update
-pm2 stop neurimos && pm2 delete neurimos
+/opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 update
+/opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 stop neurimos 
+/opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 delete neurimos
