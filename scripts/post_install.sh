@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-# cd ~/node
-# npm install
+cd ~/node
+npm install
 
 # setup NODE_ENV
 # if [ ! -z "$DEPLOYMENT_GROUP_NAME" ]; then
