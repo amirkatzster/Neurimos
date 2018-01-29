@@ -11,7 +11,7 @@
     "start": "node dist/server/app.js",
     "predev": "tsc -p server",
     "dev": "concurrently \"ng serve -pc proxy.conf.json --open\" \"tsc -w -p server\" \"nodemon dist/server/app.js\"",
-    "prod": "concurrently \"ng build -aot -prod && tsc -p server && export NODE_ENV=production && pm2 start dist/server/app.js -i 0 --name 'neurimos'\"",
+    "prod": "ng build -aot -prod && tsc -p server && export NODE_ENV=production && pm2 start dist/server/app.js -i 0 --name 'neurimos'",
     "test": "ng test",
     "lint": "ng lint",
     "lintbe": "tslint server/**/**.ts{,x}",
