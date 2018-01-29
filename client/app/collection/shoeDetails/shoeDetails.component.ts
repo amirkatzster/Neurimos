@@ -6,6 +6,7 @@ import { MatSelectChange } from '@angular/material';
 import { OrderService } from 'app/services/order.service';
 import {Location} from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
+import { ToastComponent } from 'app/shared/toast/toast.component';
 
 @Component({
   selector: 'app-shoe-details',
@@ -29,6 +30,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               public companyService: CompanyService,
               public orderService: OrderService,
               public router: Router,
+              public toast: ToastComponent,
               private location: Location,
               public auth: AuthService) { }
 
@@ -89,6 +91,10 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   addToCart() {
     this.orderService.newOrder(this.shoe, this.currentImageGroup , this.selectedSize);
     this.router.navigate(['order']);
+  }
+
+  orderMore() {
+    this.toast.setMessage('!אנחנו נזמין עוד מהדגם הנוכחי', 'success');
   }
 
 }

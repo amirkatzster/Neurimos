@@ -1,3 +1,5 @@
+<app-toast [message]="toast.message"></app-toast>
+
 <div style="position:initial">
     <div class="container" >
         <div class="row spacer">
@@ -23,7 +25,7 @@
                     <div class="grayArea">
                         <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
                         <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
-                        <div class="colors">
+                        <div class="colors" *ngIf="shoe?.stock > 0">
                             <mat-form-field>
                                 <mat-select name="color" (ngModelChange)="colorChangeEvent($event)" placeholder="בחר צבע" [ngModel]="currentImageGroup?.color" required>
                                     <mat-option *ngFor="let ig of shoe?.imagesGroup" [value]="ig.color">
@@ -40,6 +42,10 @@
                                     </mat-select>
                                 </div>
                             </mat-form-field>
+                        </div>
+                        <div *ngIf="shoe?.stock == 0"><h3>אזל המלאי</h3>
+                            <br>
+                            <button type="button" class="btn btn-info" (click)="orderMore()">תזמינו עוד בבקשה</button>
                         </div>
                         <div class="buttonBuy">
                             <button type="button" [disabled]="!selectedSize" class="btn btn-success" (click)="addToCart()">הוסף לעגלה</button>

@@ -64,7 +64,7 @@
     <hr>
       <div class="form-group">
         <label for="sellInfo">משפטי מכירה</label>
-        <input *ngFor="let info of currentShoe.information; let k = index" class="form-control spacer"  type="text" [name]="'information' + k" [ngModel]="currentShoe.information[k]" placeholder="משפט מכירה" (change)="removeInfoIfEmpty($event,k)" required />
+        <input *ngFor="let info of currentShoe.information; let k = index" class="form-control"  type="text" [name]="'information' + k" [ngModel]="currentShoe.information[k]" placeholder="משפט מכירה" (change)="removeInfoIfEmpty($event,k)" required />
         <input #newInfo class="form-control" type="text" name="informationNew" placeholder="משפט מכירה" (change)="currentShoe.information.push($event.target.value);newInfo.value = ''" />
       </div>
        
