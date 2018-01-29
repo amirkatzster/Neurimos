@@ -12,6 +12,7 @@ curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
 yum -y install nodejs #default-jre ImageMagick
 
 npm install -g concurrently
+npm install -g @angular/cli
 
 # install pm2 module globaly
 npm install -g pm2
