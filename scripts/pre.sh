@@ -12,6 +12,6 @@ set -e
 #yum -y install nodejs #default-jre ImageMagick
 
 # install pm2 module globaly
-npm install -g pm2
+/opt/bitnami/nodejs/bin/npm install -g pm2
 pm2 update
 pm2 stop neurimos && pm2 delete neurimos
