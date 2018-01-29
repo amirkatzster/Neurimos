@@ -10,3 +10,6 @@ chmod +x ./install
 sudo ./install auto
 
 sudo service codedeploy-agent status
+
+
+## DONT FORGET TO COPY THE CONFIG FILES

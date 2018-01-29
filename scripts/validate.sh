@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 sleep 10
-nc -zv 127.0.0.1 3000
+curl -I 127.0.0.1:3000 | grep "200 OK"
