@@ -8,7 +8,7 @@ yum -y update
 #yum -y install default-jre ImageMagick
 
 # add nodejs to yum
-curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
 yum -y install nodejs #default-jre ImageMagick
 npm install npm@latest -g
 
