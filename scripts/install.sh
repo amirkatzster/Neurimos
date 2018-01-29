@@ -19,6 +19,7 @@ sudo n stable
 
 npm install -g concurrently
 npm install -g @angular/cli
+npm install -g typescript 
 
 # install pm2 module globaly
 npm install -g pm2
