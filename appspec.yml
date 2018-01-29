@@ -9,7 +9,7 @@ hooks:
     BeforeInstall:
     - location: scripts/pre.sh
       timeout: 120
-      runas: bitnami
+      runas: root
     AfterInstall:
     - location: scripts/post.sh
       timeout: 180
