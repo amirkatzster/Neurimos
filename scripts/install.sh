@@ -7,6 +7,7 @@ yum -y update
 # install general libraries like Java or ImageMagick
 #yum -y install default-jre ImageMagick
 yum -y install gcc-c++
+yum -y install nmap-ncat
 
 # add nodejs to yum
 # curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
