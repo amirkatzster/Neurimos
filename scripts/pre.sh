@@ -3,7 +3,7 @@
 set +e
 
 echo 'kill pm2 instances'
-pm2 stop neurimos && pm2 delete neurimos
+./opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 stop neurimos && ./opt/bitnami/nodejs/lib/node_modules/pm2/bin/pm2 delete neurimos
 
 
 #NODE_PROCESS=$(ps -ef | grep "node")
