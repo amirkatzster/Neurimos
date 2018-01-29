@@ -11,6 +11,8 @@ yum -y update
 curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
 yum -y install nodejs #default-jre ImageMagick
 
+npm install -g concurrently
+
 # install pm2 module globaly
 npm install -g pm2
 pm2 update
