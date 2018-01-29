@@ -77,8 +77,6 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 
 To get more help about this project, [visit the wiki](https://github.com/DavideViolante/Angular-Full-Stack/wiki).
 
-### Author
-* [Davide Violante](https://github.com/DavideViolante)
 
 
 
