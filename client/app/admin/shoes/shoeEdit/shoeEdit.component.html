@@ -1,4 +1,5 @@
-<div class="container">
+<app-loading [condition]="isLoading"></app-loading>
+<div class="container" *ngIf="!isLoading">
 <form #addEditform="ngForm" (ngSubmit)="doneEditShoe(currentShoe)">
   <div >
       <h4 class="modal-title">{{currentShoe.id}} עריכה</h4>

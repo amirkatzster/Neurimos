@@ -2,7 +2,7 @@
 
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" >
+<div class="card" *ngIf="!isLoading">
   <h4 class="card-header">סוגי נעליים ({{classifications.length}})</h4>
   <div class="card-block">
     <button type="button" (click)="addClassification(modal)" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>

@@ -30,6 +30,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   isEditing = false;
   currentImageGroup: any = {};
   sub; sub1; sub2; sub3; sub4; sub5; sub6;
+  isLoading = false;
 
   constructor(private shoeService: ShoeService,
               private companyService: CompanyService,
@@ -136,11 +137,13 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
 
 // On SAVE
 doneEditShoe(shoe) {
+  this.isLoading = true;
   this.beforeSubmitting(shoe);
   if (!this.currentShoe._id) {
       this.sub5 = this.shoeService.addShoe(shoe).subscribe(
       res => {
         this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+        this.isLoading = false;
         this.backClicked();
       },
       error => console.log(error)
@@ -149,6 +152,7 @@ doneEditShoe(shoe) {
     this.sub5 = this.shoeService.editShoe(shoe).subscribe(
       res => {
         this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+        this.isLoading = false;
         this.backClicked();
       },
       error => console.log(error)
