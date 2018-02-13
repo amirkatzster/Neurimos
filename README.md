@@ -51,17 +51,6 @@ A window will automatically open at [localhost:4200](http://localhost:4200). Ang
 16. `heroku open`
 17. A window will open with your app online
 
-## Preview
-![Preview](https://raw.githubusercontent.com/DavideViolante/Angular2-Full-Stack/master/demo.gif "Preview")
-
-## Please open an issue if
-* you have any suggestion to improve this project
-* you noticed any problem or error
-* you have a question
-
-## To do
-* More tests
-
 ## Running unit tests
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
