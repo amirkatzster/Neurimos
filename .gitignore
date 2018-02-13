@@ -44,3 +44,4 @@ Thumbs.db
 
 .env
 /server/s3_config.json
+.env_Prod
