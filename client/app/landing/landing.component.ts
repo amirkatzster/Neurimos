@@ -9,6 +9,7 @@ import { CompanyService } from 'app/services/company.service';
 export class LandingComponent implements OnInit {
 
   companies = [];
+  showPromotion = false;
 
   constructor(public CompanyService: CompanyService) {
 

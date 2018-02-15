@@ -2,10 +2,10 @@
     <picture>
         <source media="(max-width: 650px)" srcset="https://source.unsplash.com/FKBg2JNYFFc/400x160">
         <source media="(max-width: 1100px)" srcset="https://source.unsplash.com/FKBg2JNYFFc/900x290">
-        <img src="https://source.unsplash.com/FKBg2JNYFFc/1440x500" height="500" alt="">
+        <img src="https://source.unsplash.com/FKBg2JNYFFc/1440x500" alt="" (load)="showPromotion = true">
         <!-- Ny1vyUgidMg -->
     </picture>
-    <div class="card insideImage w-75 colorCard hidden-xs-down">
+    <div *ngIf="showPromotion" class="card insideImage w-75 colorCard hidden-sm-down">
         <div class="card-block">
             <h4 class="card-title">20%-40% על כל החורף</h4>
             <p class="card-text">איזה כיף שהרגליים חמות</p>
@@ -23,7 +23,7 @@
         <div *ngFor="let company of companies;let i = index">
             <div class="col-md-2 companyContainer">
                 <a [routerLink]="[company.name]">
-                    <img src={{company.image}} width="180" alt="{{ company.name }}"/>
+                    <img src={{company.image}}  width="180" alt="{{ company.name }}"/>
                 </a>
             </div>
         </div>       
