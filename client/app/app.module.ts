@@ -30,6 +30,7 @@ import { FindusComponent } from 'app/info/findus/findus.component';
 import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
 import { AgmCoreModule } from '@agm/core';
 import { AboutComponent } from 'app/info/about/about.component';
+import { ContactUsService } from 'app/services/contactus.service';
 
 
 
@@ -71,7 +72,8 @@ import { AboutComponent } from 'app/info/about/about.component';
     ShoeService,
     ClassificationService,
     UserService,
-    OrderService
+    OrderService,
+    ContactUsService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

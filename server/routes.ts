@@ -10,6 +10,7 @@ import Company from './models/company';
 import Classification from './models/classification';
 import PaypalCtrl from './controllers/paypal';
 import OrderCtrl from './controllers/order';
+import ContactUsCtrl from './controllers/contactus';
 
 
 export default function setRoutes(app, passport) {
@@ -22,6 +23,7 @@ export default function setRoutes(app, passport) {
   const classificationCtrl = new ClassificationCtrl();
   const paypalCtrl = new PaypalCtrl();
   const orderCtrl = new OrderCtrl();
+  const contactUsCtrl = new ContactUsCtrl();
 
   // Shoes
   router.route('/shoes').get(shoeCtrl.getAll);
@@ -86,8 +88,12 @@ export default function setRoutes(app, passport) {
   router.route('/order').post(orderCtrl.insert);
   router.route('/order/:id/:newStatus').post(orderCtrl.statusUpdate);
 
+  // contact us
+  router.route('/contactus').post(contactUsCtrl.contactus);
+
   // Apply the routes to our applishoeion with the prefix /api
   app.use('/api', router);
+
 
 }
 

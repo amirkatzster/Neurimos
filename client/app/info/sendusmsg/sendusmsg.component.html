@@ -1,10 +1,12 @@
+<app-toast [message]="toast.message"></app-toast>
+
 <div class="container">
     <div class="well well-sm">
       <h3><strong>צרו קשר</strong></h3>
     </div>
 	
 	<div class="row">
-	  <div class="col-md-7">
+	  <div class="col-md-7 hidden-sm-down">
         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
             <agm-marker [latitude]="lat" [longitude]="lng">
                 <agm-info-window isOpen="true"><div class="info">שנקר 52<br>חולון<br>:)</div></agm-info-window>
@@ -12,22 +14,22 @@
           </agm-map>  
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-5 col-xs-12">
         <h4><strong>שלחו לנו הודעה</strong></h4>
-      <form>
+      <form #contactusform="ngForm" (ngSubmit)="sendMessage()">
         <div class="form-group">
-          <input type="text" class="form-control" name="" value="" placeholder="שם" required>
+          <input type="text" class="form-control" name="name" [(ngModel)]="msg.name" placeholder="שם" required>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" name="" value="" placeholder='דוא"ל' required>
+          <input type="email" class="form-control" name="mail" [(ngModel)]="msg.mail" placeholder='דוא"ל' required>
         </div>
         <div class="form-group">
-          <input type="tel" class="form-control" name="" value="" placeholder="טלפון">
+          <input type="tel" class="form-control" name="phone" [(ngModel)]="msg.phone" placeholder="טלפון">
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="" rows="3" placeholder="תוכן הודעה" required></textarea>
+          <textarea class="form-control" name="message" rows="3" [(ngModel)]="msg.message" placeholder="תוכן הודעה" required></textarea>
         </div>
-        <button class="btn btn-default" type="submit" name="button">
+        <button class="btn btn-default" type="submit" name="button" [disabled]="!contactusform.form.valid">
             <i class="fa fa-paper-plane-o" aria-hidden="true"></i> שליחה
         </button>
       </form>
