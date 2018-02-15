@@ -25,3 +25,6 @@ npm install -g typescript
 # install pm2 module globaly
 npm install -g pm2
 pm2 update
+
+#permissions
+chmod +x /etc/rc.d/rc.local
