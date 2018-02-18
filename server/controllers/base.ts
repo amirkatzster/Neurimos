@@ -21,6 +21,7 @@ abstract class BaseCtrl {
   // Insert
   insert = (req, res) => {
     const obj = new this.model(req.body);
+    this.insertProcess(obj);
     obj.save((err, item) => {
       // 11000 is the code for duplicate key error
       if (err && err.code === 11000) {
@@ -32,6 +33,10 @@ abstract class BaseCtrl {
       res.status(200).json(item);
     });
   };
+
+  insertProcess(obj: any) {
+    console.log('base insertProcess');
+  }
 
   // Get by id
   get = (req, res) => {
@@ -51,7 +56,7 @@ abstract class BaseCtrl {
   };
 
   updateProcess(body: any) {
-      console.log('base');
+      console.log('base updateProcess');
   }
 
 
