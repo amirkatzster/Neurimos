@@ -106,11 +106,10 @@ function isLoggedIn(req, res, next) {
 
 
 function isAdmin(req, res, next) {
-  if (true) {//req.isAdmin()) {
-      console.log('Check Admin');
-      //TODO
-      console.log(req.isAuthenticated());
+  console.log('Check Admin');
+  if (req.isAuthenticated() && req.user.role === 'admin') {
+    console.log('Got Admin access :)');
       return next();
   }
-  //res.redirect('/');
+  res.redirect('/');
 }
