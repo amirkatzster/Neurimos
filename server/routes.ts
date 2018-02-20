@@ -82,7 +82,7 @@ export default function setRoutes(app, passport) {
   router.route('/paypal/payment/create/:orderId').post(paypalCtrl.create);
 
   // orders
-  router.route('/order').all(isAdmin);
+  router.route('/order').get(isAdmin);
   router.route('/order').get(orderCtrl.getAll);
   router.route('/order/:id').get(orderCtrl.get);
   router.route('/order').post(orderCtrl.insert);
@@ -107,9 +107,18 @@ function isLoggedIn(req, res, next) {
 
 function isAdmin(req, res, next) {
   console.log('Check Admin');
-  if (req.isAuthenticated() && req.user.role === 'admin') {
-    console.log('Got Admin access :)');
-      return next();
+  if (req.isAuthenticated()) {
+    console.log('Authenticated');
+    User.findOne({ _id: req.user._id }, (err, usr) => {
+      console.log('found user');
+      if (err) { return console.error(err); }
+      if (usr.role === 'admin') {
+        console.log('Got Admin access :)');
+        return next();
+      }
+      res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
   }
-  res.redirect('/');
 }

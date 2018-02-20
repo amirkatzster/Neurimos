@@ -52,7 +52,7 @@ export class CashierComponent implements OnInit , OnDestroy {
           branding: true,
       };
       window['paypal'].Button.render({
-        env: 'sandbox',
+        env: this.paypalConfig.env,
         client: this.paypalConfig.client,
         commit: this.paypalConfig.commit,
         locale: 'he_IL',

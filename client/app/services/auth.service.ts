@@ -17,12 +17,7 @@ export class AuthService {
   constructor(private userService: UserService,
               private router: Router,
               private fb: FacebookService) {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      this.setCurrentUser(user);
-    } else {
       this.loadUser();
-    }
   }
 
 
@@ -30,14 +25,14 @@ export class AuthService {
     this.userService.me().subscribe(
       data => {
         if (data && data !== '0') {
-          localStorage.setItem('user', JSON.stringify(data));
           this.setCurrentUser(data);
+        } else {
+          this.logout();
         }
       });
   }
 
   injectUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
     this.setCurrentUser(user);
   }
 
