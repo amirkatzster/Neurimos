@@ -135,7 +135,7 @@ export default function setPassport(passport) {
                     // save our user to the database
                     newUser.save(function(error) {
                         if (error) {
-                            throw error;
+                            done(error);
                         }
                         return done(null, newUser);
                     });
