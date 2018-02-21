@@ -3,10 +3,10 @@ import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username : String,
-  email: String,
+  email: { type: String, unique: true, trim: true },
   role: { type: String, default: 'user' },
   local          : {
-    email        : { type: String, unique: true, lowercase: true, trim: true } ,
+    email        : { type: String, trim: true } ,
     password     : String,
   },
   facebook       : {
