@@ -61,7 +61,7 @@ export default function setRoutes(app, passport) {
   router.route('/company/:id').delete(companyCtrl.delete);
 
   // Users
-  router.route('/users').all(isAdmin);
+  router.route('/users').get(isAdmin);
   router.route('/users').get(userCtrl.getAll);
   router.route('/users/count').get(userCtrl.count);
   router.route('/user').post(userCtrl.insert);

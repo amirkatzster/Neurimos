@@ -5,16 +5,14 @@ cd ~/node
 npm install
 
 # setup NODE_ENV
-# if [ ! -z "$DEPLOYMENT_GROUP_NAME" ]; then
-#     export NODE_ENV=$DEPLOYMENT_GROUP_NAME
+export NODE_ENV=production
 
-#     hasEnv=`grep "export NODE_ENV" ~/.bash_profile | cat`
-#     if [ -z "$hasEnv" ]; then
-#         echo "export NODE_ENV=$DEPLOYMENT_GROUP_NAME" >> ~/.bash_profile
-#     else
-#         sed -i "/export NODE_ENV=\b/c\export NODE_ENV=$DEPLOYMENT_GROUP_NAME" ~/.bash_profile
-#     fi
-# fi
+hasEnv=`grep "export NODE_ENV" ~/.bash_profile | cat`
+if [ -z "$hasEnv" ]; then
+    echo "export NODE_ENV=production" >> ~/.bash_profile
+else
+    sed -i "/export NODE_ENV=\b/c\export NODE_ENV=production" ~/.bash_profile
+fi
 
 # add node to startup
 hasRc=`grep "su -l $USER" /etc/rc.d/rc.local | cat`
