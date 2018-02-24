@@ -60,6 +60,7 @@ export default class ShoeCtrl extends BaseCtrl {
       if (imageGroup.images) {
         imageGroup.images.forEach((image, j) => {
           if (image.urlMedium.indexOf('data:image') === 0) {
+              console.log('converting image');
               const number = i * 2 + j * 3;
               const imageStream = image.urlMedium;
               image.urlSmall = this.addImage(imageStream, shoe, 'S', 55, number);
@@ -87,7 +88,8 @@ export default class ShoeCtrl extends BaseCtrl {
   }
 
   insertProcess(shoe: any) {
-    this.updateProcess(shoe);
+    console.log('insert Process shoe');
+     //this.updateProcess(shoe);
   }
 
 }
