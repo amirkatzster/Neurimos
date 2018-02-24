@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose';
 
 const featureSchema = new mongoose.Schema({
-  id: String,
   name: String
 });
 

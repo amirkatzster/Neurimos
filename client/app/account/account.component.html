@@ -14,14 +14,7 @@
         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
         <input class="form-control" type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
       </div>
-      <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
-        <select class="form-control" name="role" [(ngModel)]="user.role">
-          <option value="" disabled>Role</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
+      
       <button class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
         <i class="fa fa-save"></i> Save
       </button>

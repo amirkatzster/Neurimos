@@ -63,6 +63,7 @@ export default function setRoutes(app, passport) {
   // Users
   router.route('/users').get(isAdmin);
   router.route('/users').get(userCtrl.getAll);
+  router.route('/users/count').get(isAdmin);
   router.route('/users/count').get(userCtrl.count);
   router.route('/user').post(userCtrl.insert);
   router.route('/user/:id').get(userCtrl.get);
