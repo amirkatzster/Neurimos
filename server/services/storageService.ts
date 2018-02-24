@@ -42,7 +42,6 @@ export default class StorageService  {
         Jimp.read(buf, (err, image) => {
             image.resize(width, Jimp.AUTO)
                  .getBuffer(image.getMIME(), (error, buffer) => {
-                    console.log('BUFFER: ' + buffer);
                       const data: AWS.S3.Types.PutObjectRequest = {
                       Key: path,
                       Body: buffer,

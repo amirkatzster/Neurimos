@@ -19,8 +19,8 @@ app.set('port', (process.env.PORT || 3000));
 
 
 app.use('/', express.static(path.join(__dirname, '../public')));
-app.use(bodyParser.json({limit: '200mb'}));
-app.use(bodyParser.urlencoded({limit: '200mb', extended: false }));
+app.use(bodyParser.json({limit: '300mb'}));
+app.use(bodyParser.urlencoded({limit: '300mb', extended: false }));
 
 app.use(morgan('dev'));
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient : true });
