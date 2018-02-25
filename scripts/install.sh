@@ -10,8 +10,8 @@ yum -y install gcc-c++
 yum -y install nmap-ncat
 
 # add nodejs to yum
-# curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
-# yum -y install nodejs #default-jre ImageMagick
+curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
+yum -y install nodejs #default-jre ImageMagick
 set +e
 sudo npm cache clean -f
 sudo npm install -g n
