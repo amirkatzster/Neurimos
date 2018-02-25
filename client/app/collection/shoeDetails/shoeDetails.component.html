@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                מספר מזהה {{ shoe?.id }}  
+                  
            </div>
             <div class="col-md-10 breadCrumbs">
               <a class="link" (click)="backClicked()"><< חזרה</a> | <a href="#" [routerLink]="'/נעליים'">נעליים</a> > <a href="#" [routerLink]="'/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> > <a href="#" [routerLink]="'/' +shoe?.company">{{shoe?.company}}</a>
@@ -22,6 +22,7 @@
                 <div class="col-md-3 leftSide" >
                     <img class="companyLogo" src={{company?.image}} alt="{{ company?.name }}"/>
                     <div class="delim"></div>
+                    <div class="sku">מספר מזהה {{ shoe?.id }}</div>
                     <div class="grayArea">
                         <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
                         <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
@@ -56,6 +57,7 @@
                     <div class="shoeHeader">
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
                         <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a></div>
+                        
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-9">

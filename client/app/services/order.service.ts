@@ -53,7 +53,7 @@ export class OrderService {
     this.orders.forEach(o => {
       subTotal += o.amount * o.shoe.finalPrice;
     });
-    return subTotal;
+    return Number(subTotal.toFixed(2));
   }
 
   cleanOrders() {
@@ -62,7 +62,7 @@ export class OrderService {
   }
 
   shippment() {
-    return 20;
+    return 15;
   }
 
   deliveryMethod() {
@@ -70,7 +70,7 @@ export class OrderService {
   }
 
   total() {
-    return this.subTotal() + this.shippment();
+    return Number(this.subTotal() + this.shippment()).toFixed(2);
   }
 
   getOrders() {
