@@ -110,8 +110,8 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     this.sub2 = this.shoeService.countShoes().subscribe(
       data => {
         console.log(data);
-        // count shoes in database * 2 + random number between 10-99 * 3
-        this.friendlyId = (data * 2 + (Math.floor(Math.random() * 89) + 10) * 3).toString();
+        // count shoes in database * 2 + random number between 10-9900 * 3
+        this.friendlyId = ((data * 2) + ((Math.floor(Math.random() * 100000) + 10) * 3)).toString();
         this.currentShoe = { 'active': true , 'id': this.friendlyId , 'imagesGroup': [], 'information': []};
         this.initGroupImages();
       },
