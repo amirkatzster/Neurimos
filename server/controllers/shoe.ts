@@ -89,7 +89,7 @@ export default class ShoeCtrl extends BaseCtrl {
 
   insertProcess(shoe: any) {
     console.log('insert Process shoe');
-     //this.updateProcess(shoe);
+    this.updateProcess(shoe);
   }
 
 }
