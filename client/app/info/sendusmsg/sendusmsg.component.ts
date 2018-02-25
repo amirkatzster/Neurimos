@@ -29,7 +29,7 @@ export class SendusmsgComponent implements OnInit, OnDestroy {
       this.toast.setMessage('הודעה נשלחה בהצלחה :)', 'success');
     },
     error => {
-      this.toast.setMessage('הודעה לא נשלחה. אנא נסה מאוחר יותר או תתקשר 03-5052769', 'danger');
+      this.toast.setMessage('הודעה לא נשלחה. אנא נסה מאוחר יותר או תתקשר 03-5047523', 'danger');
     }
     );
   }
