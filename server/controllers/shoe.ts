@@ -7,12 +7,10 @@ import StorageService from '../services/storageService';
 
 export default class ShoeCtrl extends BaseCtrl {
   model = Shoe;
-  storageService;
 
 
   constructor() {
     super();
-    this.storageService = new StorageService();
   }
 
   search = (req, res) => {
@@ -45,11 +43,12 @@ export default class ShoeCtrl extends BaseCtrl {
   };
 
   deleteImages(shoe) {
+     const storageService = new StorageService();
      shoe.deleteImages.forEach((image: any, index) => {
-          this.storageService.deleteImageUrl(image.urlSmall);
-          this.storageService.deleteImageUrl(image.urlMedium);
-          this.storageService.deleteImageUrl(image.urlLarge);
-          this.storageService.deleteImageUrl(image.urlXL);
+          storageService.deleteImageUrl(image.urlSmall);
+          storageService.deleteImageUrl(image.urlMedium);
+          storageService.deleteImageUrl(image.urlLarge);
+          storageService.deleteImageUrl(image.urlXL);
         });
   }
 
@@ -72,9 +71,10 @@ export default class ShoeCtrl extends BaseCtrl {
   }
 
   addImage(image, shoe, size: string, width: number, index: number) {
+    const storageService = new StorageService();
     const rand = Math.floor((Math.random() * 100) + 1);
     const path = 'Images/Shoes/' + shoe.id + '/' + size + '/' + shoe.name + '_' + shoe.company + '_' + rand + '_' + index;
-    const url = this.storageService.addNewImage(image, path, width);
+    const url = storageService.addNewImage(image, path, width);
     return url;
   }
 
