@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { ShoeService } from 'app/services/shoe.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
+import { debuglog } from 'util';
 
 @Component({
   selector: 'app-collection',
@@ -105,7 +106,9 @@ export class CollectionComponent implements OnInit, OnDestroy {
       companyArray.push(s.company);
       if (s.stock > 0) {
         s.imagesGroup.forEach(ig => {
-          colorArray.concat(ig.color.split(' '));
+          const separators = ['\\\+', '-', '\\\(', '\\\)', '\\*', '/', ':', '\\\?'];
+          const colors = ig.color.split(new RegExp(separators.join('|'), 'g'));
+          colorArray.push(...colors);
           ig.sizes.map(ns => ns.size).forEach(sz => {
             sizeSet.add(sz);
           });
