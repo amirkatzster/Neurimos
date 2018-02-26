@@ -138,6 +138,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   removeFilter(filter: string): void {
     if (filter.indexOf(' ') > -1) { filter = '[' + filter + ']'}
     this.initQueries = this.initQueries.replace(filter, '').trim();
+    this.initQueries =  this.initQueries.replace('[]', '');
     this.reload();
   }
 
