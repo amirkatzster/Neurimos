@@ -19,3 +19,5 @@ hasRc=`grep "su -l $USER" /etc/rc.d/rc.local | cat`
 if [ -z "$hasRc" ]; then
     sudo sh -c "echo 'su -l $USER -c \"cd ~/node;sh ./scripts/run.sh\"' >> /etc/rc.d/rc.local"
 fi
+
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000

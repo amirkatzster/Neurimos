@@ -11,5 +11,9 @@ sudo ./install auto
 
 sudo service codedeploy-agent status
 
+# add nodejs to yum
+curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
+yum -y install nodejs
+
 
 ## DONT FORGET TO COPY THE CONFIG FILES

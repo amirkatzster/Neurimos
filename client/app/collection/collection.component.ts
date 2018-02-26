@@ -143,7 +143,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   addFiler(filter) {
-    this.initQueries += ' ' + filter;
+    const filterArray = this.initQueries.split(' ');
+    if (filterArray.indexOf(filter) === -1) {
+      this.initQueries += ' ' + filter;
+    }
     this.reload();
   }
 
