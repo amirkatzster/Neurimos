@@ -32,7 +32,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               public router: Router,
               public toast: ToastComponent,
               private location: Location,
-              public auth: AuthService) { }
+              public auth: AuthService) {  }
 
 
   ngOnInit() {
@@ -83,9 +83,15 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
-    this.subShoe.unsubscribe();
-    this.subComp.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    if (this.subShoe) {
+      this.subShoe.unsubscribe();
+    }
+    if (this.subComp) {
+      this.subComp.unsubscribe();
+    }
   }
 
   addToCart() {

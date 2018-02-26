@@ -14,6 +14,7 @@ import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { FacebookModule } from 'ngx-facebook';
+import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { FacebookModule } from 'ngx-facebook';
     RoutingModule,
     MatGridListModule,
     MatChipsModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    LazyLoadImagesModule
   ],
   exports: [
     // Shared Modules
@@ -53,7 +55,8 @@ import { FacebookModule } from 'ngx-facebook';
     LoadingComponent,
     HeaderComponent,
     FooterComponent,
-    FacebookModule
+    FacebookModule,
+    LazyLoadImagesModule
   ],
   declarations: [
     ToastComponent,

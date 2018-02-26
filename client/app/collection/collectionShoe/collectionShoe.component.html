@@ -3,10 +3,10 @@
    <a [routerLink]="linkToDetails"> 
      <div *ngIf="isNew(shoe)" class="newTag">חדש</div>
      <div *ngIf="shoe.price !== shoe.finalPrice" class="saleTag">SALE</div>
-     <div class="imageParent">
+     <div class="imageParent" lazy-load-images>
        <picture>
          <source media="(max-width: 650px)" [srcset]="shoe.imagesGroup[0].images[0].urlMedium">
-          <img [src]="shoe.imagesGroup[0].images[0].urlMedium" class="imgContainer" [ngClass]="{'imageOutOfStock': shoe.stock === 0}"/>
+          <img [attr.data-src]="shoe.imagesGroup[0].images[0].urlMedium" class="imgContainer" [ngClass]="{'imageOutOfStock': shoe.stock === 0}"/>
         </picture>
         <div *ngIf="shoe.stock === 0" class="outofstockTag">אזל המלאי</div>    
       </div>
