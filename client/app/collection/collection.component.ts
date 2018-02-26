@@ -106,7 +106,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
       companyArray.push(s.company);
       if (s.stock > 0) {
         s.imagesGroup.forEach(ig => {
-          const separators = ['\\\+', '-', '\\\(', '\\\)', '\\*', '/', ':', '\\\?'];
+          const separators = [' ', '\\\+', '-', '\\\(', '\\\)', '\\*', '/', ':', '\\\?'];
           const colors = ig.color.split(new RegExp(separators.join('|'), 'g'));
           colorArray.push(...colors);
           ig.sizes.map(ns => ns.size).forEach(sz => {
