@@ -105,7 +105,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
       companyArray.push(s.company);
       if (s.stock > 0) {
         s.imagesGroup.forEach(ig => {
-          colorArray.push(ig.color);
+          colorArray.push(ig.color.split(' '));
           ig.sizes.map(ns => ns.size).forEach(sz => {
             sizeSet.add(sz);
           });
