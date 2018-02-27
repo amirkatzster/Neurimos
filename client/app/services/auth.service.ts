@@ -46,7 +46,6 @@ export class AuthService {
     this.isAdmin = false;
     this.isGuest = false;
     this.currentUser = { _id: '', username: '', role: '' };
-    this.router.navigate(['/']);
   }
 
   setCurrentUser(decodedUser) {
