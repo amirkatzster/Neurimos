@@ -25,7 +25,7 @@ export class SendusmsgComponent implements OnInit, OnDestroy {
   sendMessage() {
     this.sub = this.ContactUsService.newMessage(this.msg)
     .subscribe(data =>  {
-      //this.msg = {};
+      this.msg = {};
       this.toast.setMessage('הודעה נשלחה בהצלחה :)', 'success');
     },
     error => {
