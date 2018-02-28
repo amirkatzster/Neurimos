@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Sitemap: http://www.neurimshoes.co.il/sitemap.xml
 
