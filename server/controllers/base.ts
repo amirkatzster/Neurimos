@@ -62,11 +62,20 @@ abstract class BaseCtrl {
 
   // Delete by id
   delete = (req, res) => {
-    this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
-      if (err) { return console.error(err); }
-      res.sendStatus(200);
-    });
+    console.log('DELETE!!!');
+    const shouldDelete = this.deleteProcess(req, res);
+    if (shouldDelete) {
+      this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
+        if (err) { return console.error(err); }
+        res.sendStatus(200);
+      });
+    }
   };
+
+  deleteProcess(req, res) {
+    console.log('base updateProcess');
+    return true;
+  }
 }
 
 export default BaseCtrl;

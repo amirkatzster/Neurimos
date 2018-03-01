@@ -5,9 +5,14 @@
       <h4 class="modal-title">{{currentShoe.id}} עריכה</h4>
   </div>
   <div class="addForm">
-      <div class="spacer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="backClicked()">סגור</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!addEditform.form.valid">שמור</button>
+      <div class="spacer row">
+          <div class="col-md-2 ">
+                <button type="button" class="btn btn-danger" (click)="deleteShoeConfirm(modal)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i>מחק נעל</button>
+          </div>
+          <div class="col-md-3 offset-md-7">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="backClicked()">סגור</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!addEditform.form.valid">שמור</button>
+          </div>
       </div>
       <div class="spacer"></div>
       <div class="form-group">
@@ -110,3 +115,17 @@
   </div>
   </form>
 </div>
+
+<modal #modal>
+        <form (ngSubmit)="deleteShoe()">
+          <modal-header [show-close]="true">
+              <h4 class="modal-title">בטוח שרוצים למחוק?</h4>
+          </modal-header>
+          <modal-body class="addForm">
+          </modal-body>
+          <modal-footer>
+              <button type="submit" class="btn btn-danger deleteBtn" (click)="modal.close()">כן למחוק</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">לא למחוק</button>
+          </modal-footer>
+        </form>
+      </modal>

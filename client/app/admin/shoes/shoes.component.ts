@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ShoeService } from 'app/services/shoe.service';
@@ -12,10 +12,12 @@ import { debug } from 'util';
   templateUrl: './shoes.component.html',
   styleUrls: ['./shoes.component.scss']
 })
-export class ShoesComponent implements OnInit {
+export class ShoesComponent implements OnInit , OnDestroy {
 
+  sub;
   shoes = [];
   isLoading = true;
+  currentShoe;
 
   constructor(private shoeService: ShoeService,
               private companyService: CompanyService,
@@ -38,5 +40,27 @@ export class ShoesComponent implements OnInit {
       error => console.log(error),
       () => this.isLoading = false
     );
+  }
+
+  deleteShoeConfirm(model, shoe) {
+    this.currentShoe = shoe;
+    model.open();
+  }
+
+  deleteShoe() {
+    this.sub = this.shoeService.deleteShoe(this.currentShoe).subscribe(
+      res => {
+        this.toast.setMessage(this.currentShoe.id + ' הוסר בהצלחה', 'success');
+        const i = this.shoes.indexOf(this.currentShoe);
+        this.shoes.splice(i, 1);
+      },
+      error => console.log(error)
+    );
+  }
+
+  ngOnDestroy(): void {
+     if (this.sub) {
+        this.sub.unsubscribe();
+     }
   }
 }

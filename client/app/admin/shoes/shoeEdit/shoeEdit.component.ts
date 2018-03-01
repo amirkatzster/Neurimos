@@ -29,7 +29,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     {name: 'גברים', mark: false}];
   isEditing = false;
   currentImageGroup: any = {};
-  sub; sub1; sub2; sub3; sub4; sub5; sub6;
+  sub; sub1; sub2; sub3; sub4; sub5; sub6; sub7;
   isLoading = false;
 
   constructor(private shoeService: ShoeService,
@@ -81,31 +81,6 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     )
   }
 
-  ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-    if (this.sub1) {
-    this.sub1.unsubscribe();
-    }
-    if (this.sub2) {
-      this.sub2.unsubscribe();
-    }
-    if (this.sub3) {
-      this.sub3.unsubscribe();
-    }
-    if (this.sub4) {
-      this.sub4.unsubscribe();
-    }
-    if (this.sub5) {
-      this.sub5.unsubscribe();
-    }
-    if (this.sub6) {
-      this.sub6.unsubscribe();
-    }
-  }
-
-
   addShoe() {
     this.sub2 = this.shoeService.countShoes().subscribe(
       data => {
@@ -122,7 +97,6 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
      }
   }
 
-
   deleteImage(shoe, index, jIndex) {
     const image = shoe.imagesGroup[index].images[jIndex];
     if (image.urlMedium.indexOf('data:image') !== 0) {
@@ -134,49 +108,48 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     shoe.imagesGroup[index].images.splice(jIndex, 1);
   }
 
-
-// On SAVE
-doneEditShoe(shoe) {
-  this.isLoading = true;
-  this.beforeSubmitting(shoe);
-  if (!this.currentShoe._id) {
-      this.sub5 = this.shoeService.addShoe(shoe).subscribe(
-      res => {
-        this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
-        this.isLoading = false;
-        this.backClicked();
-      },
-      error => console.log(error)
-    );
-  } else {
-    this.sub5 = this.shoeService.editShoe(shoe).subscribe(
-      res => {
-        this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
-        this.isLoading = false;
-        this.backClicked();
-      },
-      error => console.log(error)
-    );
-  }
-}
-
-beforeSubmitting(shoe) {
-  shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
-  this.genders.forEach(g => g.mark = false);
-  let countStock: Number = 0;
-  this.currentShoe.imagesGroup.forEach(ig => {
-    if (ig.sizeOptions) {
-      ig.sizes = [];
-      ig.sizeOptions.filter(g => g.mark).forEach(so => {
-        countStock += so.amount;
-        ig.sizes.push({'size' : so.name , 'amount' : so.amount});
-      });
+  // On SAVE
+  doneEditShoe(shoe) {
+    this.isLoading = true;
+    this.beforeSubmitting(shoe);
+    if (!this.currentShoe._id) {
+        this.sub5 = this.shoeService.addShoe(shoe).subscribe(
+        res => {
+          this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+          this.isLoading = false;
+          this.backClicked();
+        },
+        error => console.log(error)
+      );
+    } else {
+      this.sub5 = this.shoeService.editShoe(shoe).subscribe(
+        res => {
+          this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
+          this.isLoading = false;
+          this.backClicked();
+        },
+        error => console.log(error)
+      );
     }
-  });
-  this.discountCalc(shoe);
-  this.createSearchWords(shoe);
-  shoe.stock = countStock;
-}
+  }
+
+  beforeSubmitting(shoe) {
+    shoe.gender = this.genders.filter(g => g.mark).map(g => g.name);
+    this.genders.forEach(g => g.mark = false);
+    let countStock: Number = 0;
+    this.currentShoe.imagesGroup.forEach(ig => {
+      if (ig.sizeOptions) {
+        ig.sizes = [];
+        ig.sizeOptions.filter(g => g.mark).forEach(so => {
+          countStock += so.amount;
+          ig.sizes.push({'size' : so.name , 'amount' : so.amount});
+        });
+      }
+    });
+    this.discountCalc(shoe);
+    this.createSearchWords(shoe);
+    shoe.stock = countStock;
+  }
 
   discountCalc(shoe) {
     shoe.finalPrice = shoe.price;
@@ -308,6 +281,54 @@ beforeSubmitting(shoe) {
     }
   }
 
+  deleteShoeConfirm(model) {
+    model.open();
+  }
+
+  deleteShoe() {
+    this.sub7 = this.shoeService.deleteShoe(this.currentShoe).subscribe(
+      res => {
+        this.toast.setMessage(this.currentShoe.id + ' הוסר בהצלחה', 'success');
+        this.isLoading = false;
+        this.backClicked();
+      },
+      error => console.log(error)
+    );
+
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    if (this.sub1) {
+    this.sub1.unsubscribe();
+    }
+    if (this.sub2) {
+      this.sub2.unsubscribe();
+    }
+    if (this.sub3) {
+      this.sub3.unsubscribe();
+    }
+    if (this.sub4) {
+      this.sub4.unsubscribe();
+    }
+    if (this.sub5) {
+      this.sub5.unsubscribe();
+    }
+    if (this.sub6) {
+      this.sub6.unsubscribe();
+    }
+    if (this.sub7) {
+      this.sub7.unsubscribe();
+    }
+  }
+
+ 
+
 
 
 }
+
+

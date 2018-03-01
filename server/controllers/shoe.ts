@@ -92,4 +92,19 @@ export default class ShoeCtrl extends BaseCtrl {
     this.updateProcess(shoe);
   }
 
+  deleteProcess(req, res) {
+    this.model.findOne({ _id: req.params.id }, (err, obj) => {
+      console.log(obj);
+      const storageService = new StorageService();
+      const filePath = 'Images/Shoes/' + obj.id + '/';  // This is the friendlyId
+      console.log(obj);
+      storageService.deleteImageFolder(filePath);
+      this.model.findOneAndRemove({ _id: req.params.id }, (err2) => {
+        if (err2) { return console.error(err2); }
+        res.sendStatus(200);
+      });
+    });
+    return false;
+  }
+
 }

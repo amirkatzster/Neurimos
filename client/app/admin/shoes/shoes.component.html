@@ -10,11 +10,13 @@
       <thead class="thead-default">
         <tr>
           <th></th>
-          <th>מספר מזהה</th>
+          <th></th>
           <th>?פעיל</th>
           <th>חברה</th>
           <th>שם דגם</th>
-          <th>קהל יעד</th>     
+          <th>מספר מזהה</th>
+          <th>קהל יעד</th> 
+          <th></th>    
         </tr>
       </thead>
       <tbody *ngIf="shoes.length === 0">
@@ -27,18 +29,36 @@
           <td>            
             <button class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe._id"><i class="fa fa-pencil"></i></button>
           </td>
-          <td><strong>{{shoe.id}}</strong></td>
+          <td>            
+            <img *ngIf="shoe.imagesGroup && shoe.imagesGroup.length > 0 && shoe.imagesGroup[0].images && shoe.imagesGroup[0].images.length > 0" [src]="shoe.imagesGroup[0].images[0].urlSmall" class="imgContainer"/>
+          </td>
           <td><mat-checkbox [checked]="shoe.active" disabled="disabled"></mat-checkbox></td>
           <td>{{shoe.company}}</td>
           <td>{{shoe.name}}</td>
+          <td><strong>{{shoe.id}}</strong></td>
           <td>
             <i *ngIf="shoe.gender.indexOf('גברים') > -1" class="fa fa-mars fa-male fa-2x" aria-hidden="true"></i>
             <i *ngIf="shoe.gender.indexOf('נשים') > -1" class="fa fa-venus fa-male fa-2x" aria-hidden="true"></i>
             <i *ngIf="shoe.gender.indexOf('ילדים') > -1" class="fa fa-mars fa-male fa-1x" aria-hidden="true"></i>
             <i *ngIf="shoe.gender.indexOf('ילדות') > -1" class="fa fa-venus fa-male fa-1x" aria-hidden="true"></i>
-          </td>         
+          </td>   
+          <td><button type="button" class="btn btn-danger btn-sm" (click)="deleteShoeConfirm(modal, shoe)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button></td>      
         </tr>  
       </tbody>      
     </table>
   </div>
 </div>
+
+<modal #modal>
+  <form (ngSubmit)="deleteShoe()">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">בטוח שרוצים למחוק?</h4>
+    </modal-header>
+    <modal-body class="addForm">
+    </modal-body>
+    <modal-footer>
+        <button type="submit" class="btn btn-danger deleteBtn" (click)="modal.close()">כן למחוק</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">לא למחוק</button>
+    </modal-footer>
+  </form>
+</modal>

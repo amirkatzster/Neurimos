@@ -35,6 +35,29 @@ export default class StorageService  {
             });
     }
 
+    deleteImageFolder(folderPath: string) {
+        const params = {
+            Bucket: this.bucketName,
+            Prefix: folderPath // 'folder/'
+        };
+        const s3 = this.s3Bucket;
+        s3.listObjects(params, function(err, data) {
+            const params2: any = {Bucket: this.bucketName};
+            params2.Delete = {Objects: []};
+            data.Contents.forEach(function(content) {
+                params2.Delete.Objects.push({Key: content.Key});
+            });
+            console.log(params2);
+            s3.deleteObjects(params2, function(err2, data2) {
+                if (err) {
+                    console.log(err, err.stack);
+                  } else {
+                    console.log(data2);
+                  }
+            });
+        });
+    }
+
     
 
     addNewImage(imageString: string, path: string, width: number) {
