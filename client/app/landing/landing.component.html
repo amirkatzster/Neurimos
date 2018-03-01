@@ -1,15 +1,16 @@
 <div class="image-container">
     <picture>
-        <source media="(max-width: 650px)" srcset="https://source.unsplash.com/FKBg2JNYFFc/400x160">
-        <source media="(max-width: 1100px)" srcset="https://source.unsplash.com/FKBg2JNYFFc/900x290">
-        <img src="https://source.unsplash.com/FKBg2JNYFFc/1440x500" alt="" (load)="showPromotion = true">
+        <source media="(max-width: 650px)" srcset="https://source.unsplash.com/RqgWDJFq6i0/400">
+        <source media="(max-width: 1100px)" srcset="https://source.unsplash.com/RqgWDJFq6i0/900">
+        <img src="https://source.unsplash.com/RqgWDJFq6i0/1440" class="responsiveImg" alt="" (load)="showPromotion = true">
         <!-- Ny1vyUgidMg -->
     </picture>
     <div *ngIf="showPromotion" class="card insideImage w-75 colorCard hidden-sm-down">
         <div class="card-block">
-            <h4 class="card-title">20%-40% על כל החורף</h4>
-            <p class="card-text">איזה כיף שהרגליים חמות</p>
-            <a href="#" class="btn btnInsideImage" routerLink="[SALE]">מבצעי חורף חמים</a>
+            <h4 class="card-title">מחירים חמים לקיץ החם</h4>
+            <p class="card-text"><strong>מבחר סנדלים דגמי 2018</strong></p>
+            <p class="card-text">הנחות להזמנה באתר</p>
+            <a href="#" class="btn btnInsideImage" routerLink="[סנדלים]">אני רוצה לראות :)</a>
         </div>
     </div>
 </div>
