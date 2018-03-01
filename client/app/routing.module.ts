@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: ':desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
   { path: ':desc/נעל/:id', component: ShoeDetailsComponent },
   { path: ':company/נעלי', component: NotFoundComponent },
-  { path: 'notfound', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
