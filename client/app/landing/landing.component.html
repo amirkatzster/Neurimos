@@ -19,7 +19,7 @@
         <div class="col-md-2">חברות פופולריות</div>
         <div class="col-md-1"></div>
     </div>
-    <div class="row">
+    <div class="row hidden-sm-down">
         <div *ngFor="let company of companies;let i = index">
             <div class="col-md-2 companyContainer">
                 <a [routerLink]="[company.name]">
@@ -28,4 +28,13 @@
             </div>
         </div>       
     </div>
+    <div class="row hidden-sm-up">
+            <div *ngFor="let company of companies;let i = index">
+                <div class="col-xs-4 companyContainer">
+                    <a [routerLink]="[company.name]">
+                        <img src={{company.image}}  width="110" alt="{{ company.name }}"/>
+                    </a>
+                </div>
+            </div>       
+        </div>
 </div>
