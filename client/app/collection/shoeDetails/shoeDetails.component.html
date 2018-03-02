@@ -17,31 +17,33 @@
             
         </div>
         <!-- MOBILE VIEW -->
-        <div class="row hidden-sm-up">
-                <div class="shoeHeader">
-                        <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
-                    <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a>
-                </div>s
-                <ngx-carousel
+        <div class="row hidden-sm-up" dir="ltr">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-10">
+                    <div class="shoeHeader">
+                            <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
+                        <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a>
+                    </div>
+                    <ngx-carousel
                     [inputs]="carouselBanner"
                     [moveToSlide]="1"
                     (onMove)="onmoveFn($event)"
                     (carouselLoad)="loadItemsFn()">
-                    <ngx-item class="bannerStyle" *ngFor="let positionImg of currentImageGroup?.images" NgxCarouselItem class="bannerStyle">
-                            <img [src]="positionImg.urlMedium"/>
+                    <ngx-item class="bannerStyle" *ngFor="let positionImg of currentImageGroup?.images" NgxCarouselItem >
+                            <img [src]="positionImg.urlMedium" class="center"/>
                     </ngx-item>
-                    <button NgxCarouselPrev class='rightRs'>&lt;</button>
-                    <button NgxCarouselNext class='leftRs'>&gt;</button> 
-                  </ngx-carousel>
-                  <div class="row">
-                        <div class="col-xs-1"></div>
+                    <button NgxCarouselPrev class='leftRs'>&lt;</button>
+                    <button NgxCarouselNext class='rightRs'>&gt;</button> 
+                    </ngx-carousel>
+                    <div class="row">
                         <div class="col-xs-2 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
                             <a href="#" (click)="selectColor(colorImg)" lazy-load-images>
                                 <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>
                         </div>
-                        <div class="col-xs-1"></div>
-                  </div>
+                    </div>
+                </div>
+                <div class="col-xs-1"></div>
         </div> 
         <!-- END MOBILE -->
         <div class="row">
