@@ -23,9 +23,9 @@ export default class ClassificationCtrl extends BaseCtrl {
       const result: any = [];
       let counter = 4;
       ['ילדים', 'ילדות', 'נשים', 'גברים'].forEach(g => {
-        this.shoeModel.distinct('classification' , {gender: g, active: true, stock: { $gt : 0}}, (err, docs) => {
-          if (err) { return console.error(err); }
-          result.push({gen: g, cls: this.populateClassification(docs, classificationList)});
+        this.shoeModel.distinct('classification' , {gender: g, active: true, stock: { $gt : 0}}, (err2, docs2) => {
+          if (err2) { return console.error(err2); }
+          result.push({gen: g, cls: this.populateClassification(docs2, classificationList)});
           counter--;
           if (counter === 0) {
             cache.put('header', result);

@@ -18,7 +18,7 @@ export class SendusmsgComponent implements OnInit, OnDestroy {
 
   constructor(public ContactUsService: ContactUsService,
     public toast: ToastComponent) { }
-  
+
   ngOnInit() {
   }
 

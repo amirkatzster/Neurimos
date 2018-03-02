@@ -2,7 +2,7 @@ import * as bodyParser from 'body-parser';
 import Shoe from '../models/shoe';
 import BaseCtrl from './base';
 import AWS = require('aws-sdk');
-import cache = require('memory-cache'); 
+import cache = require('memory-cache');
 import StorageService from '../services/storageService';
 
 export default class ShoeCtrl extends BaseCtrl {
@@ -34,7 +34,7 @@ export default class ShoeCtrl extends BaseCtrl {
       searchWords: { $all: req.body },
       active: true
       // return only those fields
-    }, 'company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock', 
+    }, 'company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock',
     sortQuery,
     (err, docs) => {
       if (err) { return console.error(err); }
@@ -52,7 +52,6 @@ export default class ShoeCtrl extends BaseCtrl {
         });
   }
 
-  
 
   addImages(shoe) {
     shoe.imagesGroup.forEach((imageGroup, i) => {

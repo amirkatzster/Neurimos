@@ -58,7 +58,6 @@ export default class StorageService  {
         });
     }
 
-    
 
     addNewImage(imageString: string, path: string, width: number) {
         const buf = new Buffer(imageString.replace(/^data:image\/\w+;base64,/, ''), 'base64');
@@ -84,5 +83,4 @@ export default class StorageService  {
         });
         return this.amazonDomain + this.bucketName + '/' + path;
     }
-
 }
