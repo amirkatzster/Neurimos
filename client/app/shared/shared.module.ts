@@ -15,6 +15,8 @@ import { RoutingModule } from 'app/routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { FacebookModule } from 'ngx-facebook';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 @NgModule({
   imports: [
@@ -34,7 +36,8 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
     MatGridListModule,
     MatChipsModule,
     FacebookModule.forRoot(),
-    LazyLoadImagesModule
+    LazyLoadImagesModule,
+    NgxCarouselModule
   ],
   exports: [
     // Shared Modules
@@ -56,7 +59,8 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
     HeaderComponent,
     FooterComponent,
     FacebookModule,
-    LazyLoadImagesModule
+    LazyLoadImagesModule,
+    NgxCarouselModule
   ],
   declarations: [
     ToastComponent,

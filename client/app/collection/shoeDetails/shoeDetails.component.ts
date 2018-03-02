@@ -7,6 +7,7 @@ import { OrderService } from 'app/services/order.service';
 import {Location} from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
+import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 
 @Component({
   selector: 'app-shoe-details',
@@ -25,6 +26,8 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   currentImageGroup: any;
   currentImage: any;
   selectedSize: String;
+  public carouselBanner: NgxCarousel;
+
   constructor(private route: ActivatedRoute,
               private shoeService: ShoeService,
               public companyService: CompanyService,
@@ -59,6 +62,26 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
         error => console.log(error),
       );
    });
+   this.carouselBanner = {
+      grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
+      slide: 1,
+      speed: 400,
+      point: {
+        visible: true
+      },
+      load: 1,
+      loop: true,
+      touch: true,
+      custom: 'banner'
+    }
+  }
+
+  onmoveFn(data: NgxCarouselStore) {
+    console.log(data);
+  }
+
+  loadItemsFn() {
+    console.log('carousel load');
   }
 
   colorChangeEvent(newValue) {
