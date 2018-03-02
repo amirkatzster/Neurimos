@@ -4,10 +4,19 @@
     position: relative;
 }
 
-.insideImage {
-    position: absolute;
-    top: 10%;
-    right: 10%;  
+
+@media (min-width: 800px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+    .insideImage {
+        position: absolute;
+        top: 10%;
+        right: 10%;  
+    }
+}
+
+@media (max-width: 800px) {
+    /* CSS that should be displayed if width is equal to or less than 800px goes here */
+    
 }
 
 .colorCard {
