@@ -1,6 +1,6 @@
 <div style="position:initial">
   <div class="container-fluid firstRow" >
-      <div class="row secondRow">
+      <div class="row secondRow hidden-sm-down">
           <div class="col-md-2">
               <mat-form-field>
                 <mat-select placeholder="מיון על פי" [(ngModel)]="sort" (change)="sortChangeEvent($event)">
@@ -15,7 +15,7 @@
               <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
           </div>
       </div>
-      <div class="row">
+      <div class="row hidden-sm-down">
           <div class="col-md-10">
             <mat-form-field style="width: 100%;">
               <mat-chip-list #chipList selectable="true">
@@ -27,14 +27,17 @@
           <div class="col-md-2 narrow">צמצום הבחירה</div>
         </div>
       <div class="row">
-        <div class="col-md-10">
-          <div class="row shoesCollectionContainer">
+        <div *ngFor="let shoe of shoes" class="col-xs-4 hidden-sm-up" >
+                <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
+        </div>
+        <div class="col-md-10  hidden-sm-down">
+          <div class="row shoesCollectionContainer ">
               <div *ngFor="let shoe of shoes" class="shoesCollection col-sm-5 col-md-4 col-lg-3 col-xl-3">
                   <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
               </div>
-          </div>
+          </div>         
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+        <div class="col-sm-2 col-md-2 col-lg-2  hidden-sm-down">
           <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')" >רק מבצעים</button>
           <accordion>
             <accordion-group  [isOpen]="true"  >

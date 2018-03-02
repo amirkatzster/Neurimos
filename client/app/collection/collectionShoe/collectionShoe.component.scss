@@ -4,9 +4,14 @@
     max-height: 300px;
     min-height: 176px;
     max-width: 250px;
-    min-width: 115px;
+    min-width: 100px;
     margin: 20px 20px;
     text-align: center;
+
+    @media(max-width: 500px)
+     {
+        margin:20px 0 0 0;
+     }
 }
 
 
@@ -14,9 +19,9 @@
 {
      height:100px;
      
-     @media(min-width: 768px)
+     @media(max-width: 500px)
      {
-        height:92;
+        width:110px;
      }
 }
 
@@ -70,6 +75,12 @@ a:visited {
     transform: rotate(-90deg);
     color: white;
     z-index: 10;
+    @media(max-width: 500px)
+    {
+        top: 8px;
+        right: 30px;
+        transform: rotate(0deg);
+    }
 }
 
 .saleTag {
@@ -81,6 +92,13 @@ a:visited {
     transform: rotate(90deg);
     color: white;
     z-index: 10;
+
+    @media(max-width: 500px)
+    {
+        top: 8px;
+        left: 8px;
+        transform: rotate(0deg);
+    }
 }
 
 .imageParent {
