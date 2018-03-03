@@ -36,7 +36,7 @@
                     <button NgxCarouselNext class='rightRs'>&gt;</button> 
                     </ngx-carousel>
                     <div class="row">
-                        <div class="col-xs-2 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
+                        <div class="col-xs-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
                             <a href="#" (click)="selectColor(colorImg)" lazy-load-images>
                                 <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>

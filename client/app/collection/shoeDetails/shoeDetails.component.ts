@@ -8,6 +8,7 @@ import {Location} from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-shoe-details',
@@ -35,10 +36,12 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               public router: Router,
               public toast: ToastComponent,
               private location: Location,
-              public auth: AuthService) {  }
+              public auth: AuthService,
+              private titleService: Title) {  }
 
 
   ngOnInit() {
+    this.titleService.setTitle('נעל | נעלי נעורים');
     this.sub = this.route.params.subscribe(params => {
       this.subShoe = this.shoeService.getShoeById(params['id']).subscribe(
         data => {
@@ -46,6 +49,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           const colors = this.shoe.imagesGroup.map(ig => ig.color).join('-');
           this.linkToShoe = `/${this.shoe.company}-${this.shoe.name}-${colors}/נעל/${this.shoe._id}`;
           this.linkToCompany = `/${this.shoe.company}/נעלי`;
+          this.titleService.setTitle(`נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`);
           if (params['color']) {
             this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === params['color']);
           } else {
