@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-findus',
@@ -12,9 +13,10 @@ export class FindusComponent implements OnInit {
   lng = 34.7759857;
   zoom = 13;
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('איך להגיע אלינו | נעלי נעורים');
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContactUsService } from 'app/services/contactus.service';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ToastComponent } from 'app/shared/toast/toast.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sendusmsg',
@@ -17,9 +18,10 @@ export class SendusmsgComponent implements OnInit, OnDestroy {
   sub;
 
   constructor(public ContactUsService: ContactUsService,
-    public toast: ToastComponent) { }
+    public toast: ToastComponent, private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('צרו קשר | נעלי נעורים');
   }
 
   sendMessage() {

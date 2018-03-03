@@ -7,6 +7,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import { debuglog } from 'util';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-collection',
@@ -14,7 +15,7 @@ import { debuglog } from 'util';
   styleUrls: ['./collection.component.scss']
 })
 export class CollectionComponent implements OnInit, OnDestroy {
-  
+
   private sub1: any;
   private sub2: any;
   initQueries: String;
@@ -36,7 +37,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private shoeService: ShoeService) {
+              private shoeService: ShoeService,
+              private titleService: Title) {
     this.initQueries = '';
     this.queries = [];
     this.filters = [];
@@ -47,6 +49,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('sort1...');
+    this.titleService.setTitle('קולקצית נעליים | נעלי נעורים');
     const obsComb = Observable.combineLatest(this.route.params, this.route.queryParams,
       (params, qparams) => ({ params, qparams }))
     this.sub1 = obsComb.subscribe( ap => {
@@ -59,6 +62,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
       this.filters = this.queries;
       // dispatch action to load the details here.
       this.updateCollection(ap.qparams);
+      this.titleService.setTitle('קולקצית נעלי  ' + this.queries + ' | נעלי נעורים');
     });
   }
 
@@ -79,16 +83,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
     return searchQuery;
   }
 
-
- 
-
   updateCollection(qs: Params) {
     let queryString = '';
     if (qs.sort) {
       queryString = '?sort=' + qs.sort;
     }
     const test = queryString.toString();
-    this.sub2 =this.shoeService.searchShoes(this.queries, queryString).subscribe(
+    this.sub2 = this.shoeService.searchShoes(this.queries, queryString).subscribe(
       data => {
          this.shoes = data;
          this.setFilters();
@@ -119,8 +120,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.companies = this.count(companyArray);
     this.colors = this.count(colorArray);
   }
-  
- 
 
   count(arr) {
     const res = [];
