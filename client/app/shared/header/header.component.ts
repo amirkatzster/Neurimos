@@ -40,8 +40,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
-    this.cartCounterSub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    if (this.cartCounterSub) {
+      this.cartCounterSub.unsubscribe();
+    }
   }
 
 }
