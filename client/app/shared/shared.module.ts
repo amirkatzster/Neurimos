@@ -8,15 +8,13 @@ import { LoadingComponent } from './loading/loading.component';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatRadioModule, MatAutocompleteModule,
-         MatSelectModule, MatMenuModule, MatGridListModule, MatChipsModule } from '@angular/material';
+         MatSelectModule, MatMenuModule, MatGridListModule, MatChipsModule, MatExpansionModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { LocalStorage } from './local-storage.service';
-// import { NgxCarouselModule } from 'ngx-carousel';
-// import 'hammerjs';
 
 @NgModule({
   imports: [
@@ -36,7 +34,7 @@ import { LocalStorage } from './local-storage.service';
     MatGridListModule,
     MatChipsModule,
     LazyLoadImagesModule,
-    // NgxCarouselModule
+    MatExpansionModule
   ],
   exports: [
     // Shared Modules
@@ -58,7 +56,7 @@ import { LocalStorage } from './local-storage.service';
     HeaderComponent,
     FooterComponent,
     LazyLoadImagesModule,
-    // NgxCarouselModule,
+    MatExpansionModule,
   ],
   declarations: [
     ToastComponent,
