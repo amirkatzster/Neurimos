@@ -13,10 +13,10 @@ import { HeaderComponent } from './header/header.component';
 import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
 import { FooterComponent } from './footer/footer.component';
-import { FacebookModule } from 'ngx-facebook';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
-import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
+import { LocalStorage } from './local-storage.service';
+// import { NgxCarouselModule } from 'ngx-carousel';
+// import 'hammerjs';
 
 @NgModule({
   imports: [
@@ -35,9 +35,8 @@ import 'hammerjs';
     RoutingModule,
     MatGridListModule,
     MatChipsModule,
-    FacebookModule.forRoot(),
     LazyLoadImagesModule,
-    NgxCarouselModule
+    // NgxCarouselModule
   ],
   exports: [
     // Shared Modules
@@ -58,9 +57,8 @@ import 'hammerjs';
     LoadingComponent,
     HeaderComponent,
     FooterComponent,
-    FacebookModule,
     LazyLoadImagesModule,
-    NgxCarouselModule
+    // NgxCarouselModule,
   ],
   declarations: [
     ToastComponent,
@@ -70,7 +68,8 @@ import 'hammerjs';
 ],
   providers: [
     AuthService,
-    ToastComponent
+    ToastComponent,
+    LocalStorage
   ]
 })
 export class SharedModule { }

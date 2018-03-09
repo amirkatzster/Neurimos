@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Injectable , Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { OrderService } from 'app/services/order.service';
 import { AuthService } from 'app/services/auth.service';
 import { UserService } from 'app/services/user.service';
@@ -8,6 +9,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
 import {  Router } from '@angular/router';
+import { LocalStorage } from 'app/shared/local-storage.service';
 
 
 @Component({
@@ -16,19 +18,21 @@ import {  Router } from '@angular/router';
   styleUrls: ['./cashier.component.scss']
 })
 export class CashierComponent implements OnInit , OnDestroy {
-  
+
  shippmentForm: FormGroup;
   openStep: Number = 1;
   maxStep: Number = 1;
   sub;
   public user: any = { addresses: [{}]};
-  public paypalConfig : any = {};
+  public paypalConfig: any = {};
 
 
   constructor(public orderService: OrderService,
               public auth: AuthService,
               private userService: UserService,
-              public router: Router) {
+              public router: Router,
+              @Inject(PLATFORM_ID) protected platformId: Object,
+              private localStorage: LocalStorage) {
   }
 
   ngOnInit() {
@@ -51,26 +55,28 @@ export class CashierComponent implements OnInit , OnDestroy {
           fundingicons: true,
           branding: true,
       };
-      window['paypal'].Button.render({
-        env: this.paypalConfig.env,
-        client: this.paypalConfig.client,
-        commit: this.paypalConfig.commit,
-        locale: 'he_IL',
-        payment: this.payment,
-        onAuthorize:  (data, actions) => {
-          const parent = this;
-          const dataParent = data;
-          return actions.payment.execute().then(function() {
-            // Update status
-            parent.orderService.createServerOrderStatus(localStorage.getItem('orderId'), 'payed', dataParent).subscribe(
-              info => {
-                parent.router.navigateByUrl('/summary')
-              }
-            );
-          });
-        },
-        style: this.paypalConfig.style
-      }, '#paypal-button-container');
+      if (isPlatformBrowser(this.platformId)) {
+        window['paypal'].Button.render({
+          env: this.paypalConfig.env,
+          client: this.paypalConfig.client,
+          commit: this.paypalConfig.commit,
+          locale: 'he_IL',
+          payment: this.payment,
+          onAuthorize:  (data, actions) => {
+            const parent = this;
+            const dataParent = data;
+            return actions.payment.execute().then(function() {
+              // Update status
+              parent.orderService.createServerOrderStatus(this.localStorage.getItem('orderId'), 'payed', dataParent).subscribe(
+                info => {
+                  parent.router.navigateByUrl('/summary')
+                }
+              );
+            });
+          },
+          style: this.paypalConfig.style
+        }, '#paypal-button-container');
+      }
   }
 
 
@@ -94,9 +100,13 @@ export class CashierComponent implements OnInit , OnDestroy {
   }
 
   openStep2() {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
     this.sub = this.orderService.createServerOrder(this.user).subscribe(data => {
-        localStorage.setItem('orderId', JSON.parse(data._body)._id);
+        if (isPlatformBrowser(this.platformId)) {
+          this.localStorage.setItem('orderId', JSON.parse(data._body)._id);
+        }
         this.openStep = 2;
         if (this.maxStep === 1) {
         this.maxStep = 2;
@@ -128,12 +138,17 @@ export class CashierComponent implements OnInit , OnDestroy {
   }
 
   payment(data, actions) {
-    const CREATE_URL = '/api/paypal/payment/create/' + localStorage.getItem('orderId');
-    // Make a call to your server to set up the payment
-    return window['paypal'].request.post(CREATE_URL)
-        .then(function(res) {
-            return actions.payment.create(res);
-        });
+    let palRes = null;
+    if (isPlatformBrowser(this.platformId)) {
+      const orderId = localStorage.getItem('orderId');
+      const CREATE_URL = '/api/paypal/payment/create/' + orderId;
+      // Make a call to your server to set up the payment
+      palRes =  window['paypal'].request.post(CREATE_URL)
+          .then(function(res) {
+              return actions.payment.create(res);
+          });
+    }
+    return palRes
   }
 
 

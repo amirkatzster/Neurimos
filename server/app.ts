@@ -83,7 +83,14 @@ db.once('open', () => {
 
   // All regular routes use the Universal engine
   app.get('*', (req, res) => {
-    res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
+    res.render(join(DIST_FOLDER, 'browser', 'index.html'), { 
+      req,
+      res,
+      providers: [{
+        provide: 'serverUrl',
+        useValue: `${req.protocol}://${req.get('host')}`
+      }]
+    });
   });
 
   app.listen(app.get('port'), () => {
