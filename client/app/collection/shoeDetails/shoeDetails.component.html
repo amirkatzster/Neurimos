@@ -24,17 +24,9 @@
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
                         <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a>
                     </div>
-                    <ngx-carousel
-                    [inputs]="carouselBanner"
-                    [moveToSlide]="1"
-                    (onMove)="onmoveFn($event)"
-                    (carouselLoad)="loadItemsFn()">
-                    <ngx-item class="bannerStyle" *ngFor="let positionImg of currentImageGroup?.images" NgxCarouselItem >
-                            <img [src]="positionImg.urlMedium" class="center"/>
-                    </ngx-item>
-                    <button NgxCarouselPrev class='leftRs'>&lt;</button>
-                    <button NgxCarouselNext class='rightRs'>&gt;</button> 
-                    </ngx-carousel>
+                    <div  *ngFor="let positionImg of currentImageGroup?.images" >
+                        <img [src]="positionImg.urlMedium" class="center"/>
+                    </div>
                     <div class="row">
                         <div class="col-xs-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
                             <a href="#" (click)="selectColor(colorImg)" lazy-load-images>

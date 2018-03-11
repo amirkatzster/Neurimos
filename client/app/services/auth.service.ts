@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelper, AuthHttp } from 'angular2-jwt';
-
-import { UserService } from '../services/user.service';
-import { debug } from 'util';
+import { UserService } from 'app/services/user.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +12,6 @@ export class AuthService {
 
   constructor(private userService: UserService,
               private router: Router) {
-       this.loadUser();
   }
 
 

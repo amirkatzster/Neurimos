@@ -1,39 +1,39 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { Injectable, Inject, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class ShoeService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
+  private options = {headers: this.headers };
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) {}
 
   getShoes(): Observable<any> {
-    return this.http.get('/api/shoes').map(res => res.json());
+    return this.http.get(`/api/shoes`).map(res => res);
   }
 
   countShoes(): Observable<any> {
-    return this.http.get('/api/shoes/count').map(res => res.json());
+    return this.http.get(`/api/shoes/count`).map(res => res);
   }
 
   searchShoes(query: String[], queryString: String): Observable<any> {
-    return this.http.post('/api/shoes/search' + queryString, JSON.stringify(query), this.options).map(res => res.json());
+    return this.http.post(`/api/shoes/search${queryString}`,
+    JSON.stringify(query), this.options).map(res => res);
   }
 
   addShoe(shoe): Observable<any> {
-    return this.http.post('/api/shoe', JSON.stringify(shoe), this.options);
+    return this.http.post(`/api/shoe`, JSON.stringify(shoe), this.options);
   }
 
   getShoe(shoe): Observable<any> {
-    return this.http.get(`/api/shoe/${shoe._id}`).map(res => res.json());
+    return this.http.get(`/api/shoe/${shoe._id}`).map(res => res);
   }
 
   getShoeById(id): Observable<any> {
-    return this.http.get(`/api/shoe/${id}`).map(res => res.json());
+    return this.http.get(`/api/shoe/${id}`).map(res => res);
   }
 
   editShoe(shoe): Observable<any> {

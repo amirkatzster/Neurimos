@@ -24,8 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(public auth: AuthService,
               private classificationService: ClassificationService,
               private route: ActivatedRoute,
-              public orderService: OrderService)
-              { }
+              public orderService: OrderService) { }
 
   ngOnInit() {
       this.sub = this.classificationService.getHeader().subscribe(data => {
@@ -36,7 +35,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
       this.cartCounterSub = this.orderService.getOrdersCounter().subscribe(data => {
           this.cartCouter = data;
-      })
+      });
+      this.auth.loadUser();
   }
 
   ngOnDestroy() {

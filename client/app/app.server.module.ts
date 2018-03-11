@@ -5,7 +5,8 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UniversalInterceptor } from './services/unversal.interceptor';
+import { UniversalInterceptor } from './unversal.interceptor';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { UniversalInterceptor } from './services/unversal.interceptor';
     // by the ServerModule from @angular/platform-server.
     AppModule,
     ServerModule,
-    ModuleMapLoaderModule // <-- *Important* to have lazy-loaded routes work
+    ModuleMapLoaderModule, // <-- *Important* to have lazy-loaded routes work
+    HttpClientModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,21 +7,21 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ClassificationService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
+  private options = {headers: this.headers };
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getClassifications(): Observable<any> {
-    return this.http.get('/api/classifications').map(res => res.json());
+    return this.http.get('/api/classifications').map(res => res);
   }
 
   countClassifications(): Observable<any> {
-    return this.http.get('/api/classifications/count').map(res => res.json());
+    return this.http.get('/api/classifications/count').map(res => res);
   }
 
   getHeader(): Observable<any> {
-    return this.http.get('/api/header').map(res => res.json());
+    return this.http.get('/api/header').map(res => res);
   }
 
   addClassification(Classification): Observable<any> {
@@ -29,7 +29,7 @@ export class ClassificationService {
   }
 
   getClassification(Classification): Observable<any> {
-    return this.http.get(`/api/classification/${Classification._id}`).map(res => res.json());
+    return this.http.get(`/api/classification/${Classification._id}`).map(res => res);
   }
 
   editClassification(Classification): Observable<any> {
