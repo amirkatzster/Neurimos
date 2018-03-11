@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Injectable, Inject, PLATFORM_ID} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { OrderService } from 'app/services/order.service';
 import { AuthService } from 'app/services/auth.service';
 import {Location} from '@angular/common';
@@ -12,14 +13,16 @@ export class SummaryComponent implements OnInit {
 
   constructor(public orderService: OrderService,
               public auth: AuthService,
-              private location: Location) { }
+              private location: Location,
+              @Inject(PLATFORM_ID) protected platformId: Object) { }
 
   ngOnInit() {
     this.orderService.cleanOrders();
   }
 
   orderId() {
-    return localStorage.getItem('orderId')
+    // return localStorage.getItem('orderId')
+    return '';
   }
 
   backClicked() {

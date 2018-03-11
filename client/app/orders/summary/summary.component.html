@@ -4,21 +4,21 @@
         <div class="col-md-3">
         </div>
         <div class="col-md-8">
-            <accordion [closeOthers]="true">
-                <accordion-group  [isOpen]="false"  [isDisabled]="true" >
-                                 <div accordion-heading class="headerAccordion text-muted">
+            <mat-accordion >
+                <mat-expansion-panel  [expanded]="false"  [disabled]="true" >
+                                 <mat-expansion-panel-header class="headerAccordion text-muted">
                                     פרטי משלוח
-                                  </div>
-                </accordion-group>
-                <accordion-group [isOpen]="false" [isDisabled]="true">
-                    <div accordion-heading class="headerAccordion text-muted">
+                                  </mat-expansion-panel-header>
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="false" [disabled]="true">
+                    <mat-expansion-panel-header class="headerAccordion text-muted">
                         תשלום
-                      </div>
-                </accordion-group>
-                <accordion-group [isOpen]="true">
-                    <div accordion-heading class="headerAccordion">
+                      </mat-expansion-panel-header>
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header class="headerAccordion">
                         סיכום
-                    </div>
+                    </mat-expansion-panel-header>
                     שלום <strong>{{ auth.currentUser.username}}</strong> <br> <br>
                     בקשתך בטיפול <br>
                     התשלום יתבצע כאשר המוצר יהיה מוכן למסירה 
@@ -29,9 +29,9 @@
                     <button type="button" class="btn btn-secondary" (click)="backClicked()" routerLink="/">חזור לחנות</button><br>
                     <br>
                     <small><i> מזהה הזמנה {{orderId()}}</i></small>
-                </accordion-group>
+                </mat-expansion-panel>
                 
-              </accordion>
+              </mat-accordion> 
         </div>
         <div class="col-md-1"></div>
     </div>

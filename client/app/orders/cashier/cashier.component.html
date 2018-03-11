@@ -34,11 +34,11 @@
               </div>
         </div>
         <div class="col-md-8">
-            <accordion [closeOthers]="true">
-                <accordion-group [isOpen]="openStep == 1" (click)="openStep = 1" >
-                                 <div accordion-heading class="headerAccordion">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="openStep == 1" (click)="openStep = 1" >
+                                 <mat-expansion-panel-header class="headerAccordion">
                                     פרטי משלוח
-                                  </div>
+                                  </mat-expansion-panel-header>
                         <form #shippmentForm="ngForm" (ngSubmit)="onSubmitStep1()" >
                           <div class="form-group">
                             <label for="usernameInput" class="control-label">שם מלא</label>
@@ -82,26 +82,26 @@
                           </div>
                           
                         </form>
-                </accordion-group>
-                <accordion-group [isOpen]="openStep == 2" [isDisabled]="openStep < 2">
-                    <div accordion-heading class="headerAccordion" [ngClass]="{'text-muted': openStep < 2}">
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="openStep == 2" [disabled]="openStep < 2">
+                    <mat-expansion-panel-header class="headerAccordion" [ngClass]="{'text-muted': openStep < 2}">
                         תשלום
-                      </div>
+                      </mat-expansion-panel-header>
                   <div>
                       <i>קנייה בטוחה באמצעות פייפאל שתומך בכרטיס אשראי</i>
                       <br>
                       <i>לחץ על אמצעי תשלום</i>
                       <div id="paypal-button-container"></div>
                   </div>
-                </accordion-group>
-                <accordion-group [isOpen]="openStep == 3" [isDisabled]="openStep < 3">
-                    <div accordion-heading class="headerAccordion" [ngClass]="{'text-muted': maxStep < 3}">
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="openStep == 3" [disabled]="openStep < 3">
+                    <mat-expansion-panel-header class="headerAccordion" [ngClass]="{'text-muted': maxStep < 3}">
                         סיכום
-                      </div>
+                      </mat-expansion-panel-header>
                     
-                </accordion-group>
+                </mat-expansion-panel>
                 
-              </accordion>
+              </mat-accordion> 
         </div>
         <div class="col-md-1"></div>
     </div>

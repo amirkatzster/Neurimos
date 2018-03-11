@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from 'app/services/user.service';
 import { AuthService } from 'app/services/auth.service';
 import { Order } from 'app/model/order';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import { RequestOptions, Headers, Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LocalStorage } from 'app/shared/local-storage.service';
 
 
 
@@ -14,13 +15,17 @@ export class OrderService {
 
   public orders: Array<Order>;
   private obsArray: Array<Order>;
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
+  private options = {headers: this.headers };
 
   constructor(private authService: AuthService,
               private router: Router,
-              private http: Http) {
-      this.orders = JSON.parse(localStorage.getItem('orders'));
+              private http: HttpClient,
+              private localStorage: LocalStorage ) {
+      const ordersPersist = this.localStorage.getItem('orders');
+      if (ordersPersist) {
+        this.orders = JSON.parse(ordersPersist);
+      }
       if (!this.orders) {
         this.orders = [];
       }
@@ -90,7 +95,7 @@ export class OrderService {
 
 
   persist() {
-    localStorage.setItem('orders', JSON.stringify(this.orders));
+     this.localStorage.setItem('orders', JSON.stringify(this.orders));
   }
 
 

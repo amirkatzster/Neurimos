@@ -39,34 +39,34 @@
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2  hidden-sm-down">
           <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')" >רק מבצעים</button>
-          <accordion>
-            <accordion-group  [isOpen]="true"  >
-                <div accordion-heading class="headerAccordion">
+           <mat-accordion [multi]="true">
+            <mat-expansion-panel  [expanded]="true"  >
+                <mat-expansion-panel-header class="headerAccordion">
                     מידה
-                </div>
+                </mat-expansion-panel-header>
                 <div>
                     <button class="btn btn-secondary btn-sm" *ngFor="let size of sizes">{{size}}</button>
                 </div>
-            </accordion-group>
-            <accordion-group [isOpen]="true" >
-                <div accordion-heading class="headerAccordion">
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="true" >
+                <mat-expansion-panel-header class="headerAccordion">
                     חברה  
-                </div>
+                </mat-expansion-panel-header>
                 <div *ngFor="let company of companies">
                     <button class="btn btn-link btn-sm" (click)="addFiler(company.key)" >
                         {{company.key}} ({{company.count}})</button>
                 </div>
-            </accordion-group>
-            <accordion-group [isOpen]="true">
-                <div accordion-heading class="headerAccordion">
+            </mat-expansion-panel>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header class="headerAccordion">
                     צבע
-                </div>
+                </mat-expansion-panel-header>
                 <div *ngFor="let color of colors">
                     <button class="btn btn-link btn-sm" (click)=filter (click)="addFiler(color.key)" >
                         {{color.key}} ({{color.count}})</button>
                 </div>
-            </accordion-group>         
-          </accordion>
+            </mat-expansion-panel>         
+          </mat-accordion> 
 
         </div>
       </div>

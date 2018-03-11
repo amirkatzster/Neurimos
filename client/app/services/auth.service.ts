@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelper, AuthHttp } from 'angular2-jwt';
-
-import { UserService } from '../services/user.service';
-import { FacebookService, InitParams, LoginResponse, AuthResponse } from 'ngx-facebook';
-import { debug } from 'util';
+import { UserService } from 'app/services/user.service';
 
 @Injectable()
 export class AuthService {
@@ -15,9 +11,7 @@ export class AuthService {
   currentUser = { _id: '', username: '', role: '' };
 
   constructor(private userService: UserService,
-              private router: Router,
-              private fb: FacebookService) {
-      this.loadUser();
+              private router: Router) {
   }
 
 
@@ -41,7 +35,6 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('user');
     this.loggedIn = false;
     this.isAdmin = false;
     this.isGuest = false;
