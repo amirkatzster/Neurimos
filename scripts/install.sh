@@ -8,6 +8,7 @@ yum -y update
 #yum -y install default-jre ImageMagick
 yum -y install gcc-c++
 yum -y install nmap-ncat
+yum -y install git
 
 
 set +e
@@ -19,6 +20,8 @@ sudo n stable
 npm install -g concurrently
 npm install -g @angular/cli
 npm install -g typescript 
+npm install -g webpack
+npm install -g webpack-cli
 
 # install pm2 module globaly
 npm install -g pm2
