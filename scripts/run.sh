@@ -1,2 +1,2 @@
 cd ~/node
-npm run prod
+npm run ssr
