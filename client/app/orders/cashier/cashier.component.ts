@@ -91,7 +91,8 @@ export class CashierComponent implements OnInit , OnDestroy {
     } else {
       this.user.role = 'guest'
       this.sub = this.userService.addUser(this.user).subscribe(data => {
-        this.auth.injectUser(JSON.parse(data._body));
+        console.log();
+        this.auth.injectUser(data);
         this.openStep2();
       },
       error => console.log(error)
@@ -105,7 +106,7 @@ export class CashierComponent implements OnInit , OnDestroy {
     }
     this.sub = this.orderService.createServerOrder(this.user).subscribe(data => {
         if (isPlatformBrowser(this.platformId)) {
-          this.localStorage.setItem('orderId', JSON.parse(data._body)._id);
+          this.localStorage.setItem('orderId', data._id);
         }
         this.openStep = 2;
         if (this.maxStep === 1) {
