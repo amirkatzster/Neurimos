@@ -28,9 +28,9 @@ app.use(compression());
 
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
+const DIST_FOLDER = join(process.cwd(), 'dist');
 
 // Angular Server
-const DIST_FOLDER = join(process.cwd(), 'dist');
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../middle/main.bundle');
 const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
@@ -71,6 +71,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());
+
+// redirect to www
+app.all(/.*/, (req, res, next) => {
+  const host = req.header('host');
+  if (host.match(/^www\..*/i)) {
+    next();
+  } else {
+    res.redirect(301, 'http://www.' + host);
+  }
+});
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
