@@ -73,14 +73,14 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash());
 
 // redirect to www
-app.all(/.*/, (req, res, next) => {
-  const host = req.header('host');
-  if (host.match(/^www\..*/i)) {
-    next();
-  } else {
-    res.redirect(301, 'http://www.' + host);
-  }
-});
+// app.all(/.*/, (req, res, next) => {
+//   const host = req.header('host');
+//   if (host.match(/^www\..*/i)) {
+//     next();
+//   } else {
+//     res.redirect(301, 'http://www.' + host);
+//   }
+// });
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
