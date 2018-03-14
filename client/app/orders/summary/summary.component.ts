@@ -1,8 +1,8 @@
-import { Component, OnInit , Injectable, Inject, PLATFORM_ID} from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'app/services/order.service';
 import { AuthService } from 'app/services/auth.service';
 import {Location} from '@angular/common';
+import { LocalStorage } from 'app/shared/local-storage.service';
 
 @Component({
   selector: 'app-summary',
@@ -14,15 +14,14 @@ export class SummaryComponent implements OnInit {
   constructor(public orderService: OrderService,
               public auth: AuthService,
               private location: Location,
-              @Inject(PLATFORM_ID) protected platformId: Object) { }
+              private localStorage: LocalStorage) { }
 
   ngOnInit() {
     this.orderService.cleanOrders();
   }
 
   orderId() {
-    // return localStorage.getItem('orderId')
-    return '';
+     return this.localStorage.getItem('orderId')
   }
 
   backClicked() {
