@@ -29,6 +29,7 @@ export default function setRoutes(app, passport) {
   router.route('/shoes').get(shoeCtrl.getAll);
   router.route('/shoes/count').get(shoeCtrl.count);
   router.route('/shoes/search').post(shoeCtrl.search);
+  router.route('/shoes/genimg').get(shoeCtrl.genimg);
   router.route('/shoe').post(isAdmin);
   router.route('/shoe').post(shoeCtrl.insert);
   router.route('/shoe/:id').get(shoeCtrl.get);

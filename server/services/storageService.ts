@@ -62,16 +62,52 @@ export default class StorageService  {
     addNewImage(imageString: string, path: string, width: number) {
         const buf = new Buffer(imageString.replace(/^data:image\/\w+;base64,/, ''), 'base64');
         Jimp.read(buf, (err, image) => {
-            image.resize(width, Jimp.AUTO)
+            this.uploadConvertedImage(image, width, path, this.bucketName, this.s3Bucket);
+        });
+        return this.amazonDomain + this.bucketName + '/' + path;
+    }
+
+    tryToConvert(url, callback) {
+        const s3Path = url.substring(url.indexOf(this.bucketName) + this.bucketName.length + 1);
+        const headParams = {Bucket: this.bucketName, Key: s3Path} ;
+        const s3 = this.s3Bucket;
+        const bucketName = this.bucketName;
+        const convertMethod = this.uploadConvertedImage;
+        s3.headObject(headParams, function (err, res: any) {
+            if (err) {
+                return;
+            }
+            if (res.code !== 'NotFound') {
+                console.log('New file exists!!! ' + s3Path);
+                // Take XL image and create 3 sizes
+                s3.getObject(headParams, function(err2, data) {
+                    if (err2) {
+                        console.log(err2, err2.stack);
+                    } else {
+                        Jimp.read(data.Body, (err3, image) => {
+                            console.log(image);
+                            convertMethod(image, 480, s3Path.replace('/XL/', '/L/'), bucketName, s3);
+                            convertMethod(image, 255, s3Path.replace('/XL/', '/M/'), bucketName, s3);
+                            convertMethod(image, 55, s3Path.replace('/XL/', '/S/'), bucketName, s3);
+                            callback();
+                        });
+                    }
+                  });
+            }
+        })
+    }
+
+    uploadConvertedImage(image, width, path, bucketName, s3Bucket) {
+        image.resize(width, Jimp.AUTO)
                  .getBuffer(image.getMIME(), (error, buffer) => {
                       const data: AWS.S3.Types.PutObjectRequest = {
                       Key: path,
                       Body: buffer,
                       ContentEncoding: 'base64',
                       ContentType: image.getMIME(),
-                      Bucket: this.bucketName,
+                      Bucket: bucketName,
                     };
-                    this.s3Bucket.putObject(data , function(e, d){
+                    s3Bucket.putObject(data , function(e, d){
                       if (e) {
                         console.log(e);
                         console.log('Error uploading data: ', d);
@@ -80,7 +116,5 @@ export default class StorageService  {
                       }
                   });
               });
-        });
-        return this.amazonDomain + this.bucketName + '/' + path;
     }
 }

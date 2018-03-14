@@ -106,4 +106,45 @@ export default class ShoeCtrl extends BaseCtrl {
     return false;
   }
 
+  genimg = (req, res) => {
+    const storageService = new StorageService();
+    this.model.find({}, (err, shoes) => {
+      if (err) { return console.error(err); }
+      shoes.forEach(shoe => {
+          if (shoe.imagesGroup) {
+            shoe.imagesGroup.forEach(ig => {
+                if (ig.images) {
+                  ig.images.forEach(image => {
+                      this.gen(shoe, image, storageService);
+                  });
+                }
+            });
+          }
+      });
+    });
+  }
+
+  gen(shoe, image, storageService) {
+    const xlUrl = image.urlXL;
+    if (!xlUrl.endsWith('.png')) {
+        const xlUrlWithPng = xlUrl + '.png';
+        storageService.tryToConvert(xlUrlWithPng, () => {
+           storageService.deleteImageUrl(image.urlXL);
+           storageService.deleteImageUrl(image.urlLarge);
+           storageService.deleteImageUrl(image.urlMedium);
+           storageService.deleteImageUrl(image.urlSmall);
+           image.urlXL = xlUrlWithPng;
+           image.urlLarge = xlUrlWithPng.replace('/XL/', '/L/');
+           image.urlMedium = xlUrlWithPng.replace('/XL/', '/M/');
+           image.urlSmall = xlUrlWithPng.replace('/XL/', '/S/');
+           this.model.findOneAndUpdate({ _id: shoe._id }, shoe, (err) => {
+              if (err) { return console.error(err); }
+              console.log('shoe updated');
+              console.log(shoe);
+          });
+        });
+    }
+  }
+
+
 }
