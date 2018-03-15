@@ -23,12 +23,6 @@ Other tools and technologies used:
 2. Install Angular CLI: `npm i -g @angular/cli`
 3. From project root folder install all the dependencies: `npm i`
 
-## Run
-### Development mode
-`npm run dev`: [concurrently](https://github.com/kimmobrunfeldt/concurrently) execute MongoDB, Angular build, TypeScript compiler and Express server.
-
-A window will automatically open at [localhost:4200](http://localhost:4200). Angular and Express files are being watched. Any change automatically creates a new bundle, restart Express server and reload your browser.
-
 
 ## Running unit tests
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
