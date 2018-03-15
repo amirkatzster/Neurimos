@@ -51,7 +51,7 @@ abstract class BaseCtrl {
     this.updateProcess(req.body);
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
       if (err) { return console.error(err); }
-      res.sendStatus(200);
+      res.status(200).json({});
     });
   };
 
@@ -67,7 +67,7 @@ abstract class BaseCtrl {
     if (shouldDelete) {
       this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
         if (err) { return console.error(err); }
-        res.sendStatus(200);
+        res.status(200).json({});
       });
     }
   };

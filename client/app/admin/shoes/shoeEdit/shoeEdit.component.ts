@@ -128,7 +128,9 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.backClicked();
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+        }
       );
     }
   }
@@ -154,7 +156,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   discountCalc(shoe) {
     shoe.finalPrice = shoe.price;
     if (shoe.discount && shoe.discount.percentage) {
-      shoe.finalPrice = (shoe.price * (1 - (shoe.discount.percentage / 100)));
+      shoe.finalPrice = (shoe.price * (1 - (shoe.discount.percentage / 100))).toFixed(1);
     }
     if (shoe.discount && shoe.discount.newAmount) {
       shoe.finalPrice = shoe.discount.newAmount;
