@@ -80,7 +80,7 @@ export default class StorageService  {
             if (res.code !== 'NotFound') {
                 console.log('New file exists!!! ' + s3Path);
                 // Take XL image and create 3 sizes
-                s3.getObject(headParams, function(err2, data) {
+                s3.getObject(headParams, function(err2, data: any) {
                     if (err2) {
                         console.log(err2, err2.stack);
                     } else {
