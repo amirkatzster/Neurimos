@@ -39,10 +39,10 @@ const routes: Routes = [
   { path: 'sendusmsg', component: SendusmsgComponent },
   { path: 'takanon', component: TakanonComponent },
   { path: 'summary', component: SummaryComponent },
-  { path: ':query', component: CollectionComponent },
-  { path: ':desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
-  { path: ':desc/נעל/:id', component: ShoeDetailsComponent },
-  { path: ':company/נעלי', component: NotFoundComponent },
+  { path: 'q/:query', component: CollectionComponent },
+  { path: 'sd/:desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
+  { path: 'sd/:desc/נעל/:id', component: ShoeDetailsComponent },
+  // { path: 'c/:company/נעלי', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

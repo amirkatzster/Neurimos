@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-not-found',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class NotFoundComponent {
 
-  constructor() { }
+  constructor(private meta: Meta) {
+    this.meta.addTag({ name: 'prerender-status-code', content: '404' });
+  }
 
 }

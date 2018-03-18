@@ -22,7 +22,7 @@
     <div class="row hidden-sm-down">
         <div *ngFor="let company of companies;let i = index">
             <div class="col-md-2 companyContainer">
-                <a [routerLink]="[company.name]">
+                <a [routerLink]="'/q/' +[company.name]">
                     <img src={{company.image}}  width="180" alt="{{ company.name }}"/>
                 </a>
             </div>
@@ -31,7 +31,7 @@
     <div class="row hidden-sm-up">
             <div *ngFor="let company of companies;let i = index">
                 <div class="col-xs-4 companyContainer">
-                    <a [routerLink]="[company.name]">
+                    <a [routerLink]="'/q/' +[company.name]">
                         <img src={{company.image}}  width="110" alt="{{ company.name }}"/>
                     </a>
                 </div>

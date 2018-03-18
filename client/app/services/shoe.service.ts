@@ -46,7 +46,7 @@ export class ShoeService {
 
   getShoeLink(shoe) {
     const colors = shoe.imagesGroup.map(ig => ig.color).join('-');
-    return `/${shoe.company}-${shoe.name}-${colors}/נעל/${shoe._id}/צבע/${shoe.imagesGroup[0].color}`;
+    return `/sd/${shoe.company}-${shoe.name}-${colors}/נעל/${shoe._id}/צבע/${shoe.imagesGroup[0].color}`;
   }
 
 }
