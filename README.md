@@ -10,16 +10,6 @@ This project uses the [MEAN stack](https://en.wikipedia.org/wiki/MEAN_(software_
 * [**N**ode.js](https://nodejs.org): runtime environment
 
 
-Other tools and technologies used:
-* [Angular CLI](https://cli.angular.io): frontend scaffolding
-* [Bootstrap](http://www.getbootstrap.com): layout and styles
-* [Font Awesome](http://fontawesome.io): icons
-* [JSON Web Token](https://jwt.io): user authentication
-* [Angular 2 JWT](https://github.com/auth0/angular2-jwt): JWT helper for Angular
-* [Bcrypt.js](https://github.com/dcodeIO/bcrypt.js): password encryption
-
-
-
 ## Running unit tests
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
