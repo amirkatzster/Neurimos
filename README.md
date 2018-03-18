@@ -3,11 +3,7 @@
 
 The frontend is generated with [Angular CLI](https://github.com/angular/angular-cli). The backend is made from scratch. Whole stack in [TypeScript](https://www.typescriptlang.org).
 
-This project uses the [MEAN stack](https://en.wikipedia.org/wiki/MEAN_(software_bundle)):
-* [**M**ongoose.js](http://www.mongoosejs.com) ([MongoDB](https://www.mongodb.com)): database
-* [**E**xpress.js](http://expressjs.com): backend framework
-* [**A**ngular 4](https://angular.io): frontend framework
-* [**N**ode.js](https://nodejs.org): runtime environment
+
 
 
 ## Running unit tests
