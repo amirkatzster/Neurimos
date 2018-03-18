@@ -18,7 +18,7 @@
     "lintbe": "tslint server/**/**.ts{,x}",
     "e2e": "ng e2e",
     "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
-    "serve:ssr": "pm2 start dist/server/server.js -i 0 --name 'neurimos'",
+    "serve:ssr": "pm2 start dist/server/app.js -i 0 --name 'neurimos'",
     "pressr": "tsc -v && tsc -p server",
     "ssr": "npm run build:ssr && npm run serve:ssr",
     "build:client-and-server-bundles": "ng build --prod && ng build --prod --app 1 --output-hashing=false",
