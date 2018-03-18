@@ -31,24 +31,24 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER));
 
 // Angular Server
-const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../middle/main.bundle');
-const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
-app.engine('html', (_, options, callback) => {
-  renderModuleFactory(AppServerModuleNgFactory, {
-    // Our index.html
-    document: template,
-    url: options.req.url,
-    // DI so that we can get lazy-loading to work differently (since we need it to just instantly render it)
-    extraProviders: [
-      provideModuleMap(LAZY_MODULE_MAP)
-    ]
-  }).then(html => {
-    callback(null, html);
-  });
-});
-app.set('view engine', 'html');
-app.set('views', join(DIST_FOLDER, 'browser'));
+// const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
+// const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('../middle/main.bundle');
+// const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
+// app.engine('html', (_, options, callback) => {
+//   renderModuleFactory(AppServerModuleNgFactory, {
+//     // Our index.html
+//     document: template,
+//     url: options.req.url,
+//     // DI so that we can get lazy-loading to work differently (since we need it to just instantly render it)
+//     extraProviders: [
+//       provideModuleMap(LAZY_MODULE_MAP)
+//     ]
+//   }).then(html => {
+//     callback(null, html);
+//   });
+// });
+// app.set('view engine', 'html');
+// app.set('views', join(DIST_FOLDER, 'browser'));
 // End angular
 
 
