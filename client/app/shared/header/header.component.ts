@@ -3,6 +3,7 @@ import { AuthService } from 'app/services/auth.service';
 import { ClassificationService } from 'app/services/classification.service';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'app/services/order.service';
+import { Prerender } from '../prerender.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(public auth: AuthService,
               private classificationService: ClassificationService,
               private route: ActivatedRoute,
-              public orderService: OrderService) { }
+              public orderService: OrderService,
+              private prerender: Prerender) { }
 
   ngOnInit() {
       this.sub = this.classificationService.getHeader().subscribe(data => {
@@ -32,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.girls = data.filter(o => o.gen === 'ילדות')[0].cls;
         this.men = data.filter(o => o.gen === 'גברים')[0].cls;
         this.women = data.filter(o => o.gen === 'נשים')[0].cls;
+        this.prerender.done();
       });
       this.cartCounterSub = this.orderService.getOrdersCounter().subscribe(data => {
           this.cartCouter = data;

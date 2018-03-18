@@ -15,6 +15,7 @@ import { RoutingModule } from 'app/routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { LocalStorage } from './local-storage.service';
+import { Prerender } from './prerender.service';
 
 @NgModule({
   imports: [
@@ -67,7 +68,8 @@ import { LocalStorage } from './local-storage.service';
   providers: [
     AuthService,
     ToastComponent,
-    LocalStorage
+    LocalStorage,
+    Prerender
   ]
 })
 export class SharedModule { }
