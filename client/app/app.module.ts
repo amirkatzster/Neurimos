@@ -59,7 +59,7 @@ import { CommonModule } from '@angular/common';
     SharedModule,
     AdminModule,
     HttpClientModule,
-    window['paypal'].Button.driver('angular2', ngCore),
+    // window['paypal'].Button.driver('angular2', ngCore),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCdfSnui6ck0WUOBT-Q9wa1zoDcdoUFH5k'
     }),
