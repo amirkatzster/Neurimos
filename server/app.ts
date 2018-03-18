@@ -25,10 +25,10 @@ enableProdMode();
 
 const app = express();
 app.use(compression());
-
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
 const DIST_FOLDER = join(process.cwd(), 'dist');
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER));
 
 // Angular Server
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
