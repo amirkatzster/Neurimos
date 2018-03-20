@@ -5,31 +5,31 @@
         <priority>1.00</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/q/%D7%A0%D7%A2%D7%9C%D7%99%D7%99%D7%9D</loc>
+		<loc>http://www.neurimshoes.co.il/q/%D7%A0%D7%A2%D7%9C%D7%99%D7%99%D7%9D</loc>
         <priority>0.90</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/q/%D7%99%D7%9C%D7%93%D7%99%D7%9D</loc>
+		<loc>http://www.neurimshoes.co.il/q/%D7%99%D7%9C%D7%93%D7%99%D7%9D</loc>
         <priority>0.80</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/q/%D7%99%D7%9C%D7%93%D7%95%D7%AA</loc>
+		<loc>http://www.neurimshoes.co.il/q/%D7%99%D7%9C%D7%93%D7%95%D7%AA</loc>
         <priority>0.80</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/q/%D7%A0%D7%A9%D7%99%D7%9D</loc>
+		<loc>http://www.neurimshoes.co.il/q/%D7%A0%D7%A9%D7%99%D7%9D</loc>
         <priority>0.70</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/q/%D7%92%D7%91%D7%A8%D7%99%D7%9D</loc>
+		<loc>http://www.neurimshoes.co.il/q/%D7%92%D7%91%D7%A8%D7%99%D7%9D</loc>
         <priority>0.70</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/about</loc>
+		<loc>http://www.neurimshoes.co.il/about</loc>
         <priority>0.60</priority>
 	</url>
     <url>
-		<loc>http://www.neurimos.co.il:4200/sendusmsg</loc>
+		<loc>http://www.neurimshoes.co.il/sendusmsg</loc>
         <priority>0.55</priority>
 	</url>
     <url>
