@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /
+Disallow: /order
 
 Sitemap: http://www.neurimshoes.co.il/sitemap.xml
 
