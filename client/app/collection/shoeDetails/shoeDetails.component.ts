@@ -7,7 +7,7 @@ import { OrderService } from 'app/services/order.service';
 import {Location} from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-shoe-details',
@@ -35,7 +35,8 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               public toast: ToastComponent,
               private location: Location,
               public auth: AuthService,
-              private titleService: Title) {  }
+              private titleService: Title,
+              private meta: Meta) {  }
 
 
   ngOnInit() {
@@ -48,6 +49,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           this.linkToShoe = `/${this.shoe.company}-${this.shoe.name}-${colors}/נעל/${this.shoe._id}`;
           this.linkToCompany = `/${this.shoe.company}/נעלי`;
           this.titleService.setTitle(`נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`);
+          this.meta.updateTag({ name: 'keywords', content: `נעל, ${this.shoe.company}, ${this.shoe.name} , ${colors}` });
           if (params['color']) {
             this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === params['color']);
           } else {

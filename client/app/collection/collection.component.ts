@@ -7,7 +7,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import { debuglog } from 'util';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-collection',
@@ -38,7 +38,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private shoeService: ShoeService,
-              private titleService: Title) {
+              private titleService: Title,
+              private meta: Meta) {
     this.initQueries = '';
     this.queries = [];
     this.filters = [];
@@ -48,7 +49,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('sort1...');
     this.titleService.setTitle('קולקצית נעליים | נעלי נעורים');
     const obsComb = Observable.combineLatest(this.route.params, this.route.queryParams,
       (params, qparams) => ({ params, qparams }))
@@ -62,7 +62,12 @@ export class CollectionComponent implements OnInit, OnDestroy {
       this.filters = this.queries;
       // dispatch action to load the details here.
       this.updateCollection(ap.qparams);
-      this.titleService.setTitle('קולקצית נעלי  ' + this.queries + ' | נעלי נעורים');
+      if ( this.queries.length === 1 && this.queries[0] === 'נעליים') {
+        this.titleService.setTitle('קטלוג | נעלי נעורים');
+      } else {
+        this.titleService.setTitle('נעלי ' + this.queries + ' | נעלי נעורים');
+      }
+      this.meta.updateTag({ name: 'keywords', content: 'נעליים, נעל,' + this.queries })
     });
   }
 

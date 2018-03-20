@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 
 import { AuthService } from '../services/auth.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,12 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthService,
               private formBuilder: FormBuilder,
               private router: Router,
-              public toast: ToastComponent) { }
+              public toast: ToastComponent,
+              private title: Title,
+              private meta: Meta) {
+                this.title.setTitle('התחברות | נעלי נעורים');
+                this.meta.updateTag({ name: 'keywords', content: 'התחבר' });
+              }
 
   ngOnInit() {
     if (this.auth.loggedIn) {

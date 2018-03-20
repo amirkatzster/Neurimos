@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,12 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               public toast: ToastComponent,
-              private userService: UserService) { }
+              private userService: UserService,
+              private title: Title,
+              private meta: Meta) {
+                this.title.setTitle('הרשמה | נעלי נעורים');
+                this.meta.updateTag({ name: 'keywords', content: 'הרשמה' });
+              }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
