@@ -17,7 +17,7 @@ export default class OrderCtrl extends BaseCtrl {
           const service = new MailService();
           const body = JSON.stringify(obj2);
           service.sendMailToUs('There is a new order from website (payed!)', body, body);
-          res.sendStatus(201);
+          res.status(201).json({});
         });
     });
   }

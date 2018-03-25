@@ -16,6 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { LocalStorage } from './local-storage.service';
 import { Prerender } from './prerender.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { Prerender } from './prerender.service';
     MatGridListModule,
     MatChipsModule,
     LazyLoadImagesModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule
   ],
   exports: [
     // Shared Modules
@@ -58,6 +60,7 @@ import { Prerender } from './prerender.service';
     FooterComponent,
     LazyLoadImagesModule,
     MatExpansionModule,
+    MatTooltipModule
   ],
   declarations: [
     ToastComponent,

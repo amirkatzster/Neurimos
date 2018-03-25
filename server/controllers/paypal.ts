@@ -25,16 +25,7 @@ export default class PaypalCtrl {
             'intent': 'authorize',
             'transactions': [{
                 'item_list': {
-                    'items': items,
-                    'shipping_address': {
-                        'recipient_name': order.customer.name,
-                        'line1': order.customer.address1,
-                        'line2': order.customer.address2,
-                        'city': order.customer.city,
-                        'country_code': 'IL',
-                        'postal_code': order.customer.zip,
-                        'phone': order.customer.phone
-                      }
+                    'items': items
                 },
                 'amount': {
                     'currency': 'ILS',
@@ -46,9 +37,23 @@ export default class PaypalCtrl {
                 },
                 'description': 'תודה שבחרתם לרכוש דרך נעורים :)'
             }]};
+            console.log(order.shippment.deliveryMethod);
+          if (order.shippment.deliveryMethod !== 'SelfPick') {
+            console.log('adding address to paypal info');
+            (<any>create_payment_json.transactions[0]).item_list.shipping_address = {
+                'recipient_name': order.customer.name,
+                'line1': order.customer.address1,
+                'line2': order.customer.address2,
+                'city': order.customer.city,
+                'country_code': 'IL',
+                'postal_code': order.customer.zip,
+                'phone': order.customer.phone
+              }
+          } else {
+            // (<any>create_payment_json.transactions[0]).shipping_method = 'איסוף עצמי';
+          }
           res.json(create_payment_json);
       });
-   
   };
 
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { AuthService } from 'app/services/auth.service';
-import { Order } from 'app/model/order';
+import { Order, OrderContainer } from 'app/model/order';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { LocalStorage } from 'app/shared/local-storage.service';
 @Injectable()
 export class OrderService {
 
-  public orders: Array<Order>;
+  public orderContainer: OrderContainer;
   private obsArray: Array<Order>;
   private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
   private options = {headers: this.headers };
@@ -24,22 +24,25 @@ export class OrderService {
               private localStorage: LocalStorage ) {
       const ordersPersist = this.localStorage.getItem('orders');
       if (ordersPersist) {
-        this.orders = JSON.parse(ordersPersist);
+        this.orderContainer = JSON.parse(ordersPersist);
+        if (!this.orderContainer.orders) {
+          this.orderContainer = new OrderContainer();
+        }
       }
-      if (!this.orders) {
-        this.orders = [];
+      if (!this.orderContainer) {
+        this.orderContainer = new OrderContainer();
       }
   }
 
 
   newOrder(shoe: any, imageGroup: any, size: String ) {
-    let order = this.orders.find(o => o.shoe._id === shoe._id && o.imageGroup.color === imageGroup.color && o.size === size);
+    let order = this.orderContainer.orders.find(o => o.shoe._id === shoe._id && o.imageGroup.color === imageGroup.color && o.size === size);
     if (!order) {
       order = new Order();
       order.shoe = shoe;
       order.imageGroup = imageGroup;
       order.size = size;
-      this.orders.push(order);
+      this.orderContainer.orders.push(order);
     }
     order.amount++;
     this.persist();
@@ -47,7 +50,7 @@ export class OrderService {
 
   totalAmount() {
     let totalAmount = 0;
-    this.orders.forEach(o => {
+    this.orderContainer.orders.forEach(o => {
       totalAmount += o.amount;
     });
     return totalAmount;
@@ -55,23 +58,35 @@ export class OrderService {
 
   subTotal() {
     let subTotal = 0;
-    this.orders.forEach(o => {
+    this.orderContainer.orders.forEach(o => {
       subTotal += o.amount * o.shoe.finalPrice;
     });
     return Number(subTotal.toFixed(2));
   }
 
   cleanOrders() {
-    this.orders = [];
+    this.orderContainer.orders = [];
     this.persist()
   }
 
   shippment() {
-    return 15;
+    if (this.orderContainer.delivery === 'SelfPick') {
+      return 0;
+    }
+    if (this.orderContainer.delivery === 'Mail') {
+      if (this.subTotal() < 200) {
+        return 15;
+      } else {
+        return 0;
+      }
+    }
+    if (this.orderContainer.delivery === 'Delivery') {
+      return 35;
+    }
   }
 
   deliveryMethod() {
-    return 'mail';
+    return this.orderContainer.delivery.toString();
   }
 
   total() {
@@ -79,39 +94,38 @@ export class OrderService {
   }
 
   getOrders() {
-    return this.orders;
+    return this.orderContainer.orders;
   }
 
   getOrdersCounter(): Observable<any> {
-    return Observable.from(this.orders);
+    return Observable.from(this.orderContainer.orders);
   }
 
   removeOrder(order) {
-    const index = this.orders.indexOf(order);
-    this.orders.splice(index, 1);
+    const index = this.orderContainer.orders.indexOf(order);
+    this.orderContainer.orders.splice(index, 1);
     this.persist();
   }
 
 
 
   persist() {
-     this.localStorage.setItem('orders', JSON.stringify(this.orders));
+     this.localStorage.setItem('orders', JSON.stringify(this.orderContainer));
   }
 
 
-  createServerOrder(user): Observable<any> {
+  createServerOrder(): Observable<any> {
     const serverOrder = {
       status: 'created',
-      user: user._id,
       totalPrice: this.total(),
       customer: {
-        name         : user.username,
-        email        : user.email,
-        phone        : user.phone,
-        address1     : user.addresses[0].address1,
-        address2     : user.addresses[0].address2,
-        city         : user.addresses[0].city,
-        zip          : user.addresses[0].zip
+        name         : this.orderContainer.name,
+        email        : this.orderContainer.email,
+        phone        : this.orderContainer.phone,
+        address1     : this.orderContainer.address1,
+        address2     : this.orderContainer.address2,
+        city         : this.orderContainer.city,
+        zip          : this.orderContainer.zip
       },
       items    : [],
       shippment: {
@@ -119,7 +133,7 @@ export class OrderService {
         price : this.shippment()
       }
     };
-    this.orders.forEach(o => {
+    this.orderContainer.orders.forEach(o => {
       const item = {
         model:  o.shoe.name,
         company: o.shoe.company,

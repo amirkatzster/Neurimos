@@ -100,7 +100,7 @@ export default class ShoeCtrl extends BaseCtrl {
       storageService.deleteImageFolder(filePath);
       this.model.findOneAndRemove({ _id: req.params.id }, (err2) => {
         if (err2) { return console.error(err2); }
-        res.sendStatus(200);
+        res.status(200).json({});
       });
     });
     return false;

@@ -6,6 +6,7 @@ import BaseCtrl from './base';
 
 
 export default class UserCtrl extends BaseCtrl {
+
   model = User;
 
   login = (req, res) => {
@@ -42,6 +43,31 @@ export default class UserCtrl extends BaseCtrl {
       successRedirect : '/',
       failureRedirect : '/signup'
     })(req, res, next)
+  }
+
+  updateAddress = (req, res, next) => {
+    console.log('updateAddress');
+    this.model.findOne({ _id: req.params.id }, (err, obj) => {
+      console.log('updateAddress2');
+      console.log(obj);
+      if (err) { return console.error(err); }
+      if (obj.addresses && obj.addresses.length === 0) {
+          const addr = {
+            address1 : req.body.address1,
+            address2 : req.body.address2,
+            city : req.body.city,
+            zip : req.body.zip
+          };
+          obj.addresses.push(addr);
+          this.model.findOneAndUpdate({ _id: req.params.id }, obj, (err2) => {
+            console.log('updateAddress3');
+            if (err2) { return console.error(err2); }
+            res.status(201).json({});
+          });
+      } else {
+        res.status(200).json({});
+      }
+    });
   }
 
 }

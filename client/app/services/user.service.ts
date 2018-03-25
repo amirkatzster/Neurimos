@@ -51,4 +51,8 @@ export class UserService {
     return this.http.delete(`/api/user/${user._id}`, this.options);
   }
 
+  updateAddressForUser(user, address): Observable<any> {
+    return this.http.post(`/api/user/${user._id}/address`, JSON.stringify(address), this.options);
+  }
+
 }

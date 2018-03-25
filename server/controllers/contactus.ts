@@ -8,7 +8,7 @@ export default class ContactUsCtrl {
     console.log(req.body);
     const message = JSON.stringify(req.body);
     service.sendMailToUs('Contact us from neurim site - ' + req.body.name, message, message);
-    res.sendStatus(200);
+    res.status(200).json({});
   }
 
 }

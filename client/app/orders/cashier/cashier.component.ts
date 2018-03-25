@@ -22,7 +22,7 @@ export class CashierComponent implements OnInit , OnDestroy {
  shippmentForm: FormGroup;
   openStep: Number = 1;
   maxStep: Number = 1;
-  sub;
+  sub; sub2;
   public user: any = { addresses: [{}]};
   public paypalConfig: any = {};
 
@@ -37,7 +37,6 @@ export class CashierComponent implements OnInit , OnDestroy {
 
   ngOnInit() {
     this.setUser();
-    this.setPayPal();
   }
 
   setPayPal() {
@@ -56,21 +55,37 @@ export class CashierComponent implements OnInit , OnDestroy {
           branding: true,
       };
       if (isPlatformBrowser(this.platformId)) {
+        window.document.getElementById('paypal-button-container').innerHTML = '';
+        console.log('create paypal' + this.paypalConfig.env);
         window['paypal'].Button.render({
           env: this.paypalConfig.env,
           client: this.paypalConfig.client,
           commit: this.paypalConfig.commit,
           locale: 'he_IL',
-          payment: this.payment,
+          payment: (data, actions) => {
+            let palRes = null;
+              const orderId = localStorage.getItem('orderId');
+              console.log('payment' + orderId);
+              const CREATE_URL = '/api/paypal/payment/create/' + orderId;
+              palRes =  window['paypal'].request.post(CREATE_URL)
+                  .then(function(res) {
+                      console.log('set payment' + res);
+                      return actions.payment.create(res);
+                  });
+            return palRes;
+          },
           onAuthorize:  (data, actions) => {
+            console.log('onAuthorize paypal');
             const parent = this;
             const dataParent = data;
             return actions.payment.execute().then(function() {
               // Update status
-              parent.orderService.createServerOrderStatus(this.localStorage.getItem('orderId'), 'payed', dataParent).subscribe(
-                info => {
-                  parent.router.navigateByUrl('/summary')
-                }
+              const orderId = parent.localStorage.getItem('orderId');
+              parent.sub2 = parent.orderService.createServerOrderStatus(orderId, 'payed', dataParent).subscribe(info => {
+                  parent.router.navigateByUrl('/summary');
+                },
+                error => console.log(error),
+                () => console.log('finaly')
               );
             });
           },
@@ -82,21 +97,21 @@ export class CashierComponent implements OnInit , OnDestroy {
 
   onSubmitStep1() {
     if (this.auth.loggedIn) {
-      // Update User info
-      this.sub = this.userService.editUser(this.user).subscribe(data => {
+      if (this.orderService.orderContainer.delivery === 'SelfPick') {
         this.openStep2();
-      },
-      error => console.log(error)
-    );
+      } else {
+        // Update User info
+        this.sub = this.userService.updateAddressForUser(
+          this.auth.currentUser,
+          this.orderService.orderContainer
+        ).subscribe(data => {
+          this.openStep2();
+        },
+        error => console.log(error)
+      );
+    }
     } else {
-      this.user.role = 'guest'
-      this.sub = this.userService.addUser(this.user).subscribe(data => {
-        console.log();
-        this.auth.injectUser(data);
-        this.openStep2();
-      },
-      error => console.log(error)
-    );
+      this.openStep2();
     }
   }
 
@@ -104,9 +119,10 @@ export class CashierComponent implements OnInit , OnDestroy {
     if (this.sub) {
       this.sub.unsubscribe();
     }
-    this.sub = this.orderService.createServerOrder(this.user).subscribe(data => {
+    this.sub = this.orderService.createServerOrder().subscribe(data => {
         if (isPlatformBrowser(this.platformId)) {
           this.localStorage.setItem('orderId', data._id);
+          this.setPayPal();
         }
         this.openStep = 2;
         if (this.maxStep === 1) {
@@ -132,31 +148,36 @@ export class CashierComponent implements OnInit , OnDestroy {
           this.user.addresses = [];
           this.user.addresses.push({});
         }
+        if (!this.orderService.orderContainer.name) {
+          this.orderService.orderContainer.name = this.user.username;
+          this.orderService.orderContainer.email = this.user.email;
+          if (!this.orderService.orderContainer.address1 &&
+            this.user.addresses.length > 0 &&
+            this.orderService.orderContainer.delivery !== 'SelfPick') {
+            this.orderService.orderContainer.address1 = this.user.addresses[0].address1;
+            this.orderService.orderContainer.address2 = this.user.addresses[0].address2;
+            this.orderService.orderContainer.city = this.user.addresses[0].city;
+            this.orderService.orderContainer.zip = this.user.addresses[0].zip;
+            this.orderService.orderContainer.phone = this.user.phone;
+            }
+        }
         },
         error => console.log(error)
       );
     }
   }
 
-  payment(data, actions) {
-    let palRes = null;
-    if (isPlatformBrowser(this.platformId)) {
-      const orderId = localStorage.getItem('orderId');
-      const CREATE_URL = '/api/paypal/payment/create/' + orderId;
-      // Make a call to your server to set up the payment
-      palRes =  window['paypal'].request.post(CREATE_URL)
-          .then(function(res) {
-              return actions.payment.create(res);
-          });
-    }
-    return palRes
+
+  onDeliveryChange(newValue) {
+    this.orderService.persist();
   }
-
-
 
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
+    }
+    if (this.sub2) {
+      this.sub2.unsubscribe();
     }
   }
 

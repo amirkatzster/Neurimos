@@ -32,5 +32,9 @@ export class OrdersComponent implements OnInit {
     this.orderService.persist();
   }
 
+  onDeliveryChange(newValue) {
+    this.orderService.persist();
+  }
+
 
 }
