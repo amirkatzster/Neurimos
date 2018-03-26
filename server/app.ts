@@ -51,6 +51,14 @@ app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 // End angular
 
+app.all(/.*/, function(req, res, next) {
+  const host = req.header('host');
+  if (host.match(/^www\..*/i)) {
+    next();
+  } else {
+    res.redirect(301, 'http://www.' + host);
+  }
+});
 
 app.use(bodyParser.json({limit: '300mb'}));
 app.use(bodyParser.urlencoded({limit: '300mb', extended: false }));
