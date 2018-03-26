@@ -49,6 +49,11 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           this.linkToShoe = `/${this.shoe.company}-${this.shoe.name}-${colors}/נעל/${this.shoe._id}`;
           this.linkToCompany = `/${this.shoe.company}/נעלי`;
           this.titleService.setTitle(`נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`);
+          this.meta.updateTag(
+            { name: 'description',
+              // tslint:disable-next-line:max-line-length
+              content: `נעלי ${this.shoe.gender} מבית ${this.shoe.company} לקנות בנעלי נעורים חולון. ${this.shoe.name} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח`
+            });
           this.meta.updateTag({ name: 'keywords', content: `נעל, ${this.shoe.company}, ${this.shoe.name} , ${colors}` });
           if (params['color']) {
             this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === params['color']);

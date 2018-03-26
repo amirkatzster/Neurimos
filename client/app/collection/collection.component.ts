@@ -67,7 +67,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
       } else {
         this.titleService.setTitle('נעלי ' + this.queries + ' | נעלי נעורים');
       }
-      this.meta.updateTag({ name: 'keywords', content: 'נעליים, נעל,' + this.queries })
+      this.meta.updateTag({ name: 'keywords', content: 'נעליים, נעל,' + this.queries });
+      this.meta.updateTag(
+        { name: 'description', content: `מבחר קולקציית נעלי ${this.queries}. משלוח בקנייה מעל 200 שח חינם. נעלי נעורים חולון מאז 1965` }
+      );
     });
   }
 

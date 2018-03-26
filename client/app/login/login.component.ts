@@ -28,6 +28,11 @@ export class LoginComponent implements OnInit {
               private meta: Meta) {
                 this.title.setTitle('התחברות | נעלי נעורים');
                 this.meta.updateTag({ name: 'keywords', content: 'התחבר' });
+                this.meta.updateTag(
+                  { name: 'description',
+                    // tslint:disable-next-line:max-line-length
+                    content: `התחבר כחבר אתר רשום`
+                  });
               }
 
   ngOnInit() {
