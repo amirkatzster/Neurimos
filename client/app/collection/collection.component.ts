@@ -172,7 +172,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   reload() {
-    let str = '/q/' + this.initQueries;
+    let str = '/נעלי/' + this.initQueries;
     if (this.sort !== 'rel') {
       str += '?sort=' + this.sort;
     }

@@ -33,6 +33,7 @@ export default function setRoutes(app, passport) {
   router.route('/shoe').post(isAdmin);
   router.route('/shoe').post(shoeCtrl.insert);
   router.route('/shoe/:id').get(shoeCtrl.get);
+  router.route('/shoe/friendly/:id').get(shoeCtrl.friendlyGet);
   router.route('/shoe/:id').put(isAdmin);
   router.route('/shoe/:id').put(shoeCtrl.update);
   router.route('/shoe/:id').delete(isAdmin);

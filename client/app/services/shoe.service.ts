@@ -36,6 +36,10 @@ export class ShoeService {
     return this.http.get(`/api/shoe/${id}`).map(res => res);
   }
 
+  getShoeByFriendlyId(id): Observable<any> {
+    return this.http.get(`/api/shoe/friendly/${id}`).map(res => res);
+  }
+
   editShoe(shoe): Observable<any> {
     return this.http.put(`/api/shoe/${shoe._id}`, JSON.stringify(shoe), this.options);
   }
@@ -44,9 +48,15 @@ export class ShoeService {
     return this.http.delete(`/api/shoe/${shoe._id}`, this.options);
   }
 
-  getShoeLink(shoe) {
+  getShoeLinkByImage(shoe, imageIndex) {
     const colors = shoe.imagesGroup.map(ig => ig.color).join('-');
-    return `/sd/${shoe.company}-${shoe.name}-${colors}/נעל/${shoe._id}/צבע/${shoe.imagesGroup[0].color}`;
+    const niceName = shoe.name.replace(/\s+/g, '-').toLowerCase();
+    const niceCompany = shoe.company.replace(/\s+/g, '-').toLowerCase();
+    return `/נעל/${shoe.company}-${niceName}-${colors}/${shoe.id}/צבע/${shoe.imagesGroup[imageIndex].color}`;
+  }
+
+  getShoeLink(shoe) {
+    return this.getShoeLinkByImage(shoe, 0);
   }
 
 }

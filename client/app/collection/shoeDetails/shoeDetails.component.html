@@ -12,7 +12,7 @@
                   
            </div>
             <div class="col-md-10 breadCrumbs">
-              <a class="link" (click)="backClicked()"><< חזרה</a> | <a href="#" [routerLink]="'/q/נעליים'">נעליים</a> > <a href="#" [routerLink]="'/q/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> > <a href="#" [routerLink]="'/q/' +shoe?.company">{{shoe?.company}}</a>
+              <a class="link" (click)="backClicked()"><< חזרה</a> | <a href="#" [routerLink]="'/נעלי/נעליים'">נעליים</a> > <a href="#" [routerLink]="'/נעלי/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> > <a href="#" [routerLink]="'/נעלי/' +shoe?.company">{{shoe?.company}}</a>
             </div>
             
         </div>
@@ -22,14 +22,14 @@
                 <div class="col-xs-10">
                     <div class="shoeHeader">
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
-                        <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a>
+                        <a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a>
                     </div>
                     <div  *ngFor="let positionImg of currentImageGroup?.images" >
                         <img [src]="positionImg.urlMedium" class="center"/>
                     </div>
                     <div class="row">
-                        <div class="col-xs-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
-                            <a href="#" (click)="selectColor(colorImg)" lazy-load-images>
+                        <div class="col-xs-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
+                            <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>
                                 <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>
                         </div>
@@ -78,7 +78,7 @@
                   <div class="col-md-9 borderShoes hidden-sm-down">
                     <div class="shoeHeader">
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
-                        <a [href]="linkToCompany">{{shoe?.company}}</a> <a [href]="linkToShoe">{{shoe?.name}}</a>
+                        <a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a>
                     </div>
                     <!-- DESKTOP VIEW    -->
                     <div class="row hidden-sm-down">
@@ -90,15 +90,15 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-1 thumbnailContainer">
-                            <a href="#" *ngFor="let positionImg of currentImageGroup?.images" (click)="selectPosition(positionImg)" lazy-load-images>
+                            <a href="#" *ngFor="let positionImg of currentImageGroup?.images; let i = index" (click)="selectPosition(positionImg,i)" lazy-load-images>
                                 <img class="thumbnail" [attr.data-src]="positionImg.urlSmall" [ngClass]="{'marked': positionImg === currentImage }"/>
                             </a>
                         </div>
                     </div> 
                     <div class="row hidden-sm-down">
                         <div class="col-md-2"></div>
-                        <div class="col-md-1 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup">
-                            <a href="#" (click)="selectColor(colorImg)" lazy-load-images>
+                        <div class="col-md-1 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
+                            <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>
                                 <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>
                         </div>

@@ -32,6 +32,11 @@ export class RegisterComponent implements OnInit {
               private meta: Meta) {
                 this.title.setTitle('הרשמה | נעלי נעורים');
                 this.meta.updateTag({ name: 'keywords', content: 'הרשמה' });
+                this.meta.updateTag(
+                  { name: 'description',
+                    // tslint:disable-next-line:max-line-length
+                    content: `הירשם כחבר אתר`
+                  });
               }
 
   ngOnInit() {

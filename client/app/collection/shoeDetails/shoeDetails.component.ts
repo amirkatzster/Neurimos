@@ -19,6 +19,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   private sub: any;
   private subShoe: any;
   private subComp: any;
+  posIndex: number;
   shoe: any;
   company: any;
   linkToShoe: String;
@@ -28,7 +29,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   selectedSize: String;
 
   constructor(private route: ActivatedRoute,
-              private shoeService: ShoeService,
+              public shoeService: ShoeService,
               public companyService: CompanyService,
               public orderService: OrderService,
               public router: Router,
@@ -42,12 +43,12 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.titleService.setTitle('נעל | נעלי נעורים');
     this.sub = this.route.params.subscribe(params => {
-      this.subShoe = this.shoeService.getShoeById(params['id']).subscribe(
+      this.subShoe = this.shoeService.getShoeByFriendlyId(params['id']).subscribe(
         data => {
           this.shoe = data;
           const colors = this.shoe.imagesGroup.map(ig => ig.color).join('-');
-          this.linkToShoe = `/${this.shoe.company}-${this.shoe.name}-${colors}/נעל/${this.shoe._id}`;
-          this.linkToCompany = `/${this.shoe.company}/נעלי`;
+          this.linkToShoe = this.shoeService.getShoeLink(this.shoe);
+          this.linkToCompany = `/נעלי/${this.shoe.company}/`;
           this.titleService.setTitle(`נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`);
           this.meta.updateTag(
             { name: 'description',
@@ -78,26 +79,33 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
     console.log('carousel load');
   }
 
-  colorChangeEvent(newValue) {
-     this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === newValue);
-     this.currentImage = this.currentImageGroup.images[0];
-     this.selectedSize = null;
-  }
+
 
   backClicked() {
     this.location.back();
   }
 
-  selectPosition(positionImg) {
+  selectPosition(positionImg, posIndex) {
     this.currentImage = positionImg;
+    this.posIndex = posIndex;
     return false;
   }
 
-  selectColor(imageGroup) {
+  selectColor(imageGroup, index) {
     this.currentImageGroup = imageGroup;
-    this.currentImage = imageGroup.images[0];
+    if (imageGroup.images.length <= this.posIndex) {
+      this.posIndex = 0;
+    }
+    this.currentImage = imageGroup.images[this.posIndex];
+    this.location.replaceState(this.shoeService.getShoeLinkByImage(this.shoe, index));
     return false;
   }
+
+  colorChangeEvent(newValue) {
+    const ImageGroup = this.shoe.imagesGroup.find(ig => ig.color === newValue);
+    const index = this.shoe.imagesGroup.indexOf(ImageGroup);
+    return this.selectColor(ImageGroup, index);
+ }
 
   ngOnDestroy() {
     if (this.sub) {

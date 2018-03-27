@@ -13,6 +13,13 @@ export default class ShoeCtrl extends BaseCtrl {
     super();
   }
 
+  friendlyGet = (req, res) => {
+    this.model.findOne({ id: req.params.id }, (err, obj) => {
+      if (err) { return console.error(err); }
+      res.json(obj);
+    });
+  }
+
   search = (req, res) => {
     const sortQuery: any = {
       skip: 0, // Starting Row
@@ -34,7 +41,7 @@ export default class ShoeCtrl extends BaseCtrl {
       searchWords: { $all: req.body },
       active: true
       // return only those fields
-    }, 'company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock',
+    }, 'id company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock',
     sortQuery,
     (err, docs) => {
       if (err) { return console.error(err); }

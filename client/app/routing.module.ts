@@ -39,9 +39,8 @@ const routes: Routes = [
   { path: 'sendusmsg', component: SendusmsgComponent },
   { path: 'takanon', component: TakanonComponent },
   { path: 'summary', component: SummaryComponent },
-  { path: 'q/:query', component: CollectionComponent },
-  { path: 'sd/:desc/נעל/:id/צבע/:color', component: ShoeDetailsComponent },
-  { path: 'sd/:desc/נעל/:id', component: ShoeDetailsComponent },
+  { path: 'נעלי/:query', component: CollectionComponent },
+  { path: 'נעל/:desc/:id/צבע/:color', component: ShoeDetailsComponent },
   // { path: 'c/:company/נעלי', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent },
 ];

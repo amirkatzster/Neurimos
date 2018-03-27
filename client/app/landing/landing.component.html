@@ -9,7 +9,7 @@
         <div class="card-block">
             <h4 class="card-title">איזה כיף שהאביב מגיע!</h4>
             <p class="card-text"><strong>מבחר סנדלים דגמי 2018</strong></p>
-            <a href="#" class="btn btnInsideImage" routerLink="/q/סנדלים">אני רוצה לראות :)</a>
+            <a href="#" class="btn btnInsideImage" routerLink="/נעלי/סנדלים">אני רוצה לראות :)</a>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
     <div class="row hidden-sm-down">
         <div *ngFor="let company of companies;let i = index">
             <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/q/' +[company.name]">
+                <a [routerLink]="'/נעלי/' +[company.name]">
                     <img src={{company.image}}  width="180" alt="{{ company.name }}"/>
                 </a>
             </div>
@@ -31,7 +31,7 @@
     <div class="row hidden-sm-up">
             <div *ngFor="let company of companies;let i = index">
                 <div class="col-xs-4 companyContainer">
-                    <a [routerLink]="'/q/' +[company.name]">
+                    <a [routerLink]="'/נעלי/' +[company.name]">
                         <img src={{company.image}}  width="110" alt="{{ company.name }}"/>
                     </a>
                 </div>
