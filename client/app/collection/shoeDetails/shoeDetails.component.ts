@@ -93,7 +93,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
 
   selectColor(imageGroup, index) {
     this.currentImageGroup = imageGroup;
-    if (imageGroup.images.length <= this.posIndex) {
+    if (!this.posIndex || imageGroup.images.length <= this.posIndex) {
       this.posIndex = 0;
     }
     this.currentImage = imageGroup.images[this.posIndex];

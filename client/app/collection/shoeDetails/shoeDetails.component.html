@@ -42,7 +42,9 @@
             <div class="col-md-12 borderGray roundedBorder">
                 <div class="row">
                 <div class="col-md-3 leftSide" >
-                    <img class="companyLogo" src={{company?.image}} alt="{{ company?.name }}"/>
+                    <a [routerLink]="'/נעלי/' +[company?.name]">
+                        <img class="companyLogo" src={{company?.image}} alt="{{ company?.name }}"/>
+                    </a>
                     <div class="delim"></div>
                     <div class="sku">מספר מזהה {{ shoe?.id }}</div>
                     <div class="grayArea">

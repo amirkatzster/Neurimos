@@ -15,6 +15,7 @@
         <div class="name">{{shoe.name}}</div>
         <div class="price" *ngIf="shoe.price !== shoe.finalPrice">{{shoe.finalPrice}} ₪</div>  
         <div class="price" [ngClass]="{'discount': shoe.price !== shoe.finalPrice }">{{shoe.price}} ₪</div>  
+        <div *ngIf="auth.loggedIn && auth.isAdmin" [ngClass]="{'cpPrice': true , 'good': shoe.finalPrice <= shoe.companyPrice }">>{{shoe.companyPrice}}<</div>
       </div>
    </a> 
   </div>

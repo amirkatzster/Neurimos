@@ -11,6 +11,7 @@ import Classification from './models/classification';
 import PaypalCtrl from './controllers/paypal';
 import OrderCtrl from './controllers/order';
 import ContactUsCtrl from './controllers/contactus';
+import ReportCtrl from './controllers/report';
 
 
 export default function setRoutes(app, passport) {
@@ -24,6 +25,7 @@ export default function setRoutes(app, passport) {
   const paypalCtrl = new PaypalCtrl();
   const orderCtrl = new OrderCtrl();
   const contactUsCtrl = new ContactUsCtrl();
+  const reportCtrl = new ReportCtrl();
 
   // Shoes
   router.route('/shoes').get(shoeCtrl.getAll);
@@ -84,6 +86,9 @@ export default function setRoutes(app, passport) {
 
   // paypal
   router.route('/paypal/payment/create/:orderId').post(paypalCtrl.create);
+
+  // paypal
+  router.route('/report/compare').get(reportCtrl.cpReport);
 
   // orders
   router.route('/order').get(isAdmin);

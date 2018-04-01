@@ -41,7 +41,7 @@ export default class ShoeCtrl extends BaseCtrl {
       searchWords: { $all: req.body },
       active: true
       // return only those fields
-    }, 'id company name price finalPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock',
+    }, 'id company name price finalPrice companyPrice imagesGroup.images.urlMedium imagesGroup.color imagesGroup.sizes inserted stock',
     sortQuery,
     (err, docs) => {
       if (err) { return console.error(err); }

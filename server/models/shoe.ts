@@ -35,13 +35,14 @@ const shoeSchema = new mongoose.Schema({
   price: Number,
   discount: DiscountSchema,
   finalPrice: Number,
+  companyPrice: Number,
   gender: [String],
   classificationCache: String,
   classification: {
     type: mongoose.Schema.ObjectId,
     ref: 'classificationSchema'
   },
-  //TODO: Check if need to remove in prod?!
+  // TODO: Check if need to remove in prod?!
   searchWords: { type: [String], index: true },
   information: [String],
   imagesGroup: [ ImageSchema ],
