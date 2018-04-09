@@ -37,7 +37,7 @@ export default class ReportCtrl {
                                 if (err3) { return console.error(err3); }
                                 });
                         }
-                        if (price < doc.finalPrice) {
+                        if (price && price < doc.finalPrice) {
                             Shoe.update({ _id: doc._id }, {
                                 $set: {
                                 'finalPrice' : Math.floor(price),
