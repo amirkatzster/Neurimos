@@ -7,7 +7,8 @@ import { OrderService } from 'app/services/order.service';
 import {Location} from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
-import { Title, Meta } from '@angular/platform-browser';
+import { Title, Meta, DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Pipe, PipeTransform} from '@angular/core';
 
 @Component({
   selector: 'app-shoe-details',
@@ -16,6 +17,7 @@ import { Title, Meta } from '@angular/platform-browser';
 })
 export class ShoeDetailsComponent implements OnInit, OnDestroy {
 
+  
   private sub: any;
   private subShoe: any;
   private subComp: any;
@@ -27,6 +29,9 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   currentImageGroup: any;
   currentImage: any;
   selectedSize: String;
+  jsonLdStringifiedObj: String;
+  title: string;
+  description: string;
 
   constructor(private route: ActivatedRoute,
               public shoeService: ShoeService,
@@ -49,11 +54,13 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           const colors = this.shoe.imagesGroup.map(ig => ig.color).join('-');
           this.linkToShoe = this.shoeService.getShoeLink(this.shoe);
           this.linkToCompany = `/נעלי/${this.shoe.company}/`;
-          this.titleService.setTitle(`נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`);
+          this.title = `נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`;
+          this.titleService.setTitle(this.title);
+          // tslint:disable-next-line:max-line-length
+          this.description = `נעלי ${this.shoe.gender} מבית ${this.shoe.company} לקנות בנעלי נעורים חולון. ${this.shoe.name} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח`; 
           this.meta.updateTag(
             { name: 'description',
-              // tslint:disable-next-line:max-line-length
-              content: `נעלי ${this.shoe.gender} מבית ${this.shoe.company} לקנות בנעלי נעורים חולון. ${this.shoe.name} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח`
+              content: this.description
             });
           this.meta.updateTag({ name: 'keywords', content: `נעל, ${this.shoe.company}, ${this.shoe.name} , ${colors}` });
           if (params['color']) {
@@ -65,6 +72,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           this.subComp = this.companyService.getCompanyById(this.shoe.companyId).subscribe(
             compData => {
               this.company = compData;
+              this.buildJsonLdForGoogle();
             },
             err => console.log(err),
           );
@@ -126,6 +134,43 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
 
   orderMore() {
     this.toast.setMessage('!אנחנו נזמין עוד מהדגם הנוכחי', 'success');
+  }
+
+  buildJsonLdForGoogle(): any {
+  const product: any = {
+      '@context': 'http://schema.org/',
+      '@type': 'Product',
+      'name': this.shoe.name,
+      'image': [
+        this.shoe.imagesGroup[0].images[0].urlSmall,
+        this.shoe.imagesGroup[0].images[0].urlMedium,
+        this.shoe.imagesGroup[0].images[0].urlLarge,
+        this.shoe.imagesGroup[0].images[0].urlXL
+       ],
+      'description': this.description,
+      'sku': this.shoe.id,
+      'brand': {
+        '@type': 'Thing',
+        'name': this.company.name
+      },
+      // 'aggregateRating': {
+      //   '@type': 'AggregateRating',
+      //   'ratingValue': '5',
+      //   'reviewCount': '4'
+      // },
+      'offers': {
+        '@type': 'Offer',
+        'priceCurrency': 'ILS',
+        'price': this.shoe.finalPrice,
+        'itemCondition': 'http://schema.org/NewCondition',
+        'availability': this.shoe.stock > 0 ? 'http://schema.org/InStock' : 'http://schema.org/OutOfStock',
+        'seller': {
+          '@type': 'Organization',
+          'name': 'נעלי נעורים'
+        }
+      }
+    }
+    this.jsonLdStringifiedObj = JSON.stringify(product);
   }
 
 }

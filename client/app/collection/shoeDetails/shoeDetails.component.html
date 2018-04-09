@@ -1,5 +1,7 @@
 <app-toast [message]="toast.message"></app-toast>
 
+<div [innerHtml]="'<script type=\'application/ld+json\'>' + jsonLdStringifiedObj + '</script>' | safeHtml"></div>
+
 <div style="position:initial">
     <div class="container" >
         <div class="row spacer">

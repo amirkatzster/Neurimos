@@ -33,6 +33,7 @@ import { ContactUsService } from 'app/services/contactus.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { SafeHtmlPipe } from './shared/safeHtml/safe-html';
 
 @NgModule({
   declarations: [
@@ -52,14 +53,14 @@ import { CommonModule } from '@angular/common';
     TakanonComponent,
     SummaryComponent,
     FindusComponent,
-    SendusmsgComponent
+    SendusmsgComponent,
+    SafeHtmlPipe
   ],
   imports: [
     RoutingModule,
     SharedModule,
     AdminModule,
     HttpClientModule,
-    // window['paypal'].Button.driver('angular2', ngCore),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCdfSnui6ck0WUOBT-Q9wa1zoDcdoUFH5k'
     }),
