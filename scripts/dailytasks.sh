@@ -1,0 +1,1 @@
+curl -s http://www.neurimshoes.co.il/api/report/compare > /dev/null

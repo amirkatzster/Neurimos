@@ -14,6 +14,9 @@ export class CollectionShoeComponent implements OnInit {
   linkToDetails: string;
   private oneDay: number =  24 * 60 * 60 * 1000;
   private today: Date = new Date();
+  private loading = true
+
+
   constructor(private shoeService: ShoeService,
               public auth: AuthService) { }
 
@@ -25,6 +28,10 @@ export class CollectionShoeComponent implements OnInit {
     const shoeDate = new Date(shoe.inserted);
     const diffDays = Math.round(Math.abs((this.today.getTime() - shoeDate.getTime()) / (this.oneDay)));
     return diffDays <= 30;
+  }
+
+  onLoad() {
+    this.loading = false;
   }
 
 }
