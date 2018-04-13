@@ -29,3 +29,6 @@ pm2 update
 
 #permissions
 chmod +x /etc/rc.d/rc.local
+
+# remove locked stuff
+rm -f /home/ec2-user/node/scripts/cron.txt
