@@ -14,7 +14,7 @@ export class CollectionShoeComponent implements OnInit {
   linkToDetails: string;
   private oneDay: number =  24 * 60 * 60 * 1000;
   private today: Date = new Date();
-  private loading = true
+  loading = true
 
 
   constructor(private shoeService: ShoeService,
