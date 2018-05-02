@@ -48,3 +48,5 @@ Thumbs.db
 server/ses_config.json
 server/config/*.csr
 server/config/*.key
+server/cert/*
+

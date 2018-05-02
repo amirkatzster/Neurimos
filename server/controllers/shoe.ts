@@ -128,6 +128,7 @@ export default class ShoeCtrl extends BaseCtrl {
             });
           }
       });
+      res.status(200).json({});
     });
   }
 
