@@ -19,11 +19,22 @@ import User from './models/user';
 import * as compression from 'compression';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import * as https from 'https';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
+const sslOptions = {
+  key: readFileSync('./server/cert/neurim_com.key'),
+  cert: readFileSync('./server/cert/914ec6ddaaa08331.crt'),
+  ca: readFileSync ('./server/cert/gd_bundle-g2-g1.crt')
+ };
+
 const app = express();
+const server = https.createServer(sslOptions, app).listen(443, function(){
+  console.log('Express server listening on port 443');
+});
+
 app.use(compression());
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
@@ -56,7 +67,7 @@ app.all(/.*/, function(req, res, next) {
   if (host.match(/^www\..*/i)) {
     next();
   } else {
-    res.redirect(301, 'http://www.' + host);
+    res.redirect(301, 'https://www.' + host);
   }
 });
 
@@ -80,15 +91,6 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());
 
-// redirect to www
-// app.all(/.*/, (req, res, next) => {
-//   const host = req.header('host');
-//   if (host.match(/^www\..*/i)) {
-//     next();
-//   } else {
-//     res.redirect(301, 'http://www.' + host);
-//   }
-// });
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
