@@ -23,7 +23,7 @@ export default class ShoeCtrl extends BaseCtrl {
   search = (req, res) => {
     const sortQuery: any = {
       skip: 0, // Starting Row
-      limit: 100, // Ending Row
+      limit: 500, // Ending Row
     }
     if (req.query.sort) {
       if (req.query.sort === 'priceLow') {

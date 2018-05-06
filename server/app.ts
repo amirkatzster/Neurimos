@@ -24,20 +24,18 @@ import * as https from 'https';
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
-const sslOptions = {
-  key: readFileSync('./server/cert/neurim_com.key'),
-  cert: readFileSync('./server/cert/914ec6ddaaa08331.crt'),
-  ca: readFileSync ('./server/cert/gd_bundle-g2-g1.crt')
- };
+
 
 const app = express();
-const server = https.createServer(sslOptions, app).listen(443, function(){
-  console.log('Express server listening on port 443');
-});
 
 app.use(compression());
 dotenv.load({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
+const sslOptions = {
+  key: readFileSync(process.env.CERT_ROOT + 'neurim_com.key'),
+  cert: readFileSync(process.env.CERT_ROOT + '914ec6ddaaa08331.crt'),
+  ca: readFileSync (process.env.CERT_ROOT + 'gd_bundle-g2-g1.crt')
+ };
 const DIST_FOLDER = join(process.cwd(), 'dist');
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER));
 
@@ -62,14 +60,18 @@ app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 // End angular
 
-app.all(/.*/, function(req, res, next) {
+app.all(/.*/, function (req, res, next) {
   const host = req.header('host');
   if (host.match(/^www\..*/i)) {
-    next();
+      if (req.protocol === 'http') {
+          res.redirect(301, 'https://' + host + req.url);
+      }
+      next();
   } else {
-    res.redirect(301, 'https://www.' + host);
+      res.redirect(301, 'https://www.' + host + req.url);
   }
 });
+
 
 app.use(bodyParser.json({limit: '300mb'}));
 app.use(bodyParser.urlencoded({limit: '300mb', extended: false }));
@@ -112,7 +114,9 @@ db.once('open', () => {
       }]
     });
   });
-
+  const server = https.createServer(sslOptions, app).listen(4000, function(){
+    console.log('Express server listening on port 4000');
+  });
   app.listen(app.get('port'), () => {
     console.log('Angular Full Stack listening on port ' + app.get('port'));
   });
