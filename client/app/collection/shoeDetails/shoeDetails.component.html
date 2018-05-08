@@ -19,15 +19,29 @@
             
         </div>
         <!-- MOBILE VIEW -->
-        <div class="row hidden-md-up" dir="ltr">
+        <div class="row hidden-md-up mobile" dir="ltr">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-4">
+                    <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
+                    <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
+                </div>
+                <div class="col-xs-2">
+                    
+                </div>
+                <div class="col-xs-4">
+                        <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
+                        <div class="companyModelContainer">
+                            <h1><a class="company" href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a></h1>
+                            <h2><a class="model" href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a></h2>
+                        </div>
+                </div>
+                <div class="col-xs-1"></div>
+        </div>
+        <div class="row hidden-md-up mobile" dir="ltr">
                 <div class="col-xs-1"></div>
                 <div class="col-xs-10">
-                    <div class="shoeHeader">
-                            <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
-                        <a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a>
-                    </div>
-                    <div class="carousel" *ngIf="currentImageGroup != null">
-                        <ui-carousel [infinite]="true" [fade]="false" [speed]="1000" height="200px" width="255px" >
+                    <div class="carousel" *ngFor="let colorImg of shoe?.imagesGroup">
+                        <ui-carousel *ngIf="currentImageGroup == colorImg" [autoPlay]="false"  [infinite]="true" [fade]="false" [speed]="1000" >
                             <ui-carousel-item *ngFor="let positionImg of currentImageGroup.images" >
                                     <img [src]="positionImg.urlMedium"/>
                             </ui-carousel-item>
@@ -55,8 +69,10 @@
                     <div class="delim"></div>
                     <div class="sku">מספר מזהה {{ shoe?.id }}</div>
                     <div class="grayArea">
-                        <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
-                        <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
+                        <div class="row hidden-sm-down">
+                            <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
+                            <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
+                        </div>
                         <div class="colors" *ngIf="shoe?.stock > 0">
                             <mat-form-field>
                                 <mat-select name="color" (ngModelChange)="colorChangeEvent($event)" placeholder="בחר צבע" [ngModel]="currentImageGroup?.color" required>
@@ -87,7 +103,7 @@
                   <div class="col-md-9 borderShoes hidden-sm-down">
                     <div class="shoeHeader">
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
-                        <a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a>
+                        <h1><a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a></h1>
                     </div>
                     <!-- DESKTOP VIEW    -->
                     <div class="row hidden-sm-down">

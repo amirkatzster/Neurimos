@@ -42,7 +42,37 @@
         text-decoration: none;
     }
 }
+.mobile {
+    .price
+    {
+        margin-top: 20%;
+        color: #505050;
+        font-size: 20px;
+    }
 
+    .discount {
+        margin: 0;
+        padding: 0;
+        color: #909090;
+        font-size: 18px;
+        text-decoration: line-through;
+    }
+    .companyModelContainer
+    {
+        text-align: right;
+    }
+
+    .company{
+        font-size: 25px;
+        font-weight: bold;
+        color:black;
+    }
+
+    .model{
+        font-size: 20px;
+        color:#3b3b3b;
+    }
+}
 
 .leftSide{
     margin: 0;
@@ -193,6 +223,28 @@
     :host{
         display: block;
         width: 100%;
+    }
+
+    /deep/ .ui-carousel-item {
+        background-color: transparent !important;
+    }
+
+    /deep/ .dot  {
+        background-color: #505050 !important;
+    }
+
+    /deep/ .arrow  {
+        background-color: #505050 !important;
+
+        
+    }
+
+    /deep/ .arrow.left {
+        left:0%;
+    }
+
+    /deep/ .arrow.right {
+        right:0%;
     }
     
     ui-carousel{
