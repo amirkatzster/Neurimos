@@ -188,3 +188,21 @@
 }
 
 
+.carousel {
+    
+    :host{
+        display: block;
+        width: 100%;
+    }
+    
+    ui-carousel{
+        display: block;
+        margin: 0 auto;
+    }
+    
+    img{
+        width: 100%;
+    }
+}
+
+

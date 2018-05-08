@@ -26,9 +26,14 @@
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
                         <a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a>
                     </div>
-                    <div  *ngFor="let positionImg of currentImageGroup?.images" >
-                        <img [src]="positionImg.urlMedium" class="center"/>
+                    <div class="carousel" *ngIf="currentImageGroup != null">
+                        <ui-carousel [infinite]="true" [fade]="false" [speed]="1000" height="200px" width="255px" >
+                            <ui-carousel-item *ngFor="let positionImg of currentImageGroup.images" >
+                                    <img [src]="positionImg.urlMedium"/>
+                            </ui-carousel-item>
+                        </ui-carousel>
                     </div>
+                    
                     <div class="row">
                         <div class="col-xs-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
                             <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>

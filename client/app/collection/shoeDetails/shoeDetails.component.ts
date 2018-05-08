@@ -17,7 +17,6 @@ import { Pipe, PipeTransform} from '@angular/core';
 })
 export class ShoeDetailsComponent implements OnInit, OnDestroy {
 
-  
   private sub: any;
   private subShoe: any;
   private subComp: any;
@@ -57,7 +56,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           this.title = `נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`;
           this.titleService.setTitle(this.title);
           // tslint:disable-next-line:max-line-length
-          this.description = `נעלי ${this.shoe.gender} מבית ${this.shoe.company} לקנות בנעלי נעורים חולון. ${this.shoe.name} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח`; 
+          this.description = `נעלי ${this.shoe.gender} מבית ${this.shoe.company} לקנות בנעלי נעורים חולון. ${this.shoe.name} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח`;
           this.meta.updateTag(
             { name: 'description',
               content: this.description

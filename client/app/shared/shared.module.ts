@@ -17,6 +17,7 @@ import { LazyLoadImagesModule } from 'ngx-lazy-load-images';
 import { LocalStorage } from './local-storage.service';
 import { Prerender } from './prerender.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { UICarouselModule } from 'ui-carousel';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatChipsModule,
     LazyLoadImagesModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    UICarouselModule
   ],
   exports: [
     // Shared Modules
@@ -60,7 +62,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     FooterComponent,
     LazyLoadImagesModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    UICarouselModule
   ],
   declarations: [
     ToastComponent,
