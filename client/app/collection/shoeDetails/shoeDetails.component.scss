@@ -199,18 +199,6 @@
    ui-carousel{
         display: block;
         margin: 0 auto;
-      
-      /deep/ ui-carousel-item {
-        .ui-carousel-item {
-          background-color: transperent;
-        }
-    }
-     
-    /deep/ dots {
-      
-      .dot{
-        background: #505050;
-      }
     }
     
     img{
