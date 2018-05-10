@@ -40,7 +40,7 @@
                         <div class="col-xs-6 border">
                             <app-collection-shoe [shoe]="shoes[i]"></app-collection-shoe>
                         </div>
-                        <div class="col-xs-6 border" *ngIf="shoes.length > i">
+                        <div class="col-xs-6 border" *ngIf="shoes.length > 1 + i">
                                 <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
                             </div>
                         <!-- <div class="col-xs-6 border" *ngIf="shoes.length > i">
