@@ -26,18 +26,40 @@
           </div>
           <div class="col-md-2 narrow">צמצום הבחירה</div>
         </div>
+      <div class="row hidden-sm-up">
+            <div class="col-xs-12">
+                <h1 *ngIf="shoes?.length > 0"><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!</h1>
+                <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
+            </div>
+      </div>
       <div class="row">
-        <div *ngFor="let shoe of shoes" class="col-xs-4 hidden-md-up" >
-                <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
-        </div>
-        <div class="col-md-10  hidden-sm-down">
+          <!-- Start Mobile view -->
+          <div class="hidden-sm-up">
+                <div *ngFor="let shoe of shoes;let i = index">
+                    <div *ngIf="i % 2 === 0" class="row">
+                        <div class="col-xs-6 border">
+                            <app-collection-shoe [shoe]="shoes[i]"></app-collection-shoe>
+                        </div>
+                        <div class="col-xs-6 border" *ngIf="shoes.length > i">
+                                <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
+                            </div>
+                        <!-- <div class="col-xs-6 border" *ngIf="shoes.length > i">
+                            
+                                <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
+                        </div> -->
+                    </div>
+                </div>
+          </div>
+          <!-- End Mobile view -->
+        <div class="col-md-10  hidden-xs-down">
           <div class="row shoesCollectionContainer ">
               <div *ngFor="let shoe of shoes" class="shoesCollection col-sm-5 col-md-4 col-lg-3 col-xl-3">
                   <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
               </div>
           </div>         
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2  hidden-sm-down">
+        <!-- Side filter hidden on mobile -->
+        <div class="col-md-2  hidden-sm-down">
           <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')" >רק מבצעים</button>
            <mat-accordion [multi]="true">
             <mat-expansion-panel  [expanded]="true"  >

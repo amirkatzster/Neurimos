@@ -18,6 +18,7 @@ import { LocalStorage } from './local-storage.service';
 import { Prerender } from './prerender.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { UICarouselModule } from 'ui-carousel';
+import { GoogleAnalyticsEventsService } from './google-analytics-events.service';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { UICarouselModule } from 'ui-carousel';
     AuthService,
     ToastComponent,
     LocalStorage,
-    Prerender
+    Prerender,
+    GoogleAnalyticsEventsService
   ]
 })
 export class SharedModule { }
