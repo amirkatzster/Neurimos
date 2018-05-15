@@ -23,6 +23,9 @@ import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
 import { AboutComponent } from 'app/info/about/about.component';
 import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
 
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'register', component: RegisterComponent },
@@ -46,7 +49,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [
+    RouterModule.forRoot(routes),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+  ],
   exports: [ RouterModule ]
 })
 
