@@ -10,7 +10,7 @@
     .insideImage {
         position: absolute;
         top: 10%;
-        right: 10%;  
+        right: 20%;  
     }
 }
 
@@ -72,5 +72,6 @@
 
 .responsiveImg {
     width: 100%;
+    max-width: 1200px;
     height: auto; 
 }
