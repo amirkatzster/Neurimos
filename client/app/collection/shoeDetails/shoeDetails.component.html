@@ -98,6 +98,16 @@
                         <div class="buttonBuy">
                             <button type="button" [disabled]="!selectedSize" class="btn btn-success" (click)="addToCart()">הוסף לעגלה</button>
                         </div>
+                        <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_d_m.gif" alt="SSL site seal - click to verify" width="131" height="32">
+                        <div class="sslDetails">
+                            האתר מאובטח בטכנולוגיית SSL EV. <br>
+                            המבטיח אימות של העסק וקנייה בטוחה
+                            <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים</a><br><br>
+                            <button type="button" class="btn btn-outline-dark btn-sm btnWhite"><img class="" src="http://cdn.ywxi.net/static/img/tm-float.png" alt="McAfee site seal - click to verify" width="100" height="26"></button><br>
+                            האתר נסרק ע"י McAfee בתדירות גבוהה
+                            <a href="https://www.mcafeesecure.com/verify?host=neurimshoes.co.il" target="_blank">לפרטים</a>
+                        </div>
+                        
                     </div>
                 </div>
                   <div class="col-md-9 borderShoes hidden-sm-down">
@@ -149,20 +159,22 @@
                             <div class="col-md-12">
                                 <div class="card">
                                 <div class="card-header">
-                                        אינפורמציה
+                                        פרטים
                                 </div>
                                 <div class="card-block">
                                     <blockquote class="card-blockquote">
                                     <ul>
-                                        <li>{{ shoe?.company}}</li> 
-                                        <li>{{ shoe?.classificationCache}}</li>  
-                                        <li *ngFor="let info of shoe?.information">{{ info }}</li> 
+                                        <li><a routerLink="/סרגל_מידות">צפייה בסרגל מידות</a></li> 
+                                        <li>נעליים חברת {{ shoe?.company}}</li> 
+                                        <li>מסוג {{ shoe?.classificationCache}}</li>  
+                                        <li *ngFor="let info of shoe?.information">אנחנו ממליצים כי {{ info }}</li> 
+                                        <li ><a routerLink="/sendusmsg">על כל שאלה נשמח לענות</a></li>
                                     </ul> 
                                     </blockquote>
                                 </div>
                                 </div>
                                 <div class="text-center">
-                                    <h5>נעורים מאז 1965</h5>
+                                    <h5> נעלי נעורים מאז 1965</h5>
                                 </div>
                             </div>
                     </div>

@@ -25,6 +25,7 @@ import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
 
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'sendusmsg', component: SendusmsgComponent },
   { path: 'takanon', component: TakanonComponent },
   { path: 'summary', component: SummaryComponent },
+  { path: 'סרגל_מידות', component: ShoeSizesComponent },
   { path: 'נעלי/:query', component: CollectionComponent },
   { path: 'נעל/:desc/:id/צבע/:color', component: ShoeDetailsComponent },
   // { path: 'c/:company/נעלי', component: NotFoundComponent },

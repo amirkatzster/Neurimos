@@ -34,6 +34,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from './shared/safeHtml/safe-html';
+import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { SafeHtmlPipe } from './shared/safeHtml/safe-html';
     SummaryComponent,
     FindusComponent,
     SendusmsgComponent,
+    ShoeSizesComponent,
     SafeHtmlPipe
   ],
   imports: [
