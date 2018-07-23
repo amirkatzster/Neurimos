@@ -17,7 +17,7 @@ export default class ReportCtrl {
             searchWords: { $all: comp },
             active: true
             // return only those fields
-        }, 'id name finalPrice companyPrice',
+        }, 'id name finalPrice companyPrice price',
         (err, docs) => {
             if (err) { return console.error(err); }
             docs.forEach(doc => {
@@ -37,7 +37,10 @@ export default class ReportCtrl {
                                 if (err3) { return console.error(err3); }
                                 });
                         }
-                        if (price && price < doc.finalPrice) {
+                        if (price && (price < doc.finalPrice || price < doc.price * 0.6)) {
+                            if (price < doc.price * 0.6) {
+                                price = doc.price * 0.6;
+                            }
                             Shoe.update({ _id: doc._id }, {
                                 $set: {
                                 'finalPrice' : Math.floor(price),
