@@ -4,6 +4,7 @@ import { ClassificationService } from 'app/services/classification.service';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'app/services/order.service';
 import { Prerender } from '../prerender.service';
+import { GoogleAnalyticsEventsService } from 'app/shared/google-analytics-events.service';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private classificationService: ClassificationService,
               private route: ActivatedRoute,
               public orderService: OrderService,
-              private prerender: Prerender) { }
+              private prerender: Prerender,
+              public googleService: GoogleAnalyticsEventsService) { }
 
   ngOnInit() {
       this.sub = this.classificationService.getHeader().subscribe(data => {
