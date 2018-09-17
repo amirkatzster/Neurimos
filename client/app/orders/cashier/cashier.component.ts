@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
 import {  Router } from '@angular/router';
 import { LocalStorage } from 'app/shared/local-storage.service';
+import { GoogleAnalyticsEventsService } from 'app/shared/google-analytics-events.service';
 
 
 @Component({
@@ -32,11 +33,13 @@ export class CashierComponent implements OnInit , OnDestroy {
               private userService: UserService,
               public router: Router,
               @Inject(PLATFORM_ID) protected platformId: Object,
-              private localStorage: LocalStorage) {
+              private localStorage: LocalStorage,
+              public googleService: GoogleAnalyticsEventsService) {
   }
 
   ngOnInit() {
     this.setUser();
+    this.googleService.emitEvent('Order', 'Cashier');
   }
 
   setPayPal() {
