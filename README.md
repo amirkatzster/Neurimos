@@ -9,6 +9,8 @@ Before running the tests make sure you are serving the app via `npm start`.
 
 Need to fix cron...
 
+Need to add CI
+
 
 ddd 
 
