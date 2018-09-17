@@ -11,6 +11,8 @@ Need to fix cron...
 
 Need to add CI
 
+Redo
+
 
 ddd 
 
