@@ -21,7 +21,7 @@
                           <p class="card-text">משלוח:</p>
                           <mat-radio-group *ngIf="this.openStep === 1" name="deliveryMethos" class="deliveryDetails" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
                                 <mat-radio-button value="Mail">דואר ישראל <br>(הזמנה מעל 200 ש"ח משלוח חינם) </mat-radio-button><div></div>
-                                <mat-radio-button value="Delivery">שליח עד הבית <i matTooltip="משלוח אקספרס עם שליח עד הבית" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
+                                <mat-radio-button value="Delivery">משלוח מהיר <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
                                 <mat-radio-button value="SelfPick">איסוף עצמי <i matTooltip="איסוף עצמי בשנקר 52 חולון" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
                             </mat-radio-group> 
                       </div>
