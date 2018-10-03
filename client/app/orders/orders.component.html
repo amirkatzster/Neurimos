@@ -13,14 +13,21 @@
       </div>
       <div class="col-md-3"></div>
     </div>
-    <div class="row spacer">
+    <!-- DESKTOP -->
+    <div class="row spacer hidden-sm-down" >
       <div class="col-md-4">
-          <button *ngIf="orders.length > 0" type="button" class="btn btn-danger"  routerLink="/cashier">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+          <button *ngIf="orders.length > 0" type="button" class="btn btn-success"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
       </div>
       <div class="col-md-5">
           <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
       </div>
       <div class="col-md-3"></div>
+    </div>
+    <!-- Mobile -->
+    <div class="row spacer hidden-md-up" >
+      <div class="col-md-12">
+          <button *ngIf="orders.length > 0" type="button" class="btn btn-success btn-block"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+      </div>
     </div>
     <div class="row">
       <div class="spacer"></div>
@@ -33,23 +40,23 @@
       <div class="col-md-3"></div>
     </div>
     <div class="row" *ngIf="orders.length > 0">
-      <div class="col-md-2"></div>
-      <div class="col-md-7">
+      <div class="col-md-2 hidden-xs"></div>
+      <div class="col-md-7 col-xs-12">
         <div class="row cartTableHeaderItems">
-          <div class="col-md-2">מחיר</div>
-          <div class="col-md-2">כמות</div>
-          <div class="col-md-2">מחיר לנעל</div>
-          <div class="col-md-6">הנעל</div>
+          <div class="col-md-2 col-xs-2">מחיר</div>
+          <div class="col-md-2 col-xs-3">כמות</div>
+          <div class="col-md-2 col-xs-2">מחיר לנעל</div>
+          <div class="col-md-6 col-xs-4">הנעל</div>
         </div>
       </div>
-      <div class="col-md-3"></div>
+      <div class="col-md-3 hidden-xs"></div>
     </div>
     <div class="row" *ngIf="orders.length > 0">
-        <div class="col-md-2"></div>
-        <div class="col-md-7">
+        <div class="col-md-2 hidden-xs"></div>
+        <div class="col-md-7 col-xs-12">
           <div class="row orderItem" *ngFor="let order of orders">
-            <div class="col-md-2 orderPrice text-center">₪{{order.shoe.finalPrice * order.amount}}</div>
-            <div class="col-md-2 text-center">
+            <div class="col-md-2 col-xs-2 orderPrice text-center">₪{{order.shoe.finalPrice * order.amount}}</div>
+            <div class="col-md-2 col-xs-3 text-center">
               <div>
                   <input type="number" (ngModelChange)="onAmountChange($event)"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -57,73 +64,98 @@
               </div>
               <div><button type="button" class="btn btn-link removeBtn" (click)="removeOrder(order)"><i class="fa fa-times" aria-hidden="true"></i>הסר</button></div>
             </div>
-            <div class="col-md-2 orderPrice">
+            <div class="col-md-2 col-xs-2 orderPrice">
                 <div class="price" *ngIf="order.shoe.price !== order.shoe.finalPrice">{{order.shoe.finalPrice}} ₪</div>  
                 <div class="price" [ngClass]="{'discount': order.shoe.price !== order.shoe.finalPrice }">{{order.shoe.price}} ₪</div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-3">
               <div><a href="#" [routerLink]="shoeService.getShoeLink(order.shoe)" ><h2>{{order.shoe.name}}</h2></a></div>
               <div><strong>צבע:</strong> {{order.imageGroup.color}}</div>
               <div><strong>מידה:</strong> {{order.size}}</div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 hidden-sm-down">
               <picture>
-                  <source media="(max-width: 650px)" [srcset]="order.imageGroup.images[0].urlMedium">
+                  <source media="(max-width: 650px)" [srcset]="order.imageGroup.images[0].urlSmall">
                   <img [src]="order.imageGroup.images[0].urlLarge" class="imgContainer"/>
               </picture>
             </div>
+            <div class="hidden-md-up col-xs-2">
+                <img [src]="order.imageGroup.images[0].urlSmall" />
+            </div>
           </div>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-3 hidden-xs"></div>
       </div>
       <div class="row" *ngIf="orders.length > 0">
-          <div class="col-md-2"></div>
-          <div class="col-md-7">
+          <div class="col-md-2 hidden-xs col-xs-0"></div>
+          <div class="col-md-7 col-xs-12">
             <div class="row cartTableBeforeTotal">
-              <div class="col-md-2">₪{{orderService.subTotal()}}</div>
-              <div class="col-md-4">עבור ({{ orderService.totalAmount() }}) מוצרים</div>
-              <div class="col-md-6"></div>
+              <div class="col-md-2 col-xs-6">₪{{orderService.subTotal()}}</div>
+              <div class="col-md-4 col-xs-6">עבור ({{ orderService.totalAmount() }}) מוצרים</div>
+              <div class="col-md-6 col-xs-0"></div>
             </div>
             <div class="row cartTableBeforeTotal">
-                <div class="col-md-2">₪{{orderService.shippment()}}</div>
-                <div class="col-md-4">משלוח</div>
-                <div class="col-md-6"></div>
+                <div class="col-md-2 col-xs-6">₪{{orderService.shippment()}}</div>
+                <div class="col-md-4 col-xs-6">משלוח</div>
+                <div class="col-md-6 col-xs-0"></div>
             </div>
             <div class="row cartTableBeforeTotal">
-                <div class="col-md-6">
+                <div class="col-md-6 col-xs-12">
                   <mat-radio-group name="deliveryMethos" class="deliveryDetails" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
                     <mat-radio-button value="Mail">דואר ישראל <br>(הזמנה מעל 200 ש"ח משלוח חינם) </mat-radio-button><div></div>
                     <mat-radio-button value="Delivery">משלוח מהיר <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
                     <mat-radio-button value="SelfPick">איסוף עצמי <i matTooltip="איסוף עצמי בשנקר 52 חולון" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
                   </mat-radio-group> 
                 </div>
-                <div class="col-md-6"> 
+                <div class="col-md-6 hidden-xs"> 
                                   
                 </div>
             </div>
             <div class="row cartTableTotal">
-                <div class="col-md-2">₪{{orderService.total()}}</div>
-                <div class="col-md-4">סה"כ</div>
-                <div class="col-md-6"></div>
+                <div class="col-md-2 col-xs-6">₪{{orderService.total()}}</div>
+                <div class="col-md-4 col-xs-6">סה"כ</div>
+                <div class="col-md-6 col-xs-0"></div>
               </div>
           </div>
-          <div class="col-md-3"></div>
+          <div class="col-md-3 col-xs-0"></div>
       </div>
-      <div class="row spacer">
-          <div class="col-md-4">
-              <button *ngIf="orders.length > 0" type="button" class="btn btn-danger" routerLink="/cashier">לקופה <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-          </div>
-          <div class="col-md-5">
-              <button *ngIf="orders.length > 0" type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
-          </div>
-          <div class="col-md-3"></div>
+      <!-- DESKTOP -->
+      <div class="row spacer hidden-sm-down" >
+        <div class="col-md-4">
+            <button *ngIf="orders.length > 0" type="button" class="btn btn-success"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+        </div>
+        <div class="col-md-5">
+            <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <!-- Mobile -->
+      <div class="row spacer hidden-md-up" >
+        <div class="col-md-12">
+            <button *ngIf="orders.length > 0" type="button" class="btn btn-success btn-block"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-9 safe">
             <strong>צוות נעורים ישמח לעזור לכם תמיד בכל שאלה ובקשה</strong>
-            <strong>03-5047523</strong>
+            <strong><a href="tel:035047523">03-5047523</a></strong>
         </div>
         <div class="col-md-3"></div>
+      </div>
+      <div class="row spacer">
+          <div class="col-md-9 col-xs-11">
+              <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_d_m.gif" alt="SSL site seal - click to verify" width="131" height="32">
+              <div class="sslDetails">
+                  האתר מאובטח בטכנולוגיית SSL EV. <br>
+                  המבטיח אימות של העסק וקנייה בטוחה
+                  <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים</a><br><br>
+                  <button type="button" class="btn btn-outline-dark btn-sm btnWhite"><img class="" src="http://cdn.ywxi.net/static/img/tm-float.png" alt="McAfee site seal - click to verify" width="100" height="26"></button><br>
+                  האתר נסרק ע"י McAfee בתדירות גבוהה
+                  <a href="https://www.mcafeesecure.com/verify?host=neurimshoes.co.il" target="_blank">לפרטים</a>
+              </div>
+          </div>
+          <div class="col-md-3 col-xs-1"></div>
+       
       </div>
   </div>
 </div>
