@@ -68,6 +68,22 @@
                     </a>
                     <div class="delim"></div>
                     <div class="sku">מספר מזהה {{ shoe?.id }}</div>
+                    <!-- Mobile Only -->
+                    <div class="card hidden-md-up">
+                        <div class="card-block">
+                            <blockquote class="card-blockquote">
+                            <ul>
+                                <li><a routerLink="/סרגל_מידות">צפייה בסרגל מידות</a></li> 
+                                <li>נעליים חברת {{ shoe?.company}}</li> 
+                                <li>מסוג {{ shoe?.classificationCache}}</li>  
+                                <li *ngFor="let info of shoe?.information">אנחנו ממליצים כי {{ info }}</li> 
+                                <li >{{company?.information}}</li>
+                                <li ><a routerLink="/sendusmsg">על כל שאלה נשמח לענות</a></li>
+                            </ul> 
+                            </blockquote>
+                        </div>
+                    </div>
+                    <!-- END Mobile Only -->
                     <div class="grayArea">
                         <div class="row hidden-sm-down">
                             <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
@@ -109,6 +125,8 @@
                         </div>
                         
                     </div>
+                    
+                    
                 </div>
                   <div class="col-md-9 borderShoes hidden-sm-down">
                     <div class="shoeHeader">
