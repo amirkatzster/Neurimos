@@ -81,7 +81,7 @@ export class OrderService {
 //       }
 //     }
     if (this.orderContainer.delivery === 'Delivery') {
-      return 35;
+      return 48;
     }
   }
 
