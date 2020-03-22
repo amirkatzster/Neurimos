@@ -73,13 +73,13 @@ export class OrderService {
     if (this.orderContainer.delivery === 'SelfPick') {
       return 0;
     }
-    if (this.orderContainer.delivery === 'Mail') {
-      if (this.subTotal() < 200) {
-        return 15;
-      } else {
-        return 0;
-      }
-    }
+//     if (this.orderContainer.delivery === 'Mail') {
+//       if (this.subTotal() < 200) {
+//         return 15;
+//       } else {
+//         return 0;
+//       }
+//     }
     if (this.orderContainer.delivery === 'Delivery') {
       return 35;
     }
