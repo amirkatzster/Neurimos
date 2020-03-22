@@ -16,7 +16,7 @@ const ShippmentSchema = new mongoose.Schema({
   deliveryMethod: {
     type: String,
     enum : ['SelfPick', 'Mail', 'Delivery'],
-    default: 'Mail'
+    default: 'Delivery'
   },
   price: Number
 });
