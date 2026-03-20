@@ -12,15 +12,12 @@ import setRoutes from './routes';
 import setPassport from './config/passport';
 
 const app = express();
-dotenv.load({ path: '.env' });
+dotenv.config({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
 
 app.use(bodyParser.json({ limit: '300mb' }));
 app.use(bodyParser.urlencoded({ limit: '300mb', extended: false }));
 app.use(morgan('dev'));
-
-mongoose.connect(process.env.MONGODB_URI);
-const db = mongoose.connection;
 
 setPassport(passport);
 app.use(session({
@@ -32,25 +29,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
+setRoutes(app, passport);
 
-  setRoutes(app, passport);
-
-  const DIST_FOLDER = join(process.cwd(), 'dist');
-
-  // Serve static files from Angular build
-  app.use(express.static(join(DIST_FOLDER, 'browser')));
-
-  // All other routes return the Angular app
-  app.get('*', (req, res) => {
-    res.sendFile(join(DIST_FOLDER, 'browser', 'index.html'));
-  });
-
-  app.listen(app.get('port'), () => {
-    console.log('Neurimos server listening on port ' + app.get('port'));
-  });
+const DIST_FOLDER = join(process.cwd(), 'dist');
+app.use(express.static(join(DIST_FOLDER, 'browser')));
+app.get('*', (req, res) => {
+  res.sendFile(join(DIST_FOLDER, 'browser', 'index.html'));
 });
+
+app.listen(app.get('port'), () => {
+  console.log('Neurimos server listening on port ' + app.get('port'));
+});
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 export { app };
