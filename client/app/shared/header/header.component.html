@@ -1,13 +1,13 @@
-<div class="header navbar navbar-default">
+<div class="header navbar">
   <div class="container-fluid">
     <div class="row first-row-header top-spacing">
-      <div class="col-md-2 hidden-xs-down">מאמינים בחיוך :)</div>
-      <div class="col-md-2 hidden-xs-down"></div>
-      <div class="col-md-2 col-xs-6"><a href="tel:035047523" class="header-phone">504-7523 (03) <i class="fa fa-phone" aria-hidden="true"></i></a></div>
-      <div class="col-md-2 hidden-xs-down"><div class="align-left">9:00 עד 19:00 <i class="fa fa-clock-o" aria-hidden="true"></i></div></div>
-      <div class="col-md-3 dropdown col-xs-5">
+      <div class="col-md-2 d-none d-sm-block">מאמינים בחיוך :)</div>
+      <div class="col-md-2 d-none d-sm-block"></div>
+      <div class="col-md-2 col-6"><a href="tel:035047523" class="header-phone">504-7523 (03) <i class="fa fa-phone" aria-hidden="true"></i></a></div>
+      <div class="col-md-2 d-none d-sm-block"><div class="align-left">9:00 עד 19:00 <i class="fa fa-clock-o" aria-hidden="true"></i></div></div>
+      <div class="col-md-3 dropdown col-5">
           <div class="dropdown show btn-group">
-              <a class="btn dropdown-toggle btnContact btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="btn dropdown-toggle btnContact btn-sm" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   צרו קשר
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -16,19 +16,19 @@
               </div>
             </div>
       </div>
-      <div class="col-md-1 dropdown col-xs-1"></div>
-    </div> 
+      <div class="col-md-1 dropdown col-1"></div>
+    </div>
   </div>
   <!-- For Desktop -->
-  <div class="row search-bar hidden-sm-down visible">
+  <div class="row search-bar d-none d-md-flex">
       <div class="col-md-2 cart-container" [ngClass]="{'cartFull' : orderService.orderContainer?.orders?.length > 0}"><a class="my-cart" routerLink="/order"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים בעגלה</span><span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span></a></div>
-      <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" (onclick)="googleService.emitEvent('Search', 'Search bar')" [(routerLink)]="'/נעלי/' +querySearch">חפש</button></div>
+      <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-secondary search-button" (onclick)="googleService.emitEvent('Search', 'Search bar')" [routerLink]="'/נעלי/' +querySearch">חפש</button></div>
       <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" alt="לוגו נעלי נעורים" height="60"></a></div>
       <div class="col-md-1"></div>
   </div>
   <!-- For Mobile -->
-  <div class="row login-mobile search-bar hidden-md-up not-visible">
-      <div class="col-xs-12">
+  <div class="row login-mobile search-bar d-md-none">
+      <div class="col-12">
           <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
           <span class="nav-float or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
           <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
@@ -40,25 +40,25 @@
           </a>
           <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
             <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
-          </a><br>            
+          </a><br>
           <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">
             שלום :) {{auth.currentUser.username}}
           </span>
       </div>
   </div>
-  <div class="row search-bar hidden-md-up not-visible">
-      <div class="col-xs-1"></div>
-      <div class="col-xs-5 cart-container" [ngClass]="{'cartFull' : orderService.orderContainer?.orders?.length > 0}"><div class="my-cart-mobile"><a class="my-cart" routerLink="/order"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים</span><span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span></a></div></div>
-      <div class="col-xs-1"></div>
-      <div class="col-xs-4"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" height="50"></a></div>
+  <div class="row search-bar d-md-none">
+      <div class="col-1"></div>
+      <div class="col-5 cart-container" [ngClass]="{'cartFull' : orderService.orderContainer?.orders?.length > 0}"><div class="my-cart-mobile"><a class="my-cart" routerLink="/order"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים</span><span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span></a></div></div>
+      <div class="col-1"></div>
+      <div class="col-4"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" height="50"></a></div>
   </div>
-  <div class="row search-bar hidden-md-up not-visible">
-      <div class="col-xs-12"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-default search-button" (onclick)="googleService.emitEvent('Search', 'Search bar')" [(routerLink)]="'/נעלי/' + querySearch">חפש</button></div>
+  <div class="row search-bar d-md-none">
+      <div class="col-12"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-secondary search-button" (onclick)="googleService.emitEvent('Search', 'Search bar')" [routerLink]="'/נעלי/' + querySearch">חפש</button></div>
   </div>
   <nav class="navbar nav-main" >
-    <div class="nav navbar-nav nav-right row top-spacing">
-        <div class="col-md-4 col-xs-12">
-          <div class="register-container float-xs-right float-sm-left hidden-sm-down visible">
+    <div class="nav-right row top-spacing">
+        <div class="col-md-4 col-12">
+          <div class="register-container float-end float-md-start d-none d-md-block">
             <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">
                 שלום :) {{auth.currentUser.username}}
             </span>
@@ -70,15 +70,15 @@
             </a>
             <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
               <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
-            </a>  
+            </a>
             <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
               <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
-            </a>        
-            
+            </a>
+
           </div>
         </div>
-        <div class="col-md-2 hidden-xs-down"></div>
-        <div class="col-md-5 col-xs-12">
+        <div class="col-md-2 d-none d-sm-block"></div>
+        <div class="col-md-5 col-12">
           <ul>
             <li>
                 <a mat-icon-button [matMenuTriggerFor]="menMenu" class="nav-item nav-link header-nav-btn">
@@ -114,9 +114,10 @@
             </li>
           </ul>
           </div>
-          <div class="col-md-1 hidden-xs-down"></div>
+          <div class="col-md-1 d-none d-sm-block"></div>
     </div>
   </nav>
 
 </div>
+
 

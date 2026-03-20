@@ -1,66 +1,48 @@
-const request = require('request');
+import axios from 'axios';
 import * as dotenv from 'dotenv';
 import Shoe from '../models/shoe';
 
-
-
-
 export default class ReportCtrl {
 
-  cpReport = (req, res) => {
+  cpReport = async (req, res) => {
     dotenv.load({ path: '.env' });
-    const promisses = [];
     const cpQuery = process.env.CPQEURY;
-    process.env.CPCOMP.split(',').forEach(comp => {
-        console.log(comp);
-        const p = Shoe.find({
-            searchWords: { $all: comp },
-            active: true
-            // return only those fields
-        }, 'id name finalPrice companyPrice price',
-        (err, docs) => {
-            if (err) { return console.error(err); }
-            docs.forEach(doc => {
-                const query = cpQuery + doc.name;
-                request(query, { json: true }, (err2, res2, body) => {
-                    if (err2) { return console.log(err2); }
-                    if (body.length > 0) {
-                        let price = body[0].ProductPrice.Price;
-                        price = price.match(/[+\-]?\d+(,\d+)?(\.\d+)?/)[0];
-                        if (price && price > 0) {
-                            Shoe.update({ _id: doc._id }, {
-                                $set: {
-                                'companyPrice' : price,
-                                }
-                            }
-                            , (err3, obj) => {
-                                if (err3) { return console.error(err3); }
-                                });
-                        }
-                        if (price && (price < doc.finalPrice || price < doc.price * 0.6)) {
-                            if (price < doc.price * 0.6) {
-                                price = doc.price * 0.6;
-                            }
-                            Shoe.update({ _id: doc._id }, {
-                                $set: {
-                                'finalPrice' : Math.floor(price),
-                                'discount.newAmount' : Math.floor(price),
-                                'discount.percentage' : ''
-                                }
-                            }
-                            , (err3, obj) => {
-                                if (err3) { return console.error(err3); }
-                                });
-                        }}
-                    });
+    const comps = process.env.CPCOMP.split(',');
+    const promises = comps.map(comp => {
+      console.log(comp);
+      return Shoe.find(
+        { searchWords: { $all: comp }, active: true },
+        'id name finalPrice companyPrice price'
+      ).then(docs => {
+        docs.forEach(doc => {
+          const query = cpQuery + doc.name;
+          axios.get(query).then(async response => {
+            const body = response.data;
+            if (body.length > 0) {
+              let price = body[0].ProductPrice.Price;
+              price = price.match(/[+\-]?\d+(,\d+)?(\.\d+)?/)[0];
+              if (price && price > 0) {
+                await Shoe.updateOne({ _id: doc._id }, { $set: { 'companyPrice': price } });
+              }
+              if (price && (price < doc.finalPrice || price < (doc as any).price * 0.6)) {
+                if (price < (doc as any).price * 0.6) { price = (doc as any).price * 0.6; }
+                await Shoe.updateOne({ _id: doc._id }, {
+                  $set: {
+                    'finalPrice': Math.floor(price),
+                    'discount.newAmount': Math.floor(price),
+                    'discount.percentage': ''
+                  }
                 });
-            })
-            promisses.push(p);
+              }
+            }
+          }).catch(err => console.log(err));
         });
-        Promise.all(promisses).then(r => {
-            console.log('finally...');
-            res.json(r);
-        }
-    );
-    }
+      });
+    });
+    try {
+      const r = await Promise.all(promises);
+      console.log('finally...');
+      res.json(r);
+    } catch (err) { console.error(err); }
+  }
 }

@@ -3,6 +3,9 @@
   "compilerOptions": {
     "outDir": "../dist/server",
     "baseUrl": "",
-    "module": "commonjs"
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitOverride": false,
+    "skipLibCheck": true
   }
 }

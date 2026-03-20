@@ -1,27 +1,25 @@
-import { Injectable, Inject, Optional } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ShoeService {
 
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
-  private options = {headers: this.headers };
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  private options = { headers: this.headers };
 
   constructor(private http: HttpClient) {}
 
   getShoes(): Observable<any> {
-    return this.http.get(`/api/shoes`).map(res => res);
+    return this.http.get(`/api/shoes`);
   }
 
   countShoes(): Observable<any> {
-    return this.http.get(`/api/shoes/count`).map(res => res);
+    return this.http.get(`/api/shoes/count`);
   }
 
   searchShoes(query: String[], queryString: String): Observable<any> {
-    return this.http.post(`/api/shoes/search${queryString}`,
-    JSON.stringify(query), this.options).map(res => res);
+    return this.http.post(`/api/shoes/search${queryString}`, JSON.stringify(query), this.options);
   }
 
   addShoe(shoe): Observable<any> {
@@ -29,15 +27,15 @@ export class ShoeService {
   }
 
   getShoe(shoe): Observable<any> {
-    return this.http.get(`/api/shoe/${shoe._id}`).map(res => res);
+    return this.http.get(`/api/shoe/${shoe._id}`);
   }
 
   getShoeById(id): Observable<any> {
-    return this.http.get(`/api/shoe/${id}`).map(res => res);
+    return this.http.get(`/api/shoe/${id}`);
   }
 
   getShoeByFriendlyId(id): Observable<any> {
-    return this.http.get(`/api/shoe/friendly/${id}`).map(res => res);
+    return this.http.get(`/api/shoe/friendly/${id}`);
   }
 
   editShoe(shoe): Observable<any> {
@@ -51,7 +49,6 @@ export class ShoeService {
   getShoeLinkByImage(shoe, imageIndex) {
     const colors = shoe.imagesGroup.map(ig => ig.color).join('-');
     const niceName = shoe.name.replace(/\s+/g, '-').toLowerCase();
-    const niceCompany = shoe.company.replace(/\s+/g, '-').toLowerCase();
     return `/נעל/${shoe.company}-${niceName}-${colors}/${shoe.id}/צבע/${shoe.imagesGroup[imageIndex].color}`;
   }
 

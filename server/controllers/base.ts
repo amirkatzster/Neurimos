@@ -3,36 +3,35 @@ abstract class BaseCtrl {
   abstract model: any;
 
   // Get all
-  getAll = (req, res) => {
-    this.model.find({}, (err, docs) => {
-      if (err) { return console.error(err); }
+  getAll = async (req, res) => {
+    try {
+      const docs = await this.model.find({});
       res.json(docs);
-    });
+    } catch (err) { console.error(err); }
   };
 
   // Count all
-  count = (req, res) => {
-    this.model.count((err, count) => {
-      if (err) { return console.error(err); }
+  count = async (req, res) => {
+    try {
+      const count = await this.model.countDocuments();
       res.json(count);
-    });
+    } catch (err) { console.error(err); }
   };
 
   // Insert
-  insert = (req, res) => {
-    const obj = new this.model(req.body);
-    this.insertProcess(obj);
-    obj.save((err, item) => {
-      // 11000 is the code for duplicate key error
-      if (err && err.code === 11000) {
-        res.status(400).json({});
-        return;
-      }
-      if (err) {
-        return console.error(err);
-      }
+  insert = async (req, res) => {
+    try {
+      const obj = new this.model(req.body);
+      this.insertProcess(obj);
+      const item = await obj.save();
       res.status(200).json(item);
-    });
+    } catch (err: any) {
+      if (err.code === 11000) {
+        res.status(400).json({});
+      } else {
+        console.error(err);
+      }
+    }
   };
 
   insertProcess(obj: any) {
@@ -40,41 +39,39 @@ abstract class BaseCtrl {
   }
 
   // Get by id
-  get = (req, res) => {
-    this.model.findOne({ _id: req.params.id }, (err, obj) => {
-      if (err) { return console.error(err); }
+  get = async (req, res) => {
+    try {
+      const obj = await this.model.findOne({ _id: req.params.id });
       res.json(obj);
-    });
+    } catch (err) { console.error(err); }
   };
 
   // Update by id
-  update = (req, res) => {
-    this.updateProcess(req.body);
-    this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
-      if (err) { return console.error(err); }
+  update = async (req, res) => {
+    try {
+      this.updateProcess(req.body);
+      await this.model.findOneAndUpdate({ _id: req.params.id }, req.body);
       res.status(200).json({});
-    });
+    } catch (err) { console.error(err); }
   };
 
   updateProcess(body: any) {
-      console.log('base updateProcess');
+    console.log('base updateProcess');
   }
 
-
   // Delete by id
-  delete = (req, res) => {
-    console.log('DELETE!!!');
-    const shouldDelete = this.deleteProcess(req, res);
+  delete = async (req, res) => {
+    const shouldDelete = await this.deleteProcess(req, res);
     if (shouldDelete) {
-      this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
-        if (err) { return console.error(err); }
+      try {
+        await this.model.findOneAndDelete({ _id: req.params.id });
         res.status(200).json({});
-      });
+      } catch (err) { console.error(err); }
     }
   };
 
-  deleteProcess(req, res) {
-    console.log('base updateProcess');
+  deleteProcess(req, res): any {
+    console.log('base deleteProcess');
     return true;
   }
 }

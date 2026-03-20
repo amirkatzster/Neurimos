@@ -6,6 +6,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']

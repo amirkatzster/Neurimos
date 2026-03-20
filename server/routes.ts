@@ -114,20 +114,22 @@ function isLoggedIn(req, res, next) {
 }
 
 
-function isAdmin(req, res, next) {
+async function isAdmin(req, res, next) {
   console.log('Check Admin');
-  if (req.isAuthenticated()) {
-    console.log('Authenticated');
-    User.findOne({ _id: req.user._id }, (err, usr) => {
-      console.log('found user');
-      if (err) { return console.error(err); }
-      if (usr.role === 'admin') {
-        console.log('Got Admin access :)');
-        return next();
-      }
-      res.redirect('/');
-    });
-  } else {
+  if (!req.isAuthenticated()) {
+    return res.redirect('/');
+  }
+  console.log('Authenticated');
+  try {
+    const usr: any = await User.findOne({ _id: req.user._id });
+    console.log('found user');
+    if (usr && usr.role === 'admin') {
+      console.log('Got Admin access :)');
+      return next();
+    }
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
     res.redirect('/');
   }
 }

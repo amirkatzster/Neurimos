@@ -3,6 +3,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { AuthService } from 'app/services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-collection-shoe',
   templateUrl: './collectionShoe.component.html',
   styleUrls: ['./collectionShoe.component.scss']

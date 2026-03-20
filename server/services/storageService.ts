@@ -1,120 +1,93 @@
-// Load the AWS SDK for Node.js
-import AWS = require('aws-sdk');
+import { S3Client, DeleteObjectCommand, ListObjectsCommand, DeleteObjectsCommand, HeadObjectCommand, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import * as dotenv from 'dotenv';
 import config = require('config');
-import Jimp = require('jimp');
+import * as fs from 'fs';
+import { Jimp } from 'jimp';
 
-// Set the region
-
-
-export default class StorageService  {
+export default class StorageService {
 
     bucketName: string;
-    s3Bucket: AWS.S3;
+    s3Client: S3Client;
     amazonDomain: String = 'https://s3.eu-central-1.amazonaws.com/';
 
-    constructor () {
-        AWS.config.loadFromPath('./server/s3_config.json');
+    constructor() {
         dotenv.load({ path: '../../.env' });
+        const awsConfig = JSON.parse(fs.readFileSync('./server/s3_config.json', 'utf-8'));
         this.bucketName = config.get('S3.BucketName');
-        this.s3Bucket = new AWS.S3( { params: {Bucket: this.bucketName} } );
+        this.s3Client = new S3Client({
+            region: awsConfig.region,
+            credentials: {
+                accessKeyId: awsConfig.accessKeyId,
+                secretAccessKey: awsConfig.secretAccessKey
+            }
+        });
     }
 
     deleteImageUrl(imageUrl: String) {
         const len = (this.amazonDomain + this.bucketName + '/').length;
-            const data: AWS.S3.Types.DeleteObjectRequest = {
-                Key: imageUrl.substring(len),
-                Bucket: this.bucketName,
-              };
-            this.s3Bucket.deleteObject(data, function(err, res) {
-                if (err) {
-                  console.log(err, err.stack);
-                } else {
-                  console.log(res);
-                }
-            });
-    }
-
-    deleteImageFolder(folderPath: string) {
-        const params = {
+        this.s3Client.send(new DeleteObjectCommand({
+            Key: imageUrl.substring(len) as string,
             Bucket: this.bucketName,
-            Prefix: folderPath // 'folder/'
-        };
-        const s3 = this.s3Bucket;
-        s3.listObjects(params, function(err, data) {
-            const params2: any = {Bucket: this.bucketName};
-            params2.Delete = {Objects: []};
-            data.Contents.forEach(function(content) {
-                params2.Delete.Objects.push({Key: content.Key});
-            });
-            console.log(params2);
-            s3.deleteObjects(params2, function(err2, data2) {
-                if (err) {
-                    console.log(err, err.stack);
-                  } else {
-                    console.log(data2);
-                  }
-            });
-        });
+        })).then(res => console.log(res)).catch(err => console.log(err, err.stack));
     }
 
+    async deleteImageFolder(folderPath: string) {
+        const listData = await this.s3Client.send(new ListObjectsCommand({
+            Bucket: this.bucketName,
+            Prefix: folderPath
+        }));
+        const objects = listData.Contents.map(content => ({ Key: content.Key }));
+        const deleteData = await this.s3Client.send(new DeleteObjectsCommand({
+            Bucket: this.bucketName,
+            Delete: { Objects: objects }
+        }));
+        console.log(deleteData);
+    }
 
     addNewImage(imageString: string, path: string, width: number) {
-        const buf = new Buffer(imageString.replace(/^data:image\/\w+;base64,/, ''), 'base64');
-        Jimp.read(buf, (err, image) => {
-            this.uploadConvertedImage(image, width, path, this.bucketName, this.s3Bucket);
-        });
+        const buf = Buffer.from(imageString.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+        Jimp.read(buf).then(image => {
+            this.uploadConvertedImage(image, width, path, this.bucketName, this.s3Client);
+        }).catch(err => console.log(err));
         return this.amazonDomain + this.bucketName + '/' + path;
     }
 
-    tryToConvert(url, callback) {
+    async tryToConvert(url, callback) {
         const s3Path = url.substring(url.indexOf(this.bucketName) + this.bucketName.length + 1);
-        const headParams = {Bucket: this.bucketName, Key: s3Path} ;
-        const s3 = this.s3Bucket;
-        const bucketName = this.bucketName;
-        const convertMethod = this.uploadConvertedImage;
-        s3.headObject(headParams, function (err, res: any) {
-            if (err) {
-                return;
-            }
+        const headParams = { Bucket: this.bucketName, Key: s3Path };
+        try {
+            const res: any = await this.s3Client.send(new HeadObjectCommand(headParams));
             if (res.code !== 'NotFound') {
                 console.log('New file exists!!! ' + s3Path);
-                // Take XL image and create 3 sizes
-                s3.getObject(headParams, function(err2, data: any) {
-                    if (err2) {
-                        console.log(err2, err2.stack);
-                    } else {
-                        Jimp.read(data.Body, (err3, image) => {
-                            console.log(image);
-                            convertMethod(image, 480, s3Path.replace('/XL/', '/L/'), bucketName, s3);
-                            convertMethod(image, 255, s3Path.replace('/XL/', '/M/'), bucketName, s3);
-                            convertMethod(image, 55, s3Path.replace('/XL/', '/S/'), bucketName, s3);
-                            callback();
-                        });
-                    }
-                  });
+                const data: any = await this.s3Client.send(new GetObjectCommand(headParams));
+                Jimp.read(data.Body).then(image => {
+                    console.log(image);
+                    this.uploadConvertedImage(image, 480, s3Path.replace('/XL/', '/L/'), this.bucketName, this.s3Client);
+                    this.uploadConvertedImage(image, 255, s3Path.replace('/XL/', '/M/'), this.bucketName, this.s3Client);
+                    this.uploadConvertedImage(image, 55, s3Path.replace('/XL/', '/S/'), this.bucketName, this.s3Client);
+                    callback();
+                }).catch(err => console.log(err));
             }
-        })
+        } catch (err) {
+            return;
+        }
     }
 
-    uploadConvertedImage(image, width, path, bucketName, s3Bucket) {
-        image.resize(width, Jimp.AUTO)
-                 .getBuffer(image.getMIME(), (error, buffer) => {
-                      const data: AWS.S3.Types.PutObjectRequest = {
-                      Key: path,
-                      Body: buffer,
-                      ContentEncoding: 'base64',
-                      ContentType: image.getMIME(),
-                      Bucket: bucketName,
-                    };
-                    s3Bucket.putObject(data , function(e, d){
-                      if (e) {
-                        console.log(e);
-                        console.log('Error uploading data: ', d);
-                      } else {
-                        console.log('succesfully uploaded the image!');
-                      }
-                  });
-              });
+    uploadConvertedImage(image: any, width: number, path: string, bucketName: string, s3Client: S3Client) {
+        image.resize({ w: width });
+        image.getBuffer(image.mime).then(buffer => {
+            s3Client.send(new PutObjectCommand({
+                Key: path,
+                Body: buffer,
+                ContentEncoding: 'base64',
+                ContentType: image.mime,
+                Bucket: bucketName,
+            })).then(() => {
+                console.log('succesfully uploaded the image!');
+            }).catch(e => {
+                console.log(e);
+                console.log('Error uploading data: ', path);
+            });
+        }).catch(err => console.log(err));
     }
 }

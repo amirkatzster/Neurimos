@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoeService } from 'app/services/shoe.service';
 import { CompanyService } from 'app/services/company.service';
-import { MatSelectChange } from '@angular/material';
+import { MatSelectChange } from '@angular/material/select';
 import { OrderService } from 'app/services/order.service';
 import {Location} from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
@@ -11,6 +11,7 @@ import { Title, Meta, DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Pipe, PipeTransform} from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-shoe-details',
   templateUrl: './shoeDetails.component.html',
   styleUrls: ['./shoeDetails.component.scss']

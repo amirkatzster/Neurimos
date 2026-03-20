@@ -7,6 +7,7 @@ import { GoogleAnalyticsEventsService } from 'app/shared/google-analytics-events
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
+  standalone: false,
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']

@@ -19,27 +19,27 @@
             
         </div>
         <!-- MOBILE VIEW -->
-        <div class="row hidden-md-up mobile" dir="ltr">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-4">
+        <div class="row d-md-none mobile" dir="ltr">
+                <div class="col-1"></div>
+                <div class="col-4">
                     <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
                     <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
                 </div>
-                <div class="col-xs-2">
-                    
+                <div class="col-2">
+
                 </div>
-                <div class="col-xs-4">
+                <div class="col-4">
                         <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
                         <div class="companyModelContainer">
                             <h1><a class="company" href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a></h1>
                             <h2><a class="model" href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a></h2>
                         </div>
                 </div>
-                <div class="col-xs-1"></div>
+                <div class="col-1"></div>
         </div>
-        <div class="row hidden-md-up mobile" dir="ltr">
-                <div class="col-xs-1"></div>
-                <div class="col-xs-10">
+        <div class="row d-md-none mobile" dir="ltr">
+                <div class="col-1"></div>
+                <div class="col-10">
                     <div class="carousel" *ngFor="let colorImg of shoe?.imagesGroup">
                         <ui-carousel *ngIf="currentImageGroup == colorImg" [autoPlay]="false"  [infinite]="true" [fade]="false" [speed]="1000" >
                             <ui-carousel-item *ngFor="let positionImg of currentImageGroup.images" >
@@ -49,15 +49,15 @@
                     </div>
                     
                     <div class="row">
-                        <div class="col-xs-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
+                        <div class="col-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
                             <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>
                                 <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-1"></div>
-        </div> 
+                <div class="col-1"></div>
+        </div>
         <!-- END MOBILE -->
         <div class="row">
             <div class="col-md-12 borderGray roundedBorder">
@@ -69,7 +69,7 @@
                     <div class="delim"></div>
                     <div class="sku">מספר מזהה {{ shoe?.id }}</div>
                     <!-- Mobile Only -->
-                    <div class="card hidden-md-up">
+                    <div class="card d-md-none">
                         <div class="card-block">
                             <blockquote class="card-blockquote">
                             <ul>
@@ -85,7 +85,7 @@
                     </div>
                     <!-- END Mobile Only -->
                     <div class="grayArea">
-                        <div class="row hidden-sm-down">
+                        <div class="row d-none d-md-block">
                             <div class="price" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</div>  
                             <div class="price" [ngClass]="{'discount': shoe?.price !== shoe?.finalPrice }">{{shoe?.price}} ₪</div>  
                         </div>
@@ -119,7 +119,7 @@
                             האתר מאובטח בטכנולוגיית SSL EV. <br>
                             המבטיח אימות של העסק וקנייה בטוחה
                             <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים</a><br><br>
-                            <button type="button" class="btn btn-outline-dark btn-sm btnWhite"><img class="" src="http://cdn.ywxi.net/static/img/tm-float.png" alt="McAfee site seal - click to verify" width="100" height="26"></button><br>
+                            <button type="button" class="btn btn-outline-dark btn-sm btnWhite"><img class="" src="https://cdn.ywxi.net/static/img/tm-float.png" alt="McAfee site seal - click to verify" width="100" height="26"></button><br>
                             האתר נסרק ע"י McAfee בתדירות גבוהה
                             <a href="https://www.mcafeesecure.com/verify?host=neurimshoes.co.il" target="_blank">לפרטים</a>
                         </div>
@@ -128,13 +128,13 @@
                     
                     
                 </div>
-                  <div class="col-md-9 borderShoes hidden-sm-down">
+                  <div class="col-md-9 borderShoes d-none d-md-block">
                     <div class="shoeHeader">
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
                         <h1><a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a></h1>
                     </div>
                     <!-- DESKTOP VIEW    -->
-                    <div class="row hidden-sm-down">
+                    <div class="row d-none d-md-block">
                         <div class="col-md-1"></div>
                         <div class="col-md-9" >
                             <div lazy-load-images>
@@ -148,7 +148,7 @@
                             </a>
                         </div>
                     </div> 
-                    <div class="row hidden-sm-down">
+                    <div class="row d-none d-md-block">
                         <div class="col-md-2"></div>
                         <div class="col-md-1 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
                             <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>

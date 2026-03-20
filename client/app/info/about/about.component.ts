@@ -3,6 +3,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']

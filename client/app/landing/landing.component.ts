@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'app/services/company.service';
 
 @Component({
+  standalone: false,
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']

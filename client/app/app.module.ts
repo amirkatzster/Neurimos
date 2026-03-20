@@ -1,5 +1,4 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import * as ngCore from '@angular/core';
 
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -27,12 +26,10 @@ import { TakanonComponent } from 'app/orders/takanon/takanon.component';
 import { SummaryComponent } from 'app/orders/summary/summary.component';
 import { FindusComponent } from 'app/info/findus/findus.component';
 import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
-import { AgmCoreModule } from '@agm/core';
 import { AboutComponent } from 'app/info/about/about.component';
 import { ContactUsService } from 'app/services/contactus.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { SafeHtmlPipe } from './shared/safeHtml/safe-html';
 import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
 
@@ -59,14 +56,11 @@ import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
     SafeHtmlPipe
   ],
   imports: [
+    BrowserModule,
     RoutingModule,
     SharedModule,
     AdminModule,
-    HttpClientModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCdfSnui6ck0WUOBT-Q9wa1zoDcdoUFH5k'
-    }),
-    BrowserModule.withServerTransition({appId: 'neurim-app'})
+    HttpClientModule
   ],
   providers: [
     AuthService,
@@ -81,6 +75,4 @@ import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-
-
 export class AppModule { }

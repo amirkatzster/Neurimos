@@ -2,15 +2,18 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "module": "es2015",
-    "baseUrl": "",
     "types": []
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+  "files": [
+    "main.ts"
   ],
-  "angularCompilerOptions": {
-    "preserveWhitespaces": true
-  }
+  "include": [
+    "app/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "app/app.server.module.ts",
+    "app/unversal.interceptor.ts",
+    "main.server.ts"
+  ]
 }

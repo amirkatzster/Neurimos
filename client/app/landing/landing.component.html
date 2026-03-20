@@ -19,7 +19,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-1"></div>
     </div>
-    <div *ngFor="let company of companies;let i = index" class="hidden-sm-down">
+    <div *ngFor="let company of companies;let i = index" class="d-none d-md-block">
         <div *ngIf="i % 6 === 0" class="row">
             <div class="col-md-2 companyContainer">
                 <a [routerLink]="'/נעלי/' +[company.name]">
@@ -53,19 +53,19 @@
             </div>
         </div> 
     </div>      
-    <div *ngFor="let company of companies;let i = index" class="hidden-md-up">
+    <div *ngFor="let company of companies;let i = index" class="d-md-none">
         <div *ngIf="i % 3 === 0" class="row">
-            <div class="col-xs-4 companyContainer">
+            <div class="col-4 companyContainer">
                 <a [routerLink]="'/נעלי/' +[companies[i].name]">
                     <img src={{companies[i].image}}  width="110" alt="{{ companies[i].name }}"/>
                 </a>
             </div>
-            <div class="col-xs-4 companyContainer">
+            <div class="col-4 companyContainer">
                 <a [routerLink]="'/נעלי/' +[companies[1+i].name]" *ngIf="companies.length > 1 + i">
                     <img src={{companies[1+i].image}}  width="110" alt="{{ companies[1+i].name }}"/>
                 </a>
             </div>
-            <div class="col-xs-4 companyContainer">
+            <div class="col-4 companyContainer">
                 <a [routerLink]="'/נעלי/' +[companies[2+i].name]" *ngIf="companies.length > 2 + i">
                     <img src={{companies[2+i].image}}  width="110" alt="{{ companies[2+i].name }}"/>
                 </a>

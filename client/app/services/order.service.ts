@@ -3,39 +3,35 @@ import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { AuthService } from 'app/services/auth.service';
 import { Order, OrderContainer } from 'app/model/order';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
+import { Observable, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalStorage } from 'app/shared/local-storage.service';
-
-
 
 @Injectable()
 export class OrderService {
 
   public orderContainer: OrderContainer;
   private obsArray: Array<Order>;
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
-  private options = {headers: this.headers };
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  private options = { headers: this.headers };
 
   constructor(private authService: AuthService,
               private router: Router,
               private http: HttpClient,
-              private localStorage: LocalStorage ) {
-      const ordersPersist = this.localStorage.getItem('orders');
-      if (ordersPersist) {
-        this.orderContainer = JSON.parse(ordersPersist);
-        if (!this.orderContainer.orders) {
-          this.orderContainer = new OrderContainer();
-        }
-      }
-      if (!this.orderContainer) {
+              private localStorage: LocalStorage) {
+    const ordersPersist = this.localStorage.getItem('orders');
+    if (ordersPersist) {
+      this.orderContainer = JSON.parse(ordersPersist);
+      if (!this.orderContainer.orders) {
         this.orderContainer = new OrderContainer();
       }
+    }
+    if (!this.orderContainer) {
+      this.orderContainer = new OrderContainer();
+    }
   }
 
-
-  newOrder(shoe: any, imageGroup: any, size: String ) {
+  newOrder(shoe: any, imageGroup: any, size: String) {
     let order = this.orderContainer.orders.find(o => o.shoe._id === shoe._id && o.imageGroup.color === imageGroup.color && o.size === size);
     if (!order) {
       order = new Order();
@@ -66,10 +62,10 @@ export class OrderService {
 
   cleanOrders() {
     this.orderContainer.orders = [];
-    this.persist()
+    this.persist();
   }
 
-  shippment() {
+  shippment(): number {
     if (this.orderContainer.delivery === 'SelfPick') {
       return 0;
     }
@@ -83,6 +79,7 @@ export class OrderService {
     if (this.orderContainer.delivery === 'Delivery') {
       return 48;
     }
+    return 0;
   }
 
   deliveryMethod() {
@@ -98,7 +95,7 @@ export class OrderService {
   }
 
   getOrdersCounter(): Observable<any> {
-    return Observable.from(this.orderContainer.orders);
+    return from(this.orderContainer.orders);
   }
 
   removeOrder(order) {
@@ -107,35 +104,32 @@ export class OrderService {
     this.persist();
   }
 
-
-
   persist() {
-     this.localStorage.setItem('orders', JSON.stringify(this.orderContainer));
+    this.localStorage.setItem('orders', JSON.stringify(this.orderContainer));
   }
-
 
   createServerOrder(): Observable<any> {
     const serverOrder = {
       status: 'created',
       totalPrice: this.total(),
       customer: {
-        name         : this.orderContainer.name,
-        email        : this.orderContainer.email,
-        phone        : this.orderContainer.phone,
-        address1     : this.orderContainer.address1,
-        address2     : this.orderContainer.address2,
-        city         : this.orderContainer.city,
-        zip          : this.orderContainer.zip
+        name: this.orderContainer.name,
+        email: this.orderContainer.email,
+        phone: this.orderContainer.phone,
+        address1: this.orderContainer.address1,
+        address2: this.orderContainer.address2,
+        city: this.orderContainer.city,
+        zip: this.orderContainer.zip
       },
-      items    : [],
+      items: [],
       shippment: {
-        deliveryMethod : this.deliveryMethod(),
-        price : this.shippment()
+        deliveryMethod: this.deliveryMethod(),
+        price: this.shippment()
       }
     };
     this.orderContainer.orders.forEach(o => {
       const item = {
-        model:  o.shoe.name,
+        model: o.shoe.name,
         company: o.shoe.company,
         imageUrl: o.imageGroup.images[0].urlMedium,
         size: o.size,
@@ -143,7 +137,7 @@ export class OrderService {
         amount: o.amount,
         pricePerItem: o.shoe.finalPrice,
         sku: o.shoe.id
-      }
+      };
       serverOrder.items.push(item);
     });
     return this.http.post('/api/order', JSON.stringify(serverOrder), this.options);

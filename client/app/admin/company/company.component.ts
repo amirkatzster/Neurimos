@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { CompanyService } from '../../services/company.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 
 @Component({
+  standalone: false,
   selector: 'app-company',
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss']
@@ -17,13 +17,13 @@ export class CompanyComponent implements OnInit {
   companies = [];
   isLoading = true;
   isEditing = false;
+  isDialogOpen = false;
 
   addCompaniesForm: FormGroup;
   name = new FormControl('', Validators.required);
 
   constructor(private CompanyService: CompanyService,
               private formBuilder: FormBuilder,
-              private http: Http,
               public toast: ToastComponent) { }
 
   ngOnInit() {
@@ -45,25 +45,26 @@ export class CompanyComponent implements OnInit {
     );
   }
 
-  addCompany(modal) {
+  addCompany() {
     this.isEditing = true;
     this.currentCompany = {};
     this.currentCompanyIndex = this.companies.length;
-    modal.open();
+    this.isDialogOpen = true;
   }
 
-  enableEditing(Company, ind, modal) {
+  enableEditing(Company, ind) {
     this.isEditing = true;
     this.currentCompany = JSON.parse(JSON.stringify(Company));
     this.currentCompanyIndex = ind;
-    modal.open();
+    this.isDialogOpen = true;
   }
 
   doneEditCompany(company) {
-     if (this.companies.length === this.currentCompanyIndex) {
-        this.CompanyService.addCompany(company).subscribe(
+    if (this.companies.length === this.currentCompanyIndex) {
+      this.CompanyService.addCompany(company).subscribe(
         res => {
           this.isEditing = false;
+          this.isDialogOpen = false;
           this.companies.push(company);
           this.toast.setMessage(company.id + ' עודכן בהצלחה', 'success');
         },
@@ -73,6 +74,7 @@ export class CompanyComponent implements OnInit {
       this.CompanyService.editCompany(company).subscribe(
         res => {
           this.isEditing = false;
+          this.isDialogOpen = false;
           this.companies[this.currentCompanyIndex] = company;
           this.toast.setMessage('עודכן בהצלחה', 'success');
         },
@@ -87,8 +89,8 @@ export class CompanyComponent implements OnInit {
     const reader = new FileReader();
 
     if (!file.type.match(pattern)) {
-        alert('invalid format');
-        return;
+      alert('invalid format');
+      return;
     }
 
     reader.onload = this._handleReaderLoaded.bind(this);
@@ -96,8 +98,8 @@ export class CompanyComponent implements OnInit {
   }
 
   _handleReaderLoaded(e) {
-      const reader = e.target;
-      this.currentCompany.image = reader.result;
+    const reader = e.target;
+    this.currentCompany.image = reader.result;
   }
 
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -9,7 +8,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
-import { AdminModule } from 'app/admin/admin.module';
 import { MenuComponent } from 'app/admin/menu.component';
 import { LandingComponent } from 'app/landing/landing.component';
 import { CollectionComponent } from 'app/collection/collection.component';
@@ -22,9 +20,6 @@ import { FindusComponent } from 'app/info/findus/findus.component';
 import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
 import { AboutComponent } from 'app/info/about/about.component';
 import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
-
-import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
 
 const routes: Routes = [
@@ -46,16 +41,13 @@ const routes: Routes = [
   { path: 'סרגל_מידות', component: ShoeSizesComponent },
   { path: 'נעלי/:query', component: CollectionComponent },
   { path: 'נעל/:desc/:id/צבע/:color', component: ShoeDetailsComponent },
-  // { path: 'c/:company/נעלי', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+    RouterModule.forRoot(routes)
   ],
-  exports: [ RouterModule ]
+  exports: [RouterModule]
 })
-
 export class RoutingModule {}

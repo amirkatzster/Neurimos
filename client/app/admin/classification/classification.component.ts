@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { ClassificationService } from '../../services/classification.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 
 @Component({
+  standalone: false,
   selector: 'app-classification',
   templateUrl: './classification.component.html',
   styleUrls: ['./classification.component.scss']
@@ -17,13 +17,13 @@ export class ClassificationComponent implements OnInit {
   classifications = [];
   isLoading = true;
   isEditing = false;
+  isDialogOpen = false;
 
   addClassificationsForm: FormGroup;
   name = new FormControl('', Validators.required);
 
   constructor(private ClassificationService: ClassificationService,
               private formBuilder: FormBuilder,
-              private http: Http,
               public toast: ToastComponent) { }
 
   ngOnInit() {
@@ -45,25 +45,26 @@ export class ClassificationComponent implements OnInit {
     );
   }
 
-  addClassification(modal) {
+  addClassification() {
     this.isEditing = true;
     this.currentClassification = {};
     this.currentClassificationIndex = this.classifications.length;
-    modal.open();
+    this.isDialogOpen = true;
   }
 
-  enableEditing(Classification, ind, modal) {
+  enableEditing(Classification, ind) {
     this.isEditing = true;
     this.currentClassification = JSON.parse(JSON.stringify(Classification));
     this.currentClassificationIndex = ind;
-    modal.open();
+    this.isDialogOpen = true;
   }
 
   doneEditClassification(Classification) {
-     if (this.classifications.length === this.currentClassificationIndex) {
-        this.ClassificationService.addClassification(Classification).subscribe(
+    if (this.classifications.length === this.currentClassificationIndex) {
+      this.ClassificationService.addClassification(Classification).subscribe(
         res => {
           this.isEditing = false;
+          this.isDialogOpen = false;
           this.classifications.push(Classification);
           this.toast.setMessage(Classification.id + ' עודכן בהצלחה', 'success');
         },
@@ -73,6 +74,7 @@ export class ClassificationComponent implements OnInit {
       this.ClassificationService.editClassification(Classification).subscribe(
         res => {
           this.isEditing = false;
+          this.isDialogOpen = false;
           this.classifications[this.currentClassificationIndex] = Classification;
           this.toast.setMessage('עודכן בהצלחה', 'success');
         },

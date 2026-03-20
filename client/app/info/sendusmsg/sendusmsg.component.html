@@ -6,7 +6,7 @@
     </div>
 	
 	<div class="row">
-	  <div class="col-md-7 hidden-sm-down">
+	  <div class="col-md-7 d-none d-md-block">
         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
             <agm-marker [latitude]="lat" [longitude]="lng">
                 <agm-info-window isOpen="true"><div class="info">שנקר 52<br>חולון</div></agm-info-window>
@@ -21,7 +21,7 @@
           <br>:)
     </div>
 
-    <div class="col-md-5 col-xs-12">
+    <div class="col-md-5 col-12">
         <h4><strong>שלחו לנו הודעה</strong></h4>
       <form #contactusform="ngForm" (ngSubmit)="sendMessage()">
         <div class="form-group">
@@ -36,7 +36,7 @@
         <div class="form-group">
           <textarea class="form-control" name="message" rows="3" [(ngModel)]="msg.message" placeholder="תוכן הודעה" required></textarea>
         </div>
-        <button class="btn btn-default" type="submit" name="button" [disabled]="!contactusform.form.valid">
+        <button class="btn btn-secondary" type="submit" name="button" [disabled]="!contactusform.form.valid">
             <i class="fa fa-paper-plane-o" aria-hidden="true"></i> שליחה
         </button>
       </form>

@@ -4,9 +4,16 @@
 /dist
 /tmp
 /out-tsc
+/.angular/cache
 
 # dependencies
 /node_modules
+
+# Claude Code
+.claude/settings.local.json
+.claude/launch.json
+.github/copilot-instructions.md
+CLAUDE.md
 
 # IDEs and editors
 /.idea

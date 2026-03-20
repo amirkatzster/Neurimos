@@ -1,18 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http } from '@angular/http';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ShoeService } from 'app/services/shoe.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { CompanyService } from 'app/services/company.service';
 import { ClassificationService } from '../../services/classification.service';
-import { debug } from 'util';
 
 @Component({
+  standalone: false,
   selector: 'app-shoes',
   templateUrl: './shoes.component.html',
   styleUrls: ['./shoes.component.scss']
 })
-export class ShoesComponent implements OnInit , OnDestroy {
+export class ShoesComponent implements OnInit, OnDestroy {
 
   sub;
   shoes = [];
@@ -23,28 +22,28 @@ export class ShoesComponent implements OnInit , OnDestroy {
               private companyService: CompanyService,
               private formBuilder: FormBuilder,
               private ClassificationService: ClassificationService,
-              private http: Http,
               public toast: ToastComponent) {
-              }
+  }
 
   ngOnInit() {
     this.getShoes();
   }
 
-
   getShoes() {
     this.shoeService.getShoes().subscribe(
       data => {
-         this.shoes = data;
+        this.shoes = data;
       },
       error => console.log(error),
       () => this.isLoading = false
     );
   }
 
-  deleteShoeConfirm(model, shoe) {
+  deleteShoeConfirm(shoe) {
     this.currentShoe = shoe;
-    model.open();
+    if (confirm('בטוח שרוצים למחוק?')) {
+      this.deleteShoe();
+    }
   }
 
   deleteShoe() {
@@ -59,8 +58,8 @@ export class ShoesComponent implements OnInit , OnDestroy {
   }
 
   ngOnDestroy(): void {
-     if (this.sub) {
-        this.sub.unsubscribe();
-     }
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

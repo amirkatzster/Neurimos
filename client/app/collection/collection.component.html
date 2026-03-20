@@ -1,6 +1,6 @@
 <div style="position:initial">
   <div class="container-fluid firstRow" >
-      <div class="row secondRow hidden-sm-down">
+      <div class="row secondRow d-none d-md-block">
           <div class="col-md-2">
               <mat-form-field>
                 <mat-select placeholder="מיון על פי" [(ngModel)]="sort" (change)="sortChangeEvent($event)">
@@ -15,7 +15,7 @@
               <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
           </div>
       </div>
-      <div class="row hidden-sm-down">
+      <div class="row d-none d-md-block">
           <div class="col-md-10">
             <mat-form-field style="width: 100%;">
               <mat-chip-list #chipList selectable="true">
@@ -26,24 +26,24 @@
           </div>
           <div class="col-md-2 narrow">צמצום הבחירה</div>
         </div>
-      <div class="row hidden-sm-up">
-            <div class="col-xs-12">
+      <div class="row d-sm-none">
+            <div class="col-12">
                 <h1 *ngIf="shoes?.length > 0"><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!</h1>
                 <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
             </div>
       </div>
       <div class="row">
           <!-- Start Mobile view -->
-          <div class="hidden-sm-up">
+          <div class="d-sm-none">
                 <div *ngFor="let shoe of shoes;let i = index">
                     <div *ngIf="i % 2 === 0" class="row">
-                        <div class="col-xs-6 border">
+                        <div class="col-6 border">
                             <app-collection-shoe [shoe]="shoes[i]"></app-collection-shoe>
                         </div>
-                        <div class="col-xs-6 border" *ngIf="shoes.length > 1 + i">
+                        <div class="col-6 border" *ngIf="shoes.length > 1 + i">
                                 <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
                             </div>
-                        <!-- <div class="col-xs-6 border" *ngIf="shoes.length > i">
+                        <!-- <div class="col-6 border" *ngIf="shoes.length > i">
                             
                                 <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
                         </div> -->
@@ -51,7 +51,7 @@
                 </div>
           </div>
           <!-- End Mobile view -->
-        <div class="col-md-10  hidden-xs-down">
+        <div class="col-md-10  d-none d-sm-block">
           <div class="row shoesCollectionContainer ">
               <div *ngFor="let shoe of shoes" class="shoesCollection col-sm-5 col-md-4 col-lg-3 col-xl-3">
                   <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
@@ -59,7 +59,7 @@
           </div>         
         </div>
         <!-- Side filter hidden on mobile -->
-        <div class="col-md-2  hidden-sm-down">
+        <div class="col-md-2  d-none d-md-block">
           <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')" >רק מבצעים</button>
            <mat-accordion [multi]="true">
             <mat-expansion-panel  [expanded]="true"  >

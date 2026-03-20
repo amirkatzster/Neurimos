@@ -1,18 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersComponent } from '../../app/admin/users/users.component';
-import { MenuComponent } from '../../app/admin/menu.component';
-import { ShoesComponent } from '../../app/admin/shoes/shoes.component';
-import { ShoeService } from '../../app/services/shoe.service';
-import { SharedModule } from '../../app/shared/shared.module';
-import { CompanyComponent } from '../../app/admin/company/company.component';
-import { CompanyService } from '../../app/services/company.service';
+import { UsersComponent } from './users/users.component';
+import { MenuComponent } from './menu.component';
+import { ShoesComponent } from './shoes/shoes.component';
+import { ShoeService } from '../services/shoe.service';
+import { SharedModule } from '../shared/shared.module';
+import { CompanyComponent } from './company/company.component';
+import { CompanyService } from '../services/company.service';
 import { ClassificationComponent } from './classification/classification.component';
-import { ClassificationService } from 'app/services/classification.service';
-import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
+import { ClassificationService } from '../services/classification.service';
+import { ShoeEditComponent } from './shoes/shoeEdit/shoeEdit.component';
 import { RouterModule } from '@angular/router';
-
-
 
 @NgModule({
   declarations: [
@@ -22,9 +20,10 @@ import { RouterModule } from '@angular/router';
     CompanyComponent,
     ClassificationComponent,
     ShoeEditComponent
-],
+  ],
   exports: [
-    UsersComponent
+    UsersComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -32,10 +31,10 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   providers: [
-     ShoeService,
-     CompanyService,
-     ClassificationService
+    ShoeService,
+    CompanyService,
+    ClassificationService
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule { }

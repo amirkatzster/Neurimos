@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import {ENTER} from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
+import { ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { ShoeService } from 'app/services/shoe.service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
-import { debuglog } from 'util';
+import { combineLatest } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.scss']
@@ -28,10 +26,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
   companies: any[];
   colors: any[];
   sort: String = 'rel';
-  sortList: any[] = [{'value': 'rel' , 'viewValue': 'רלוונטיות'},
-                     {'value': 'new' , 'viewValue': 'חדשים'},
-                     {'value': 'priceLow' , 'viewValue': 'מחיר - נמוך לגבוהה'},
-                     {'value': 'priceHigh' , 'viewValue': 'מחיר - גבוהה לנמוך'}]
+  sortList: any[] = [{ 'value': 'rel', 'viewValue': 'רלוונטיות' },
+                     { 'value': 'new', 'viewValue': 'חדשים' },
+                     { 'value': 'priceLow', 'viewValue': 'מחיר - נמוך לגבוהה' },
+                     { 'value': 'priceHigh', 'viewValue': 'מחיר - גבוהה לנמוך' }];
 
   separatorKeysCodes = [ENTER, 188];
 
@@ -50,19 +48,17 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.titleService.setTitle('קולקצית נעליים | נעלי נעורים');
-    const obsComb = Observable.combineLatest(this.route.params, this.route.queryParams,
-      (params, qparams) => ({ params, qparams }))
-    this.sub1 = obsComb.subscribe( ap => {
-      if (ap.qparams.sort) {
-        this.sort = ap.qparams.sort;
+    const obsComb = combineLatest([this.route.params, this.route.queryParams]);
+    this.sub1 = obsComb.subscribe(([params, qparams]) => {
+      if (qparams.sort) {
+        this.sort = qparams.sort;
       }
-      this.initQueries = ap.params['query'];
+      this.initQueries = params['query'];
       this.queries = this.createSearchQuery(this.initQueries);
-      this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1)
+      this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1);
       this.filters = this.queries;
-      // dispatch action to load the details here.
-      this.updateCollection(ap.qparams);
-      if ( this.queries.length === 1 && this.queries[0] === 'נעליים') {
+      this.updateCollection(qparams);
+      if (this.queries.length === 1 && this.queries[0] === 'נעליים') {
         this.titleService.setTitle('קטלוג | נעלי נעורים');
       } else {
         this.titleService.setTitle('נעלי ' + this.queries + ' | נעלי נעורים');
@@ -96,11 +92,10 @@ export class CollectionComponent implements OnInit, OnDestroy {
     if (qs.sort) {
       queryString = '?sort=' + qs.sort;
     }
-    const test = queryString.toString();
     this.sub2 = this.shoeService.searchShoes(this.queries, queryString).subscribe(
       data => {
-         this.shoes = data;
-         this.setFilters();
+        this.shoes = data;
+        this.setFilters();
       },
       error => console.log(error),
       () => this.isLoading = false
@@ -124,28 +119,28 @@ export class CollectionComponent implements OnInit, OnDestroy {
         });
       }
     });
-    this.sizes = Array.from(sizeSet).sort();
+    this.sizes = Array.from(sizeSet).sort() as String[];
     this.companies = this.count(companyArray);
     this.colors = this.count(colorArray);
   }
 
   count(arr) {
     const res = [];
-    const newObj = arr.reduce(function(m, e){
-      m[e] = (+m[e] || 0) + 1; return m
+    const newObj = arr.reduce(function(m, e) {
+      m[e] = (+m[e] || 0) + 1; return m;
     }, {});
     for (const property in newObj) {
       if (newObj.hasOwnProperty(property)) {
-          res.push({key: property, count : newObj[property]});
+        res.push({ key: property, count: newObj[property] });
       }
-  }
+    }
     return res;
   }
 
   removeFilter(filter: string): void {
-    if (filter.indexOf(' ') > -1) { filter = '[' + filter + ']'}
+    if (filter.indexOf(' ') > -1) { filter = '[' + filter + ']'; }
     this.initQueries = this.initQueries.replace(filter, '').trim();
-    this.initQueries =  this.initQueries.replace('[]', '');
+    this.initQueries = this.initQueries.replace('[]', '');
     this.reload();
   }
 
@@ -156,8 +151,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
     }
     this.reload();
   }
-
-
 
   escapeRegExp(str) {
     return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');

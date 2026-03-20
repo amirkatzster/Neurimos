@@ -1,93 +1,60 @@
-// Load the AWS SDK for Node.js
-import AWS = require('aws-sdk');
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import * as dotenv from 'dotenv';
+import * as fs from 'fs';
 
-// Set the region
+export default class MailService {
 
+    private sesClient: SESClient;
 
-export default class MailService  {
-
-    constructor () {
-        AWS.config.loadFromPath('./server/ses_config.json');
+    constructor() {
         dotenv.load({ path: '../../.env' });
+        const awsConfig = JSON.parse(fs.readFileSync('./server/ses_config.json', 'utf-8'));
+        this.sesClient = new SESClient({
+            region: awsConfig.region,
+            credentials: {
+                accessKeyId: awsConfig.accessKeyId,
+                secretAccessKey: awsConfig.secretAccessKey
+            }
+        });
     }
 
     sendMailToUs = (subject, msgHtml, msgText) => {
-        // Create sendEmail params
         const params = {
-        Destination: { /* required */
-            CcAddresses: process.env.MAIL_CC.split(','),
-            ToAddresses: process.env.MAIL_TO.split(',')
-        },
-        Message: { /* required */
-            Body: { /* required */
-            Html: {
-            Charset: 'UTF-8',
-            Data: msgHtml
+            Destination: {
+                CcAddresses: process.env.MAIL_CC.split(','),
+                ToAddresses: process.env.MAIL_TO.split(',')
             },
-            Text: {
-            Charset: 'UTF-8',
-            Data: msgText
-            }
+            Message: {
+                Body: {
+                    Html: { Charset: 'UTF-8', Data: msgHtml },
+                    Text: { Charset: 'UTF-8', Data: msgText }
+                },
+                Subject: { Charset: 'UTF-8', Data: subject }
             },
-            Subject: {
-            Charset: 'UTF-8',
-            Data: subject
-            }
-            },
-        Source: process.env.MAIL_FROM
+            Source: process.env.MAIL_FROM
         };
-
-        const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-
-        // Handle promise's fulfilled/rejected states
-        sendPromise.then(
-        function(data) {
-            console.log(data.MessageId);
-        }).catch(
-            function(err) {
-            console.error(err, err.stack);
-            throw(err);
-        });
+        this.sesClient.send(new SendEmailCommand(params))
+            .then(data => console.log(data.MessageId))
+            .catch(err => { console.error(err, err.stack); throw(err); });
     }
 
     sendMailToUser = (subject, msgHtml, msgText, userMail) => {
-        // Create sendEmail params
         const params = {
-        Destination: { /* required */
-            BccAddresses: process.env.MAIL_BCC.split(','),
-            ToAddresses: userMail.split(',')
-        },
-        Message: { /* required */
-            Body: { /* required */
-            Html: {
-            Charset: 'UTF-8',
-            Data: msgHtml
+            Destination: {
+                BccAddresses: process.env.MAIL_BCC.split(','),
+                ToAddresses: userMail.split(',')
             },
-            Text: {
-            Charset: 'UTF-8',
-            Data: msgText
-            }
+            Message: {
+                Body: {
+                    Html: { Charset: 'UTF-8', Data: msgHtml },
+                    Text: { Charset: 'UTF-8', Data: msgText }
+                },
+                Subject: { Charset: 'UTF-8', Data: subject }
             },
-            Subject: {
-            Charset: 'UTF-8',
-            Data: subject
-            }
-            },
-        Source: process.env.MAIL_FROM
+            Source: process.env.MAIL_FROM
         };
-
-        const sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-
-        // Handle promise's fulfilled/rejected states
-        sendPromise.then(
-        function(data) {
-            console.log(data.MessageId);
-        }).catch(
-            function(err) {
-            console.error(err, err.stack);
-            throw(err);
-        });
+        this.sesClient.send(new SendEmailCommand(params))
+            .then(data => console.log(data.MessageId))
+            .catch(err => { console.error(err, err.stack); throw(err); });
     }
-
 }

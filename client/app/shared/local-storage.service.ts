@@ -12,9 +12,10 @@ export class LocalStorage {
     }
   }
 
-  getItem(key: string): string {
+  getItem(key: string): string | null {
     if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem(key);
     }
+    return null;
   }
 }

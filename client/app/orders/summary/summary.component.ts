@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import { LocalStorage } from 'app/shared/local-storage.service';
 
 @Component({
+  standalone: false,
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']

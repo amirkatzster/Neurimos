@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   selector: 'app-not-found',
   templateUrl: './not-found.component.html'
 })

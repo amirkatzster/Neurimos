@@ -1,13 +1,12 @@
-import { Injectable, Inject, Optional } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
 
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8'});
-  private options = {headers: this.headers };
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  private options = { headers: this.headers };
 
   constructor(private http: HttpClient) { }
 
@@ -24,15 +23,15 @@ export class UserService {
   }
 
   me(): Observable<any> {
-    return this.http.get('/api/auth/me').map(res => res);
+    return this.http.get('/api/auth/me');
   }
 
   getUsers(): Observable<any> {
-    return this.http.get('/api/users').map(res => res);
+    return this.http.get('/api/users');
   }
 
   countUsers(): Observable<any> {
-    return this.http.get('/api/users/count').map(res => res);
+    return this.http.get('/api/users/count');
   }
 
   addUser(user): Observable<any> {
@@ -40,7 +39,7 @@ export class UserService {
   }
 
   getUser(user): Observable<any> {
-    return this.http.get(`/api/user/${user._id}`).map(res => res);
+    return this.http.get(`/api/user/${user._id}`);
   }
 
   editUser(user): Observable<any> {

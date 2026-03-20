@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ShoeService } from 'app/services/shoe.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { CompanyService } from 'app/services/company.service';
-import { debug } from 'util';
 import { ClassificationService } from 'app/services/classification.service';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ActivatedRoute } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
+  standalone: false,
   selector: 'app-shoe-edit',
   templateUrl: './shoeEdit.component.html',
   styleUrls: ['./shoeEdit.component.scss']
@@ -23,10 +21,10 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   sizes = [];
   shoes = [];
   genders = [
-    {name: 'ילדות', mark: false},
-    {name: 'ילדים', mark: false},
-    {name: 'נשים', mark: false},
-    {name: 'גברים', mark: false}];
+    { name: 'ילדות', mark: false },
+    { name: 'ילדים', mark: false },
+    { name: 'נשים', mark: false },
+    { name: 'גברים', mark: false }];
   isEditing = false;
   currentImageGroup: any = {};
   sub; sub1; sub2; sub3; sub4; sub5; sub6; sub7;
@@ -36,12 +34,11 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
               private companyService: CompanyService,
               private formBuilder: FormBuilder,
               private ClassificationService: ClassificationService,
-              private http: Http,
               public toast: ToastComponent,
               public route: ActivatedRoute,
               private _location: Location) {
-                this.sizes = new Array(31).fill(0).map((x, i) => i + 19);
-              }
+    this.sizes = new Array(31).fill(0).map((x, i) => i + 19);
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -53,7 +50,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
       } else {
         this.addShoe();
       }
-   });
+    });
     this.getCompanies();
     this.getClassifications();
   }
@@ -62,39 +59,37 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     this.initGroupImages();
     if (this.currentShoe.gender) {
       this.genders.forEach(g => {
-         if (this.currentShoe.gender.indexOf(g.name) > -1) {
-           g.mark = true;
-         } else {
-           g.mark = false;
-         }
-     });
-     if (!this.currentShoe.information || !Array.isArray(this.currentShoe.information)) {
-       this.currentShoe.information = [];
-     }
-   }
+        if (this.currentShoe.gender.indexOf(g.name) > -1) {
+          g.mark = true;
+        } else {
+          g.mark = false;
+        }
+      });
+      if (!this.currentShoe.information || !Array.isArray(this.currentShoe.information)) {
+        this.currentShoe.information = [];
+      }
+    }
   }
 
   getCompanies(): any {
     this.sub3 = this.companyService.getCompanies().subscribe(
-      data => {this.companies = data},
+      data => { this.companies = data; },
       error => console.log(error)
-    )
+    );
   }
 
   addShoe() {
     this.sub2 = this.shoeService.countShoes().subscribe(
       data => {
-        console.log(data);
-        // count shoes in database * 2 + random number between 10-9900 * 3
         this.friendlyId = ((data * 2) + ((Math.floor(Math.random() * 100000) + 10) * 3)).toString();
-        this.currentShoe = { 'active': true , 'id': this.friendlyId , 'imagesGroup': [], 'information': []};
+        this.currentShoe = { 'active': true, 'id': this.friendlyId, 'imagesGroup': [], 'information': [] };
         this.initGroupImages();
       },
       error => console.log(error),
     );
     if (!this.currentShoe.information || !Array.isArray(this.currentShoe.information)) {
       this.currentShoe.information = [];
-     }
+    }
   }
 
   deleteImage(shoe, index, jIndex) {
@@ -108,12 +103,11 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     shoe.imagesGroup[index].images.splice(jIndex, 1);
   }
 
-  // On SAVE
   doneEditShoe(shoe) {
     this.isLoading = true;
     this.beforeSubmitting(shoe);
     if (!this.currentShoe._id) {
-        this.sub5 = this.shoeService.addShoe(shoe).subscribe(
+      this.sub5 = this.shoeService.addShoe(shoe).subscribe(
         res => {
           this.toast.setMessage(shoe.id + ' עודכן בהצלחה', 'success');
           this.isLoading = false;
@@ -144,7 +138,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
         ig.sizes = [];
         ig.sizeOptions.filter(g => g.mark).forEach(so => {
           countStock += so.amount;
-          ig.sizes.push({'size' : so.name , 'amount' : so.amount});
+          ig.sizes.push({ 'size': so.name, 'amount': so.amount });
         });
       }
     });
@@ -169,7 +163,8 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
       if (c._id === shoe.classification) {
         searchWords.push(c.name);
         shoe.classificationCache = c.name;
-      }})
+      }
+    });
     shoe.company = this.companies.find(c => c._id === shoe.companyId).name;
     searchWords.push(shoe.id);
     shoe.company.split(' ').forEach(element => {
@@ -190,7 +185,6 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     shoe.searchWords = searchWords;
   }
 
-
   handleInputChange(e, imageGroup) {
     this.currentImageGroup = imageGroup;
     const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
@@ -198,8 +192,8 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     const reader = new FileReader();
 
     if (!file.type.match(pattern)) {
-        alert('invalid format');
-        return;
+      alert('invalid format');
+      return;
     }
 
     reader.onload = this._handleReaderLoaded.bind(this);
@@ -207,8 +201,8 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   }
 
   _handleReaderLoaded(e) {
-      const reader = e.target;
-      this.currentImageGroup.images.push({ 'urlMedium' : reader.result });
+    const reader = e.target;
+    this.currentImageGroup.images.push({ 'urlMedium': reader.result });
   }
 
   getClassifications() {
@@ -225,27 +219,28 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   initGroupImages() {
     if (!this.currentShoe.imagesGroup || this.currentShoe.imagesGroup.length === 0) {
       this.currentShoe.imagesGroup = [];
-      this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
+      this.currentShoe.imagesGroup.push({ 'sizes': [], 'images': [] });
     }
     this.currentShoe.imagesGroup.forEach(ig => {
-      ig.sizeOptions  = [];
+      ig.sizeOptions = [];
       this.sizes.forEach(s => {
         const sizeIndex = ig.sizes.map(igs => igs.size).indexOf(s.toString());
         if (sizeIndex > -1) {
-          ig.sizeOptions.push({'name': s, 'mark': true, 'amount': ig.sizes[sizeIndex].amount});
+          ig.sizeOptions.push({ 'name': s, 'mark': true, 'amount': ig.sizes[sizeIndex].amount });
         } else {
-          ig.sizeOptions.push({'name': s, 'mark': false, 'amount': 0});
+          ig.sizeOptions.push({ 'name': s, 'mark': false, 'amount': 0 });
         }
-      })});
+      });
+    });
   }
 
   addGroupImage() {
-    this.currentShoe.imagesGroup.push({'sizes': [], 'images': []});
+    this.currentShoe.imagesGroup.push({ 'sizes': [], 'images': [] });
     this.initGroupImages();
   }
 
   removeGroupImage(index) {
-    this.currentShoe.imagesGroup[index].images.forEach((img , j) => { this.deleteImage(this.currentShoe, index, j) });
+    this.currentShoe.imagesGroup[index].images.forEach((img, j) => { this.deleteImage(this.currentShoe, index, j); });
     this.currentShoe.imagesGroup.splice(index, 1);
     this.initGroupImages();
   }
@@ -259,7 +254,7 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     if (sizeOption.amount > 0) {
       sizeOption.amount--;
       if (sizeOption.amount === 0) {
-         sizeOption.mark = false;
+        sizeOption.mark = false;
       }
     }
   }
@@ -283,8 +278,10 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteShoeConfirm(model) {
-    model.open();
+  deleteShoeConfirm() {
+    if (confirm('בטוח שרוצים למחוק?')) {
+      this.deleteShoe();
+    }
   }
 
   deleteShoe() {
@@ -296,41 +293,17 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
       },
       error => console.log(error)
     );
-
   }
-
 
   ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-    if (this.sub1) {
-    this.sub1.unsubscribe();
-    }
-    if (this.sub2) {
-      this.sub2.unsubscribe();
-    }
-    if (this.sub3) {
-      this.sub3.unsubscribe();
-    }
-    if (this.sub4) {
-      this.sub4.unsubscribe();
-    }
-    if (this.sub5) {
-      this.sub5.unsubscribe();
-    }
-    if (this.sub6) {
-      this.sub6.unsubscribe();
-    }
-    if (this.sub7) {
-      this.sub7.unsubscribe();
-    }
+    if (this.sub) { this.sub.unsubscribe(); }
+    if (this.sub1) { this.sub1.unsubscribe(); }
+    if (this.sub2) { this.sub2.unsubscribe(); }
+    if (this.sub3) { this.sub3.unsubscribe(); }
+    if (this.sub4) { this.sub4.unsubscribe(); }
+    if (this.sub5) { this.sub5.unsubscribe(); }
+    if (this.sub6) { this.sub6.unsubscribe(); }
+    if (this.sub7) { this.sub7.unsubscribe(); }
   }
 
-
-
-
-
 }
-
-

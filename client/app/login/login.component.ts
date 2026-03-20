@@ -7,6 +7,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']

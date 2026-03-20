@@ -7,10 +7,10 @@
   <div class="addForm">
       <div class="spacer row">
           <div class="col-md-2 ">
-                <button type="button" class="btn btn-danger" (click)="deleteShoeConfirm(modal)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i>מחק נעל</button>
+                <button type="button" class="btn btn-danger" (click)="deleteShoeConfirm()"><i class="fa fa-6 fa-trash" aria-hidden="true"></i>מחק נעל</button>
           </div>
           <div class="col-md-3 offset-md-7">
-                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="backClicked()">סגור</button>
+                <button type="button" class="btn btn-secondary" (click)="backClicked()">סגור</button>
                 <button type="submit" class="btn btn-primary" [disabled]="!addEditform.form.valid">שמור</button>
           </div>
       </div>
@@ -41,7 +41,7 @@
                       <button *ngIf="currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-danger"><i class="fa fa-minus fa-1x" aria-hidden="true"></i>הסרת הנחה</button>
                   </mat-grid-tile>
             </mat-grid-list>
-        </div>  
+        </div>
       </div>
       <div class="form-group" *ngIf="currentShoe.discount">
           <div class="input-group">
@@ -55,7 +55,7 @@
                   <div class="OrDiscount">או</div>
               </mat-grid-tile>
               <mat-grid-tile colspan="2">
-                  <span class="input-group-addon">₪</span> 
+                  <span class="input-group-addon">₪</span>
                   <input class="form-control" type="number" name="discountCash" (change)="discountCalc(currentShoe)" [(ngModel)]="currentShoe.discount.newAmount" placeholder="המחיר החדש" step="any" min="0">
               </mat-grid-tile>
          </mat-grid-list>
@@ -78,10 +78,10 @@
         <input *ngFor="let info of currentShoe.information; let k = index" class="form-control"  type="text" [name]="'information' + k" [ngModel]="currentShoe.information[k]" placeholder="משפט מכירה" (change)="removeInfoIfEmpty($event,k)" required />
         <input #newInfo class="form-control" type="text" name="informationNew" placeholder="משפט מכירה" (change)="currentShoe.information.push($event.target.value);newInfo.value = ''" />
       </div>
-       
+
       <div *ngFor="let ig of currentShoe.imagesGroup; let i = index" class="groupSeperator spacer">
         <div class="row">
-            <div class="col-md-12"> 
+            <div class="col-md-12">
                 <button type="button" (click)="removeGroupImage(i)" class="btn btn-danger"><i class="fa fa-trash fa-1x" aria-hidden="true"></i>הסרת צבע</button><br>
                 <label>צבע</label>
                 <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
@@ -89,13 +89,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-xs-4 sizeSpacer" *ngFor="let sizeOption of ig.sizeOptions" [ngClass]="{'showInStock': sizeOption.amount > 0 }">
+            <div class="col-md-2 col-4 sizeSpacer" *ngFor="let sizeOption of ig.sizeOptions" [ngClass]="{'showInStock': sizeOption.amount > 0 }">
                 <i class="fa fa-chevron-circle-up fa-1" aria-hidden="true" (click)="sizeUp(sizeOption)"></i>{{ sizeOption.name }} ({{ sizeOption.amount }})
                 <i class="fa fa-chevron-circle-down fa-1" [ngClass]="{'downDisabled': sizeOption.amount === 0 }"  aria-hidden="true" (click)="sizeDown(sizeOption)"></i>
             </div>
         </div>
         <div class="row" >
-            <div class="col-xs-12 col-md-3" *ngFor="let img of ig.images; let j = index">
+            <div class="col-12 col-md-3" *ngFor="let img of ig.images; let j = index">
                 <button class="btn btn-lg btn-danger trashBtn" (click)="deleteImage(currentShoe,i,j)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
                 <img [src]="img.urlMedium" class="mx-auto d-block" width="255" >
             </div>
@@ -106,26 +106,12 @@
                 <input [hidden]="true" #pictureBtn type="file" accept="image/*" capture="camera" [name]="'image_' + i + '_' + j" [(ngModel)]="currentShoe.image" (change)="handleInputChange($event,ig)" />
             </div>
         </div>
-      </div> 
+      </div>
       <button type="button" (click)="addGroupImage()" class="btn spacer"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת צבע</button>
   </div>
   <div class="spacer">
-    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="backClicked()">סגור</button>
+    <button type="button" class="btn btn-secondary" (click)="backClicked()">סגור</button>
     <button type="submit" class="btn btn-primary" [disabled]="!addEditform.form.valid">שמור</button>
   </div>
   </form>
 </div>
-
-<modal #modal>
-        <form (ngSubmit)="deleteShoe()">
-          <modal-header [show-close]="true">
-              <h4 class="modal-title">בטוח שרוצים למחוק?</h4>
-          </modal-header>
-          <modal-body class="addForm">
-          </modal-body>
-          <modal-footer>
-              <button type="submit" class="btn btn-danger deleteBtn" (click)="modal.close()">כן למחוק</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">לא למחוק</button>
-          </modal-footer>
-        </form>
-      </modal>

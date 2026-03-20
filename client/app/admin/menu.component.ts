@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-menu',
   styleUrls: ['./menu.component.scss'],
   template: `

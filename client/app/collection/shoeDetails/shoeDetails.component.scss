@@ -228,41 +228,7 @@
 
 
 .carousel {
-    
-    :host{
-        display: block;
-        width: 100%;
-    }
-
-    /deep/ .ui-carousel-item {
-        background-color: transparent !important;
-    }
-
-    /deep/ .dot  {
-        background-color: #505050 !important;
-    }
-
-    /deep/ .arrow  {
-        background-color: #505050 !important;
-
-        
-    }
-
-    /deep/ .arrow.left {
-        left:0%;
-    }
-
-    /deep/ .arrow.right {
-        right:0%;
-    }
-
-    
-   ui-carousel{
-        display: block;
-        margin: 0 auto;
-    }
-    
-    img{
+    img {
         width: 100%;
     }
 }

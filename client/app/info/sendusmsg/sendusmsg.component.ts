@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactUsService } from 'app/services/contactus.service';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnDestroy } from '@angular/core';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   selector: 'app-sendusmsg',
   templateUrl: './sendusmsg.component.html',
   styleUrls: ['./sendusmsg.component.scss']
