@@ -1,51 +1,56 @@
-<div class="container-fluid footer">
-  <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-2">
-      <a href="#" routerLink="/about">אודותינו</a>
-      <div class="articles">
-        <a href="https://www.hashikma-holon.co.il/life-style/10626" target="_blank">כתבו עלינו בשקמה</a>
+<footer class="site-footer">
+  <div class="container-fluid">
+
+    <!-- Links row -->
+    <div class="row justify-content-center pt-4 pb-2">
+      <div class="col-6 col-md-2 footer-section">
+        <h4 class="footer-heading"><a routerLink="/about">אודותינו</a></h4>
+        <a href="https://www.hashikma-holon.co.il/life-style/10626" target="_blank" class="footer-link">כתבו עלינו בשקמה</a>
+      </div>
+      <div class="col-6 col-md-2 footer-section">
+        <h4 class="footer-heading"><a routerLink="/sendusmsg">צרו קשר</a></h4>
+        <a routerLink="/findus" class="footer-link">איך להגיע</a>
+      </div>
+      <div class="col-6 col-md-2 footer-section">
+        <h4 class="footer-heading"><a routerLink="/נעלי/נעליים">קטלוג נעליים</a></h4>
+        <a routerLink="/נעלי/ילדים" class="footer-link d-block">נעלי ילדים</a>
+        <a routerLink="/נעלי/ילדות" class="footer-link d-block">נעלי ילדות</a>
+        <a routerLink="/נעלי/נשים" class="footer-link d-block">נעלי נשים</a>
+        <a routerLink="/נעלי/גברים" class="footer-link d-block">נעלי גברים</a>
       </div>
     </div>
-    <div class="col-md-2">
-      <a href="#" routerLink="/sendusmsg">צרו קשר</a>
-      <div class="articles">
-        <a href="#" routerLink="/findus">איך להגיע</a>
+
+    <!-- Social row -->
+    <div class="row justify-content-center pb-2">
+      <div class="col-auto">
+        <a href="https://twitter.com/neurimshoes?lang=en" target="_blank" class="social-btn twitter-btn">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.facebook.com/Neurimshoes/" target="_blank" class="social-btn fb-btn">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="col-12 text-center">
+        <a href="https://loading.io/spinner/double-rignt/" class="spinner-link">spinner by loading.io</a>
       </div>
     </div>
-    <div class="col-md-2 shoesCatalog">
-        <h2><a href="#" routerLink="/נעלי/נעליים">קטלוג נעליים</a></h2>
-        <h3><a href="#" routerLink="/נעלי/ילדים">נעלי ילדים</a></h3>
-        <h3><a href="#" routerLink="/נעלי/ילדות">נעלי ילדות</a></h3>
-        <h3><a href="#" routerLink="/נעלי/נשים">נעלי נשים</a></h3>
-        <h3><a href="#" routerLink="/נעלי/גברים">נעלי גברים</a></h3>
-    </div>
-    <div class="col-md-3"></div>
-  </div>
-  <div class="row spacer">
-      <div class="col-md-3"></div>
-      <div class="col-md-2">
-        <a href="https://www.facebook.com/Neurimshoes/" target="_blank" class="fbBtn"><span class="fa fa-facebook"></span></a>
-        <a href="https://twitter.com/neurimshoes?lang=en" target="_blank" class="twitterBtn"><span class="fa fa-twitter"></span></a>
-        <div>
-          <a href="https://loading.io/spinner/double-rignt/" class="spiner">spinner by loading.io</a>
-        </div>
-      </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-3"></div>
-  </div>
-  <div class="row spacer">
-    <div class="col-md-12">
-      <address>
+
+    <!-- Address -->
+    <div class="row justify-content-center pb-2">
+      <div class="col-auto text-center">
+        <address class="footer-address">
           שנקר 52 חולון
-          <a href="tel:035047523" class="header-phone">504-7523 (03) <i class="fa fa-phone" aria-hidden="true"></i></a>
-       </address>
+          <a href="tel:035047523" class="footer-phone">504-7523 (03) <i class="fa fa-phone" aria-hidden="true"></i></a>
+        </address>
       </div>
-  </div>
-  <div class="row">
-      <div class="col-md-12"><em>כל הזכויות שמורות לנעלי נעורים בע"מ © 1965–2018</em></div>
     </div>
-</div>
+
+    <!-- Copyright -->
+    <div class="row justify-content-center pb-3">
+      <div class="col-auto">
+        <em>כל הזכויות שמורות לנעלי נעורים בע"מ © 1965–2018</em>
+      </div>
+    </div>
+
+  </div>
+</footer>

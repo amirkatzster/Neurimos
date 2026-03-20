@@ -1,69 +1,114 @@
-<div class="header navbar">
-  <div class="container-fluid">
-    <div class="row first-row-header top-spacing">
-      <div class="col-md-2 d-none d-sm-block">מאמינים בחיוך :)</div>
-      <div class="col-md-2 d-none d-sm-block"></div>
-      <div class="col-md-2 col-6"><a href="tel:035047523" class="header-phone">504-7523 (03) <i class="fa fa-phone" aria-hidden="true"></i></a></div>
-      <div class="col-md-2 d-none d-sm-block"><div class="align-left">9:00 עד 19:00 <i class="fa fa-clock-o" aria-hidden="true"></i></div></div>
-      <div class="col-md-3 dropdown col-5">
-          <div class="dropdown show btn-group">
-              <a class="btn dropdown-toggle btnContact btn-sm" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  צרו קשר
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" routerLink="/sendusmsg" href="#">שלחו לנו הודעה</a>
-                <a class="dropdown-item" routerLink="/findus" href="#">הגעה</a>
-              </div>
-            </div>
+<header class="site-header">
+
+  <!-- Info bar -->
+  <div class="header-info-bar">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-2 d-none d-md-block header-tagline">מאמינים בחיוך :)</div>
+        <div class="col-md-2 d-none d-md-block"></div>
+        <div class="col-md-2 col-6">
+          <a href="tel:035047523" class="header-phone">504-7523 (03) <i class="fa fa-phone" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-md-2 d-none d-md-block">
+          <span>9:00 עד 19:00 <i class="fa fa-clock-o" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-md-3 col-5">
+          <div class="dropdown">
+            <a class="btn dropdown-toggle btn-contact btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              צרו קשר
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/sendusmsg">שלחו לנו הודעה</a></li>
+              <li><a class="dropdown-item" routerLink="/findus">הגעה</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-1 col-1"></div>
       </div>
-      <div class="col-md-1 dropdown col-1"></div>
     </div>
   </div>
-  <!-- For Desktop -->
-  <div class="row search-bar d-none d-md-flex">
-      <div class="col-md-2 cart-container" [ngClass]="{'cartFull' : orderService.orderContainer?.orders?.length > 0}"><a class="my-cart" routerLink="/order"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים בעגלה</span><span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span></a></div>
-      <div class="col-md-8"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-secondary search-button" (onclick)="googleService.emitEvent('Search', 'Search bar')" [routerLink]="'/נעלי/' +querySearch">חפש</button></div>
-      <div class="col-md-1"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" alt="לוגו נעלי נעורים" height="60"></a></div>
-      <div class="col-md-1"></div>
-  </div>
-  <!-- For Mobile -->
-  <div class="row login-mobile search-bar d-md-none">
-      <div class="col-12">
-          <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
-          <span class="nav-float or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
-          <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
-          <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
+
+  <!-- Main bar: logo + search + cart (Desktop) -->
+  <div class="header-main d-none d-md-block">
+    <div class="container-fluid">
+      <div class="row align-items-center py-2">
+        <div class="col-md-2 cart-container" [ngClass]="{'cartFull': orderService.orderContainer?.orders?.length > 0}">
+          <a class="my-cart" routerLink="/order">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים בעגלה</span>
+            <span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span>
           </a>
-          <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-            <i class="fa fa-lock" aria-hidden="true"></i> אדמין
-          </a>
-          <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
-            <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
-          </a><br>
-          <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">
-            שלום :) {{auth.currentUser.username}}
-          </span>
+        </div>
+        <div class="col-md-8 search-col">
+          <input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()">
+          <button #btnSearch class="btn search-button" [routerLink]="'/נעלי/' + querySearch">חפש</button>
+        </div>
+        <div class="col-md-1 text-center">
+          <a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" alt="לוגו נעלי נעורים" height="60"></a>
+        </div>
+        <div class="col-md-1"></div>
       </div>
+    </div>
   </div>
-  <div class="row search-bar d-md-none">
-      <div class="col-1"></div>
-      <div class="col-5 cart-container" [ngClass]="{'cartFull' : orderService.orderContainer?.orders?.length > 0}"><div class="my-cart-mobile"><a class="my-cart" routerLink="/order"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים</span><span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span></a></div></div>
-      <div class="col-1"></div>
-      <div class="col-4"><a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" height="50"></a></div>
+
+  <!-- Mobile: login row -->
+  <div class="header-mobile-auth d-md-none">
+    <div class="container-fluid py-1">
+      <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
+      <span class="or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
+      <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
+      <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
+        <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
+      </a>
+      <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
+        <i class="fa fa-lock" aria-hidden="true"></i> אדמין
+      </a>
+      <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
+        <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
+      </a>
+      <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">שלום :) {{auth.currentUser.username}}</span>
+    </div>
   </div>
-  <div class="row search-bar d-md-none">
-      <div class="col-12"><input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()"><button #btnSearch class="btn header-btn btn-secondary search-button" (onclick)="googleService.emitEvent('Search', 'Search bar')" [routerLink]="'/נעלי/' + querySearch">חפש</button></div>
+
+  <!-- Mobile: logo + cart -->
+  <div class="header-mobile-logo d-md-none">
+    <div class="container-fluid py-1">
+      <div class="row align-items-center">
+        <div class="col-1"></div>
+        <div class="col-5 cart-container" [ngClass]="{'cartFull': orderService.orderContainer?.orders?.length > 0}">
+          <a class="my-cart" routerLink="/order">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים</span>
+            <span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span>
+          </a>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-4 text-center">
+          <a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.png" height="50" alt="נעורים"></a>
+        </div>
+      </div>
+    </div>
   </div>
-  <nav class="navbar nav-main" >
-    <div class="nav-right row top-spacing">
-        <div class="col-md-4 col-12">
-          <div class="register-container float-end float-md-start d-none d-md-block">
-            <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">
-                שלום :) {{auth.currentUser.username}}
-            </span>
+
+  <!-- Mobile: search -->
+  <div class="header-mobile-search d-md-none">
+    <div class="container-fluid pb-2">
+      <input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()">
+      <button #btnSearch class="btn search-button" [routerLink]="'/נעלי/' + querySearch">חפש</button>
+    </div>
+  </div>
+
+  <!-- Category nav bar -->
+  <nav class="header-nav-bar">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+
+        <!-- Register/account links (desktop only) -->
+        <div class="col-md-4 d-none d-md-block">
+          <div class="register-container">
+            <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">שלום :) {{auth.currentUser.username}}</span>
             <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
-            <span class="nav-float or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
+            <span class="or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
             <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
             <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
               <i class="fa fa-lock" aria-hidden="true"></i> אדמין
@@ -74,50 +119,52 @@
             <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
               <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
             </a>
-
           </div>
         </div>
-        <div class="col-md-2 d-none d-sm-block"></div>
+
+        <div class="col-md-2 d-none d-md-block"></div>
+
+        <!-- Category links -->
         <div class="col-md-5 col-12">
-          <ul>
+          <ul class="nav-categories">
             <li>
-                <a mat-icon-button [matMenuTriggerFor]="menMenu" class="nav-item nav-link header-nav-btn">
-                    גברים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                  </a>
-                  <mat-menu #menMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                      <button *ngFor="let classification of men" mat-menu-item [routerLink]="['/נעלי/' + 'גברים ' +  '\[' + classification + '\]']">{{classification}}</button>
-                  </mat-menu>
+              <a [matMenuTriggerFor]="menMenu" class="nav-cat-link">
+                גברים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+              <mat-menu #menMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+                <button *ngFor="let classification of men" mat-menu-item [routerLink]="['/נעלי/' + 'גברים ' + '\[' + classification + '\]']">{{classification}}</button>
+              </mat-menu>
             </li>
             <li>
-                <a mat-icon-button [matMenuTriggerFor]="womenMenu" class="nav-item nav-link header-nav-btn">
-                    נשים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                  </a>
-                  <mat-menu #womenMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                      <button *ngFor="let classification of women" mat-menu-item [routerLink]="['/נעלי/' + 'נשים ' + '\[' + classification + '\]']">{{classification}}</button>
-                  </mat-menu>
+              <a [matMenuTriggerFor]="womenMenu" class="nav-cat-link">
+                נשים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+              <mat-menu #womenMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+                <button *ngFor="let classification of women" mat-menu-item [routerLink]="['/נעלי/' + 'נשים ' + '\[' + classification + '\]']">{{classification}}</button>
+              </mat-menu>
             </li>
             <li>
-                <a mat-icon-button [matMenuTriggerFor]="boysMenu" class="nav-item nav-link header-nav-btn">
-                    ילדים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </a>
-                <mat-menu #boysMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                     <button *ngFor="let classification of boys" mat-menu-item [routerLink]="['/נעלי/' + 'ילדים ' + '\[' + classification + '\]']">{{classification}}</button>
-                </mat-menu>
+              <a [matMenuTriggerFor]="boysMenu" class="nav-cat-link">
+                ילדים <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+              <mat-menu #boysMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+                <button *ngFor="let classification of boys" mat-menu-item [routerLink]="['/נעלי/' + 'ילדים ' + '\[' + classification + '\]']">{{classification}}</button>
+              </mat-menu>
             </li>
             <li>
-              <a mat-icon-button [matMenuTriggerFor]="girlsMenu" class="nav-item nav-link header-nav-btn">
+              <a [matMenuTriggerFor]="girlsMenu" class="nav-cat-link">
                 ילדות <i class="fa fa-chevron-down" aria-hidden="true"></i>
               </a>
-              <mat-menu #girlsMenu="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-                  <button *ngFor="let classification of girls" mat-menu-item [routerLink]="['/נעלי/' + 'ילדות ' + '\[' + classification + '\]']">{{classification}}</button>
+              <mat-menu #girlsMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+                <button *ngFor="let classification of girls" mat-menu-item [routerLink]="['/נעלי/' + 'ילדות ' + '\[' + classification + '\]']">{{classification}}</button>
               </mat-menu>
             </li>
           </ul>
-          </div>
-          <div class="col-md-1 d-none d-sm-block"></div>
+        </div>
+
+        <div class="col-md-1 d-none d-md-block"></div>
+      </div>
     </div>
   </nav>
 
-</div>
-
-
+</header>

@@ -1,96 +1,75 @@
-<div style="position:initial">
-  <div class="container-fluid firstRow" >
-      <div class="row secondRow d-none d-md-block">
-          <div class="col-md-2">
-              <mat-form-field>
-                <mat-select placeholder="מיון על פי" [(ngModel)]="sort" (change)="sortChangeEvent($event)">
-                  <mat-option *ngFor="let sort of sortList" [value]="sort.value">
-                    {{ sort.viewValue }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
-          <div class="col-md-10">
-              <h1 *ngIf="shoes?.length > 0"><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!</h1>
-              <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
-          </div>
-      </div>
-      <div class="row d-none d-md-block">
-          <div class="col-md-10">
-            <mat-form-field style="width: 100%;">
-              <mat-chip-list #chipList selectable="true">
-                <mat-chip *ngFor="let filter of filters" selectable="false" removable="true" color="primary" (remove)="removeFilter(filter)">
-                    {{filter}}<i matChipRemove class="material-icons cancelIcon">cancel</i></mat-chip>
-              </mat-chip-list>
-            </mat-form-field>  
-          </div>
-          <div class="col-md-2 narrow">צמצום הבחירה</div>
-        </div>
-      <div class="row d-sm-none">
-            <div class="col-12">
-                <h1 *ngIf="shoes?.length > 0"><span class="searchQuery" *ngIf="queries.length > 0" >"{{ queries.join(' ')}}"</span> הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!</h1>
-                <h1 *ngIf="shoes?.length === 0"><span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span></h1>
-            </div>
-      </div>
-      <div class="row">
-          <!-- Start Mobile view -->
-          <div class="d-sm-none">
-                <div *ngFor="let shoe of shoes;let i = index">
-                    <div *ngIf="i % 2 === 0" class="row">
-                        <div class="col-6 border">
-                            <app-collection-shoe [shoe]="shoes[i]"></app-collection-shoe>
-                        </div>
-                        <div class="col-6 border" *ngIf="shoes.length > 1 + i">
-                                <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
-                            </div>
-                        <!-- <div class="col-6 border" *ngIf="shoes.length > i">
-                            
-                                <app-collection-shoe [shoe]="shoes[i + 1]"></app-collection-shoe>
-                        </div> -->
-                    </div>
-                </div>
-          </div>
-          <!-- End Mobile view -->
-        <div class="col-md-10  d-none d-sm-block">
-          <div class="row shoesCollectionContainer ">
-              <div *ngFor="let shoe of shoes" class="shoesCollection col-sm-5 col-md-4 col-lg-3 col-xl-3">
-                  <app-collection-shoe [shoe]=shoe ></app-collection-shoe>   
-              </div>
-          </div>         
-        </div>
-        <!-- Side filter hidden on mobile -->
-        <div class="col-md-2  d-none d-md-block">
-          <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')" >רק מבצעים</button>
-           <mat-accordion [multi]="true">
-            <mat-expansion-panel  [expanded]="true"  >
-                <mat-expansion-panel-header class="headerAccordion">
-                    מידה
-                </mat-expansion-panel-header>
-                <div>
-                    <button class="btn btn-secondary btn-sm" *ngFor="let size of sizes">{{size}}</button>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="true" >
-                <mat-expansion-panel-header class="headerAccordion">
-                    חברה  
-                </mat-expansion-panel-header>
-                <div *ngFor="let company of companies">
-                    <button class="btn btn-link btn-sm" (click)="addFiler(company.key)" >
-                        {{company.key}} ({{company.count}})</button>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="true">
-                <mat-expansion-panel-header class="headerAccordion">
-                    צבע
-                </mat-expansion-panel-header>
-                <div *ngFor="let color of colors">
-                    <button class="btn btn-link btn-sm" (click)=filter (click)="addFiler(color.key)" >
-                        {{color.key}} ({{color.count}})</button>
-                </div>
-            </mat-expansion-panel>         
-          </mat-accordion> 
+<div class="collection-page">
+  <div class="container-fluid">
 
-        </div>
+    <!-- Results header -->
+    <div class="row results-header align-items-center">
+      <div class="col-md-2 col-12 d-none d-md-flex">
+        <mat-form-field class="w-100">
+          <mat-select placeholder="מיון על פי" [(ngModel)]="sort" (change)="sortChangeEvent($event)">
+            <mat-option *ngFor="let sort of sortList" [value]="sort.value">{{ sort.viewValue }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-10 col-12">
+        <h1 *ngIf="shoes?.length > 0">
+          <span class="searchQuery" *ngIf="queries.length > 0">"{{ queries.join(' ')}}"</span>
+          הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!
+        </h1>
+        <h1 *ngIf="shoes?.length === 0">
+          <span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span>
+        </h1>
       </div>
     </div>
+
+    <!-- Active filters -->
+    <div class="row d-none d-md-flex align-items-center">
+      <div class="col-md-10">
+        <mat-form-field style="width: 100%;">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let filter of filters" removable="true" color="primary" (remove)="removeFilter(filter)">
+              {{filter}}<i matChipRemove class="material-icons cancelIcon">cancel</i>
+            </mat-chip>
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 narrow">צמצום הבחירה</div>
+    </div>
+
+    <div class="row">
+      <!-- Shoe grid -->
+      <div class="col-md-10 col-12">
+        <div class="row g-2">
+          <div *ngFor="let shoe of shoes" class="col-6 col-sm-4 col-md-4 col-lg-3 shoe-col">
+            <app-collection-shoe [shoe]="shoe"></app-collection-shoe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side filter (desktop only) -->
+      <div class="col-md-2 d-none d-md-block side-filter">
+        <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')">רק מבצעים</button>
+        <mat-accordion [multi]="true">
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header class="headerAccordion">מידה</mat-expansion-panel-header>
+            <div>
+              <button class="btn btn-secondary btn-sm" *ngFor="let size of sizes">{{size}}</button>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header class="headerAccordion">חברה</mat-expansion-panel-header>
+            <div *ngFor="let company of companies">
+              <button class="btn btn-link btn-sm" (click)="addFiler(company.key)">{{company.key}} ({{company.count}})</button>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header class="headerAccordion">צבע</mat-expansion-panel-header>
+            <div *ngFor="let color of colors">
+              <button class="btn btn-link btn-sm" (click)="addFiler(color.key)">{{color.key}} ({{color.count}})</button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+
+  </div>
 </div>

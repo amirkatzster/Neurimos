@@ -1,77 +1,145 @@
-.image-container
-{
-    text-align: center;
-    position: relative;
+$brand-primary: #0076BE;
+$brand-dark:    #004f82;
+$brand-darker:  #003952;
+
+// ── Hero banner ───────────────────────────────────────────────
+.hero-banner {
+  position: relative;
+  overflow: hidden;
+  background: #111;
 }
 
-
-@media (min-width: 800px) {
-    /* CSS that should be displayed if width is equal to or less than 800px goes here */
-    .insideImage {
-        position: absolute;
-        top: 10%;
-        right: 20%;  
-    }
+.hero-img {
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.88;
 }
 
-@media (max-width: 800px) {
-    /* CSS that should be displayed if width is equal to or less than 800px goes here */
-    
-}
+.hero-card {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.92);
+  border-radius: 8px;
+  padding: 24px 32px;
+  text-align: center;
+  min-width: 200px;
 
-.colorCard {
-    background-color: #cfc4b0;
-    
-    .btnInsideImage {
-        background-color: #9b8254;
-        color:white;
-    }
-}
-
-.companies-container
-{
-    margin: 20px 0 20px 0;
-}
-
-.companies-header
-{
-    font-weight: bold;
+  h4 {
+    color: $brand-darker;
     font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  p { color: #444; margin-bottom: 16px; }
 }
 
-
-
-.companyContainer
-{
-    a {
-        
-
-        img {
-            opacity: 0.8;
-            border: 2px solid white;
-            border-radius: 4px;
-            padding: 4px 4px;
-            margin: 2px 2px;
-            -webkit-transition: opacity 0.5s ease-in-out;
-            -moz-transition: opacity 0.5s ease-in-out;
-            -ms-transition: opacity 0.5s ease-in-out;
-            -o-transition: opacity 0.5s ease-in-out;
-            transition: opacity 0.5s ease-in-out;
-
-        }
-        img:hover {
-            border-color:#b4d5fb;
-            opacity: 1;
-        }
-        img.marked {
-            border-color:#254574 !important;
-        }
-    }
-
+.hero-btn {
+  background-color: $brand-dark;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover { background-color: $brand-primary; color: white; }
 }
 
-.responsiveImg {
-    width: 100%;
-    max-width: 1200px;
-    height: auto; 
+@media (max-width: 768px) {
+  .hero-card {
+    right: 50%;
+    transform: translate(50%, -50%);
+    padding: 16px 20px;
+    min-width: 160px;
+    h4 { font-size: 16px; }
+  }
+  .hero-img { max-height: 280px; }
+}
+
+// ── Category tiles ────────────────────────────────────────────
+.categories-section {
+  padding: 32px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.category-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  background: #f5f6f7;
+  border: 2px solid #e0e6ed;
+  border-radius: 8px;
+  text-decoration: none;
+  color: $brand-darker;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  min-height: 110px;
+
+  &:hover {
+    border-color: $brand-primary;
+    background: #e8f4fd;
+    color: $brand-primary;
+  }
+}
+
+.category-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+  color: $brand-primary;
+}
+
+.category-label {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+// ── Brand logos ───────────────────────────────────────────────
+.brands-section {
+  padding: 32px 16px 40px;
+  background: #fafafa;
+}
+
+.brands-title {
+  text-align: center;
+  color: $brand-darker;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.brand-col {
+  display: flex;
+  justify-content: center;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: 2px solid #e0e6ed;
+  border-radius: 6px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+
+  &:hover {
+    border-color: $brand-primary;
+    box-shadow: 0 2px 8px rgba(0,118,190,0.15);
+  }
+}
+
+.brand-img {
+  max-width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 1; }
 }

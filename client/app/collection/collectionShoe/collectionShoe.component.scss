@@ -3,7 +3,8 @@
     width:100%;
     height: 100%;
     position: relative;
-    
+    text-align: center;
+
     @media(min-width: 500px)
     {
         margin: 20px 20px;
@@ -12,7 +13,6 @@
     {
         margin: 0;
     }
-    text-align: center;
 }
 
 .imageParent {
@@ -69,7 +69,9 @@ a:visited {
 
 .shoeText
 {
-
+    text-align: center;
+    font-size: 13px;
+    line-height: 14px;
 
     @media(min-width: 500px)
     {
@@ -79,9 +81,6 @@ a:visited {
     {
         margin: 0 0 5px 0;
     }
-    text-align: center;
-    font-size: 13px;
-    line-height: 14px;
     
 
     .company {

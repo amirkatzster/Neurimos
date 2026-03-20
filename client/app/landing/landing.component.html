@@ -1,75 +1,59 @@
-<div class="image-container">
-    <picture>
-        <source media="(max-width: 650px)" srcset="https://source.unsplash.com/EyTS92S8lPs/400">
-        <source media="(max-width: 1100px)" srcset="https://source.unsplash.com/EyTS92S8lPs/900">
-        <img src="https://source.unsplash.com/A9H40TYRbbk/1440" class="responsiveImg" alt="" (load)="showPromotion = true">
-        <!-- Ny1vyUgidMg -->
-    </picture>
-    <div *ngIf="showPromotion" class="card insideImage w-75 colorCard ">
-        <div class="card-block">
-            <h4 class="card-title">משלוח עד הבית</h4>
-            <p class="card-text"><strong>במיוחד בתקופה הזאת</strong></p>
-            <a href="#" class="btn btnInsideImage" routerLink="/נעלי/נייק">כניסה</a>
-        </div>
-    </div>
+<!-- Hero banner -->
+<div class="hero-banner">
+  <picture>
+    <source media="(max-width: 650px)" srcset="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop">
+    <source media="(max-width: 1100px)" srcset="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1000&auto=format&fit=crop">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1440&auto=format&fit=crop" class="hero-img" alt="נעלי נעורים" (load)="showPromotion = true">
+  </picture>
+  <div *ngIf="showPromotion" class="hero-card">
+    <h4>משלוח עד הבית</h4>
+    <p><strong>במיוחד בתקופה הזאת</strong></p>
+    <a class="btn hero-btn" routerLink="/נעלי/נייק">לקנייה עכשיו</a>
+  </div>
 </div>
-<div class="companies-container">
-    <div class="row companies-header">
-        <div class="col-md-9"></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-1"></div>
+
+<!-- Category tiles -->
+<section class="categories-section">
+  <div class="container-fluid">
+    <div class="row g-3 justify-content-center">
+      <div class="col-6 col-md-3">
+        <a routerLink="/נעלי/גברים" class="category-tile">
+          <div class="category-icon"><i class="fa fa-male" aria-hidden="true"></i></div>
+          <span class="category-label">גברים</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <a routerLink="/נעלי/נשים" class="category-tile">
+          <div class="category-icon"><i class="fa fa-female" aria-hidden="true"></i></div>
+          <span class="category-label">נשים</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <a routerLink="/נעלי/ילדים" class="category-tile">
+          <div class="category-icon"><i class="fa fa-child" aria-hidden="true"></i></div>
+          <span class="category-label">ילדים</span>
+        </a>
+      </div>
+      <div class="col-6 col-md-3">
+        <a routerLink="/נעלי/ילדות" class="category-tile">
+          <div class="category-icon"><i class="fa fa-child" aria-hidden="true"></i></div>
+          <span class="category-label">ילדות</span>
+        </a>
+      </div>
     </div>
-    <div *ngFor="let company of companies;let i = index" class="d-none d-md-block">
-        <div *ngIf="i % 6 === 0" class="row">
-            <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/נעלי/' +[company.name]">
-                    <img src={{company.image}}  width="180" alt="{{ company.name }}"/>
-                </a>
-            </div>
-            <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[1+i].name]" *ngIf="companies.length > 1 + i">
-                    <img src={{companies[1+i].image}}  width="180" alt="{{ companies[1+i].name }}"/>
-                </a>
-            </div>
-            <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[2+i].name]" *ngIf="companies.length > 2 + i">
-                    <img src={{companies[2+i].image}}  width="180" alt="{{ companies[2+i].name }}"/>
-                </a>
-            </div>
-            <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[3+i].name]" *ngIf="companies.length > 3 + i">
-                    <img src={{companies[3+i].image}}  width="180" alt="{{ companies[3+i].name }}"/>
-                </a>
-            </div>
-            <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[4+i].name]" *ngIf="companies.length > 4 + i">
-                    <img src={{companies[4+i].image}}  width="180" alt="{{ companies[4+i].name }}"/>
-                </a>
-            </div>
-            <div class="col-md-2 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[5+i].name]" *ngIf="companies.length > 5 + i">
-                    <img src={{companies[5+i].image}}  width="180" alt="{{ companies[5+i].name }}"/>
-                </a>
-            </div>
-        </div> 
-    </div>      
-    <div *ngFor="let company of companies;let i = index" class="d-md-none">
-        <div *ngIf="i % 3 === 0" class="row">
-            <div class="col-4 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[i].name]">
-                    <img src={{companies[i].image}}  width="110" alt="{{ companies[i].name }}"/>
-                </a>
-            </div>
-            <div class="col-4 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[1+i].name]" *ngIf="companies.length > 1 + i">
-                    <img src={{companies[1+i].image}}  width="110" alt="{{ companies[1+i].name }}"/>
-                </a>
-            </div>
-            <div class="col-4 companyContainer">
-                <a [routerLink]="'/נעלי/' +[companies[2+i].name]" *ngIf="companies.length > 2 + i">
-                    <img src={{companies[2+i].image}}  width="110" alt="{{ companies[2+i].name }}"/>
-                </a>
-            </div>
-        </div>
-    </div>       
-</div>
+  </div>
+</section>
+
+<!-- Brand logos -->
+<section class="brands-section">
+  <div class="container-fluid">
+    <h2 class="brands-title">המותגים שלנו</h2>
+    <div class="row g-2 justify-content-center">
+      <div *ngFor="let company of companies" class="col-4 col-md-2 brand-col">
+        <a [routerLink]="'/נעלי/' + company.name" class="brand-link">
+          <img [src]="company.image" [alt]="company.name" class="brand-img">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

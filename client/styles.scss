@@ -1,14 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+*, *::before, *::after { box-sizing: border-box; }
+
 html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
 }
-body {
-  position: relative;
+
+body { position: relative; }
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
 }
-body { margin:0px; }
+
+.app-content {
+  flex: 1;
+  width: 100%;
+}
+
+// Remove Bootstrap container side padding at root level
+.container-fluid {
+  padding-right: 16px;
+  padding-left: 16px;
+}
 
 .input-group {
   margin-bottom: 15px;

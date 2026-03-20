@@ -1,61 +1,69 @@
-$footer-background-color: #0076BE;
+$footer-bg: #004f82;
+$footer-dark: #003952;
+$white: #ffffff;
 
-a {
-    color: white;
+.site-footer {
+  background-color: $footer-bg;
+  color: $white;
+  text-align: center;
+  margin-top: auto;
 }
-.footer
-{
-    margin: 0 0 0 0;
-    padding: 0;
-    background-color: $footer-background-color;
-    color: white;
+
+.footer-section {
+  margin-bottom: 16px;
+}
+
+.footer-heading {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+
+  a {
+    color: $white;
     text-decoration: none;
-    text-align: center;
-    
+    &:hover { text-decoration: underline; }
+  }
 }
 
-.header-phone 
-{
-    color: white;
-    text-decoration: none;
+.footer-link {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.8;
+  &:hover { color: $white; }
 }
 
-.spacer
-{
-    margin: 1% 0 0 0 ;
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  color: $white;
+  font-size: 16px;
+  margin: 0 4px;
+  text-decoration: none;
+  &:hover { opacity: 0.85; color: $white; }
 }
 
-.fbBtn {
-    background-color: #3b5998;
-    padding: 3% 5%;
-    margin: 1%;
+.fb-btn      { background-color: #3b5998; }
+.twitter-btn { background-color: #00aced; }
+
+.spinner-link {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
 }
 
-.twitterBtn {
-    background-color: #00aced;
-    padding: 3% 5%;
-    margin: 1%;
-    
+.footer-address {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  margin: 0;
 }
 
-.articles {
-    font-size: 11px;
-    margin:0;
-    padding:0;
-}
-
-.shoesCatalog {
-    h2 {
-        font-size: 16px;
-        font-weight: normal;
-        line-height: 24px;
-    }
-    h3 {
-        font-size: 12px;
-        font-weight: normal;
-    }
-}
-
-.spiner {
-    font-size: 9px;
+.footer-phone {
+  color: $white;
+  text-decoration: none;
+  margin-right: 8px;
 }
