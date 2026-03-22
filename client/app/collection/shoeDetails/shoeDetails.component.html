@@ -50,8 +50,8 @@
                     
                     <div class="row">
                         <div class="col-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
-                            <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>
-                                <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
+                            <a href="#" (click)="selectColor(colorImg,i)">
+                                <img class="thumbnail" [src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>
                         </div>
                     </div>
@@ -133,42 +133,23 @@
                             <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe?._id"><i class="fa fa-pencil"></i></button>
                         <h1><a href="#" [routerLink]="linkToCompany">{{shoe?.company}}</a> <a href="#" [routerLink]="linkToShoe">{{shoe?.name}}</a></h1>
                     </div>
-                    <!-- DESKTOP VIEW    -->
-                    <div class="row d-none d-md-block">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-9" >
-                            <div lazy-load-images>
-                                <img class="bigImg" [attr.data-src]="currentImage?.urlLarge"/>
-                            </div>
+                    <!-- DESKTOP VIEW -->
+                    <div class="row d-none d-md-flex justify-content-center">
+                        <div class="col-md-10 text-center">
+                            <img class="bigImg" [src]="currentImage?.urlLarge"/>
                         </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1 thumbnailContainer">
-                            <a href="#" *ngFor="let positionImg of currentImageGroup?.images; let i = index" (click)="selectPosition(positionImg,i)" lazy-load-images>
-                                <img class="thumbnail" [attr.data-src]="positionImg.urlSmall" [ngClass]="{'marked': positionImg === currentImage }"/>
-                            </a>
-                        </div>
-                    </div> 
-                    <div class="row d-none d-md-block">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-1 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
-                            <a href="#" (click)="selectColor(colorImg,i)" lazy-load-images>
-                                <img  class="thumbnail" [attr.data-src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
-                            </a>
-                        </div>
-                        <div class="col-md-2"></div>
                     </div>
-                    <div class="row">
-                        <!-- PREPROCESS-START -->
-                        <div class="col-md-12 hide">
-                            <div *ngFor="let ig of shoe?.imagesGroup">
-                                <div *ngFor="let positionImg of ig?.images">
-                                    <img [src]="positionImg.urlSmall" />
-                                    <!-- <img [src]="positionImg.urlMedium" /> -->
-                                    <img [src]="positionImg.urlLarge" />
-                                </div>
-                            </div>
-                        </div>
-                        <!-- PREPROCESS-END -->
+                    <!-- Position thumbnails (angles) -->
+                    <div class="d-none d-md-flex justify-content-center thumbnailContainer mt-2">
+                        <a href="#" *ngFor="let positionImg of currentImageGroup?.images; let i = index" (click)="selectPosition(positionImg,i)">
+                            <img class="thumbnail" [src]="positionImg.urlSmall" [ngClass]="{'marked': positionImg.urlSmall === currentImage?.urlSmall }"/>
+                        </a>
+                    </div>
+                    <!-- Color thumbnails -->
+                    <div class="d-none d-md-flex justify-content-center thumbnailContainer mt-2">
+                        <a href="#" *ngFor="let colorImg of shoe?.imagesGroup; let i = index" (click)="selectColor(colorImg,i)">
+                            <img class="thumbnail" [src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg.color === currentImageGroup?.color }"/>
+                        </a>
                     </div>
                     
                     <div class="row">

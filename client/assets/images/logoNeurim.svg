@@ -1,43 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 68" width="220" height="68">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255 80" width="255" height="80">
   <defs>
     <style>
       .logo-text {
         font-family: 'Trebuchet MS', 'Arial', sans-serif;
         font-weight: 800;
-        font-size: 46px;
+        font-size: 53px;
         fill: #0076BE;
       }
     </style>
+
+    <!-- Vertical gradient: lighter heel (top) → darker toe (bottom) -->
+    <linearGradient id="sole-grad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%"   stop-color="#1a90d8"/>
+      <stop offset="100%" stop-color="#003d6b"/>
+    </linearGradient>
+
+    <!-- Clip path matches sole outline exactly -->
+    <clipPath id="sole-clip">
+      <path d="M 138 32
+               C 142 32, 147 35.5, 147 42
+               C 147 51, 145 58, 142 61.5
+               C 141 62.5, 135 62.5, 134 61.5
+               C 131 58, 129 51, 129 42
+               C 129 35.5, 134 32, 138 32 Z"/>
+    </clipPath>
   </defs>
 
   <!-- "Neur" -->
-  <text class="logo-text" x="4" y="52">Neur</text>
+  <text class="logo-text" x="5" y="61">Neur</text>
 
-  <!-- "i" vertical stem -->
-  <rect x="112" y="26" width="7" height="27" rx="3" fill="#0076BE"/>
+  <!-- ── Shoe sole ─────────────────────────────────────── -->
 
-  <!-- Shoe lace bow replacing the "i" dot -->
+  <!-- Shadow layer (slight dark blur behind sole for lift) -->
+  <path d="M 138 33
+           C 142 33, 148 36.5, 148 43
+           C 148 52, 146 59, 143 62.5
+           C 141.5 63.5, 134.5 63.5, 133 62.5
+           C 130 59, 128 52, 128 43
+           C 128 36.5, 134 33, 138 33 Z"
+        fill="#001e35" opacity="0.18" transform="translate(1.5,2)"/>
 
-  <!-- Left loop -->
-  <path d="M 115 22
-           C 115 16  108 7  103 12
-           C 100 16  106 21 115 22"
-        fill="#0076BE"/>
+  <!-- Sole body with gradient fill -->
+  <path d="M 138 32
+           C 142 32, 147 35.5, 147 42
+           C 147 51, 145 58, 142 61.5
+           C 141 62.5, 135 62.5, 134 61.5
+           C 131 58, 129 51, 129 42
+           C 129 35.5, 134 32, 138 32 Z"
+        fill="url(#sole-grad)"/>
 
-  <!-- Right loop -->
-  <path d="M 116 22
-           C 116 16  123 7  128 12
-           C 131 16  125 21 116 22"
-        fill="#0076BE"/>
+  <!-- Tread grooves — two thin white lines in the toe third -->
+  <g clip-path="url(#sole-clip)">
+    <line x1="126" y1="52" x2="150" y2="52"
+          stroke="white" stroke-width="1.8" stroke-opacity="0.35"/>
+    <line x1="126" y1="57.5" x2="150" y2="57.5"
+          stroke="white" stroke-width="1.8" stroke-opacity="0.35"/>
+  </g>
 
-  <!-- Left tail -->
-  <line x1="113" y1="23" x2="108" y2="28" stroke="#0076BE" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Right tail -->
-  <line x1="118" y1="23" x2="123" y2="28" stroke="#0076BE" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Specular highlight — upper-left for subtle 3-D depth -->
+  <ellipse cx="133" cy="38" rx="3" ry="5"
+           fill="white" opacity="0.22" clip-path="url(#sole-clip)"/>
 
-  <!-- Center knot -->
-  <ellipse cx="115.5" cy="22" rx="3.5" ry="2.5" fill="#003952"/>
+  <!-- ── "i" dot ─────────────────────────────────────── -->
+  <circle cx="138" cy="19" r="6" fill="#0076BE"/>
 
   <!-- "m" -->
-  <text class="logo-text" x="124" y="52">m</text>
+  <text class="logo-text" x="152" y="61">m</text>
 </svg>

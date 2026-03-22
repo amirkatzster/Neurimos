@@ -10,19 +10,23 @@
       <thead class="thead-light">
         <tr>
           <th></th>
+          <th>לוגו</th>
           <th>חברה</th>
           <th style="width:400px">כמה מילים על החברה</th>
         </tr>
       </thead>
       <tbody *ngIf="companies.length === 0">
         <tr>
-          <td colspan="3">אין חברות</td>
+          <td colspan="4">אין חברות</td>
         </tr>
       </tbody>
       <tbody>
         <tr *ngFor="let company of companies;let i = index">
           <td>
             <button class="btn btn-sm btn-warning" (click)="enableEditing(company, i)"><i class="fa fa-pencil"></i></button>
+          </td>
+          <td>
+            <img *ngIf="company.image" [src]="company.image" width="60" height="60" class="rounded">
           </td>
           <td>{{company.name}}</td>
           <td>{{company.information}}</td>
@@ -32,36 +36,43 @@
   </div>
 </div>
 
-<div class="modal-panel card" *ngIf="isDialogOpen">
-  <form (ngSubmit)="doneEditCompany(currentCompany)">
-    <div class="card-header">
-      <h4 class="modal-title">עריכה</h4>
-    </div>
-    <div class="card-block addForm">
-        <div class="form-group">
-          <label for="Name">חברה</label>
-          <input id="Name" class="form-control" type="text" name="company" [(ngModel)]="currentCompany.name" placeholder="נמרוד" min="0" required>
+<!-- Edit Modal -->
+<div class="modal-backdrop fade show" *ngIf="isDialogOpen" (click)="isDialogOpen = false"></div>
+<div class="modal d-block" tabindex="-1" *ngIf="isDialogOpen">
+  <div class="modal-dialog modal-dialog-centered" dir="rtl">
+    <div class="modal-content">
+      <form (ngSubmit)="doneEditCompany(currentCompany)">
+        <div class="modal-header">
+          <h5 class="modal-title">עריכת חברה</h5>
+          <button type="button" class="btn-close" (click)="isDialogOpen = false"></button>
         </div>
-        <div class="form-group">
-            <textarea class="form-control" rows="3" type="text" name="information" [(ngModel)]="currentCompany.information" placeholder="...ספרו על החברה" required></textarea>
+        <div class="modal-body addForm">
+          <div class="form-group mb-3">
+            <label for="Name">חברה</label>
+            <input id="Name" class="form-control" type="text" name="company" [(ngModel)]="currentCompany.name" placeholder="נמרוד" required>
+          </div>
+          <div class="form-group mb-3">
+            <textarea class="form-control" rows="3" name="information" [(ngModel)]="currentCompany.information" placeholder="...ספרו על החברה" required></textarea>
+          </div>
+          <div class="form-group mb-3">
+            <input type="file" accept="image/*" name="image" (change)="handleInputChange($event)" />
+          </div>
+          <table *ngIf="currentCompany.image != null">
+            <tr>
+              <td>
+                <button type="button" class="btn btn-lg btn-danger trashBtn" (click)="currentCompany.image = null"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
+              </td>
+              <td>
+                <img [src]="currentCompany.image" class="rounded mx-auto d-block" width="200" height="200">
+              </td>
+            </tr>
+          </table>
         </div>
-        <div class="form-group">
-          <input type="file" accept="image/*" capture="camera" name="image" [(ngModel)]="currentCompany.image" (change)="handleInputChange($event)" />
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="isDialogOpen = false">סגור</button>
+          <button type="submit" class="btn btn-primary">שמור</button>
         </div>
-        <table *ngIf="currentCompany.image != null">
-          <tr>
-            <td>
-              <button class="btn btn-lg btn-danger trashBtn" (click)="currentCompany.image = null"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
-            </td>
-            <td>
-              <img [src]="currentCompany.image" class="rounded mx-auto d-block" width="200" height="200" >
-            </td>
-          </tr>
-        </table>
+      </form>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-secondary" (click)="isDialogOpen = false">סגור</button>
-      <button type="submit" class="btn btn-primary">שמור</button>
-    </div>
-  </form>
+  </div>
 </div>

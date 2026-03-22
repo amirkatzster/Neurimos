@@ -17,7 +17,7 @@
       </thead>
       <tbody *ngIf="classifications.length === 0">
         <tr>
-          <td colspan="3">אין סוגים</td>
+          <td colspan="4">אין סוגים</td>
         </tr>
       </tbody>
       <tbody>
@@ -34,26 +34,33 @@
   </div>
 </div>
 
-<div class="modal-panel card" *ngIf="isDialogOpen">
-  <form (ngSubmit)="doneEditClassification(currentClassification)">
-    <div class="card-header">
-      <h4 class="modal-title">עריכה</h4>
-    </div>
-    <div class="card-block addForm">
-        <div class="form-group">
-          <label for="Name">סוג נעל</label>
-          <input id="Name" class="form-control" type="text" name="name" [(ngModel)]="currentClassification.name" placeholder="סנדל" min="0" required>
+<!-- Edit Modal -->
+<div class="modal-backdrop fade show" *ngIf="isDialogOpen" (click)="isDialogOpen = false"></div>
+<div class="modal d-block" tabindex="-1" *ngIf="isDialogOpen">
+  <div class="modal-dialog modal-dialog-centered" dir="rtl">
+    <div class="modal-content">
+      <form (ngSubmit)="doneEditClassification(currentClassification)">
+        <div class="modal-header">
+          <h5 class="modal-title">עריכת סוג נעל</h5>
+          <button type="button" class="btn-close" (click)="isDialogOpen = false"></button>
         </div>
-        <div class="form-group">
-          <mat-checkbox name="show" class="example-margin" [(ngModel)]="currentClassification.show" [checked]="currentClassification.show">לשים בחלון ראווה</mat-checkbox>
+        <div class="modal-body addForm">
+          <div class="form-group mb-3">
+            <label for="Name">סוג נעל</label>
+            <input id="Name" class="form-control" type="text" name="name" [(ngModel)]="currentClassification.name" placeholder="סנדל" required>
+          </div>
+          <div class="form-group mb-3">
+            <mat-checkbox name="show" [(ngModel)]="currentClassification.show" [checked]="currentClassification.show">לשים בחלון ראווה</mat-checkbox>
+          </div>
+          <div class="form-group mb-3">
+            <input id="Order" class="form-control" type="number" name="order" [(ngModel)]="currentClassification.order" placeholder="0" min="0">
+          </div>
         </div>
-        <div class="form-group">
-          <input id="Order" class="form-control" type="text" name="order" [(ngModel)]="currentClassification.order" placeholder="0" min="0">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="isDialogOpen = false">סגור</button>
+          <button type="submit" class="btn btn-primary">שמור</button>
         </div>
+      </form>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-secondary" (click)="isDialogOpen = false">סגור</button>
-      <button type="submit" class="btn btn-primary">שמור</button>
-    </div>
-  </form>
+  </div>
 </div>

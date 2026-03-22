@@ -47,9 +47,10 @@ export class ShoeService {
   }
 
   getShoeLinkByImage(shoe, imageIndex) {
-    const colors = shoe.imagesGroup.map(ig => ig.color).join('-');
-    const niceName = shoe.name.replace(/\s+/g, '-').toLowerCase();
-    return `/נעל/${shoe.company}-${niceName}-${colors}/${shoe.id}/צבע/${shoe.imagesGroup[imageIndex].color}`;
+    const colors = (shoe.imagesGroup || []).map(ig => ig.color).join('-');
+    const niceName = (shoe.name || '').replace(/\s+/g, '-').toLowerCase();
+    const color = shoe.imagesGroup?.[imageIndex]?.color || '';
+    return `/נעל/${shoe.company}-${niceName}-${colors}/${shoe.id}/צבע/${color}`;
   }
 
   getShoeLink(shoe) {

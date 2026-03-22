@@ -6,24 +6,27 @@ export default class UserCtrl extends BaseCtrl {
 
   model = User;
 
-  login = (req, res) => {
-    passport.authenticate('local-login', {
-      successRedirect : '/',
-      failureRedirect : '/login',
-      failureFlash : true
-    })(req, res);
+  login = (req, res, next) => {
+    passport.authenticate('local-login', (err, user, info) => {
+      if (err) { return next(err); }
+      if (!user) { return res.status(401).json({ message: 'Invalid email or password' }); }
+      req.logIn(user, (loginErr) => {
+        if (loginErr) { return next(loginErr); }
+        res.status(200).json({ message: 'Login successful' });
+      });
+    })(req, res, next);
   };
 
   me = (req, res) => {
     res.send(req.isAuthenticated() ? req.user : '0');
   };
 
-  signup = (req, res) => {
-    passport.authenticate('local-signup', {
-      successRedirect : '/login',
-      failureRedirect : '/signup',
-      failureFlash : true
-    })(req, res);
+  signup = (req, res, next) => {
+    passport.authenticate('local-signup', (err, user, info) => {
+      if (err) { return next(err); }
+      if (!user) { return res.status(409).json({ message: 'Email already exists' }); }
+      res.status(201).json({ message: 'User created successfully' });
+    })(req, res, next);
   }
 
   facebookAuth = (req, res, next) => {

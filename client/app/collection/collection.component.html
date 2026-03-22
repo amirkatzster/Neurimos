@@ -22,15 +22,14 @@
     </div>
 
     <!-- Active filters -->
-    <div class="row d-none d-md-flex align-items-center">
+    <div class="row d-none d-md-flex align-items-center" *ngIf="filters?.length > 0">
       <div class="col-md-10">
-        <mat-form-field style="width: 100%;">
-          <mat-chip-list #chipList>
-            <mat-chip *ngFor="let filter of filters" removable="true" color="primary" (remove)="removeFilter(filter)">
-              {{filter}}<i matChipRemove class="material-icons cancelIcon">cancel</i>
-            </mat-chip>
-          </mat-chip-list>
-        </mat-form-field>
+        <mat-chip-set>
+          <mat-chip *ngFor="let filter of filters" (removed)="removeFilter(filter)">
+            {{filter}}
+            <button matChipRemove><i class="material-icons cancelIcon">cancel</i></button>
+          </mat-chip>
+        </mat-chip-set>
       </div>
       <div class="col-md-2 narrow">צמצום הבחירה</div>
     </div>
