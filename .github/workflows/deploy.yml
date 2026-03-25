@@ -1,0 +1,58 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build production
+        run: npm run prod
+
+      - name: Copy dist to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "dist/"
+          target: "/var/www/neurimos"
+          strip_components: 0
+
+      - name: Restart app on EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            source "$NVM_DIR/nvm.sh"
+
+            cd /var/www/neurimos
+
+            # Pull latest package.json/server source in case deps changed
+            git pull origin master --no-rebase
+
+            # Reinstall only if package-lock changed
+            npm ci --omit=dev --legacy-peer-deps
+
+            # Restart PM2
+            pm2 restart neurimos || pm2 start ecosystem.config.js --env production
+            pm2 save
