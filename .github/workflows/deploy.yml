@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "dist/"
-          target: "/var/www/neurimos"
+          target: "/home/ec2-user/node"
           strip_components: 0
 
       - name: Restart app on EC2
@@ -45,7 +45,7 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
 
-            cd /var/www/neurimos
+            cd /home/ec2-user/node
 
             # Pull latest package.json/server source in case deps changed
             git pull origin master --no-rebase
