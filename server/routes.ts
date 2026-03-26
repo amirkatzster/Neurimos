@@ -12,9 +12,13 @@ import PaypalCtrl from './controllers/paypal';
 import OrderCtrl from './controllers/order';
 import ContactUsCtrl from './controllers/contactus';
 import ReportCtrl from './controllers/report';
+import { generateSitemap } from './controllers/sitemap';
 
 
 export default function setRoutes(app, passport) {
+
+  // Sitemap — public, no /api prefix
+  app.get('/sitemap.xml', generateSitemap);
 
   const router = express.Router();
 
