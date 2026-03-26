@@ -38,25 +38,34 @@
                 <div class="col-1"></div>
         </div>
         <div class="row d-md-none mobile" dir="ltr">
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="carousel" *ngFor="let colorImg of shoe?.imagesGroup">
-                        <ui-carousel *ngIf="currentImageGroup == colorImg" [autoPlay]="false"  [infinite]="true" [fade]="false" [speed]="1000" >
-                            <ui-carousel-item *ngFor="let positionImg of currentImageGroup.images" >
-                                    <img [src]="positionImg.urlMedium"/>
-                            </ui-carousel-item>
-                        </ui-carousel>
+                <div class="col-12">
+                    <!-- Mobile image carousel -->
+                    <div class="mobile-carousel"
+                         (touchstart)="onTouchStart($event)"
+                         (touchend)="onTouchEnd($event)">
+                        <div class="mobile-carousel-track" [style.transform]="'translateX(-' + mobileImageIndex * 100 + '%)'">
+                            <div class="mobile-carousel-slide" *ngFor="let positionImg of currentImageGroup?.images">
+                                <img [src]="positionImg.urlMedium" />
+                            </div>
+                        </div>
+                        <!-- Dots -->
+                        <div class="mobile-carousel-dots">
+                            <span *ngFor="let img of currentImageGroup?.images; let i = index"
+                                  class="dot"
+                                  [class.active]="i === mobileImageIndex"
+                                  (click)="mobileImageIndex = i"></span>
+                        </div>
                     </div>
-                    
-                    <div class="row">
+
+                    <!-- Color thumbnails -->
+                    <div class="row justify-content-center mt-2">
                         <div class="col-3 thumbnailContainer" *ngFor="let colorImg of shoe?.imagesGroup; let i = index">
-                            <a href="#" (click)="selectColor(colorImg,i)">
+                            <a href="#" (click)="selectColor(colorImg, i); mobileImageIndex = 0">
                                 <img class="thumbnail" [src]="colorImg.images[0].urlSmall" [ngClass]="{'marked': colorImg == currentImageGroup }"/>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-1"></div>
         </div>
         <!-- END MOBILE -->
         <div class="row">

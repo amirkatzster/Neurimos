@@ -230,9 +230,44 @@
 }
 
 
-.carousel {
-    img {
-        width: 100%;
+.mobile-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+
+    .mobile-carousel-track {
+        display: flex;
+        transition: transform 0.3s ease;
+
+        .mobile-carousel-slide {
+            min-width: 100%;
+            text-align: center;
+
+            img {
+                max-width: 100%;
+                max-height: 320px;
+                object-fit: contain;
+            }
+        }
+    }
+
+    .mobile-carousel-dots {
+        text-align: center;
+        padding: 8px 0;
+
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 0 4px;
+            cursor: pointer;
+
+            &.active {
+                background: #0076BE;
+            }
+        }
     }
 }
 
