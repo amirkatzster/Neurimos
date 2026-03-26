@@ -144,6 +144,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
+    (window as any).gtag('event', 'conversion', { send_to: 'AW-1064042889/k27dCOOOjpAcEImDsPsD' });
     this.orderService.newOrder(this.shoe, this.currentImageGroup , this.selectedSize);
     this.router.navigate(['order']);
   }
