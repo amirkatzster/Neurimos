@@ -83,6 +83,7 @@ $brand-darker:  #003952;
     margin-bottom: 8px;
   }
   p { color: #444; margin-bottom: 16px; }
+  .hero-flag { height: 18px; width: auto; vertical-align: middle; margin-left: 4px; border-radius: 2px; }
 
   // tablet
   @media (max-width: 1100px) {
