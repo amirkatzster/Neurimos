@@ -1,40 +1,354 @@
-.spacer
-{
-    margin: 3% 0 0 0;
+$blue:        #0076BE;
+$blue-dark:   #004f82;
+$navy:        #003952;
+$green:       #22c55e;
+$bg:          #f0f4f8;
+$white:       #fff;
+$border:      #dde3ea;
+$text:        #333;
+$text-muted:  #888;
+
+// ── Page shell ───────────────────────────────────────────────
+.cashier-page {
+  background: $bg;
+  min-height: 80vh;
+  padding: 32px 16px 48px;
+  direction: rtl;
 }
 
-.control-label {
-    font-weight: bold;
+.cashier-inner {
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.total {
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #c04947
+// ── Progress stepper ─────────────────────────────────────────
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  gap: 0;
 }
 
-.headerAccordion {
-    color:#0275d8;
-    font-size:1.3rem;
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid $border;
+  background: $white;
+  color: $text-muted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.step-label {
+  font-size: 12px;
+  color: $text-muted;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: $border;
+  margin: 0 8px;
+  margin-bottom: 22px;
+  min-width: 40px;
+  transition: background 0.3s;
+
+  &.step-line-done { background: $green; }
+}
+
+.step-active {
+  .step-circle {
+    border-color: $blue;
+    background: $blue;
+    color: $white;
+  }
+  .step-label { color: $blue; font-weight: 600; }
+}
+
+.step-done {
+  .step-circle {
+    border-color: $green;
+    background: $green;
+    color: $white;
+  }
+  .step-label { color: $green; }
+}
+
+// ── Layout ───────────────────────────────────────────────────
+.cashier-layout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.cashier-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cashier-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px;
+}
+
+// ── Panels ───────────────────────────────────────────────────
+.panel {
+  background: $white;
+  border-radius: 14px;
+  border: 1.5px solid $border;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+
+  &.panel-open {
+    box-shadow: 0 4px 20px rgba(0, 118, 190, 0.10);
+    border-color: #b3d4ee;
+  }
+
+  &.panel-disabled {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  cursor: default;
+}
+
+.panel-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: $blue;
+  color: $white;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.panel-disabled .panel-num {
+  background: #ccc;
+}
+
+.panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: $navy;
+  flex: 1;
+}
+
+.panel-edit {
+  color: $blue;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.panel-body {
+  padding: 0 20px 24px;
+  border-top: 1px solid $border;
+}
+
+// ── Delivery choice ──────────────────────────────────────────
+.delivery-choice {
+  padding: 16px 0 12px;
+
+  mat-radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .tip-icon {
+    color: $blue;
+    margin-right: 4px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+}
+
+// ── Form grid ────────────────────────────────────────────────
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 20px;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &.form-field-full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $navy;
+  }
+
+  input {
+    border: 1.5px solid $border;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: $text;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus { border-color: $blue; }
+  }
+}
+
+// Valid / invalid markers
 .validMarker {
-    .ng-valid[required], .ng-valid.required  {
-        border-left: 5px solid #42A948; /* green */
-    }
-    
-    .ng-invalid:not(form)  {
-        border-left: 5px solid #a94442; /* red */
-    }
+  input.ng-valid[required],
+  input.ng-valid.required  { border-right: 4px solid $green; }
+
+  input.ng-invalid:not(form) { border-right: 4px solid #ef4444; }
 }
 
-  .userDetailsForm
-  {
-      input[type="input"] {
-          width:90%;
-      }
+// ── Takanon checkbox ─────────────────────────────────────────
+.takanon-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: $text;
+
+  a { color: $blue; }
+}
+
+// ── Continue button ──────────────────────────────────────────
+.btn-continue {
+  background: $blue;
+  color: $white;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+
+  i { font-size: 13px; }
+
+  &:hover:not(:disabled) {
+    background: $blue-dark;
+    transform: translateY(-1px);
   }
 
-  .checkbox {
-      margin:20px 22px 0 0;
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
   }
+}
+
+// ── Payment section ──────────────────────────────────────────
+.payment-info {
+  padding: 14px 0 20px;
+  font-size: 13px;
+  color: $text-muted;
+
+  i { margin-left: 6px; color: $green; }
+}
+
+#paypal-button-container { max-width: 380px; }
+
+// ── Order summary sidebar ────────────────────────────────────
+.summary-card {
+  background: $white;
+  border-radius: 14px;
+  border: 1.5px solid $border;
+  padding: 20px;
+}
+
+.summary-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: $navy;
+  margin-bottom: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: $text;
+  margin-bottom: 10px;
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 12px 0;
+}
+
+.summary-total {
+  font-weight: 700;
+  font-size: 16px;
+  color: $navy;
+}
+
+.summary-secure {
+  margin-top: 14px;
+  font-size: 12px;
+  color: $text-muted;
+  text-align: center;
+
+  i { margin-left: 4px; color: $green; }
+}
+
+// ── Mobile ───────────────────────────────────────────────────
+@media (max-width: 700px) {
+  .cashier-layout {
+    flex-direction: column-reverse;
+  }
+
+  .cashier-sidebar,
+  .cashier-main {
+    width: 100%;
+    position: static;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-field.form-field-full { grid-column: 1; }
+
+  .btn-continue { width: fit-content; }
+}

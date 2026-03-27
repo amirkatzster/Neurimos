@@ -1,27 +1,193 @@
-.spacer
-{
-    margin: 3% 0 0 0;
+// ── Page shell ───────────────────────────────────────────────
+.summary-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f0f9f0 100%);
+  padding: 40px 16px;
+  direction: rtl;
 }
 
-.control-label {
-    font-weight: bold;
+// ── Card ─────────────────────────────────────────────────────
+.summary-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 118, 190, 0.12);
+  padding: 48px 40px 36px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  animation: cardIn 0.5s ease both;
 }
 
-.total {
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #c04947
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.headerAccordion {
-    color:#0275d8;
-    font-size:1.3rem;
+// ── Animated checkmark ───────────────────────────────────────
+.check-wrap {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
 }
 
-.ng-valid[required], .ng-valid.required  {
-    border-left: 5px solid #42A948; /* green */
+.checkmark {
+  width: 80px;
+  height: 80px;
+}
+
+.checkmark__circle {
+  stroke: #22c55e;
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+}
+
+.checkmark__check {
+  stroke: #22c55e;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: strokeCheck 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes strokeCircle {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes strokeCheck {
+  to { stroke-dashoffset: 0; }
+}
+
+// ── Hero text ────────────────────────────────────────────────
+.summary-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #003952;
+  margin-bottom: 8px;
+  animation: fadeUp 0.5s ease 0.9s both;
+}
+
+.summary-sub {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s ease 1s both;
+
+  strong { color: #003952; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Progress pills ───────────────────────────────────────────
+.summary-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s ease 1.1s both;
+}
+
+.pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: #f0f4f8;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #666;
+  min-width: 80px;
+
+  i { font-size: 18px; color: #aaa; }
+
+  &.pill-active {
+    background: #e6f7ee;
+    color: #16a34a;
+    font-weight: 600;
+    i { color: #22c55e; }
   }
-  
-  .ng-invalid:not(form)  {
-    border-left: 5px solid #a94442; /* red */
+}
+
+.pill-arrow {
+  color: #ccc;
+  font-size: 16px;
+}
+
+// ── Payment note ─────────────────────────────────────────────
+.summary-note {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #92400e;
+  margin-bottom: 20px;
+  animation: fadeUp 0.5s ease 1.2s both;
+
+  i { margin-left: 6px; }
+}
+
+// ── Order ID ─────────────────────────────────────────────────
+.summary-order-id {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s ease 1.25s both;
+
+  span {
+    font-family: monospace;
+    color: #888;
   }
+}
+
+// ── CTA button ───────────────────────────────────────────────
+.btn-back-shop {
+  display: inline-block;
+  background: #0076BE;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-bottom: 24px;
+  animation: fadeUp 0.5s ease 1.3s both;
+
+  i { margin-left: 8px; }
+
+  &:hover {
+    background: #004f82;
+    transform: translateY(-2px);
+  }
+}
+
+// ── Footer ───────────────────────────────────────────────────
+.summary-footer {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+  animation: fadeUp 0.5s ease 1.4s both;
+
+  a { color: #0076BE; text-decoration: none; }
+  i { margin-left: 4px; }
+}
+
+// ── Mobile ───────────────────────────────────────────────────
+@media (max-width: 480px) {
+  .summary-card { padding: 36px 20px 28px; }
+  .summary-title { font-size: 1.6rem; }
+  .pill { min-width: 66px; padding: 8px 10px; }
+}

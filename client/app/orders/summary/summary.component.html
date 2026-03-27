@@ -1,39 +1,59 @@
-<div style="position:initial">
-  <div class="container-fluid" >
-    <div class="row spacer">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-8">
-            <mat-accordion >
-                <mat-expansion-panel  [expanded]="false"  [disabled]="true" >
-                    <mat-expansion-panel-header class="headerAccordion text-muted">
-                    פרטי משלוח
-                    </mat-expansion-panel-header>
-                </mat-expansion-panel>
-                <mat-expansion-panel [expanded]="false" [disabled]="true">
-                    <mat-expansion-panel-header class="headerAccordion text-muted">
-                        תשלום
-                      </mat-expansion-panel-header>
-                </mat-expansion-panel>
-                <mat-expansion-panel [expanded]="true">
-                    <mat-expansion-panel-header class="headerAccordion">
-                        סיכום
-                    </mat-expansion-panel-header>
-                    שלום <strong>{{ auth.currentUser.username}}</strong> <br> <br>
-                    בקשתך בטיפול <br>
-                    התשלום יתבצע כאשר המוצר יהיה מוכן למסירה 
-                    <h5>אנו תמיד לשרותכם צוות נעורים 03-5052769</h5>
-                    <h2>תודה שבחרתם בנו</h2>
-                    <h1> :)</h1>
-                    <br>
-                    <button type="button" class="btn btn-secondary" (click)="backClicked()" routerLink="/">חזור לחנות</button><br>
-                    <br>
-                    <small><i> מזהה הזמנה {{orderId()}}</i></small>
-                </mat-expansion-panel>
-                
-              </mat-accordion> 
-        </div>
-        <div class="col-md-1"></div>
+<div class="summary-page">
+
+  <div class="summary-card">
+
+    <!-- Animated checkmark -->
+    <div class="check-wrap">
+      <svg class="checkmark" viewBox="0 0 52 52" aria-hidden="true">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="checkmark__check" fill="none" d="M14 27 l8 8 16-16"/>
+      </svg>
     </div>
+
+    <!-- Hero text -->
+    <h1 class="summary-title">ההזמנה התקבלה!</h1>
+    <p class="summary-sub">שלום <strong>{{ auth.currentUser.username }}</strong>, ההזמנה שלך התקבלה ונמצאת כעת בבדיקה.</p>
+
+    <!-- Info pills -->
+    <div class="summary-pills">
+      <div class="pill pill-active">
+        <i class="fa fa-search"></i>
+        <span>ההזמנה בבדיקה</span>
+      </div>
+      <div class="pill-arrow">&#x25C4;</div>
+      <div class="pill">
+        <i class="fa fa-cube"></i>
+        <span>אריזה ומשלוח</span>
+      </div>
+      <div class="pill-arrow">&#x25C4;</div>
+      <div class="pill">
+        <i class="fa fa-home"></i>
+        <span>אצלך בבית</span>
+      </div>
+    </div>
+
+    <!-- Payment note -->
+    <div class="summary-note">
+      <i class="fa fa-credit-card"></i>
+      החיוב יתבצע רק כאשר המוצר יהיה מוכן למסירה
+    </div>
+
+    <!-- Order ID -->
+    <div class="summary-order-id">
+      מזהה הזמנה: <span>{{ orderId() }}</span>
+    </div>
+
+    <!-- CTA -->
+    <button type="button" class="btn-back-shop" routerLink="/">
+      <i class="fa fa-shopping-bag"></i> המשך בקנייה
+    </button>
+
+    <!-- Footer -->
+    <p class="summary-footer">
+      <i class="fa fa-phone"></i> צוות נעורים לשירותכם &mdash;
+      <a href="tel:035052769">03-5052769</a>
+    </p>
+
   </div>
+
 </div>

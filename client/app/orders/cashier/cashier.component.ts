@@ -117,11 +117,13 @@ export class CashierComponent implements OnInit, OnDestroy {
     this.sub = this.orderService.createServerOrder().subscribe(data => {
       if (isPlatformBrowser(this.platformId)) {
         this.localStorage.setItem('orderId', data._id);
-        this.setPayPal();
       }
       this.openStep = 2;
       if (this.maxStep === 1) {
         this.maxStep = 2;
+      }
+      if (isPlatformBrowser(this.platformId)) {
+        setTimeout(() => this.setPayPal(), 0);
       }
     },
     error => console.log(error));

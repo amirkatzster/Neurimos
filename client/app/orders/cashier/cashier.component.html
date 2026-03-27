@@ -1,116 +1,158 @@
-<div style="position:initial">
-  <div class="container-fluid" >
-    <div class="row spacer">
-        <div class="col-md-3">
-            <div class="card" style="width: 20rem;">
-                <div class="card-block">
-                  <h5 class="card-title">סיכום ביניים</h5>
-                  <div class="row">
-                      <div class="col-md-6 col-6">
-                          ₪{{orderService.subTotal()}}
-                      </div>
-                      <div class="col-md-6 col-6">
-                          <p class="card-text">מוצרים ({{orderService.totalAmount()}}):</p>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-6 col-6">
-                          ₪{{orderService.shippment()}}
-                      </div>
-                      <div class="col-md-6 col-6">
-                          <p class="card-text">משלוח:</p>
-                          <mat-radio-group *ngIf="this.openStep === 1" name="deliveryMethos" class="deliveryDetails" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
-<!--                                 <mat-radio-button value="Mail">דואר ישראל <br>(הזמנה מעל 200 ש"ח משלוח חינם) </mat-radio-button><div></div> -->
-                                <mat-radio-button value="Delivery">משלוח מהיר <i matTooltip="שליח עד הבית" #t1="matTooltip" (click)="t1.toggle()" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
-                                <mat-radio-button value="SelfPick">איסוף עצמי <i matTooltip="איסוף עצמי בשנקר 52 חולון" #t2="matTooltip" (click)="t2.toggle()" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
-                            </mat-radio-group> 
-                      </div>
-                  </div>
-                  <hr>
-                  <div class="row total">
-                      <div class="col-md-6 col-6">
-                          ₪{{orderService.total()}}
-                      </div>
-                      <div class="col-md-6 col-6">
-                          <p class="card-text">סה"כ:</p>
-                      </div>
-                  </div>
-                </div>
+<div class="cashier-page">
+  <div class="cashier-inner">
+    <div class="cashier-layout">
+
+      <!-- Left: form panels -->
+      <div class="cashier-main">
+
+        <!-- ── Progress stepper ─────────────────────────── -->
+        <div class="stepper">
+      <div class="step" [class.step-active]="openStep >= 1" [class.step-done]="openStep > 1">
+        <div class="step-circle">
+          <i *ngIf="openStep > 1" class="fa fa-check"></i>
+          <span *ngIf="openStep <= 1">1</span>
+        </div>
+        <span class="step-label">פרטי משלוח</span>
+      </div>
+      <div class="step-line" [class.step-line-done]="openStep > 1"></div>
+      <div class="step" [class.step-active]="openStep >= 2" [class.step-done]="openStep > 2">
+        <div class="step-circle">
+          <i *ngIf="openStep > 2" class="fa fa-check"></i>
+          <span *ngIf="openStep <= 2">2</span>
+        </div>
+        <span class="step-label">תשלום</span>
+      </div>
+      <div class="step-line" [class.step-line-done]="openStep > 2"></div>
+      <div class="step" [class.step-active]="openStep >= 3">
+        <div class="step-circle">3</div>
+        <span class="step-label">סיכום</span>
+      </div>
+        </div>
+
+        <!-- Step 1: Shipping -->
+        <div class="panel" [class.panel-open]="openStep === 1">
+          <div class="panel-header" (click)="openStep = openStep > 1 ? 1 : openStep">
+            <span class="panel-num">1</span>
+            <span class="panel-title">פרטי משלוח</span>
+            <i *ngIf="openStep > 1" class="fa fa-pencil panel-edit"></i>
+          </div>
+
+          <div class="panel-body" *ngIf="openStep === 1">
+            <form #shippmentForm="ngForm" (ngSubmit)="onSubmitStep1()">
+
+              <div class="delivery-choice">
+                <mat-radio-group name="deliveryMethod" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
+                  <mat-radio-button value="Delivery">
+                    משלוח מהיר
+                    <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" #t1="matTooltip" (click)="t1.toggle()" class="fa fa-info-circle tip-icon" aria-hidden="true"></i>
+                  </mat-radio-button>
+                  <mat-radio-button value="SelfPick">
+                    איסוף עצמי
+                    <i matTooltip="איסוף עצמי בשנקר 52 חולון" #t2="matTooltip" (click)="t2.toggle()" class="fa fa-info-circle tip-icon" aria-hidden="true"></i>
+                  </mat-radio-button>
+                </mat-radio-group>
               </div>
-        </div>
-        <div class="col-md-8">
-            <mat-accordion>
-                <mat-expansion-panel [expanded]="openStep == 1" (click)="openStep = 1" >
-                        <mat-expansion-panel-header class="headerAccordion">
-                        פרטי משלוח
-                        </mat-expansion-panel-header>                       
-                        <form #shippmentForm="ngForm" class="userDetailsForm" (ngSubmit)="onSubmitStep1()" >
-                          <div class="validMarker">
-                            <div class="form-group">
-                                <label for="usernameInput" class="control-label">שם מלא</label>
-                                <input [(ngModel)]="orderService.orderContainer.name" name="name" type="input" class="form-control" id="usernameInput" required>                            
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="control-label">דוא"ל</label>
-                                <input [(ngModel)]="orderService.orderContainer.email" name="email" type="input" class="form-control" id="inputEmail" required email>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPhone" class="control-label">טלפון</label>
-                                <input [(ngModel)]="orderService.orderContainer.phone" name="phone" type="input" class="form-control" id="inputPhone" required pattern="[0-9\-()]+" minlength="8">
-                            </div>
-                            <div class="form-group" *ngIf="orderService.orderContainer.delivery !== 'SelfPick'">
-                                <label for="inputStreet1" class="control-label">כתובת 1</label>
-                                <input [(ngModel)]="orderService.orderContainer.address1" name="street1" type="input" class="form-control" id="inputStreet1" placeholder="רחוב ומספר, תא דואר, שם חברה" required>
-                            </div>
-                            <div class="form-group" *ngIf="orderService.orderContainer.delivery !== 'SelfPick'">
-                                <label for="inputStreet2" class="control-label">כתובת 2</label>
-                                <input [(ngModel)]="orderService.orderContainer.address2" name="street2" type="input" class="form-control" id="inputStreet2" placeholder="דירה, קומה, כניסה">
-                            </div>
-                            <div class="form-group" *ngIf="orderService.orderContainer.delivery !== 'SelfPick'">
-                                <label for="inputCity" class="control-label">עיר</label>
-                                <input type="input" [(ngModel)]="orderService.orderContainer.city" name="city" class="form-control" id="inputCity" required>
-                            </div>
-                            <div class="form-group" *ngIf="orderService.orderContainer.delivery !== 'SelfPick'">
-                                <label for="inputZip" class="control-label">מיקוד</label>
-                                <input type="input" [(ngModel)]="orderService.orderContainer.zip" name="zip" class="form-control" id="inputZip">
-                            </div>  
-                          </div>
-                          <div class="form-group">
-                                <div class="checkbox">
-                                  <label>
-                                    <mat-checkbox type="checkbox" id="approve" name="approve" [(ngModel)]="user.approve" required></mat-checkbox> קראתי ואני מסכים עם <a target="_blank" routerLink="/takanon">התקנון</a> 
-                                  </label>
-                                </div>
-                            </div>     
-                          <div class="form-group">
-                            <div class="offset-sm-2 col-sm-10">
-                              <button type="submit" class="btn btn-success" [disabled]="!shippmentForm.form.valid">המשך</button>
-                            </div>
-                          </div>
-                          
-                        </form>
-                </mat-expansion-panel>
-                <mat-expansion-panel [expanded]="openStep == 2" [disabled]="openStep < 2">
-                    <mat-expansion-panel-header class="headerAccordion" [ngClass]="{'text-muted': openStep < 2}">
-                        תשלום
-                      </mat-expansion-panel-header>
-                  <div>
-                      <i>קנייה בטוחה באמצעות פייפאל שתומך בכרטיס אשראי</i>
-                      <br>
-                      <i>לחץ על אמצעי תשלום</i>
-                      <div id="paypal-button-container"></div>
+
+              <div class="form-grid validMarker">
+                <div class="form-field">
+                  <label for="usernameInput">שם מלא</label>
+                  <input [(ngModel)]="orderService.orderContainer.name" name="name" type="text" id="usernameInput" required>
+                </div>
+                <div class="form-field">
+                  <label for="inputEmail">דוא"ל</label>
+                  <input [(ngModel)]="orderService.orderContainer.email" name="email" type="email" id="inputEmail" required email>
+                </div>
+                <div class="form-field">
+                  <label for="inputPhone">טלפון</label>
+                  <input [(ngModel)]="orderService.orderContainer.phone" name="phone" type="tel" id="inputPhone" required pattern="[0-9\-()]+" minlength="8">
+                </div>
+
+                <ng-container *ngIf="orderService.orderContainer.delivery !== 'SelfPick'">
+                  <div class="form-field form-field-full">
+                    <label for="inputStreet1">כתובת</label>
+                    <input [(ngModel)]="orderService.orderContainer.address1" name="street1" type="text" id="inputStreet1" placeholder="רחוב ומספר" required>
                   </div>
-                </mat-expansion-panel>
-                <mat-expansion-panel [expanded]="openStep == 3" [disabled]="openStep < 3">
-                    <mat-expansion-panel-header class="headerAccordion" [ngClass]="{'text-muted': maxStep < 3}">
-                        סיכום
-                      </mat-expansion-panel-header>
-                    
-                </mat-expansion-panel>
-                
-              </mat-accordion> 
+                  <div class="form-field form-field-full">
+                    <label for="inputStreet2">כתובת (המשך)</label>
+                    <input [(ngModel)]="orderService.orderContainer.address2" name="street2" type="text" id="inputStreet2" placeholder="דירה, קומה, כניסה">
+                  </div>
+                  <div class="form-field">
+                    <label for="inputCity">עיר</label>
+                    <input [(ngModel)]="orderService.orderContainer.city" name="city" type="text" id="inputCity" required>
+                  </div>
+                  <div class="form-field">
+                    <label for="inputZip">מיקוד</label>
+                    <input [(ngModel)]="orderService.orderContainer.zip" name="zip" type="text" id="inputZip">
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="takanon-row">
+                <mat-checkbox name="approve" [(ngModel)]="user.approve" required></mat-checkbox>
+                <span>קראתי ואני מסכים עם <a routerLink="/takanon" target="_blank">התקנון</a></span>
+              </div>
+
+              <button type="submit" class="btn-continue" [disabled]="!shippmentForm.form.valid">
+                המשך לתשלום <i class="fa fa-lock"></i>
+              </button>
+
+            </form>
+          </div>
         </div>
-        <div class="col-md-1"></div>
+
+        <!-- Step 2: Payment -->
+        <div class="panel" [class.panel-open]="openStep === 2" [class.panel-disabled]="openStep < 2">
+          <div class="panel-header">
+            <span class="panel-num">2</span>
+            <span class="panel-title">תשלום</span>
+          </div>
+
+          <div class="panel-body" *ngIf="openStep === 2">
+            <div class="payment-info">
+              <i class="fa fa-lock"></i> קנייה בטוחה באמצעות PayPal — תומך בכל כרטיסי האשראי
+            </div>
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+
+        <!-- Step 3: Summary placeholder -->
+        <div class="panel" [class.panel-open]="openStep === 3" [class.panel-disabled]="openStep < 3">
+          <div class="panel-header">
+            <span class="panel-num">3</span>
+            <span class="panel-title">סיכום</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: order summary -->
+      <div class="cashier-sidebar">
+        <div class="summary-card">
+          <h3 class="summary-title">סיכום הזמנה</h3>
+
+          <div class="summary-row">
+            <span>מוצרים ({{ orderService.totalAmount() }})</span>
+            <span>₪{{ orderService.subTotal() }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>משלוח</span>
+            <span>₪{{ orderService.shippment() }}</span>
+          </div>
+
+          <hr class="summary-divider">
+
+          <div class="summary-row summary-total">
+            <span>סה"כ לתשלום</span>
+            <span>₪{{ orderService.total() }}</span>
+          </div>
+
+          <div class="summary-secure">
+            <i class="fa fa-shield"></i> תשלום מאובטח SSL
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
