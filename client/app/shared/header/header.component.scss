@@ -134,7 +134,7 @@ $white:           #ffffff;
   margin: 0;
   padding: 0;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 36px;
 
   li {
     display: flex;
@@ -144,12 +144,29 @@ $white:           #ffffff;
 
 .nav-cat-link {
   display: block;
-  padding: 10px 16px;
+  padding: 10px 8px 10px 2px;
   color: $nav-text;
   font-weight: 600;
   font-size: 14px;
   text-decoration: none;
   cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+
+  &:hover {
+    color: $brand-primary;
+    border-bottom-color: $brand-primary;
+  }
+}
+
+.nav-cat-arrow {
+  background: none;
+  border: none;
+  padding: 10px 10px 10px 4px;
+  color: $nav-text;
+  font-size: 11px;
+  cursor: pointer;
+  line-height: 1;
   border-bottom: 3px solid transparent;
   transition: color 0.2s, border-color 0.2s;
 

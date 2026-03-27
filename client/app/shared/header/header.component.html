@@ -128,33 +128,37 @@
         <div class="col-md-5 col-12">
           <ul class="nav-categories">
             <li>
-              <a [matMenuTriggerFor]="menMenu" class="nav-cat-link">
-                גברים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-              </a>
+              <a routerLink="/נעלי/גברים" class="nav-cat-link">גברים</a>
+              <button [matMenuTriggerFor]="menMenu" class="nav-cat-arrow" aria-label="תפריט גברים">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </button>
               <mat-menu #menMenu="matMenu" yPosition="below" [overlapTrigger]="false">
                 <button *ngFor="let classification of men" mat-menu-item [routerLink]="['/נעלי/' + 'גברים ' + '\[' + classification + '\]']">{{classification}}</button>
               </mat-menu>
             </li>
             <li>
-              <a [matMenuTriggerFor]="womenMenu" class="nav-cat-link">
-                נשים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-              </a>
+              <a routerLink="/נעלי/נשים" class="nav-cat-link">נשים</a>
+              <button [matMenuTriggerFor]="womenMenu" class="nav-cat-arrow" aria-label="תפריט נשים">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </button>
               <mat-menu #womenMenu="matMenu" yPosition="below" [overlapTrigger]="false">
                 <button *ngFor="let classification of women" mat-menu-item [routerLink]="['/נעלי/' + 'נשים ' + '\[' + classification + '\]']">{{classification}}</button>
               </mat-menu>
             </li>
             <li>
-              <a [matMenuTriggerFor]="boysMenu" class="nav-cat-link">
-                ילדים <i class="fa fa-chevron-down" aria-hidden="true"></i>
-              </a>
+              <a routerLink="/נעלי/ילדים" class="nav-cat-link">ילדים</a>
+              <button [matMenuTriggerFor]="boysMenu" class="nav-cat-arrow" aria-label="תפריט ילדים">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </button>
               <mat-menu #boysMenu="matMenu" yPosition="below" [overlapTrigger]="false">
                 <button *ngFor="let classification of boys" mat-menu-item [routerLink]="['/נעלי/' + 'ילדים ' + '\[' + classification + '\]']">{{classification}}</button>
               </mat-menu>
             </li>
             <li>
-              <a [matMenuTriggerFor]="girlsMenu" class="nav-cat-link">
-                ילדות <i class="fa fa-chevron-down" aria-hidden="true"></i>
-              </a>
+              <a routerLink="/נעלי/ילדות" class="nav-cat-link">ילדות</a>
+              <button [matMenuTriggerFor]="girlsMenu" class="nav-cat-arrow" aria-label="תפריט ילדות">
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </button>
               <mat-menu #girlsMenu="matMenu" yPosition="below" [overlapTrigger]="false">
                 <button *ngFor="let classification of girls" mat-menu-item [routerLink]="['/נעלי/' + 'ילדות ' + '\[' + classification + '\]']">{{classification}}</button>
               </mat-menu>
