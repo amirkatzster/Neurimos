@@ -1,17 +1,225 @@
-.card-header {
-    text-align: center;
-    color: #3e2b14;
+// ─── Palette ─────────────────────────────────────────────────────────────────
+$bg:          #faf7f2;
+$bg-alt:      #f3ede3;
+$hero-dark:   #1a1008;
+$accent:      #b8832a;
+$accent-light:#d4a84b;
+$brown:       #3e2b14;
+$text:        #2d1f0e;
+$muted:       #7a634a;
+$divider:     rgba(184, 131, 42, 0.2);
+$white:       #ffffff;
+
+// ─── Page ────────────────────────────────────────────────────────────────────
+.about-page {
+  background: $bg;
+  direction: rtl;
 }
 
-.card-block {
-    background: white; /* fallback for old browsers */
-     background: -webkit-linear-gradient(180deg, #DEDEDE, #9D9E9B); /* Chrome 10-25, Safari 5.1-6 */
-     background: linear-gradient(180deg, #DEDEDE, #9D9E9B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: #3e2b14;
-    font-weight: bold;
+// ─── Hero ────────────────────────────────────────────────────────────────────
+.about-hero {
+  background:
+    linear-gradient(160deg, rgba(26,16,8,0.88) 0%, rgba(62,43,20,0.80) 100%),
+    url('assets/images/NeurimStore2.jpg') center / cover no-repeat;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
 }
 
-img {
-    border: 15px solid #3e2b14;
-   padding: 10px;
- }
+.hero-inner {
+  max-width: 600px;
+}
+
+.hero-badge {
+  display: inline-block;
+  border: 1.5px solid $accent-light;
+  color: $accent-light;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-weight: 800;
+  color: $white;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.72);
+  margin: 0;
+  line-height: 1.7;
+}
+
+// ─── Story Section ───────────────────────────────────────────────────────────
+.about-story {
+  padding: 3.5rem 0 2rem;
+
+  .container { max-width: 900px; }
+}
+
+// ─── Era Block ───────────────────────────────────────────────────────────────
+.era {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  align-items: flex-start;
+  padding: 2rem 0;
+
+  &.era-flip {
+    flex-direction: row-reverse;
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column !important;
+    gap: 1.5rem;
+  }
+}
+
+.era-text-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.era-photo-col {
+  flex: 0 0 260px;
+
+  @media (max-width: 767px) {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+.era-year-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $accent;
+  border-bottom: 2px solid $accent;
+  padding-bottom: 2px;
+  margin-bottom: 1rem;
+}
+
+.era-text {
+  font-size: 15px;
+  line-height: 1.95;
+  color: $text;
+  margin: 0;
+}
+
+// ─── Vintage Photo Frame ─────────────────────────────────────────────────────
+.era-figure {
+  margin: 0;
+  text-align: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 8px solid $white;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.12),
+      4px 6px 18px rgba(0,0,0,0.18);
+    filter: sepia(15%);
+    transition: filter 0.3s ease;
+
+    &:hover { filter: sepia(0%); }
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 12px;
+    color: $muted;
+    letter-spacing: 0.06em;
+    font-style: italic;
+  }
+}
+
+// ─── Divider ─────────────────────────────────────────────────────────────────
+.era-divider {
+  border: none;
+  border-top: 1px solid $divider;
+  margin: 0.5rem 0;
+}
+
+// ─── Today Block ─────────────────────────────────────────────────────────────
+.era-today {
+  padding: 2rem 0 1rem;
+  max-width: 640px;
+
+  .era-text {
+    font-size: 15px;
+  }
+}
+
+// ─── Closing ─────────────────────────────────────────────────────────────────
+.about-closing {
+  background: $bg-alt;
+  border-top: 1px solid $divider;
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+}
+
+.closing-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.closing-text {
+  font-size: 1.1rem;
+  color: $text;
+  line-height: 1.8;
+  margin: 0 0 1.75rem;
+}
+
+.closing-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.closing-regards {
+  font-size: 13px;
+  color: $muted;
+}
+
+.closing-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $brown;
+  letter-spacing: 0.02em;
+}
+
+.closing-cta {
+  display: inline-block;
+  background: $accent;
+  color: $white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 11px 28px;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.15s ease;
+
+  &:hover {
+    background: darken($accent, 8%);
+    color: $white;
+    transform: translateY(-1px);
+  }
+}

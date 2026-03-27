@@ -2,29 +2,45 @@
 
   <!-- Info bar -->
   <div class="header-info-bar">
-    <div class="container-fluid">
-      <div class="row align-items-center">
-        <div class="col-md-2 d-none d-md-block"></div>
-        <div class="col-md-2 col-6">
-          <a href="tel:035052769" class="header-phone">03-5052769 <i class="fa fa-phone" aria-hidden="true"></i></a>
-        </div>
-        <div class="col-md-2 d-none d-md-block">
-          <span>9:00 עד 19:00 <i class="fa fa-clock-o" aria-hidden="true"></i></span>
-        </div>
-        <div class="col-md-2 d-none d-md-block header-tagline">תלכי בדרך שלך</div>
-        <div class="col-md-1 col-1"></div>
-        <div class="col-md-3 col-5">
-          <div class="dropdown">
-            <a class="btn dropdown-toggle btn-contact btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              צרו קשר
-            </a>
-            <ul class="dropdown-menu dropdown-menu-start">
-              <li><a class="dropdown-item" routerLink="/sendusmsg">שלחו לנו הודעה</a></li>
-              <li><a class="dropdown-item" routerLink="/findus">הגעה</a></li>
-            </ul>
-          </div>
-        </div>
+    <div class="info-bar-inner">
+
+      <!-- Left: tagline (desktop only) -->
+      <span class="info-tagline d-none d-md-block">ללכת על בטוח</span>
+
+      <!-- Center: phone + hours -->
+      <div class="info-items">
+        <a href="tel:035052769" class="info-item info-phone">
+          <span class="info-icon"><i class="fa fa-phone"></i></span>
+          03-5052769
+        </a>
+        <span class="info-sep d-none d-md-inline"></span>
+        <span class="info-item d-none d-md-flex">
+          <span class="info-icon"><i class="fa fa-clock-o"></i></span>
+          א׳–ה׳: 9:00–19:00
+        </span>
       </div>
+
+      <!-- Right: contact dropdown -->
+      <div class="dropdown">
+        <a class="btn-contact-new dropdown-toggle" href="#" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-envelope-o"></i>
+          <span class="d-none d-md-inline">צרו קשר</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-start contact-dropdown">
+          <li>
+            <a class="dropdown-item" routerLink="/sendusmsg">
+              <i class="fa fa-paper-plane-o"></i> שלחו לנו הודעה
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/findus">
+              <i class="fa fa-map-marker"></i> הגעה לחנות
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 
