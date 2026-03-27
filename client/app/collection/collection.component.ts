@@ -63,11 +63,24 @@ export class CollectionComponent implements OnInit, OnDestroy {
       } else {
         this.titleService.setTitle('נעלי ' + this.queries + ' | נעלי נעורים');
       }
-      this.meta.updateTag({ name: 'keywords', content: 'נעליים, נעל,' + this.queries });
-      this.meta.updateTag(
-        { name: 'description', content: `מבחר קולקציית נעלי ${this.queries}. משלוח בקנייה מעל 200 שח חינם. נעלי נעורים חולון מאז 1965` }
-      );
+      this.meta.updateTag({ name: 'keywords', content: this.buildKeywords(this.queries) });
+      this.meta.updateTag({ name: 'description', content: this.buildDescription(this.queries) });
     });
+  }
+
+  private buildKeywords(queries: String[]): string {
+    const q = queries.join(', ');
+    const base = `נעלי ${q}, נעל ${q}, ${q} חולון, קניית נעלי ${q}, נעלי נעורים`;
+    const extras: string[] = [];
+    if (queries.some(s => s === 'נשים'))   extras.push('נעלי נוחות לנשים, נעלי אורטופדיות לנשים, נעלי נשים מבוגרות');
+    if (queries.some(s => s === 'גברים'))  extras.push('נעלי נוחות לגברים, נעלי עור לגברים');
+    if (queries.some(s => s === 'ילדים' || s === 'ילדות')) extras.push('נעלי צעד ראשון, נעלי תינוקות, נעלי פעוטות');
+    return [base, ...extras].join(', ');
+  }
+
+  private buildDescription(queries: String[]): string {
+    const q = queries.join(' ');
+    return `מבחר נעלי ${q} במחירים מעולים — נעלי נעורים חולון מאז 1965. משלוח עד הבית בקנייה מעל ₪200. ${q} בכל המידות והצבעים.`;
   }
 
   createSearchQuery(query): any {

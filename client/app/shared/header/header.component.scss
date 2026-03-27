@@ -108,6 +108,14 @@ $white:           #ffffff;
   border-bottom: 1px solid #e8e8e8;
 
   .search-text-box { width: 70%; }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    max-height: 50px;
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 // ── Category nav bar ─────────────────────────────────────────

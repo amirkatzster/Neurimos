@@ -59,12 +59,9 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           this.title = `נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`;
           this.titleService.setTitle(this.title);
           // tslint:disable-next-line:max-line-length
-          this.description = `נעלי ${this.shoe.gender} מבית ${this.shoe.company} לקנות בנעלי נעורים חולון. ${this.shoe.name} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח`;
-          this.meta.updateTag(
-            { name: 'description',
-              content: this.description
-            });
-          this.meta.updateTag({ name: 'keywords', content: `נעל, ${this.shoe.company}, ${this.shoe.name} , ${colors}` });
+          this.description = `${this.shoe.company} ${this.shoe.name} — נעלי ${this.shoe.gender} צבע ${colors} במחיר ${this.shoe.finalPrice} ש"ח. קנו בנעלי נעורים חולון עם משלוח עד הבית. מאז 1965.`;
+          this.meta.updateTag({ name: 'description', content: this.description });
+          this.meta.updateTag({ name: 'keywords', content: `${this.shoe.company}, ${this.shoe.name}, נעלי ${this.shoe.gender}, ${colors}, נעל ${this.shoe.company} חולון, קניית ${this.shoe.company} אונליין, נעלי נעורים, ${this.shoe.company} ${this.shoe.name} מחיר` });
           if (params['color']) {
             this.currentImageGroup = this.shoe.imagesGroup.find(ig => ig.color === params['color']);
           } else {
