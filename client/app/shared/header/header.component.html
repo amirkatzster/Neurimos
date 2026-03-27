@@ -56,8 +56,15 @@
           </a>
         </div>
         <div class="col-md-8 search-col">
-          <input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()">
-          <button #btnSearch class="btn search-button" [routerLink]="'/נעלי/' + querySearch">חפש</button>
+          <div class="search-wrap">
+            <button #btnSearch class="btn search-button" [routerLink]="querySearch?.trim() ? '/נעלי/' + querySearch.trim() : null">
+              <i class="fa fa-search" aria-hidden="true"></i> חפש
+            </button>
+            <input [(ngModel)]="querySearch" class="search-text-box" type="text"
+                   placeholder="חפש נעליים, מותג, מידה..."
+                   (keyup.enter)="btnSearch.click()">
+            <span class="search-icon-inner"><i class="fa fa-search" aria-hidden="true"></i></span>
+          </div>
         </div>
         <div class="col-md-1 text-center">
           <a routerLink="/" routerLinkActive="active"><img src="assets/images/logoNeurim.svg" alt="לוגו נעלי נעורים" height="60"></a>
@@ -108,9 +115,16 @@
 
   <!-- Mobile: search -->
   <div class="header-mobile-search d-md-none">
-    <div class="container-fluid pb-2">
-      <input [(ngModel)]="querySearch" class="search-text-box" type="text" placeholder="חפש נעליים, חברות וכדומה" (keyup.enter)="btnSearch.click()">
-      <button #btnSearch class="btn search-button" [routerLink]="'/נעלי/' + querySearch">חפש</button>
+    <div class="container-fluid pb-2 pt-1">
+      <div class="search-wrap">
+        <button #btnSearch class="btn search-button" [routerLink]="querySearch?.trim() ? '/נעלי/' + querySearch.trim() : null">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+        <input [(ngModel)]="querySearch" class="search-text-box" type="text"
+               placeholder="חפש נעליים..."
+               (keyup.enter)="btnSearch.click()">
+        <span class="search-icon-inner"><i class="fa fa-search" aria-hidden="true"></i></span>
+      </div>
     </div>
   </div>
 

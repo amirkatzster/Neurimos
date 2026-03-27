@@ -17,22 +17,38 @@ $muted:      #757575;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0 12px;
+  padding: 10px 0 12px;
   flex-wrap: wrap;
   gap: 8px;
+}
 
-  h1 {
-    font-size: 17px;
-    font-family: "Georgia", serif;
-    font-style: italic;
-    color: #555;
-    margin: 0;
+.results-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-    .searchQuery {
-      color: $accent;
-      font-weight: 700;
-    }
-  }
+.results-query {
+  font-size: 22px;
+  font-weight: 700;
+  color: $brand-dark;
+  font-family: "Georgia", serif;
+}
+
+.results-count {
+  font-size: 13px;
+  color: $muted;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.results-empty {
+  font-size: 15px;
+  color: $muted;
+  gap: 6px;
+  i { color: $muted; }
+  strong { color: $brand-dark; }
 }
 
 .results-bar-sort {
@@ -49,35 +65,76 @@ $muted:      #757575;
 }
 
 .sort-field {
-  width: 180px;
+  width: 150px;
 
-  ::ng-deep .mat-mdc-form-field-infix { padding: 6px 0; }
-  ::ng-deep .mat-mdc-text-field-wrapper { background: #fff; }
+  ::ng-deep .mat-mdc-form-field-infix { padding: 2px 0; min-height: unset; }
+  ::ng-deep .mat-mdc-text-field-wrapper { padding: 0 10px; }
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper { display: none; }
+  ::ng-deep .mdc-notched-outline__notch { border-right: none; }
+  ::ng-deep .mat-mdc-select-value { font-size: 13px; }
 }
 
 // ── Active filters ───────────────────────────────────────────────
 .active-filters {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 12px;
-  padding: 8px 12px;
-  background: #fff;
-  border: 1px solid $border;
+  padding: 8px 14px;
+  background: #eef4fb;
+  border: 1px solid #c6ddf0;
   border-radius: 8px;
 }
 
 .active-filters-label {
   font-size: 12px;
-  font-weight: 600;
-  color: $brand-dark;
+  font-weight: 700;
+  color: $brand;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  i { font-size: 11px; }
 }
 
-.cancelIcon {
-  font-size: 16px;
-  color: rgba(0,0,0,0.45);
+.active-filters-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #fff;
+  border: 1.5px solid $brand;
+  color: $brand-dark;
+  border-radius: 20px;
+  padding: 3px 10px 3px 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.active-chip-size {
+  border-color: $accent;
+  color: $accent;
+}
+
+.active-chip-remove {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.55;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 1; }
 }
 
 // ── Filter panel ────────────────────────────────────────────────

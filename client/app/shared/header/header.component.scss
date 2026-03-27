@@ -139,28 +139,75 @@ $white:           #ffffff;
 .search-col {
   display: flex;
   align-items: center;
+  padding: 10px 0;
+}
+
+// ── Search pill ───────────────────────────────────────────────
+.search-wrap {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border: 2px solid #d0dae8;
+  border-radius: 50px;
+  overflow: hidden;
+  background: $white;
+  box-shadow: 0 2px 10px rgba(0, 40, 100, 0.07);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: $brand-primary;
+    box-shadow: 0 0 0 4px rgba(0, 118, 190, 0.12), 0 2px 10px rgba(0, 40, 100, 0.07);
+  }
+}
+
+.search-icon-inner {
+  display: flex;
+  align-items: center;
+  padding: 0 14px 0 4px;
+  color: #b0bac8;
+  font-size: 15px;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 
 .search-text-box {
   flex: 1;
-  padding: 8px 14px;
-  color: #555;
-  border: 2px solid #cde;
-  border-radius: 0 6px 6px 0;
-  font-size: 15px;
+  min-width: 0;
+  padding: 12px 6px 12px 18px;
+  border: none;
   outline: none;
-  &:focus { border-color: $brand-primary; }
+  font-size: 15px;
+  color: #2d3748;
+  background: transparent;
+  direction: rtl;
+
+  &::placeholder {
+    color: #a0aab8;
+    font-weight: 400;
+  }
 }
 
 .search-button {
-  padding: 8px 18px;
-  background-color: $brand-darker;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 0 22px;
+  background: $brand-primary;
   color: $white;
-  border-radius: 6px 0 0 6px;
   border: none;
-  font-size: 15px;
+  border-radius: 0;
+  font-size: 14px;
+  font-weight: 600;
   white-space: nowrap;
-  &:hover { background-color: $brand-primary; color: $white; }
+  transition: background 0.15s ease;
+
+  i { font-size: 13px; }
+
+  &:hover, &:focus {
+    background: $brand-darker;
+    color: $white;
+  }
 }
 
 // ── Cart ─────────────────────────────────────────────────────
@@ -209,12 +256,9 @@ $white:           #ffffff;
   padding: 4px 12px;
 }
 
-.header-mobile-logo,
-.header-mobile-search {
+.header-mobile-logo {
   background-color: $white;
   border-bottom: 1px solid #e8e8e8;
-
-  .search-text-box { width: 70%; }
 
   img {
     max-width: 100%;
@@ -222,6 +266,21 @@ $white:           #ffffff;
     max-height: 50px;
     display: block;
     margin: 0 auto;
+  }
+}
+
+.header-mobile-search {
+  background-color: $white;
+  border-bottom: 1px solid #e8e8e8;
+
+  .search-wrap { margin: 0 4px; }
+
+  .search-button {
+    padding: 0 16px;
+    font-size: 16px;
+    gap: 0;
+
+    span { display: none; }
   }
 }
 
