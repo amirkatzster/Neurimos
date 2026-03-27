@@ -28,7 +28,7 @@ import { FindusComponent } from 'app/info/findus/findus.component';
 import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
 import { AboutComponent } from 'app/info/about/about.component';
 import { ContactUsService } from 'app/services/contactus.service';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { SafeHtmlPipe } from './shared/safeHtml/safe-html';
 import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
@@ -63,6 +63,7 @@ import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
     HttpClientModule
   ],
   providers: [
+    provideClientHydration(),
     AuthService,
     AuthGuardLogin,
     AuthGuardAdmin,

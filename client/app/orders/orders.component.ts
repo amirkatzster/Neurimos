@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { OrderService } from 'app/services/order.service';
 import { Order } from 'app/model/order';
 import {Location} from '@angular/common';
@@ -19,7 +20,8 @@ export class OrdersComponent implements OnInit {
               private location: Location,
               public shoeService: ShoeService,
               public googleService: GoogleAnalyticsEventsService,
-              private router: Router) { }
+              private router: Router,
+              @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     this.orders = this.orderService.getOrders();
@@ -28,7 +30,7 @@ export class OrdersComponent implements OnInit {
       if (!(evt instanceof NavigationEnd)) {
           return;
       }
-      window.scrollTo(0, 200)
+      if (isPlatformBrowser(this.platformId)) { window.scrollTo(0, 200); }
   });
   }
 

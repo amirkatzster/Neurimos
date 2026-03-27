@@ -2,18 +2,18 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": []
+    "types": ["node"]
   },
   "files": [
-    "main.ts"
+    "main.ts",
+    "main.server.ts",
+    "../server.ts"
   ],
   "include": [
     "app/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",
-    "app/app.server.module.ts",
-    "app/unversal.interceptor.ts",
-    "main.server.ts"
+    "app/unversal.interceptor.ts"
   ]
 }

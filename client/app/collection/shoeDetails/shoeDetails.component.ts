@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoeService } from 'app/services/shoe.service';
 import { CompanyService } from 'app/services/company.service';
 import { MatSelectChange } from '@angular/material/select';
 import { OrderService } from 'app/services/order.service';
-import {Location} from '@angular/common';
+import { Location, isPlatformBrowser } from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { Title, Meta, DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -44,7 +44,8 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               private location: Location,
               public auth: AuthService,
               private titleService: Title,
-              private meta: Meta) {  }
+              private meta: Meta,
+              @Inject(PLATFORM_ID) private platformId: Object) {  }
 
 
   ngOnInit() {
@@ -141,7 +142,9 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
-    (window as any).gtag('event', 'conversion', { send_to: 'AW-1064042889/k27dCOOOjpAcEImDsPsD' });
+    if (isPlatformBrowser(this.platformId)) {
+      (window as any).gtag('event', 'conversion', { send_to: 'AW-1064042889/k27dCOOOjpAcEImDsPsD' });
+    }
     this.orderService.newOrder(this.shoe, this.currentImageGroup , this.selectedSize);
     this.router.navigate(['order']);
   }

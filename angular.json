@@ -20,6 +20,10 @@
             "outputPath": "dist",
             "index": "client/index.html",
             "browser": "client/main.ts",
+            "server": "client/main.server.ts",
+            "ssr": {
+              "entry": "server.ts"
+            },
             "polyfills": ["zone.js"],
             "tsConfig": "client/tsconfig.app.json",
             "assets": [

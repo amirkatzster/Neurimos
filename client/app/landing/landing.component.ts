@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { CompanyService } from 'app/services/company.service';
 
 @Component({
@@ -24,13 +25,18 @@ export class LandingComponent implements OnInit, OnDestroy {
   currentSlide = 0;
   private carouselInterval: any;
 
-  constructor(public CompanyService: CompanyService) {}
+  constructor(
+    public CompanyService: CompanyService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
     this.loadCompanies();
-    this.carouselInterval = setInterval(() => {
-      this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-    }, 30000);
+    if (isPlatformBrowser(this.platformId)) {
+      this.carouselInterval = setInterval(() => {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+      }, 30000);
+    }
   }
 
   ngOnDestroy() {
