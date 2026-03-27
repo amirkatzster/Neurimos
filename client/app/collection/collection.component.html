@@ -24,11 +24,15 @@
     </div>
 
     <!-- Active filter chips -->
-    <div class="active-filters" *ngIf="filters?.length > 0">
+    <div class="active-filters" *ngIf="filters?.length > 0 || selectedSizes?.length > 0">
       <span class="active-filters-label">סינון פעיל:</span>
       <mat-chip-set>
         <mat-chip *ngFor="let filter of filters" (removed)="removeFilter(filter)">
           {{ filter }}
+          <button matChipRemove><i class="material-icons cancelIcon">cancel</i></button>
+        </mat-chip>
+        <mat-chip *ngFor="let size of selectedSizes" (removed)="removeSizeFilter(size)" class="size-chip-active">
+          מידה {{ size }}
           <button matChipRemove><i class="material-icons cancelIcon">cancel</i></button>
         </mat-chip>
       </mat-chip-set>
@@ -54,6 +58,18 @@
           </button>
 
           <mat-accordion [multi]="true">
+
+            <!-- Size -->
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header class="filter-panel-header">מידה</mat-expansion-panel-header>
+              <div class="size-chips">
+                <button class="size-chip" *ngFor="let size of sizes"
+                        [class.active]="selectedSizes.includes(size.toString())"
+                        (click)="addSizeFilter(size.toString())">
+                  {{ size }}
+                </button>
+              </div>
+            </mat-expansion-panel>
 
             <!-- Company -->
             <mat-expansion-panel [expanded]="true">

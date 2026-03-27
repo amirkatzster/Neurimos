@@ -116,6 +116,33 @@ $muted:      #757575;
   min-height: 40px !important;
 }
 
+// Size chips inside filter
+.size-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 0 4px;
+}
+
+.size-chip {
+  border: 1.5px solid $border;
+  background: #fff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  color: $brand-dark;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+
+  &:hover { border-color: $brand; color: $brand; }
+
+  &.active {
+    border-color: $brand-dark;
+    background: $brand-dark;
+    color: #fff;
+  }
+}
+
 // Company / color filter links
 .filter-link-list {
   display: flex;

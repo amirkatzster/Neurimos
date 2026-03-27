@@ -26,6 +26,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   companies: any[];
   colors: any[];
   sort: String = 'rel';
+  selectedSizes: string[] = [];
   sortList: any[] = [{ 'value': 'rel', 'viewValue': 'רלוונטיות' },
                      { 'value': 'new', 'viewValue': 'חדשים' },
                      { 'value': 'priceLow', 'viewValue': 'מחיר - נמוך לגבוהה' },
@@ -53,6 +54,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
       if (qparams.sort) {
         this.sort = qparams.sort;
       }
+      this.selectedSizes = qparams.sizes ? qparams.sizes.split(',') : [];
       this.initQueries = params['query'];
       this.queries = this.createSearchQuery(this.initQueries);
       this.queries = this.queries.filter(s => s.indexOf('[') === -1 && s.indexOf(']') === -1);
@@ -84,6 +86,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   createSearchQuery(query): any {
+    if (!query) { return ['נעליים']; }
     let searchQuery = (query.replace(/\s\s+/g, ' ')).trim();
     const matches = searchQuery.match(/\[(.*?)\]/);
     const words = [];
@@ -107,7 +110,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
     }
     this.sub2 = this.shoeService.searchShoes(this.queries, queryString).subscribe(
       data => {
-        this.shoes = data;
+        this.shoes = this.selectedSizes.length > 0
+          ? data.filter(shoe =>
+              this.selectedSizes.some(size =>
+                shoe.imagesGroup?.some(ig => ig.sizes?.some(s => String(s.size) === size))
+              )
+            )
+          : data;
         this.setFilters();
       },
       error => console.log(error),
@@ -177,11 +186,26 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.reload();
   }
 
-  reload() {
-    let str = '/נעלי/' + this.initQueries;
-    if (this.sort !== 'rel') {
-      str += '?sort=' + this.sort;
+  addSizeFilter(size: string) {
+    if (!this.selectedSizes.includes(size)) {
+      this.selectedSizes = [...this.selectedSizes, size];
+    } else {
+      this.selectedSizes = this.selectedSizes.filter(s => s !== size);
     }
+    this.reload();
+  }
+
+  removeSizeFilter(size: string) {
+    this.selectedSizes = this.selectedSizes.filter(s => s !== size);
+    this.reload();
+  }
+
+  reload() {
+    let str = '/נעלי/' + (this.initQueries || 'נעליים');
+    const params: string[] = [];
+    if (this.sort !== 'rel') { params.push('sort=' + this.sort); }
+    if (this.selectedSizes.length > 0) { params.push('sizes=' + this.selectedSizes.join(',')); }
+    if (params.length > 0) { str += '?' + params.join('&'); }
     this.router.navigateByUrl(str);
   }
 
