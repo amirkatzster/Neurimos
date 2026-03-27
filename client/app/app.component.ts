@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,6 +10,12 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, router: Router) {
+    router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        document.documentElement.scrollTop = 0;
+      }
+    });
+  }
 
 }
