@@ -5,7 +5,6 @@
     <div class="results-bar">
       <div class="results-bar-text">
         <div class="results-summary" *ngIf="shoes?.length > 0">
-          <span class="results-query" *ngIf="queries.length > 0">{{ queries.join(' ') }}</span>
           <span class="results-count">{{ shoes?.length }} נעליים</span>
         </div>
         <div class="results-summary results-empty" *ngIf="shoes?.length === 0">
@@ -24,14 +23,18 @@
       </div>
     </div>
 
-    <!-- Active size filter chips (sizes only — search terms already shown in title) -->
-    <div class="active-filters" *ngIf="selectedSizes?.length > 0">
+    <!-- Active filter chips -->
+    <div class="active-filters" *ngIf="filters?.length > 0 || selectedSizes?.length > 0">
       <span class="active-filters-label">
-        <i class="fa fa-filter"></i> מידה
+        <i class="fa fa-filter"></i> סינון פעיל
       </span>
       <div class="active-filters-chips">
+        <span class="active-chip" *ngFor="let filter of filters">
+          {{ filter }}
+          <button class="active-chip-remove" (click)="removeFilter(filter)" aria-label="הסר סינון">×</button>
+        </span>
         <span class="active-chip active-chip-size" *ngFor="let size of selectedSizes">
-          {{ size }}
+          מידה {{ size }}
           <button class="active-chip-remove" (click)="removeSizeFilter(size)" aria-label="הסר מידה">×</button>
         </span>
       </div>

@@ -1,23 +1,41 @@
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card">
-    <div class="card-block">
-    <a href="/api/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-    <h3>או</h3>
-    <p>הכנס פרטי משתמש קיים</p>
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="input-group" [ngClass]="setClassEmail()">
-        <span class="input-group-addon "><i class="fa fa-envelope"></i></span>
-        <input class="form-control" type="email" name="email" formControlName="email" placeholder='דוא"ל' autofocus>
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="login-header">
+      <a routerLink="/"><img src="assets/images/logoNeurim.svg" alt="נעלי נעורים" class="login-logo"></a>
+      <h1 class="login-title">ברוכים הבאים</h1>
+      <p class="login-sub">התחברו לחשבונכם</p>
+    </div>
+
+    <a href="/api/auth/facebook" class="btn-facebook">
+      <i class="fa fa-facebook"></i> המשך עם Facebook
+    </a>
+
+    <div class="login-divider"><span>או</span></div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <div class="login-field" [class.field-error]="!email.pristine && !email.valid">
+        <i class="fa fa-envelope login-field-icon"></i>
+        <input class="login-input" type="email" name="email" formControlName="email" placeholder='דוא"ל' autofocus>
       </div>
-      <div class="input-group" [ngClass]="setClassPassword()">
-        <span class="input-group-addon"><i class="fa fa-key"></i></span>
-        <input class="form-control" type="password" name="password" formControlName="password" placeholder="ססמה">
+      <div class="login-field" [class.field-error]="!password.pristine && !password.valid">
+        <i class="fa fa-lock login-field-icon"></i>
+        <input class="login-input" type="password" name="password" formControlName="password" placeholder="סיסמה">
       </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">היכנס <i class="fa fa-sign-in"></i></button>
+      <button class="btn-login" type="submit" [disabled]="!loginForm.valid">
+        כניסה <i class="fa fa-arrow-left"></i>
+      </button>
     </form>
+
+    <p class="login-register">
+      עדיין לא רשומים? <a routerLink="/register">הרשמו כאן</a>
+    </p>
+
   </div>
 </div>
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
