@@ -1,161 +1,132 @@
-<div style="position:initial">
-  <div class="container-fluid firstRow" >
-    <div class="row secondRow">
-        <div class="col-md-9">
-            <h1 *ngIf="orders.length > 0">יש לך <span class="cartHeader">{{ orderService.totalAmount() }}</span> מוצרים בעגלה!</h1>
-            <h1 *ngIf="orders.length === 0">העגלה ריקה</h1>
+<div class="cart-page">
+  <div class="cart-container">
+
+    <!-- Header -->
+    <div class="cart-header">
+      <h1 *ngIf="orders.length > 0">
+        <i class="fa fa-shopping-cart"></i>
+        יש לך <span class="cart-count">{{ orderService.totalAmount() }}</span> מוצרים בעגלה
+      </h1>
+      <h1 *ngIf="orders.length === 0">
+        <i class="fa fa-shopping-cart"></i> העגלה ריקה
+      </h1>
+      <p class="cart-trust-line">
+        <i class="fa fa-lock"></i> קנייה בנעורים היא בטוחה — מוניטין מאז 1965
+      </p>
+    </div>
+
+    <!-- Action buttons (top) -->
+    <div class="cart-actions" *ngIf="orders.length > 0">
+      <button type="button" class="btn btn-checkout" routerLink="/cashier">
+        המשך לתשלום
+      </button>
+      <button type="button" class="btn btn-back" (click)="backClicked()">
+        המשך בקנייה
+      </button>
+    </div>
+    <div class="cart-actions" *ngIf="orders.length === 0">
+      <button type="button" class="btn btn-back" (click)="backClicked()">
+        חזור לחנות
+      </button>
+    </div>
+
+    <!-- Items list -->
+    <div class="cart-items" *ngIf="orders.length > 0">
+      <div class="cart-items-title">פריטים בעגלה</div>
+
+      <div class="cart-item" *ngFor="let order of orders">
+        <!-- Image -->
+        <div class="cart-item-img">
+          <a [routerLink]="shoeService.getShoeLink(order.shoe)">
+            <img [src]="order.imageGroup.images[0].urlLarge" [alt]="order.shoe.name" />
+          </a>
         </div>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="row">
-      <div class="col-md-9 safe">
-          קנייה בנעורים היא בטוחה. שרתינו מאובטחים ואנחנו מתגאים במוניטין מאז 1965.
-      </div>
-      <div class="col-md-3"></div>
-    </div>
-    <!-- DESKTOP -->
-    <div class="row spacer d-none d-md-block" >
-      <div class="col-md-4">
-          <button *ngIf="orders.length > 0" type="button" class="btn btn-success"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-      </div>
-      <div class="col-md-5">
-          <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
-      </div>
-      <div class="col-md-3"></div>
-    </div>
-    <!-- Mobile -->
-    <div class="row spacer d-md-none" >
-      <div class="col-md-12">
-          <button *ngIf="orders.length > 0" type="button" class="btn btn-success btn-block"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="spacer"></div>
-    </div>
-    <div class="row" *ngIf="orders.length > 0">
-      <div class="col-md-2"></div>
-      <div class="col-md-7 cartTableHeader">
-          כרגע בתוך העגלה
-      </div>
-      <div class="col-md-3"></div>
-    </div>
-    <div class="row" *ngIf="orders.length > 0">
-      <div class="col-md-2 d-none d-sm-block"></div>
-      <div class="col-md-7 col-12">
-        <div class="row cartTableHeaderItems">
-          <div class="col-md-2 col-2">מחיר</div>
-          <div class="col-md-2 col-3">כמות</div>
-          <div class="col-md-2 col-2">מחיר לנעל</div>
-          <div class="col-md-6 col-4">הנעל</div>
-        </div>
-      </div>
-      <div class="col-md-3 d-none d-sm-block"></div>
-    </div>
-    <div class="row" *ngIf="orders.length > 0">
-        <div class="col-md-2 d-none d-sm-block"></div>
-        <div class="col-md-7 col-12">
-          <div class="row orderItem" *ngFor="let order of orders">
-            <div class="col-md-2 col-2 orderPrice text-center">₪{{order.shoe.finalPrice * order.amount}}</div>
-            <div class="col-md-2 col-3 text-center">
-              <div>
-                  <input type="number" (ngModelChange)="onAmountChange($event)"
-                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                  class="form-control form-control-sm amountInput" [(ngModel)]="order.amount" min="1" max="20" step="1" >
-              </div>
-              <div><button type="button" class="btn btn-link removeBtn" (click)="removeOrder(order)"><i class="fa fa-times" aria-hidden="true"></i>הסר</button></div>
-            </div>
-            <div class="col-md-2 col-2 orderPrice">
-                <div class="price" *ngIf="order.shoe.price !== order.shoe.finalPrice">{{order.shoe.finalPrice}} ₪</div>  
-                <div class="price" [ngClass]="{'discount': order.shoe.price !== order.shoe.finalPrice }">{{order.shoe.price}} ₪</div>
-            </div>
-            <div class="col-md-2 col-3">
-              <div><a href="#" [routerLink]="shoeService.getShoeLink(order.shoe)" ><h2>{{order.shoe.name}}</h2></a></div>
-              <div><strong>צבע:</strong> {{order.imageGroup.color}}</div>
-              <div><strong>מידה:</strong> {{order.size}}</div>
-            </div>
-            <div class="col-md-4 d-none d-md-block">
-              <picture>
-                  <source media="(max-width: 650px)" [srcset]="order.imageGroup.images[0].urlSmall">
-                  <img [src]="order.imageGroup.images[0].urlLarge" class="imgContainer"/>
-              </picture>
-            </div>
-            <div class="d-md-none col-2">
-                <img [src]="order.imageGroup.images[0].urlSmall" />
-            </div>
+
+        <!-- Details -->
+        <div class="cart-item-details">
+          <a class="cart-item-name" [routerLink]="shoeService.getShoeLink(order.shoe)">{{ order.shoe.name }}</a>
+          <div class="cart-item-meta">
+            <span><strong>צבע:</strong> {{ order.imageGroup.color }}</span>
+            <span><strong>מידה:</strong> {{ order.size }}</span>
+          </div>
+          <div class="cart-item-price-row">
+            <span class="price-final">₪{{ order.shoe.finalPrice }}</span>
+            <span class="price-original" *ngIf="order.shoe.price !== order.shoe.finalPrice">₪{{ order.shoe.price }}</span>
           </div>
         </div>
-        <div class="col-md-3 d-none d-sm-block"></div>
-      </div>
-      <div class="row" *ngIf="orders.length > 0">
-          <div class="col-md-2 d-none d-sm-block col-0"></div>
-          <div class="col-md-7 col-12">
-            <div class="row cartTableBeforeTotal">
-              <div class="col-md-2 col-6">₪{{orderService.subTotal()}}</div>
-              <div class="col-md-4 col-6">עבור ({{ orderService.totalAmount() }}) מוצרים</div>
-              <div class="col-md-6 col-0"></div>
-            </div>
-            <div class="row cartTableBeforeTotal">
-                <div class="col-md-2 col-6">₪{{orderService.shippment()}}</div>
-                <div class="col-md-4 col-6">משלוח</div>
-                <div class="col-md-6 col-0"></div>
-            </div>
-            <div class="row cartTableBeforeTotal">
-                <div class="col-md-6 col-12">
-                  <mat-radio-group name="deliveryMethos" class="deliveryDetails" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
-<!--                     <mat-radio-button value="Mail">דואר ישראל <br>(הזמנה מעל 200 ש"ח משלוח חינם) </mat-radio-button><div></div> -->
-                    <mat-radio-button value="Delivery">משלוח מהיר <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
-                    <mat-radio-button value="SelfPick">איסוף עצמי <i matTooltip="איסוף עצמי בשנקר 52 חולון" class="fa fa-info-circle" aria-hidden="true"></i></mat-radio-button><div></div>
-                  </mat-radio-group> 
-                </div>
-                <div class="col-md-6 d-none d-sm-block"> 
-                                  
-                </div>
-            </div>
-            <div class="row cartTableTotal">
-                <div class="col-md-2 col-6">₪{{orderService.total()}}</div>
-                <div class="col-md-4 col-6">סה"כ</div>
-                <div class="col-md-6 col-0"></div>
-              </div>
-          </div>
-          <div class="col-md-3 col-0"></div>
-      </div>
-      <!-- DESKTOP -->
-      <div class="row spacer d-none d-md-block" >
-        <div class="col-md-4">
-            <button *ngIf="orders.length > 0" type="button" class="btn btn-success"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+
+        <!-- Qty + remove -->
+        <div class="cart-item-qty">
+          <label class="qty-label">כמות</label>
+          <input type="number"
+                 class="qty-input"
+                 [(ngModel)]="order.amount"
+                 (ngModelChange)="onAmountChange($event)"
+                 onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                 min="1" max="20" step="1">
+          <button class="btn-remove" (click)="removeOrder(order)">
+            <i class="fa fa-trash"></i> הסר
+          </button>
         </div>
-        <div class="col-md-5">
-            <button type="button" class="btn btn-secondary" (click)="backClicked()">חזור לחנות</button>
-        </div>
-        <div class="col-md-3"></div>
-      </div>
-      <!-- Mobile -->
-      <div class="row spacer d-md-none" >
-        <div class="col-md-12">
-            <button *ngIf="orders.length > 0" type="button" class="btn btn-success btn-block"  routerLink="/cashier">המשך <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+
+        <!-- Line total -->
+        <div class="cart-item-total">
+          ₪{{ order.shoe.finalPrice * order.amount }}
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-9 safe">
-            <strong>צוות נעורים ישמח לעזור לכם תמיד בכל שאלה ובקשה</strong>
-            <strong><a href="tel:035052769">03-5052769</a></strong>
-        </div>
-        <div class="col-md-3"></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="cart-summary" *ngIf="orders.length > 0">
+      <div class="summary-row">
+        <span>סכום ביניים ({{ orderService.totalAmount() }} פריטים)</span>
+        <span>₪{{ orderService.subTotal() }}</span>
       </div>
-      <div class="row spacer">
-          <div class="col-md-9 col-11">
-              <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_d_m.gif" alt="SSL site seal - click to verify" width="131" height="32">
-              <div class="sslDetails">
-                  האתר מאובטח בטכנולוגיית SSL EV. <br>
-                  המבטיח אימות של העסק וקנייה בטוחה
-                  <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים</a><br><br>
-                  <button type="button" class="btn btn-outline-dark btn-sm btnWhite"><img class="" src="https://cdn.ywxi.net/static/img/tm-float.png" alt="McAfee site seal - click to verify" width="100" height="26"></button><br>
-                  האתר נסרק ע"י McAfee בתדירות גבוהה
-                  <a href="https://www.mcafeesecure.com/verify?host=neurimshoes.co.il" target="_blank">לפרטים</a>
-              </div>
-          </div>
-          <div class="col-md-3 col-1"></div>
-       
+
+      <div class="summary-row delivery-row">
+        <span>שיטת משלוח</span>
+        <mat-radio-group name="deliveryMethod" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
+          <mat-radio-button value="Delivery">
+            משלוח מהיר
+            <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" #t1="matTooltip" (click)="t1.toggle()" class="fa fa-info-circle"></i>
+          </mat-radio-button>
+          <mat-radio-button value="SelfPick">
+            איסוף עצמי
+            <i matTooltip="איסוף עצמי בשנקר 52 חולון" #t2="matTooltip" (click)="t2.toggle()" class="fa fa-info-circle"></i>
+          </mat-radio-button>
+        </mat-radio-group>
       </div>
+
+      <div class="summary-row">
+        <span>עלות משלוח</span>
+        <span>₪{{ orderService.shippment() }}</span>
+      </div>
+
+      <div class="summary-total">
+        <span>סה"כ לתשלום</span>
+        <span>₪{{ orderService.total() }}</span>
+      </div>
+
+      <button type="button" class="btn btn-checkout btn-checkout-lg" routerLink="/cashier">
+        המשך לתשלום
+      </button>
+    </div>
+
+    <!-- Trust badges -->
+    <div class="cart-trust">
+      <div class="trust-text">
+        <i class="fa fa-phone"></i>
+        צוות נעורים ישמח לעזור בכל שאלה —
+        <a href="tel:035052769">03-5052769</a>
+      </div>
+      <div class="trust-badges">
+        <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_d_m.gif" alt="SSL site seal" width="131" height="32">
+        <span class="ssl-text">
+          האתר מאובטח בטכנולוגיית SSL EV —
+          <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים</a>
+        </span>
+      </div>
+    </div>
+
   </div>
 </div>
