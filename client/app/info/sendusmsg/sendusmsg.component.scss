@@ -1,9 +1,204 @@
-agm-map {
-    height: 300px;
+// ── Palette ─────────────────────────────────────────────────────
+$brand:      #0076BE;
+$brand-dark: #003952;
+$accent:     #fe5400;
+$border:     #e2e6ea;
+$muted:      #757575;
+
+// ── Page ────────────────────────────────────────────────────────
+.contact-page {
+  background: #f5f7fa;
+  min-height: 70vh;
+  padding: 40px 0 60px;
+}
+
+// ── Header ───────────────────────────────────────────────────────
+.contact-header {
+  text-align: center;
+  margin-bottom: 36px;
+
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: $brand-dark;
+    margin-bottom: 6px;
   }
 
-  .info {
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
+  p {
+    color: $muted;
+    font-size: 15px;
+    margin: 0;
+  }
+}
+
+// ── Two-column grid ──────────────────────────────────────────────
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: stretch;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Map column ───────────────────────────────────────────────────
+.contact-map-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.map-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.1);
+  flex: 1;
+  min-height: 200px;
+
+  iframe {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.address-block {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.address-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+
+  i {
+    color: $brand;
+    font-size: 18px;
+    width: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  a {
+    color: $brand-dark;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { color: $accent; }
+  }
+}
+
+// ── Form card ────────────────────────────────────────────────────
+.contact-form-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-card {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 32px 28px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.06);
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $brand-dark;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid $brand;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  i { color: $brand; }
+}
+
+// ── Fields ───────────────────────────────────────────────────────
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 18px;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $brand-dark;
+  }
+}
+
+.optional {
+  font-weight: 400;
+  color: $muted;
+  font-size: 12px;
+}
+
+.field-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid $border;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background: #fafbfc;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+  direction: rtl;
+
+  &::placeholder { color: #bbb; }
+
+  &:focus {
+    border-color: $brand;
+    box-shadow: 0 0 0 3px rgba(0, 118, 190, 0.12);
+    background: #fff;
+  }
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+// ── Submit button ────────────────────────────────────────────────
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: $brand-dark;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.18s, transform 0.12s;
+  margin-top: 4px;
+
+  &:hover:not(:disabled) {
+    background: $brand;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }

@@ -1,23 +1,58 @@
-<div class="container">
-    <div class="row">
-        <div class="d-md-none">
-            <a href="waze://?ll=32.021484,34.775966&navigate=yes"><button type="button" class="btn btn-info btn-block">לחץ לנווט אלינו <img src="assets/images/waze.png" height="32"></button></a>
+<div class="fu-page" dir="rtl">
+  <div class="fu-hero">
+    <i class="fa fa-map-marker fu-hero-icon"></i>
+    <h1 class="fu-hero-title">איך מגיעים אלינו</h1>
+    <p class="fu-hero-sub">נעלי נעורים — חולון מאז 1965</p>
+  </div>
+
+  <div class="fu-content container">
+    <div class="fu-card-row">
+
+      <!-- Address card -->
+      <div class="fu-card">
+        <div class="fu-card-header">
+          <i class="fa fa-building"></i> כתובת החנות
         </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <strong>כתובתינו</strong>
-        <address>
-              אופנת נעלי נעורים בע"מ<br>
-              שנקר 52, חולון<br>
-              ישראל<br>
-        </address>
-        <a href="waze://?ll=32.021484,34.775966&navigate=yes" class="btn btn-info">
-          <img src="assets/images/waze.png" height="24"> נווט אלינו
-        </a>
-        <a href="https://maps.google.com/?q=שנקר+52+חולון" target="_blank" class="btn btn-secondary ml-2">
-          פתח ב-Google Maps
-        </a>
+        <div class="fu-card-body">
+          <p class="fu-address-line"><strong>אופנת נעלי נעורים בע"מ</strong></p>
+          <p class="fu-address-line"><i class="fa fa-map-marker"></i> שנקר 52, חולון</p>
+          <p class="fu-address-line"><i class="fa fa-globe"></i> ישראל</p>
+        </div>
+        <div class="fu-card-actions">
+          <a href="waze://?ll=32.021484,34.775966&navigate=yes" class="fu-btn fu-btn-waze">
+            <img src="assets/images/waze.png" height="20" alt="Waze"> נווט בוויז
+          </a>
+          <a href="https://maps.google.com/?q=שנקר+52+חולון" target="_blank" rel="noopener" class="fu-btn fu-btn-gmaps">
+            <i class="fa fa-map"></i> Google Maps
+          </a>
+        </div>
       </div>
+
+      <!-- Hours card -->
+      <div class="fu-card">
+        <div class="fu-card-header">
+          <i class="fa fa-clock-o"></i> שעות פתיחה
+        </div>
+        <div class="fu-card-body">
+          <table class="fu-hours-table">
+            <tr><td>ראשון – חמישי</td><td>09:30 – 19:30</td></tr>
+            <tr><td>שישי</td>          <td>09:00 – 14:30</td></tr>
+            <tr class="fu-closed"><td>שבת</td><td>סגור</td></tr>
+          </table>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Embedded Google Map -->
+    <div class="fu-map-wrap">
+      <iframe
+        title="מפת הגעה לנעלי נעורים"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3382.7!2d34.775966!3d32.021484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDAxJzE3LjMiTiAzNMKwNDYnMzMuNSJF!5e0!3m2!1siw!2sil!4v1"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
 </div>

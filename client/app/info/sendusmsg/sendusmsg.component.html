@@ -1,45 +1,84 @@
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="container">
-    <div class="well well-sm">
-      <h3><strong>צרו קשר</strong></h3>
-    </div>
-	
-	<div class="row">
-	  <div class="col-md-7 d-none d-md-block">
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-            <agm-marker [latitude]="lat" [longitude]="lng">
-                <agm-info-window isOpen="true"><div class="info">שנקר 52<br>חולון</div></agm-info-window>
-            </agm-marker>
-          </agm-map> 
-          <strong>כתובתינו</strong>
-          <address>
-                אופנת נעלי נעורים בע"מ<br>
-                שנקר 52, חולון<br>
-                ישראל<br>
-          </address> 
-          <br>:)
+<div class="contact-page">
+  <div class="container">
+
+    <!-- Page header -->
+    <div class="contact-header">
+      <h1>צרו קשר</h1>
+      <p>נשמח לשמוע מכם — נענה בהקדם האפשרי</p>
     </div>
 
-    <div class="col-md-5 col-12">
-        <h4><strong>שלחו לנו הודעה</strong></h4>
-      <form #contactusform="ngForm" (ngSubmit)="sendMessage()">
-        <div class="form-group">
-          <input type="text" class="form-control" name="name" [(ngModel)]="msg.name" placeholder="שם" required>
+    <div class="contact-grid">
+
+      <!-- Map + address (desktop) -->
+      <div class="contact-map-col d-none d-md-flex">
+        <div class="map-wrap">
+          <iframe
+            src="https://maps.google.com/maps?q=32.0215089,34.7759857&hl=he&z=16&output=embed"
+            width="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="מפת נעלי נעורים">
+          </iframe>
         </div>
-        <div class="form-group">
-          <input type="email" class="form-control" name="mail" [(ngModel)]="msg.mail" placeholder='דוא"ל' required>
+
+        <div class="address-block">
+          <div class="address-row">
+            <i class="fa fa-map-marker"></i>
+            <div>
+              <strong>אופנת נעלי נעורים בע"מ</strong><br>
+              שנקר 52, חולון, ישראל
+            </div>
+          </div>
+          <div class="address-row">
+            <i class="fa fa-phone"></i>
+            <div><a href="tel:035052769">03-5052769</a></div>
+          </div>
+          <div class="address-row">
+            <i class="fa fa-clock-o"></i>
+            <div>ראשון–חמישי: 9:00–19:00<br>שישי: 9:00–14:00</div>
+          </div>
         </div>
-        <div class="form-group">
-          <input type="tel" class="form-control" name="phone" [(ngModel)]="msg.phone" placeholder="טלפון">
+      </div>
+
+      <!-- Contact form -->
+      <div class="contact-form-col">
+        <div class="form-card">
+          <h2 class="form-title">
+            <i class="fa fa-envelope-o"></i> שלחו לנו הודעה
+          </h2>
+
+          <form #contactusform="ngForm" (ngSubmit)="sendMessage()">
+            <div class="field-group">
+              <label>שם</label>
+              <input type="text" class="field-input" name="name"
+                     [(ngModel)]="msg.name" placeholder="השם שלכם" required>
+            </div>
+
+            <div class="field-group">
+              <label>דוא"ל</label>
+              <input type="email" class="field-input" name="mail"
+                     [(ngModel)]="msg.mail" placeholder="example@email.com" required>
+            </div>
+
+            <div class="field-group">
+              <label>טלפון <span class="optional">(אופציונלי)</span></label>
+              <input type="tel" class="field-input" name="phone"
+                     [(ngModel)]="msg.phone" placeholder="050-0000000">
+            </div>
+
+            <div class="field-group">
+              <label>הודעה</label>
+              <textarea class="field-input field-textarea" name="message" rows="5"
+                        [(ngModel)]="msg.message" placeholder="במה נוכל לעזור?" required></textarea>
+            </div>
+
+            <button class="submit-btn" type="submit" [disabled]="!contactusform.form.valid">
+              <i class="fa fa-paper-plane-o"></i> שליחה
+            </button>
+          </form>
         </div>
-        <div class="form-group">
-          <textarea class="form-control" name="message" rows="3" [(ngModel)]="msg.message" placeholder="תוכן הודעה" required></textarea>
-        </div>
-        <button class="btn btn-secondary" type="submit" name="button" [disabled]="!contactusform.form.valid">
-            <i class="fa fa-paper-plane-o" aria-hidden="true"></i> שליחה
-        </button>
-      </form>
-    </div>
+      </div>
+
     </div>
   </div>
+</div>
