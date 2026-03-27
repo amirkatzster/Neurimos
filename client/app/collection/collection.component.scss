@@ -1,49 +1,144 @@
+// ── Palette ─────────────────────────────────────────────────────
+$brand:      #0076BE;
+$brand-dark: #003952;
+$accent:     #fe5400;
+$border:     #e8ecf0;
+$muted:      #757575;
+
+// ── Page ────────────────────────────────────────────────────────
 .collection-page {
-  padding: 16px 0;
+  padding: 12px 0 60px;
+  background: #f5f7fa;
   min-height: 60vh;
 }
 
-h1 {
-  font-size: 18px;
-  font-family: "Georgia, Times New Roman, serif";
-  font-style: italic;
-  color: #575b5d;
-  margin: 8px 0;
+// ── Results bar ─────────────────────────────────────────────────
+.results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 12px;
+  flex-wrap: wrap;
+  gap: 8px;
 
-  .searchQuery {
-    color: #fe5400;
-    font-size: 18px;
+  h1 {
+    font-size: 17px;
+    font-family: "Georgia", serif;
+    font-style: italic;
+    color: #555;
+    margin: 0;
+
+    .searchQuery {
+      color: $accent;
+      font-weight: 700;
+    }
   }
 }
 
-.results-header {
-  margin-bottom: 8px;
+.results-bar-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.narrow {
-  background-color: #a5b245;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
+.sort-label {
   font-size: 13px;
-  text-align: center;
+  color: $muted;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.sort-field {
+  width: 180px;
+
+  ::ng-deep .mat-mdc-form-field-infix { padding: 6px 0; }
+  ::ng-deep .mat-mdc-text-field-wrapper { background: #fff; }
+}
+
+// ── Active filters ───────────────────────────────────────────────
+.active-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+
+.active-filters-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: $brand-dark;
+  white-space: nowrap;
 }
 
 .cancelIcon {
-  color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
+  color: rgba(0,0,0,0.45);
 }
 
-.shoe-col {
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
+// ── Filter panel ────────────────────────────────────────────────
+.filter-panel {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 2px;
 }
 
-.side-filter {
-  padding-top: 8px;
-}
-
-.saleButton {
+.sale-btn {
   width: 100%;
-  margin-bottom: 8px;
+  padding: 9px;
+  background: $accent;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s;
+
+  &:hover { background: darken(#fe5400, 10%); }
+}
+
+.filter-panel-header {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: $brand-dark !important;
+  min-height: 40px !important;
+}
+
+// Company / color filter links
+.filter-link-list {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.filter-link {
+  background: none;
+  border: none;
+  text-align: right;
+  padding: 5px 2px;
+  font-size: 13px;
+  color: $brand-dark;
+  cursor: pointer;
+  border-bottom: 1px solid $border;
+  transition: color 0.12s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { color: $accent; }
+}
+
+.filter-count {
+  color: $muted;
+  font-size: 11px;
 }

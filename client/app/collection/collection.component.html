@@ -1,72 +1,84 @@
 <div class="collection-page">
-  <div class="container-fluid">
+  <div class="container-fluid px-3">
 
     <!-- Results header -->
-    <div class="row results-header align-items-center">
-      <div class="col-md-2 col-12 d-none d-md-flex">
-        <mat-form-field class="w-100">
-          <mat-select placeholder="מיון על פי" [(ngModel)]="sort" (change)="sortChangeEvent($event)">
-            <mat-option *ngFor="let sort of sortList" [value]="sort.value">{{ sort.viewValue }}</mat-option>
+    <div class="results-bar">
+      <div class="results-bar-text">
+        <h1 *ngIf="shoes?.length > 0">
+          <span class="searchQuery" *ngIf="queries.length > 0">"{{ queries.join(' ') }}"</span>
+          — {{ shoes?.length }} נעליים נמצאו
+        </h1>
+        <h1 *ngIf="shoes?.length === 0">
+          לא נמצאו תוצאות עבור <span class="searchQuery">"{{ queries.join(' ') }}"</span>
+        </h1>
+      </div>
+
+      <div class="results-bar-sort d-none d-md-flex">
+        <label class="sort-label">מיון:</label>
+        <mat-form-field appearance="outline" class="sort-field">
+          <mat-select [(ngModel)]="sort" (ngModelChange)="sortChangeEvent($event)">
+            <mat-option *ngFor="let s of sortList" [value]="s.value">{{ s.viewValue }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-md-10 col-12">
-        <h1 *ngIf="shoes?.length > 0">
-          <span class="searchQuery" *ngIf="queries.length > 0">"{{ queries.join(' ')}}"</span>
-          הצלחנו למצוא <span class="searchQuery">{{ shoes?.length }}</span> נעליים!
-        </h1>
-        <h1 *ngIf="shoes?.length === 0">
-          <span class="searchQuery">לא הצלחנו למצוא תוצאות עבור "{{ queries.join(' ')}}"</span>
-        </h1>
-      </div>
     </div>
 
-    <!-- Active filters -->
-    <div class="row d-none d-md-flex align-items-center" *ngIf="filters?.length > 0">
-      <div class="col-md-10">
-        <mat-chip-set>
-          <mat-chip *ngFor="let filter of filters" (removed)="removeFilter(filter)">
-            {{filter}}
-            <button matChipRemove><i class="material-icons cancelIcon">cancel</i></button>
-          </mat-chip>
-        </mat-chip-set>
-      </div>
-      <div class="col-md-2 narrow">צמצום הבחירה</div>
+    <!-- Active filter chips -->
+    <div class="active-filters" *ngIf="filters?.length > 0">
+      <span class="active-filters-label">סינון פעיל:</span>
+      <mat-chip-set>
+        <mat-chip *ngFor="let filter of filters" (removed)="removeFilter(filter)">
+          {{ filter }}
+          <button matChipRemove><i class="material-icons cancelIcon">cancel</i></button>
+        </mat-chip>
+      </mat-chip-set>
     </div>
 
-    <div class="row">
+    <div class="row g-0">
       <!-- Shoe grid -->
       <div class="col-md-10 col-12">
-        <div class="row g-2">
-          <div *ngFor="let shoe of shoes" class="col-6 col-sm-4 col-md-4 col-lg-3 shoe-col">
+        <div class="row g-2 shoe-grid">
+          <div *ngFor="let shoe of shoes" class="col-6 col-sm-4 col-md-4 col-lg-3">
             <app-collection-shoe [shoe]="shoe"></app-collection-shoe>
           </div>
         </div>
       </div>
 
-      <!-- Side filter (desktop only) -->
-      <div class="col-md-2 d-none d-md-block side-filter">
-        <button *ngIf="filters.indexOf('SALE') == -1" class="btn btn-warning saleButton" (click)="addFiler('SALE')">רק מבצעים</button>
-        <mat-accordion [multi]="true">
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header class="headerAccordion">מידה</mat-expansion-panel-header>
-            <div>
-              <button class="btn btn-secondary btn-sm" *ngFor="let size of sizes">{{size}}</button>
-            </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header class="headerAccordion">חברה</mat-expansion-panel-header>
-            <div *ngFor="let company of companies">
-              <button class="btn btn-link btn-sm" (click)="addFiler(company.key)">{{company.key}} ({{company.count}})</button>
-            </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="true">
-            <mat-expansion-panel-header class="headerAccordion">צבע</mat-expansion-panel-header>
-            <div *ngFor="let color of colors">
-              <button class="btn btn-link btn-sm" (click)="addFiler(color.key)">{{color.key}} ({{color.count}})</button>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
+      <!-- Side filter panel (desktop) -->
+      <div class="col-md-2 d-none d-md-block">
+        <div class="filter-panel">
+
+          <button *ngIf="filters.indexOf('SALE') == -1"
+                  class="sale-btn" (click)="addFiler('SALE')">
+            <i class="fa fa-tag"></i> רק מבצעים
+          </button>
+
+          <mat-accordion [multi]="true">
+
+            <!-- Company -->
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header class="filter-panel-header">חברה</mat-expansion-panel-header>
+              <div class="filter-link-list">
+                <button class="filter-link" *ngFor="let company of companies"
+                        (click)="addFiler(company.key)">
+                  {{ company.key }} <span class="filter-count">({{ company.count }})</span>
+                </button>
+              </div>
+            </mat-expansion-panel>
+
+            <!-- Color -->
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header class="filter-panel-header">צבע</mat-expansion-panel-header>
+              <div class="filter-link-list">
+                <button class="filter-link" *ngFor="let color of colors"
+                        (click)="addFiler(color.key)">
+                  {{ color.key }} <span class="filter-count">({{ color.count }})</span>
+                </button>
+              </div>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+        </div>
       </div>
     </div>
 

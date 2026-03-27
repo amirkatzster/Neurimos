@@ -1,22 +1,41 @@
-<div class="shoeContainer">
-   <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe._id"><i class="fa fa-pencil"></i></button>
-   <a [routerLink]="linkToDetails"> 
-     <div *ngIf="isNew(shoe)" class="newTag">חדש</div>
-     <div *ngIf="shoe.price !== shoe.finalPrice" class="saleTag">SALE</div>
-     <div class="imageParent" *ngIf="shoe.imagesGroup?.[0]?.images?.[0]">
-       <picture>
-         <source media="(max-width: 650px)" [srcset]="shoe.imagesGroup[0].images[0].urlMedium">
-          <img [hidden]="loading" (load)="onLoad()" (error)="onLoad()" [src]="shoe.imagesGroup[0].images[0].urlMedium" class="imgContainer" [ngClass]="{'imageOutOfStock': shoe.stock === 0}"/>
-          <img *ngIf="loading" src="assets/Double Ring-2.6s-46px.svg" alt="טוען...">
-        </picture>
-        <div *ngIf="shoe.stock === 0" class="outofstockTag">אזל המלאי</div>
+<div class="shoe-card">
+  <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning admin-btn"
+          [routerLink]="'/admin/shoeedit/' + shoe._id">
+    <i class="fa fa-pencil"></i>
+  </button>
+
+  <a [routerLink]="linkToDetails" class="card-link">
+
+    <!-- Tags -->
+    <div class="card-tags">
+      <span *ngIf="isNew(shoe)" class="tag tag-new">חדש</span>
+      <span *ngIf="shoe.price !== shoe.finalPrice" class="tag tag-sale">SALE</span>
+    </div>
+
+    <!-- Image -->
+    <div class="card-image-wrap" *ngIf="shoe.imagesGroup?.[0]?.images?.[0]">
+      <img *ngIf="loading" src="assets/Double Ring-2.6s-46px.svg" alt="טוען..." class="loader-img" />
+      <img [hidden]="loading"
+           (load)="onLoad()" (error)="onLoad()"
+           [src]="shoe.imagesGroup[0].images[0].urlMedium"
+           class="card-img"
+           [class.out-of-stock-img]="shoe.stock === 0" />
+      <div *ngIf="shoe.stock === 0" class="oos-badge">אזל המלאי</div>
+    </div>
+
+    <!-- Text -->
+    <div class="card-body">
+      <div class="card-company">{{ shoe.company }}</div>
+      <div class="card-name">{{ shoe.name }}</div>
+      <div class="card-price-row">
+        <span class="price-final" *ngIf="shoe.price !== shoe.finalPrice">{{ shoe.finalPrice }} ₪</span>
+        <span class="price-main" [class.price-strike]="shoe.price !== shoe.finalPrice">{{ shoe.price }} ₪</span>
       </div>
-      <div class="shoeText">
-        <div class="company">{{shoe.company}}</div>
-        <div class="name">{{shoe.name}}</div>
-        <div class="price" *ngIf="shoe.price !== shoe.finalPrice">{{shoe.finalPrice}} ₪</div>  
-        <div class="price" [ngClass]="{'discount': shoe.price !== shoe.finalPrice }">{{shoe.price}} ₪</div>  
-        <div *ngIf="auth.loggedIn && auth.isAdmin" [ngClass]="{'cpPrice': true , 'good': shoe.finalPrice <= shoe.companyPrice }">>{{shoe.companyPrice}}<</div>
+      <div *ngIf="auth.loggedIn && auth.isAdmin"
+           [class.cp-price]="true" [class.cp-good]="shoe.finalPrice <= shoe.companyPrice">
+        > {{ shoe.companyPrice }} <
       </div>
-   </a> 
-  </div>
+    </div>
+
+  </a>
+</div>
