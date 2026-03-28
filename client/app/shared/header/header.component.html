@@ -87,7 +87,7 @@
         <i class="fa fa-user-circle mobile-user-icon" aria-hidden="true"></i>
         <span class="nav-admin mobile-username">{{auth.currentUser.username}}</span>
         <span class="mobile-auth-sep"></span>
-        <a routerLink="/account" class="nav-admin" routerLinkActive="active"><i class="fa fa-cog"></i></a>
+        <a routerLink="/account" class="nav-admin" routerLinkActive="active" aria-label="הגדרות חשבון"><i class="fa fa-cog" aria-hidden="true"></i></a>
         <a routerLink="/admin" class="admin-pill" routerLinkActive="active" *ngIf="auth.isAdmin"><i class="fa fa-lock"></i> ניהול</a>
         <a routerLink="/logout" class="nav-admin logout-mobile" routerLinkActive="active"><i class="fa fa-sign-out"></i> התנתק</a>
       </ng-container>
@@ -118,10 +118,12 @@
   <div class="header-mobile-search d-md-none">
     <div class="container-fluid pb-2 pt-1">
       <div class="search-wrap">
-        <button #btnSearch class="btn search-button" [routerLink]="querySearch?.trim() ? '/נעלי/' + querySearch.trim() : null">
+        <button #btnSearch class="btn search-button" aria-label="חיפוש"
+                [routerLink]="querySearch?.trim() ? '/נעלי/' + querySearch.trim() : null">
           <i class="fa fa-search" aria-hidden="true"></i>
         </button>
         <input [(ngModel)]="querySearch" class="search-text-box" type="text"
+               aria-label="חיפוש נעליים"
                placeholder="חפש נעליים..."
                (keyup.enter)="btnSearch.click()">
         <span class="search-icon-inner"><i class="fa fa-search" aria-hidden="true"></i></span>
