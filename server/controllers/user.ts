@@ -62,6 +62,7 @@ export default class UserCtrl extends BaseCtrl {
       req.logIn(user, (loginErr) => {
         if (loginErr) { return res.redirect('/signup'); }
         req.session.save((saveErr) => {
+          console.log('[google-cb] saveErr:', saveErr, 'sessionID:', req.sessionID, 'passport:', JSON.stringify(req.session?.passport));
           if (saveErr) { return res.redirect('/signup'); }
           const dest = process.env.CLIENT_URL || '/';
           res.send(`<html><body><script>window.location.replace("${dest}");</script></body></html>`);
