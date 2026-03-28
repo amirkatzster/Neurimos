@@ -42,7 +42,7 @@ export default class UserCtrl extends BaseCtrl {
         if (loginErr) { return res.redirect('/signup'); }
         req.session.save((saveErr) => {
           if (saveErr) { return res.redirect('/signup'); }
-          res.redirect('/');
+          res.send('<html><body><script>window.location.replace("/");</script></body></html>');
         });
       });
     })(req, res, next);
@@ -61,7 +61,7 @@ export default class UserCtrl extends BaseCtrl {
         if (loginErr) { return res.redirect('/signup'); }
         req.session.save((saveErr) => {
           if (saveErr) { return res.redirect('/signup'); }
-          res.redirect('/');
+          res.send('<html><body><script>window.location.replace("/");</script></body></html>');
         });
       });
     })(req, res, next);

@@ -114,18 +114,22 @@ $brand-darker:  #003952;
     h4 { font-size: 17px; }
   }
 
-  // mobile — pin to bottom, full-width strip
+  // mobile — compact strip at bottom
   @media (max-width: 768px) {
     top: auto;
-    bottom: 30px;
+    bottom: 12px;
     right: 50%;
     transform: translateX(50%);
-    width: calc(100% - 32px);
-    max-width: 320px;
-    padding: 14px 18px;
+    width: auto;
+    max-width: calc(100% - 24px);
+    padding: 7px 14px;
     min-width: 0;
-    h4 { font-size: 15px; margin-bottom: 6px; }
-    p  { font-size: 12px; margin-bottom: 12px; }
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    h4 { font-size: 12px; margin-bottom: 3px; }
+    p  { font-size: 10px; margin-bottom: 7px; line-height: 1.4; }
+    .hero-flag { height: 13px; }
   }
 }
 
@@ -150,8 +154,9 @@ $brand-darker:  #003952;
   }
 
   @media (max-width: 768px) {
-    padding: 8px 20px;
-    font-size: 14px;
+    padding: 5px 14px;
+    font-size: 11px;
+    border-radius: 6px;
   }
 }
 
