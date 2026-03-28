@@ -28,10 +28,11 @@ setPassport(passport);
 app.use(session({
   secret: process.env.SECRET_TOKEN || 'dev-secret',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
   cookie: {
     httpOnly: true,
+    sameSite: 'lax',
     maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
   }
 }));
