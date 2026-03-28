@@ -231,7 +231,7 @@ $text-muted:  #757575;
 .pd-price-final {
   font-size: 36px;
   font-weight: 700;
-  color: $accent;
+  color: #d44000;
   line-height: 1;
 }
 
@@ -249,7 +249,7 @@ $text-muted:  #757575;
 }
 
 .pd-badge-sale {
-  background: $accent;
+  background: #d44000;
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -317,7 +317,7 @@ $text-muted:  #757575;
   border-radius: 8px;
   font-size: 15px;
   font-weight: 600;
-  color: $accent;
+  color: #d44000;
 }
 
 // ── Add to cart button ──────────────────────────────────────────
@@ -376,7 +376,7 @@ $text-muted:  #757575;
   .mobile-price {
     text-align: left;
 
-    .price-final { display: block; font-size: 24px; font-weight: 700; color: $accent; }
+    .price-final { display: block; font-size: 24px; font-weight: 700; color: #d44000; }
     .price-main  { display: block; font-size: 18px; color: #333; font-weight: 600;
       &.strikethrough { font-size: 15px; color: $text-muted; text-decoration: line-through; }
     }

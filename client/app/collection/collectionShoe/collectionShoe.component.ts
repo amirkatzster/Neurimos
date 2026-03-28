@@ -11,6 +11,7 @@ import { AuthService } from 'app/services/auth.service';
 export class CollectionShoeComponent implements OnInit {
 
   @Input() shoe: any;
+  @Input() index: number = 0;
 
   linkToDetails: string;
   private oneDay: number =  24 * 60 * 60 * 1000;

@@ -21,7 +21,9 @@
            [src]="shoe.imagesGroup[0].images[0].urlMedium"
            [alt]="shoe.company + ' ' + shoe.name"
            class="card-img"
-           [class.out-of-stock-img]="shoe.stock === 0" />
+           [class.out-of-stock-img]="shoe.stock === 0"
+           [attr.loading]="index > 3 ? 'lazy' : null"
+           [attr.fetchpriority]="index === 0 ? 'high' : null" />
       <div *ngIf="shoe.stock === 0" class="oos-badge">אזל המלאי</div>
     </div>
 

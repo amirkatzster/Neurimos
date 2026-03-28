@@ -3,7 +3,7 @@ $brand:      #0076BE;
 $brand-dark: #003952;
 $accent:     #fe5400;
 $border:     #e8ecf0;
-$muted:      #9aa5b4;
+$muted:      #6b7280;
 
 // ── Card ────────────────────────────────────────────────────────
 .shoe-card {
@@ -59,7 +59,7 @@ $muted:      #9aa5b4;
 }
 
 .tag-new  { background: #6b6bc2; }
-.tag-sale { background: #79ac1a; }
+.tag-sale { background: #4d7c0f; }
 
 // ── Image ────────────────────────────────────────────────────────
 .card-image-wrap {
@@ -137,7 +137,7 @@ $muted:      #9aa5b4;
 .price-final {
   font-size: 16px;
   font-weight: 700;
-  color: $accent;
+  color: #d44000;
 }
 
 .price-main {

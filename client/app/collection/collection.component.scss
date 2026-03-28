@@ -132,11 +132,10 @@ $muted:      #757575;
   cursor: pointer;
   font-size: 15px;
   line-height: 1;
-  color: inherit;
-  opacity: 0.55;
-  transition: opacity 0.15s;
+  color: #5a6472;
+  transition: color 0.15s;
 
-  &:hover { opacity: 1; }
+  &:hover { color: #1a202c; }
 }
 
 // ── Filter panel ────────────────────────────────────────────────
@@ -151,7 +150,7 @@ $muted:      #757575;
 .sale-btn {
   width: 100%;
   padding: 9px;
-  background: $accent;
+  background: #d44000;
   color: #fff;
   border: none;
   border-radius: 7px;
