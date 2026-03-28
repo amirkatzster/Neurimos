@@ -114,14 +114,14 @@ $brand-darker:  #003952;
     h4 { font-size: 17px; }
   }
 
-  // mobile — compact strip at bottom
+  // mobile — compact strip, pinned to right
   @media (max-width: 768px) {
     top: auto;
-    bottom: 8px;
-    right: 50%;
-    transform: translateX(50%);
+    bottom: 28px;
+    right: 12px;
+    transform: none;
     width: auto;
-    max-width: calc(100% - 24px);
+    max-width: 55%;
     padding: 5px 10px;
     min-width: 0;
     border-radius: 8px;
