@@ -69,6 +69,7 @@ function initSsr() {
 initSsr();
 
 app.get('*', async (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   const renderSsr = await initSsr();
   if (!renderSsr) {
     return res.sendFile(join(DIST_FOLDER, 'browser', 'index.csr.html'));
