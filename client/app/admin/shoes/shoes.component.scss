@@ -22,7 +22,7 @@
 
 .section-count {
   font-size: 0.78rem;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 .btn-add {
@@ -169,12 +169,12 @@
   color: #475569;
 }
 
-.shoe-id { font-size: 0.75rem; color: #94a3b8; }
+.shoe-id { font-size: 0.75rem; color: #64748b; }
 .shoe-company { font-size: 0.75rem; }
 
 .empty-cell {
   text-align: center;
-  color: #94a3b8;
+  color: #64748b;
   padding: 32px !important;
 }
 
@@ -188,7 +188,7 @@
   font-weight: 600;
 
   &-active   { background: #dcfce7; color: #16a34a; }
-  &-inactive { background: #f1f5f9; color: #94a3b8; }
+  &-inactive { background: #f1f5f9; color: #64748b; }
 }
 
 // ─── Icon Buttons ────────────────────────────────────────────────────────────
@@ -214,6 +214,6 @@
 .gender-icons {
   display: flex;
   gap: 5px;
-  color: #94a3b8;
+  color: #64748b;
   i { font-size: 0.9rem; }
 }
