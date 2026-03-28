@@ -1,5 +1,7 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser, Location } from '@angular/common';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: false,
@@ -33,30 +35,35 @@ import { isPlatformBrowser, Location } from '@angular/common';
   </div>
   `
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
   activeTab = 'shoes';
   companyFilter = '';
+  private sub: Subscription;
 
   constructor(
-    private location: Location,
+    private router: Router,
+    private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) { return; }
-    const path = this.location.path();
-    const match = path.match(/\/admin\/(\w+)/);
-    if (match) { this.activeTab = match[1]; }
+    this.sub = this.route.paramMap.subscribe(params => {
+      this.activeTab = params.get('section') || 'shoes';
+      if (this.activeTab !== 'shoes') { this.companyFilter = ''; }
+    });
   }
 
   setTab(tab: string) {
-    this.activeTab = tab;
-    if (tab !== 'shoes') { this.companyFilter = ''; }
-    this.location.replaceState('/admin/' + tab);
+    this.router.navigate(['/admin', tab], { replaceUrl: true });
   }
 
   goToShoes(company: string) {
     this.companyFilter = company;
-    this.setTab('shoes');
+    this.router.navigate(['/admin', 'shoes'], { replaceUrl: true });
+  }
+
+  ngOnDestroy() {
+    if (this.sub) { this.sub.unsubscribe(); }
   }
 }
