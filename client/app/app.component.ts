@@ -12,6 +12,10 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
 
   constructor(public auth: AuthService, router: Router, @Inject(PLATFORM_ID) platformId: Object) {
+    if (isPlatformBrowser(platformId)) {
+      auth.loadUser();
+    }
+
     router.events.subscribe(e => {
       if (e instanceof NavigationEnd && isPlatformBrowser(platformId)) {
         document.documentElement.scrollTop = 0;
