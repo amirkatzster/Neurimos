@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
 import { ClassificationService } from 'app/services/classification.service';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private classificationService: ClassificationService,
               private route: ActivatedRoute,
               public orderService: OrderService,
-              public googleService: GoogleAnalyticsEventsService) { }
+              public googleService: GoogleAnalyticsEventsService,
+              @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     this.sub = this.classificationService.getHeader().subscribe(data => {
@@ -39,7 +41,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.cartCounterSub = this.orderService.getOrdersCounter().subscribe(data => {
       this.cartCouter = data;
     });
-    this.auth.loadUser();
+    if (isPlatformBrowser(this.platformId)) {
+      this.auth.loadUser();
+    }
   }
 
   ngOnDestroy() {
