@@ -13,7 +13,13 @@ export class AppComponent {
 
   constructor(public auth: AuthService, router: Router, @Inject(PLATFORM_ID) platformId: Object) {
     if (isPlatformBrowser(platformId)) {
-      auth.loadUser();
+      auth.loadUser(() => {
+        const returnUrl = sessionStorage.getItem('returnUrl');
+        if (returnUrl) {
+          sessionStorage.removeItem('returnUrl');
+          router.navigateByUrl(returnUrl);
+        }
+      });
     }
 
     router.events.subscribe(e => {

@@ -15,11 +15,12 @@ export class AuthService {
   }
 
 
-  loadUser() {
+  loadUser(onLoggedIn?: () => void) {
     this.userService.me().subscribe(
       data => {
         if (data && data !== '0') {
           this.setCurrentUser(data);
+          if (onLoggedIn) { onLoggedIn(); }
         } else {
           this.logout();
         }
