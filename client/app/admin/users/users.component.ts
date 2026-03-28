@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe(
-      data => this.users = data,
+      data => this.users = data.sort((a, b) => (a.role === 'admin' ? -1 : 1) - (b.role === 'admin' ? -1 : 1)),
       error => console.log(error),
       () => this.isLoading = false
     );

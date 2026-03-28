@@ -1,7 +1,8 @@
 <app-loading [condition]="isLoading"></app-loading>
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="admin-section" dir="rtl" *ngIf="!isLoading">
+<!-- ─── List View ─────────────────────────────────────────────────────────── -->
+<div class="admin-section" dir="rtl" *ngIf="!isLoading && !isDialogOpen">
   <div class="section-header">
     <div>
       <h5 class="section-title">חברות</h5>
@@ -19,7 +20,7 @@
   </div>
 
   <div class="company-grid">
-    <div *ngFor="let company of companies; let i = index" class="company-card">
+    <div *ngFor="let company of companies; let i = index" class="company-card" (click)="enableEditing(company, i)">
       <img *ngIf="company.image" [src]="company.image" class="company-logo" alt="לוגו">
       <div *ngIf="!company.image" class="company-logo-placeholder">
         <i class="fa fa-building"></i>
@@ -28,8 +29,8 @@
         <div class="company-name">{{company.name}}</div>
         <div class="company-desc">{{company.information}}</div>
       </div>
-      <div class="company-actions">
-        <button class="icon-btn icon-btn-shoes" (click)="filterByCompany.emit(company.name)" title="נעליים">
+      <div class="company-actions" (click)="$event.stopPropagation()">
+        <button class="icon-btn icon-btn-shoes" (click)="filterByCompany.emit(company.name)" title="הצג נעליים">
           <i class="fa fa-shopping-bag"></i>
         </button>
         <button class="icon-btn icon-btn-edit" (click)="enableEditing(company, i)">
@@ -40,41 +41,65 @@
   </div>
 </div>
 
-<!-- Edit Modal -->
-<div class="modal-backdrop fade show" *ngIf="isDialogOpen" (click)="isDialogOpen = false"></div>
-<div class="modal d-block" tabindex="-1" *ngIf="isDialogOpen">
-  <div class="modal-dialog modal-dialog-centered" dir="rtl">
-    <div class="modal-content admin-modal">
-      <form (ngSubmit)="doneEditCompany(currentCompany)">
-        <div class="modal-header">
-          <h5 class="modal-title">עריכת חברה</h5>
-          <button type="button" class="btn-close" (click)="isDialogOpen = false"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group mb-3">
-            <label class="form-label">שם חברה</label>
-            <input class="form-control" type="text" name="company" [(ngModel)]="currentCompany.name" placeholder="שם החברה" required>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">תיאור</label>
-            <textarea class="form-control" rows="3" name="information" [(ngModel)]="currentCompany.information" placeholder="כמה מילים על החברה..."></textarea>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">לוגו</label>
-            <input type="file" class="form-control" accept="image/*" name="image" (change)="handleInputChange($event)" />
-          </div>
-          <div *ngIf="currentCompany.image" class="logo-preview">
-            <img [src]="currentCompany.image" class="logo-preview-img" alt="לוגו">
-            <button type="button" class="icon-btn icon-btn-danger" (click)="currentCompany.image = null">
-              <i class="fa fa-trash"></i>
-            </button>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" (click)="isDialogOpen = false">ביטול</button>
-          <button type="submit" class="btn btn-primary">שמור</button>
-        </div>
-      </form>
+<!-- ─── Edit View ─────────────────────────────────────────────────────────── -->
+<div class="admin-edit-container" dir="rtl" *ngIf="isDialogOpen">
+  <form #editForm="ngForm" (ngSubmit)="doneEditCompany(currentCompany)">
+
+    <div class="admin-action-bar">
+      <div class="bar-group">
+        <button type="button" class="bar-btn bar-btn-ghost" (click)="isDialogOpen = false">
+          <i class="fa fa-arrow-right"></i>
+          <span class="bar-btn-label">חזרה</span>
+        </button>
+      </div>
+      <h5 class="bar-title">{{ currentCompany.name || 'חברה חדשה' }}</h5>
+      <div class="bar-group">
+        <button type="submit" class="bar-btn bar-btn-primary" [disabled]="!editForm.form.valid">
+          <i class="fa fa-save"></i>
+          <span class="bar-btn-label">שמור</span>
+        </button>
+      </div>
     </div>
-  </div>
+
+    <div class="edit-card">
+      <div class="edit-card-header"><i class="fa fa-building"></i> פרטי חברה</div>
+      <div class="edit-card-body">
+        <div class="field-block mb-3">
+          <label class="field-label">שם חברה</label>
+          <input class="field-input" type="text" name="name" [(ngModel)]="currentCompany.name" placeholder="שם החברה" required>
+        </div>
+        <div class="field-block">
+          <label class="field-label">תיאור</label>
+          <textarea class="field-textarea" rows="5" name="information" [(ngModel)]="currentCompany.information" placeholder="כמה מילים על החברה..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-card">
+      <div class="edit-card-header"><i class="fa fa-image"></i> לוגו</div>
+      <div class="edit-card-body">
+        <div *ngIf="currentCompany.image" class="logo-preview">
+          <img [src]="currentCompany.image" class="logo-preview-img" alt="לוגו">
+          <button type="button" class="icon-btn icon-btn-danger" (click)="currentCompany.image = null">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+        <label class="upload-area" [class.has-image]="currentCompany.image">
+          <i class="fa fa-upload"></i>
+          <span>{{ currentCompany.image ? 'החלף תמונה' : 'בחר תמונה' }}</span>
+          <input type="file" accept="image/*" name="image" (change)="handleInputChange($event)" hidden>
+        </label>
+      </div>
+    </div>
+
+    <div class="edit-bottom-bar">
+      <button type="button" class="btn btn-outline-secondary" (click)="isDialogOpen = false">
+        <i class="fa fa-arrow-right"></i> חזרה
+      </button>
+      <button type="submit" class="btn btn-primary px-4" [disabled]="!editForm.form.valid">
+        <i class="fa fa-save"></i> שמור
+      </button>
+    </div>
+
+  </form>
 </div>

@@ -1,7 +1,8 @@
 <app-loading [condition]="isLoading"></app-loading>
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="admin-section" dir="rtl" *ngIf="!isLoading">
+<!-- ─── List View ─────────────────────────────────────────────────────────── -->
+<div class="admin-section" dir="rtl" *ngIf="!isLoading && !isDialogOpen">
   <div class="section-header">
     <div>
       <h5 class="section-title">סוגי נעליים</h5>
@@ -19,47 +20,79 @@
   </div>
 
   <div class="classification-list">
-    <div *ngFor="let classification of classifications; let i = index" class="classification-row">
+    <div *ngFor="let classification of classifications; let i = index"
+      class="classification-row" (click)="enableEditing(classification, i)">
       <div class="classification-order">{{classification.order}}</div>
       <div class="classification-name">{{classification.name}}</div>
-      <span *ngIf="classification.show" class="show-badge">בחלון ראווה</span>
-      <button class="icon-btn icon-btn-edit" (click)="enableEditing(classification, i)">
+      <span *ngIf="classification.show" class="show-badge">
+        <i class="fa fa-eye"></i> חלון ראווה
+      </span>
+      <button class="icon-btn icon-btn-edit" (click)="$event.stopPropagation(); enableEditing(classification, i)">
         <i class="fa fa-pencil"></i>
       </button>
     </div>
   </div>
 </div>
 
-<!-- Edit Modal -->
-<div class="modal-backdrop fade show" *ngIf="isDialogOpen" (click)="isDialogOpen = false"></div>
-<div class="modal d-block" tabindex="-1" *ngIf="isDialogOpen">
-  <div class="modal-dialog modal-dialog-centered" dir="rtl">
-    <div class="modal-content admin-modal">
-      <form (ngSubmit)="doneEditClassification(currentClassification)">
-        <div class="modal-header">
-          <h5 class="modal-title">עריכת סוג נעל</h5>
-          <button type="button" class="btn-close" (click)="isDialogOpen = false"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group mb-3">
-            <label class="form-label">שם הסוג</label>
-            <input class="form-control" type="text" name="name" [(ngModel)]="currentClassification.name" placeholder="לדוגמה: סנדל, נעל ספורט..." required>
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label">סדר הופעה</label>
-            <input class="form-control" type="number" name="order" [(ngModel)]="currentClassification.order" placeholder="0" min="0">
-          </div>
-          <div class="form-group">
-            <mat-checkbox name="show" [(ngModel)]="currentClassification.show" [checked]="currentClassification.show">
-              להציג בחלון ראווה
-            </mat-checkbox>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" (click)="isDialogOpen = false">ביטול</button>
-          <button type="submit" class="btn btn-primary">שמור</button>
-        </div>
-      </form>
+<!-- ─── Edit View ─────────────────────────────────────────────────────────── -->
+<div class="admin-edit-container" dir="rtl" *ngIf="isDialogOpen">
+  <form #editForm="ngForm" (ngSubmit)="doneEditClassification(currentClassification)">
+
+    <div class="admin-action-bar">
+      <div class="bar-group">
+        <button type="button" class="bar-btn bar-btn-ghost" (click)="isDialogOpen = false">
+          <i class="fa fa-arrow-right"></i>
+          <span class="bar-btn-label">חזרה</span>
+        </button>
+      </div>
+      <h5 class="bar-title">{{ currentClassification.name || 'סוג חדש' }}</h5>
+      <div class="bar-group">
+        <button type="submit" class="bar-btn bar-btn-primary" [disabled]="!editForm.form.valid">
+          <i class="fa fa-save"></i>
+          <span class="bar-btn-label">שמור</span>
+        </button>
+      </div>
     </div>
-  </div>
+
+    <div class="edit-card">
+      <div class="edit-card-header"><i class="fa fa-tag"></i> פרטי סיווג</div>
+      <div class="edit-card-body">
+
+        <div class="field-block mb-3">
+          <label class="field-label">שם הסוג</label>
+          <input class="field-input" type="text" name="name" [(ngModel)]="currentClassification.name"
+            placeholder="לדוגמה: סנדל, נעל ספורט..." required>
+        </div>
+
+        <div class="field-block mb-4">
+          <label class="field-label">סדר הופעה</label>
+          <input class="field-input order-input" type="number" name="order"
+            [(ngModel)]="currentClassification.order" placeholder="0" min="0">
+        </div>
+
+        <label class="visibility-toggle" [class.is-active]="currentClassification.show">
+          <input type="checkbox" name="show" [(ngModel)]="currentClassification.show" hidden>
+          <i class="fa visibility-icon" [class.fa-eye]="currentClassification.show" [class.fa-eye-slash]="!currentClassification.show"></i>
+          <div class="visibility-text">
+            <span class="visibility-label">{{ currentClassification.show ? 'מוצג בחלון ראווה' : 'לא מוצג בחלון ראווה' }}</span>
+            <span class="visibility-sub">{{ currentClassification.show ? 'לחץ להסתרה' : 'לחץ להצגה' }}</span>
+          </div>
+          <div class="toggle-switch" [class.on]="currentClassification.show">
+            <div class="toggle-knob"></div>
+          </div>
+        </label>
+
+      </div>
+    </div>
+
+    <div class="edit-bottom-bar">
+      <button type="button" class="btn btn-outline-secondary" (click)="isDialogOpen = false">
+        <i class="fa fa-arrow-right"></i> חזרה
+      </button>
+      <button type="submit" class="btn btn-primary px-4" [disabled]="!editForm.form.valid">
+        <i class="fa fa-save"></i> שמור
+      </button>
+    </div>
+
+  </form>
 </div>

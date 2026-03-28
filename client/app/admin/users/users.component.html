@@ -24,12 +24,13 @@
         <div class="user-email">{{user.email}}</div>
       </div>
       <span class="user-role" [class.role-admin]="user.role === 'admin'">{{user.role}}</span>
-      <button class="icon-btn icon-btn-danger"
+      <button *ngIf="user.role !== 'admin' && auth.currentUser._id !== user._id"
+        class="icon-btn icon-btn-danger"
         (click)="deleteUser(user)"
-        [disabled]="auth.currentUser._id === user._id"
-        [title]="auth.currentUser._id === user._id ? 'לא ניתן למחוק משתמש פעיל' : 'מחק'">
+        title="מחק משתמש">
         <i class="fa fa-trash"></i>
       </button>
+      <div *ngIf="user.role === 'admin' || auth.currentUser._id === user._id" class="icon-btn-spacer"></div>
     </div>
   </div>
 </div>
