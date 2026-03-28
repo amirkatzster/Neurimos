@@ -33,7 +33,14 @@ app.use(flash());
 setRoutes(app, passport);
 
 const DIST_FOLDER = join(process.cwd(), 'dist');
-app.use(express.static(join(DIST_FOLDER, 'browser'), { maxAge: '1y' }));
+app.use(express.static(join(DIST_FOLDER, 'browser'), {
+  maxAge: '1y',
+  setHeaders(res, filePath) {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+  }
+}));
 
 // SSR: load the Angular render function once from the bundle built by `ng build`.
 // CommonEngine + AppServerModule live together inside server.mjs so they share
