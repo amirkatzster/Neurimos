@@ -51,8 +51,8 @@
         <div class="col-md-2 cart-container" [ngClass]="{'cartFull': orderService.orderContainer?.orders?.length > 0}">
           <a class="my-cart" routerLink="/order">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            <span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים בעגלה</span>
-            <span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span>
+            <span *ngIf="orderService.orderContainer?.orders?.length > 0; else emptyCartDesktop">{{orderService.totalAmount()}} פריטים בעגלה</span>
+            <ng-template #emptyCartDesktop><span>העגלה שלי</span></ng-template>
           </a>
         </div>
         <div class="col-md-8 search-col">
@@ -101,8 +101,8 @@
         <div class="col-5 cart-container" [ngClass]="{'cartFull': orderService.orderContainer?.orders?.length > 0}">
           <a class="my-cart" routerLink="/order">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            <span *ngIf="orderService.orderContainer?.orders?.length > 0">{{orderService.totalAmount()}} פריטים</span>
-            <span *ngIf="orderService.orderContainer?.orders?.length === 0">העגלה שלי</span>
+            <span *ngIf="orderService.orderContainer?.orders?.length > 0; else emptyCartMobile">{{orderService.totalAmount()}} פריטים</span>
+            <ng-template #emptyCartMobile><span>העגלה שלי</span></ng-template>
           </a>
         </div>
         <div class="col-1"></div>
