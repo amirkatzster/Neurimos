@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { CompanyService } from '../../services/company.service';
@@ -11,6 +11,8 @@ import { ToastComponent } from '../../shared/toast/toast.component';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
+
+  @Output() filterByCompany = new EventEmitter<string>();
 
   currentCompany: any = {};
   currentCompanyIndex: number;

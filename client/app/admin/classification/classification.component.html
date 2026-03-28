@@ -1,36 +1,32 @@
 <app-loading [condition]="isLoading"></app-loading>
-
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">סוגי נעליים ({{classifications.length}})</h4>
-  <div class="card-block">
-    <button type="button" (click)="addClassification()" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>
-    <table class="table table-striped table-responsive" >
-      <thead class="thead-light">
-        <tr>
-          <th></th>
-          <th>סוג נעל</th>
-          <th>סדר הופעה</th>
-          <th>להראות בעמוד בראשון</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="classifications.length === 0">
-        <tr>
-          <td colspan="4">אין סוגים</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr *ngFor="let classification of classifications;let i = index">
-          <td>
-            <button class="btn btn-sm btn-warning" (click)="enableEditing(classification, i)"><i class="fa fa-pencil"></i></button>
-          </td>
-          <td>{{classification.name}}</td>
-          <td>{{classification.order}}</td>
-          <td>{{classification.show}}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="admin-section" dir="rtl" *ngIf="!isLoading">
+  <div class="section-header">
+    <div>
+      <h5 class="section-title">סוגי נעליים</h5>
+      <span class="section-count">{{classifications.length}} סוגים</span>
+    </div>
+    <button type="button" (click)="addClassification()" class="btn-add">
+      <i class="fa fa-plus"></i>
+      <span>סוג חדש</span>
+    </button>
+  </div>
+
+  <div *ngIf="classifications.length === 0" class="empty-state">
+    <i class="fa fa-tags fa-2x"></i>
+    <p>אין סוגי נעליים</p>
+  </div>
+
+  <div class="classification-list">
+    <div *ngFor="let classification of classifications; let i = index" class="classification-row">
+      <div class="classification-order">{{classification.order}}</div>
+      <div class="classification-name">{{classification.name}}</div>
+      <span *ngIf="classification.show" class="show-badge">בחלון ראווה</span>
+      <button class="icon-btn icon-btn-edit" (click)="enableEditing(classification, i)">
+        <i class="fa fa-pencil"></i>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -38,26 +34,29 @@
 <div class="modal-backdrop fade show" *ngIf="isDialogOpen" (click)="isDialogOpen = false"></div>
 <div class="modal d-block" tabindex="-1" *ngIf="isDialogOpen">
   <div class="modal-dialog modal-dialog-centered" dir="rtl">
-    <div class="modal-content">
+    <div class="modal-content admin-modal">
       <form (ngSubmit)="doneEditClassification(currentClassification)">
         <div class="modal-header">
           <h5 class="modal-title">עריכת סוג נעל</h5>
           <button type="button" class="btn-close" (click)="isDialogOpen = false"></button>
         </div>
-        <div class="modal-body addForm">
+        <div class="modal-body">
           <div class="form-group mb-3">
-            <label for="Name">סוג נעל</label>
-            <input id="Name" class="form-control" type="text" name="name" [(ngModel)]="currentClassification.name" placeholder="סנדל" required>
+            <label class="form-label">שם הסוג</label>
+            <input class="form-control" type="text" name="name" [(ngModel)]="currentClassification.name" placeholder="לדוגמה: סנדל, נעל ספורט..." required>
           </div>
           <div class="form-group mb-3">
-            <mat-checkbox name="show" [(ngModel)]="currentClassification.show" [checked]="currentClassification.show">לשים בחלון ראווה</mat-checkbox>
+            <label class="form-label">סדר הופעה</label>
+            <input class="form-control" type="number" name="order" [(ngModel)]="currentClassification.order" placeholder="0" min="0">
           </div>
-          <div class="form-group mb-3">
-            <input id="Order" class="form-control" type="number" name="order" [(ngModel)]="currentClassification.order" placeholder="0" min="0">
+          <div class="form-group">
+            <mat-checkbox name="show" [(ngModel)]="currentClassification.show" [checked]="currentClassification.show">
+              להציג בחלון ראווה
+            </mat-checkbox>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="isDialogOpen = false">סגור</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="isDialogOpen = false">ביטול</button>
           <button type="submit" class="btn btn-primary">שמור</button>
         </div>
       </form>

@@ -1,123 +1,240 @@
 <app-loading [condition]="isLoading"></app-loading>
-<div class="container" *ngIf="!isLoading">
-<form #addEditform="ngForm" (ngSubmit)="doneEditShoe(currentShoe)">
-  <div >
-      <h4 class="modal-title">{{currentShoe.id}} עריכה</h4>
-  </div>
-  <div class="addForm">
-      <div class="spacer row">
-          <div class="col-md-2 ">
-                <button type="button" class="btn btn-danger" (click)="deleteShoeConfirm()"><i class="fa fa-6 fa-trash" aria-hidden="true"></i>מחק נעל</button>
-          </div>
-          <div class="col-md-3 offset-md-7">
-                <button type="button" class="btn btn-secondary" (click)="backClicked()">סגור</button>
-                <button type="submit" class="btn btn-primary" [disabled]="!addEditform.form.valid">שמור</button>
-          </div>
-      </div>
-      <div class="spacer"></div>
-      <div class="form-group">
-          <mat-checkbox name="active" class="example-margin" [(ngModel)]="currentShoe.active" [checked]="currentShoe.active">?להציג באתר</mat-checkbox>
-      </div>
-      <div class="form-group">
-        <label for="compId">חברה</label>
-        <select id="compId"  class="form-control" name="company" [(ngModel)]="currentShoe.companyId" required>
-          <option *ngFor="let company of companies" [value]="company._id" >{{company.name}}</option>
-        </select>
-      </div>
-      <div class="form-group">
-          <label for="shoeId">דגם</label>
-          <input class="form-control" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="...הכנס דגם" required>
-      </div>
-      <div class="form-group">
-        <label>מחיר לפני הנחה</label>
-        <div class="row align-items-center g-2">
-          <div class="col-auto">
-            <div class="input-group">
-              <span class="input-group-text">₪</span>
-              <input class="form-control" type="number" name="price" [(ngModel)]="currentShoe.price" placeholder="...הכנס מחיר" step="any" min="0">
-            </div>
-          </div>
-          <div class="col-auto">
-            <button *ngIf="!currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-success">
-              <i class="fa fa-plus fa-1x" aria-hidden="true"></i> הוספת הנחה
-            </button>
-            <button *ngIf="currentShoe.discount" type="button" (click)="addRemoveDiscount(currentShoe)" class="btn btn-danger">
-              <i class="fa fa-minus fa-1x" aria-hidden="true"></i> הסרת הנחה
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="form-group" *ngIf="currentShoe.discount">
-        <label>הנחה</label>
-        <div class="row align-items-center g-2">
-          <div class="col-auto">
-            <div class="input-group">
-              <span class="input-group-text">%</span>
-              <input class="form-control" type="number" name="discountPer" (change)="discountCalc(currentShoe)" [(ngModel)]="currentShoe.discount.percentage" placeholder="הנחה באחוזים" step="any" min="0" max="100">
-            </div>
-          </div>
-          <div class="col-auto align-self-center">או</div>
-          <div class="col-auto">
-            <div class="input-group">
-              <span class="input-group-text">₪</span>
-              <input class="form-control" type="number" name="discountCash" (change)="discountCalc(currentShoe)" [(ngModel)]="currentShoe.discount.newAmount" placeholder="המחיר החדש" step="any" min="0">
-            </div>
-          </div>
-          <div class="col-auto">
-            <b>מחיר סופי: {{currentShoe.finalPrice}}</b>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="form-group" >
-          <mat-checkbox *ngFor="let gen of genders" [name]="'gender' + gen.name" class="example-margin" [(ngModel)]="gen.mark" [checked]="gen.mark">{{ gen.name }}</mat-checkbox>
-      </div>
-      <hr>
-      <div class="form-group" >
-        <mat-radio-group [(ngModel)]="currentShoe.classification" name="classification">
-          <mat-radio-button *ngFor="let classification of classifications"  class="example-margin" [value]="classification._id" >{{classification.name}}</mat-radio-button>
-        </mat-radio-group>
-    </div>
-    <hr>
-      <div class="form-group">
-        <label for="sellInfo">משפטי מכירה</label>
-        <input *ngFor="let info of currentShoe.information; let k = index" class="form-control"  type="text" [name]="'information' + k" [ngModel]="currentShoe.information[k]" placeholder="משפט מכירה" (change)="removeInfoIfEmpty($event,k)" required />
-        <input #newInfo class="form-control" type="text" name="informationNew" placeholder="משפט מכירה" (change)="currentShoe.information.push($event.target.value);newInfo.value = ''" />
-      </div>
 
-      <div *ngFor="let ig of currentShoe.imagesGroup; let i = index" class="groupSeperator spacer">
-        <div class="row">
-            <div class="col-md-12">
-                <button type="button" (click)="removeGroupImage(i)" class="btn btn-danger"><i class="fa fa-trash fa-1x" aria-hidden="true"></i>הסרת צבע</button><br>
-                <label>צבע</label>
-                <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="צבע בתמונה" required>
-                <label>מידות</label><br>
-            </div>
+<div class="admin-edit-container" dir="rtl" *ngIf="!isLoading">
+  <form #addEditform="ngForm" (ngSubmit)="doneEditShoe(currentShoe)">
+
+    <!-- Sticky Action Bar -->
+    <div class="admin-action-bar">
+      <div class="bar-group">
+        <button type="button" class="bar-btn bar-btn-ghost" (click)="backClicked()">
+          <i class="fa fa-arrow-right"></i>
+          <span class="bar-btn-label">חזרה</span>
+        </button>
+        <button type="button" class="bar-btn bar-btn-danger" (click)="deleteShoeConfirm()" *ngIf="currentShoe._id">
+          <i class="fa fa-trash"></i>
+          <span class="bar-btn-label">מחיקה</span>
+        </button>
+      </div>
+      <h5 class="bar-title">{{ currentShoe.id || 'נעל חדשה' }}</h5>
+      <div class="bar-group">
+        <button type="submit" class="bar-btn bar-btn-primary" [disabled]="!addEditform.form.valid">
+          <i class="fa fa-save"></i>
+          <span class="bar-btn-label">שמור</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Basic Info -->
+    <div class="edit-card">
+      <div class="edit-card-header">
+        <i class="fa fa-info-circle"></i> פרטים כלליים
+      </div>
+      <div class="edit-card-body">
+
+        <!-- Visibility toggle -->
+        <div class="visibility-toggle" [class.is-active]="currentShoe.active" (click)="currentShoe.active = !currentShoe.active">
+          <i class="fa visibility-icon" [class.fa-eye]="currentShoe.active" [class.fa-eye-slash]="!currentShoe.active"></i>
+          <div class="visibility-text">
+            <span class="visibility-label">{{ currentShoe.active ? 'מוצג באתר' : 'מוסתר מהאתר' }}</span>
+            <span class="visibility-sub">{{ currentShoe.active ? 'לחץ להסתרה' : 'לחץ להצגה' }}</span>
+          </div>
+          <div class="toggle-switch" [class.on]="currentShoe.active">
+            <div class="toggle-knob"></div>
+          </div>
+          <input type="checkbox" name="active" [(ngModel)]="currentShoe.active" hidden>
         </div>
-        <div class="row">
-            <div class="col-md-2 col-4 sizeSpacer" *ngFor="let sizeOption of ig.sizeOptions" [ngClass]="{'showInStock': sizeOption.amount > 0 }">
-                <i class="fa fa-chevron-circle-up fa-1" aria-hidden="true" (click)="sizeUp(sizeOption)"></i>{{ sizeOption.name }} ({{ sizeOption.amount }})
-                <i class="fa fa-chevron-circle-down fa-1" [ngClass]="{'downDisabled': sizeOption.amount === 0 }"  aria-hidden="true" (click)="sizeDown(sizeOption)"></i>
-            </div>
+
+        <div class="field-row">
+          <div class="field-block">
+            <label class="field-label">חברה</label>
+            <select class="field-select" name="company" [(ngModel)]="currentShoe.companyId" required>
+              <option value="" disabled>בחר חברה</option>
+              <option *ngFor="let company of companies" [value]="company._id">{{company.name}}</option>
+            </select>
+          </div>
+          <div class="field-block">
+            <label class="field-label">שם דגם</label>
+            <input class="field-input" type="text" name="name" [(ngModel)]="currentShoe.name" placeholder="שם הדגם" required>
+          </div>
         </div>
-        <div class="row" >
-            <div class="col-12 col-md-3" *ngFor="let img of ig.images; let j = index">
-                <button class="btn btn-lg btn-danger trashBtn" (click)="deleteImage(currentShoe,i,j)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
-                <img [src]="img.urlMedium" class="mx-auto d-block" width="255" >
+
+        <!-- Price row -->
+        <div class="price-row">
+          <div class="price-block">
+            <label class="field-label">מחיר</label>
+            <div class="price-input-wrap">
+              <span class="currency">₪</span>
+              <input class="price-input" type="number" name="price" [(ngModel)]="currentShoe.price"
+                (change)="discountCalc(currentShoe)" placeholder="0" step="any" min="0">
             </div>
+          </div>
+
+          <ng-container *ngIf="currentShoe.discount">
+            <div class="price-arrow">
+              <i class="fa fa-long-arrow-left"></i>
+            </div>
+            <div class="price-block">
+              <label class="field-label">הנחה %</label>
+              <div class="price-input-wrap">
+                <span class="currency">%</span>
+                <input class="price-input" type="number" name="discountPer"
+                  (change)="discountCalc(currentShoe)" [(ngModel)]="currentShoe.discount.percentage"
+                  placeholder="0" step="any" min="0" max="100">
+              </div>
+            </div>
+            <div class="price-sep">או</div>
+            <div class="price-block">
+              <label class="field-label">מחיר חדש</label>
+              <div class="price-input-wrap">
+                <span class="currency">₪</span>
+                <input class="price-input" type="number" name="discountCash"
+                  (change)="discountCalc(currentShoe)" [(ngModel)]="currentShoe.discount.newAmount"
+                  placeholder="0" step="any" min="0">
+              </div>
+            </div>
+            <div class="final-price-pill">
+              <span class="final-price-pill-label">סופי</span>
+              <span class="final-price-pill-value">₪{{currentShoe.finalPrice}}</span>
+            </div>
+          </ng-container>
+
+          <button type="button" class="discount-toggle-btn"
+            [class.active]="currentShoe.discount"
+            (click)="addRemoveDiscount(currentShoe)">
+            <i class="fa" [class.fa-tag]="!currentShoe.discount" [class.fa-times]="currentShoe.discount"></i>
+            {{ currentShoe.discount ? 'הסר הנחה' : 'הנחה' }}
+          </button>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <button type="button" (click)="pictureBtn.click()" class="btn btn-success spacer"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת תמונה</button>
-                <input [hidden]="true" #pictureBtn type="file" accept="image/*" capture="camera" [name]="'image_' + i + '_' + j" [(ngModel)]="currentShoe.image" (change)="handleInputChange($event,ig)" />
-            </div>
+
+      </div>
+    </div>
+
+    <!-- Gender & Classification -->
+    <div class="edit-card">
+      <div class="edit-card-header">
+        <i class="fa fa-users"></i> קהל יעד וסיווג
+      </div>
+      <div class="edit-card-body">
+        <div class="mb-4">
+          <label class="section-label">קהל יעד</label>
+          <div class="sizes-chips">
+            <button type="button" *ngFor="let gen of genders"
+              class="size-chip audience-chip"
+              [class.selected]="gen.mark"
+              (click)="gen.mark = !gen.mark">
+              {{ gen.name }}
+            </button>
+          </div>
+        </div>
+        <div>
+          <label class="section-label">סיווג</label>
+          <div class="sizes-chips">
+            <button type="button" *ngFor="let classification of classifications"
+              class="size-chip classification-chip"
+              [class.selected]="currentShoe.classification === classification._id"
+              (click)="currentShoe.classification = classification._id">
+              {{classification.name}}
+            </button>
+          </div>
         </div>
       </div>
-      <button type="button" (click)="addGroupImage()" class="btn spacer"><i class="fa fa-plus fa-1x" aria-hidden="true"></i>הוספת צבע</button>
-  </div>
-  <div class="spacer">
-    <button type="button" class="btn btn-secondary" (click)="backClicked()">סגור</button>
-    <button type="submit" class="btn btn-primary" [disabled]="!addEditform.form.valid">שמור</button>
-  </div>
+    </div>
+
+    <!-- Selling Points -->
+    <div class="edit-card">
+      <div class="edit-card-header">
+        <i class="fa fa-list"></i> משפטי מכירה
+      </div>
+      <div class="edit-card-body">
+        <div class="d-flex flex-column gap-2">
+          <div *ngFor="let info of currentShoe.information; let k = index" class="info-row">
+            <input class="form-control"
+              type="text"
+              [name]="'information' + k"
+              [ngModel]="currentShoe.information[k]"
+              placeholder="משפט מכירה"
+              (change)="removeInfoIfEmpty($event, k)"
+              required />
+          </div>
+          <input #newInfo
+            class="form-control info-new-input"
+            type="text"
+            name="informationNew"
+            placeholder="+ הוסף משפט מכירה"
+            (change)="currentShoe.information.push($event.target.value); newInfo.value = ''" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Groups -->
+    <div *ngFor="let ig of currentShoe.imagesGroup; let i = index" class="edit-card color-group-card">
+      <div class="edit-card-header color-group-header">
+        <div class="color-group-title">
+          <i class="fa fa-circle color-dot"></i>
+          <span>צבע {{ i + 1 }}{{ ig.color ? ': ' + ig.color : '' }}</span>
+        </div>
+        <button type="button" (click)="removeGroupImage(i)" class="btn btn-sm btn-outline-danger">
+          <i class="fa fa-trash"></i> הסר צבע
+        </button>
+      </div>
+      <div class="edit-card-body">
+
+        <div class="mb-4">
+          <label class="form-label">שם הצבע</label>
+          <input class="form-control" type="text" [name]="'color' + i" [(ngModel)]="ig.color" placeholder="לדוגמה: שחור, לבן, אפור..." required>
+        </div>
+
+        <!-- Sizes -->
+        <div class="mb-4">
+          <label class="section-label">מידות זמינות</label>
+          <div class="sizes-chips">
+            <button type="button" *ngFor="let sizeOption of ig.sizeOptions"
+              class="size-chip"
+              [class.selected]="sizeOption.mark"
+              (click)="toggleSize(sizeOption)">
+              {{sizeOption.name}}
+            </button>
+          </div>
+        </div>
+
+        <!-- Images -->
+        <div class="mb-3">
+          <label class="section-label">תמונות</label>
+          <div class="images-grid">
+            <div *ngFor="let img of ig.images; let j = index" class="image-cell">
+              <img [src]="img.urlMedium" class="shoe-thumb" alt="תמונת נעל">
+              <button type="button" class="image-delete-btn" (click)="deleteImage(currentShoe, i, j)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image-cell image-add-cell" (click)="pictureBtn.click()">
+              <i class="fa fa-plus-circle fa-2x"></i>
+              <span>הוסף תמונה</span>
+              <input [hidden]="true" #pictureBtn type="file" accept="image/*" capture="camera"
+                [name]="'image_' + i" [(ngModel)]="currentShoe.image"
+                (change)="handleInputChange($event, ig)" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Add Color Button -->
+    <button type="button" class="add-color-btn" (click)="addGroupImage()">
+      <i class="fa fa-plus-circle"></i>
+      <span>הוספת צבע חדש</span>
+    </button>
+
+    <!-- Bottom Actions -->
+    <div class="edit-bottom-bar">
+      <button type="button" class="btn btn-outline-secondary" (click)="backClicked()">
+        <i class="fa fa-arrow-right"></i> חזרה
+      </button>
+      <button type="submit" class="btn btn-primary px-4" [disabled]="!addEditform.form.valid">
+        <i class="fa fa-save"></i> שמור שינויים
+      </button>
+    </div>
+
   </form>
 </div>

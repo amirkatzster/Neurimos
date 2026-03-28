@@ -1,51 +1,100 @@
 <app-loading [condition]="isLoading"></app-loading>
-
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">מספר נעליים במערכת ({{shoes.length}})</h4>
-  <div class="card-block">
-    <button type="button" [routerLink]="'/admin/shoeedit/'" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>
-    <table class="table table-striped table-responsive" >
-      <thead class="thead-default">
+<div class="admin-section" dir="rtl" *ngIf="!isLoading">
+  <div class="section-header">
+    <div>
+      <h5 class="section-title">נעליים<span *ngIf="filterCompany"> — {{filterCompany}}</span></h5>
+      <span class="section-count">{{filteredShoes.length}} דגמים</span>
+    </div>
+    <button type="button" [routerLink]="'/admin/shoeedit/'" class="btn-add">
+      <i class="fa fa-plus"></i>
+      <span>נעל חדשה</span>
+    </button>
+  </div>
+
+  <div *ngIf="filteredShoes.length === 0" class="empty-state">
+    <i class="fa fa-archive fa-2x"></i>
+    <p>אין נעליים במערכת</p>
+  </div>
+
+  <!-- Mobile Cards -->
+  <div class="shoe-cards d-md-none">
+    <div *ngFor="let shoe of filteredShoes" class="shoe-card" [routerLink]="'/admin/shoeedit/' + shoe._id">
+      <img *ngIf="shoe.imagesGroup?.[0]?.images?.[0]?.urlSmall" [src]="shoe.imagesGroup[0].images[0].urlSmall" class="shoe-card-img" alt="">
+      <div class="shoe-card-body">
+        <div class="shoe-card-name">{{shoe.name}}</div>
+        <div class="shoe-card-meta">
+          <span class="shoe-id">{{shoe.id}}</span>
+          <span class="shoe-company">{{shoe.company}}</span>
+        </div>
+        <div class="shoe-card-badges">
+          <span class="badge" [class.badge-active]="shoe.active" [class.badge-inactive]="!shoe.active">
+            {{shoe.active ? 'פעיל' : 'לא פעיל'}}
+          </span>
+          <span class="gender-icons">
+            <i *ngIf="shoe.gender.indexOf('גברים') > -1" class="fa fa-mars"></i>
+            <i *ngIf="shoe.gender.indexOf('נשים') > -1" class="fa fa-venus"></i>
+            <i *ngIf="shoe.gender.indexOf('ילדים') > -1 || shoe.gender.indexOf('ילדות') > -1" class="fa fa-child"></i>
+          </span>
+        </div>
+      </div>
+      <button type="button" class="shoe-card-delete" (click)="$event.stopPropagation(); deleteShoeConfirm(shoe)">
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop Table -->
+  <div class="table-responsive d-none d-md-block">
+    <table class="admin-table">
+      <thead>
         <tr>
-          <th></th>
-          <th></th>
-          <th>?פעיל</th>
+          <th style="width:44px"></th>
+          <th style="width:60px">תמונה</th>
+          <th>דגם</th>
           <th>חברה</th>
-          <th>שם דגם</th>
-          <th>מספר מזהה</th>
-          <th>קהל יעד</th>
-          <th></th>
+          <th style="width:80px">מזהה</th>
+          <th style="width:70px">פעיל</th>
+          <th style="width:80px">קהל</th>
+          <th style="width:44px"></th>
         </tr>
       </thead>
-      <tbody *ngIf="shoes.length === 0">
-        <tr>
-          <td colspan="8">אין נעליים</td>
-        </tr>
-      </tbody>
       <tbody>
-        <tr *ngFor="let shoe of shoes;let i = index">
+        <tr *ngIf="filteredShoes.length === 0">
+          <td colspan="8" class="empty-cell">אין נעליים</td>
+        </tr>
+        <tr *ngFor="let shoe of filteredShoes">
           <td>
-            <button class="btn btn-sm btn-warning" [routerLink]="'/admin/shoeedit/' + shoe._id"><i class="fa fa-pencil"></i></button>
+            <button class="icon-btn icon-btn-edit" [routerLink]="'/admin/shoeedit/' + shoe._id">
+              <i class="fa fa-pencil"></i>
+            </button>
           </td>
           <td>
-            <img *ngIf="shoe.imagesGroup && shoe.imagesGroup.length > 0 && shoe.imagesGroup[0].images && shoe.imagesGroup[0].images.length > 0" [src]="shoe.imagesGroup[0].images[0].urlSmall" class="imgContainer"/>
+            <img *ngIf="shoe.imagesGroup?.[0]?.images?.[0]?.urlSmall"
+              [src]="shoe.imagesGroup[0].images[0].urlSmall"
+              class="table-shoe-img" alt="">
           </td>
-          <td><mat-checkbox [checked]="shoe.active" disabled="disabled"></mat-checkbox></td>
+          <td class="fw-medium">{{shoe.name}}</td>
           <td>{{shoe.company}}</td>
-          <td>{{shoe.name}}</td>
-          <td><strong>{{shoe.id}}</strong></td>
+          <td><code class="shoe-id-code">{{shoe.id}}</code></td>
           <td>
-            <i *ngIf="shoe.gender.indexOf('גברים') > -1" class="fa fa-mars fa-male fa-2x" aria-hidden="true"></i>
-            <i *ngIf="shoe.gender.indexOf('נשים') > -1" class="fa fa-venus fa-male fa-2x" aria-hidden="true"></i>
-            <i *ngIf="shoe.gender.indexOf('ילדים') > -1" class="fa fa-mars fa-male fa-1x" aria-hidden="true"></i>
-            <i *ngIf="shoe.gender.indexOf('ילדות') > -1" class="fa fa-venus fa-male fa-1x" aria-hidden="true"></i>
+            <span class="badge" [class.badge-active]="shoe.active" [class.badge-inactive]="!shoe.active">
+              {{shoe.active ? 'פעיל' : 'לא פעיל'}}
+            </span>
           </td>
-          <td><button type="button" class="btn btn-danger btn-sm" (click)="deleteShoeConfirm(shoe)"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button></td>
+          <td class="gender-icons">
+            <i *ngIf="shoe.gender.indexOf('גברים') > -1" class="fa fa-mars fa-lg" title="גברים"></i>
+            <i *ngIf="shoe.gender.indexOf('נשים') > -1" class="fa fa-venus fa-lg" title="נשים"></i>
+            <i *ngIf="shoe.gender.indexOf('ילדים') > -1 || shoe.gender.indexOf('ילדות') > -1" class="fa fa-child fa-lg" title="ילדים"></i>
+          </td>
+          <td>
+            <button type="button" class="icon-btn icon-btn-danger" (click)="deleteShoeConfirm(shoe)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
-    <button type="button" [routerLink]="'/admin/shoeedit/'" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>
   </div>
 </div>

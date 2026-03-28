@@ -1,38 +1,42 @@
 <app-loading [condition]="isLoading"></app-loading>
-
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">מספר חברות במערכת ({{companies.length}})</h4>
-  <div class="card-block">
-    <button type="button" (click)="addCompany()" class="btn btn-primary btn-circle"><i class="fa fa-plus" aria-hidden="true"></i></button>
-    <table class="table table-striped table-responsive" >
-      <thead class="thead-light">
-        <tr>
-          <th></th>
-          <th>לוגו</th>
-          <th>חברה</th>
-          <th style="width:400px">כמה מילים על החברה</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="companies.length === 0">
-        <tr>
-          <td colspan="4">אין חברות</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr *ngFor="let company of companies;let i = index">
-          <td>
-            <button class="btn btn-sm btn-warning" (click)="enableEditing(company, i)"><i class="fa fa-pencil"></i></button>
-          </td>
-          <td>
-            <img *ngIf="company.image" [src]="company.image" width="60" height="60" class="rounded">
-          </td>
-          <td>{{company.name}}</td>
-          <td>{{company.information}}</td>
-        </tr>
-      </tbody>
-    </table>
+<div class="admin-section" dir="rtl" *ngIf="!isLoading">
+  <div class="section-header">
+    <div>
+      <h5 class="section-title">חברות</h5>
+      <span class="section-count">{{companies.length}} חברות</span>
+    </div>
+    <button type="button" (click)="addCompany()" class="btn-add">
+      <i class="fa fa-plus"></i>
+      <span>חברה חדשה</span>
+    </button>
+  </div>
+
+  <div *ngIf="companies.length === 0" class="empty-state">
+    <i class="fa fa-building fa-2x"></i>
+    <p>אין חברות במערכת</p>
+  </div>
+
+  <div class="company-grid">
+    <div *ngFor="let company of companies; let i = index" class="company-card">
+      <img *ngIf="company.image" [src]="company.image" class="company-logo" alt="לוגו">
+      <div *ngIf="!company.image" class="company-logo-placeholder">
+        <i class="fa fa-building"></i>
+      </div>
+      <div class="company-info">
+        <div class="company-name">{{company.name}}</div>
+        <div class="company-desc">{{company.information}}</div>
+      </div>
+      <div class="company-actions">
+        <button class="icon-btn icon-btn-shoes" (click)="filterByCompany.emit(company.name)" title="נעליים">
+          <i class="fa fa-shopping-bag"></i>
+        </button>
+        <button class="icon-btn icon-btn-edit" (click)="enableEditing(company, i)">
+          <i class="fa fa-pencil"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -40,36 +44,34 @@
 <div class="modal-backdrop fade show" *ngIf="isDialogOpen" (click)="isDialogOpen = false"></div>
 <div class="modal d-block" tabindex="-1" *ngIf="isDialogOpen">
   <div class="modal-dialog modal-dialog-centered" dir="rtl">
-    <div class="modal-content">
+    <div class="modal-content admin-modal">
       <form (ngSubmit)="doneEditCompany(currentCompany)">
         <div class="modal-header">
           <h5 class="modal-title">עריכת חברה</h5>
           <button type="button" class="btn-close" (click)="isDialogOpen = false"></button>
         </div>
-        <div class="modal-body addForm">
+        <div class="modal-body">
           <div class="form-group mb-3">
-            <label for="Name">חברה</label>
-            <input id="Name" class="form-control" type="text" name="company" [(ngModel)]="currentCompany.name" placeholder="נמרוד" required>
+            <label class="form-label">שם חברה</label>
+            <input class="form-control" type="text" name="company" [(ngModel)]="currentCompany.name" placeholder="שם החברה" required>
           </div>
           <div class="form-group mb-3">
-            <textarea class="form-control" rows="3" name="information" [(ngModel)]="currentCompany.information" placeholder="...ספרו על החברה" required></textarea>
+            <label class="form-label">תיאור</label>
+            <textarea class="form-control" rows="3" name="information" [(ngModel)]="currentCompany.information" placeholder="כמה מילים על החברה..."></textarea>
           </div>
           <div class="form-group mb-3">
-            <input type="file" accept="image/*" name="image" (change)="handleInputChange($event)" />
+            <label class="form-label">לוגו</label>
+            <input type="file" class="form-control" accept="image/*" name="image" (change)="handleInputChange($event)" />
           </div>
-          <table *ngIf="currentCompany.image != null">
-            <tr>
-              <td>
-                <button type="button" class="btn btn-lg btn-danger trashBtn" (click)="currentCompany.image = null"><i class="fa fa-6 fa-trash" aria-hidden="true"></i></button>
-              </td>
-              <td>
-                <img [src]="currentCompany.image" class="rounded mx-auto d-block" width="200" height="200">
-              </td>
-            </tr>
-          </table>
+          <div *ngIf="currentCompany.image" class="logo-preview">
+            <img [src]="currentCompany.image" class="logo-preview-img" alt="לוגו">
+            <button type="button" class="icon-btn icon-btn-danger" (click)="currentCompany.image = null">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="isDialogOpen = false">סגור</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="isDialogOpen = false">ביטול</button>
           <button type="submit" class="btn btn-primary">שמור</button>
         </div>
       </form>

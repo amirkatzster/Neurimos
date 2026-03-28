@@ -245,18 +245,9 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
     this.initGroupImages();
   }
 
-  sizeUp(sizeOption) {
-    sizeOption.amount++;
-    sizeOption.mark = true;
-  }
-
-  sizeDown(sizeOption) {
-    if (sizeOption.amount > 0) {
-      sizeOption.amount--;
-      if (sizeOption.amount === 0) {
-        sizeOption.mark = false;
-      }
-    }
+  toggleSize(sizeOption) {
+    sizeOption.mark = !sizeOption.mark;
+    sizeOption.amount = sizeOption.mark ? 1 : 0;
   }
 
   addRemoveDiscount(shoe) {
