@@ -121,16 +121,12 @@ function isLoggedIn(req, res, next) {
 
 
 async function isAdmin(req, res, next) {
-  console.log('Check Admin');
   if (!req.isAuthenticated()) {
     return res.redirect('/');
   }
-  console.log('Authenticated');
   try {
     const usr: any = await User.findOne({ _id: req.user._id });
-    console.log('found user');
     if (usr && usr.role === 'admin') {
-      console.log('Got Admin access :)');
       return next();
     }
     res.redirect('/');

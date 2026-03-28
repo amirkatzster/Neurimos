@@ -32,9 +32,7 @@ export default class PaypalCtrl {
         }]
       };
 
-      console.log(order.shippment.deliveryMethod);
       if (order.shippment.deliveryMethod !== 'SelfPick') {
-        console.log('adding address to paypal info');
         create_payment_json.transactions[0].item_list.shipping_address = {
           'recipient_name': order.customer.name,
           'line1': order.customer.address1,

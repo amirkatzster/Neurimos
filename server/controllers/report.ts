@@ -9,7 +9,6 @@ export default class ReportCtrl {
     const cpQuery = process.env.CPQEURY;
     const comps = process.env.CPCOMP.split(',');
     const promises = comps.map(comp => {
-      console.log(comp);
       return Shoe.find(
         { searchWords: { $all: comp }, active: true },
         'id name finalPrice companyPrice price'
@@ -41,7 +40,6 @@ export default class ReportCtrl {
     });
     try {
       const r = await Promise.all(promises);
-      console.log('finally...');
       res.json(r);
     } catch (err) { console.error(err); }
   }

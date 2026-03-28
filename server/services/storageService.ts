@@ -28,7 +28,7 @@ export default class StorageService {
         this.s3Client.send(new DeleteObjectCommand({
             Key: imageUrl.substring(len) as string,
             Bucket: this.bucketName,
-        })).then(res => console.log(res)).catch(err => console.log(err, err.stack));
+        })).catch(err => console.error(err, err.stack));
     }
 
     async deleteImageFolder(folderPath: string) {
@@ -41,14 +41,13 @@ export default class StorageService {
             Bucket: this.bucketName,
             Delete: { Objects: objects }
         }));
-        console.log(deleteData);
     }
 
     addNewImage(imageString: string, path: string, width: number) {
         const buf = Buffer.from(imageString.replace(/^data:image\/\w+;base64,/, ''), 'base64');
         Jimp.read(buf).then(image => {
             this.uploadConvertedImage(image, width, path, this.bucketName, this.s3Client);
-        }).catch(err => console.log(err));
+        }).catch(err => console.error(err));
         return this.amazonDomain + this.bucketName + '/' + path;
     }
 
@@ -58,15 +57,13 @@ export default class StorageService {
         try {
             const res: any = await this.s3Client.send(new HeadObjectCommand(headParams));
             if (res.code !== 'NotFound') {
-                console.log('New file exists!!! ' + s3Path);
                 const data: any = await this.s3Client.send(new GetObjectCommand(headParams));
                 Jimp.read(data.Body).then(image => {
-                    console.log(image);
                     this.uploadConvertedImage(image, 480, s3Path.replace('/XL/', '/L/'), this.bucketName, this.s3Client);
                     this.uploadConvertedImage(image, 255, s3Path.replace('/XL/', '/M/'), this.bucketName, this.s3Client);
                     this.uploadConvertedImage(image, 55, s3Path.replace('/XL/', '/S/'), this.bucketName, this.s3Client);
                     callback();
-                }).catch(err => console.log(err));
+                }).catch(err => console.error(err));
             }
         } catch (err) {
             return;
@@ -82,12 +79,9 @@ export default class StorageService {
                 ContentEncoding: 'base64',
                 ContentType: image.mime,
                 Bucket: bucketName,
-            })).then(() => {
-                console.log('succesfully uploaded the image!');
-            }).catch(e => {
-                console.log(e);
-                console.log('Error uploading data: ', path);
+            })).catch(e => {
+                console.error('Error uploading data: ', path, e);
             });
-        }).catch(err => console.log(err));
+        }).catch(err => console.error(err));
     }
 }

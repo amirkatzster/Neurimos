@@ -5,7 +5,6 @@ export default class ContactUsCtrl {
   // Get all
   contactus = (req, res) => {
     const service = new MailService();
-    console.log(req.body);
     const { name, mail, phone, message } = req.body;
     const html = `<div dir="rtl" style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6">
   <h2 style="color:#333">הודעה חדשה מהאתר</h2>

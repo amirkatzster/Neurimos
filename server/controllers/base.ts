@@ -35,7 +35,6 @@ abstract class BaseCtrl {
   };
 
   insertProcess(obj: any) {
-    console.log('base insertProcess');
   }
 
   // Get by id
@@ -56,7 +55,6 @@ abstract class BaseCtrl {
   };
 
   updateProcess(body: any) {
-    console.log('base updateProcess');
   }
 
   // Delete by id
@@ -71,7 +69,6 @@ abstract class BaseCtrl {
   };
 
   deleteProcess(req, res): any {
-    console.log('base deleteProcess');
     return true;
   }
 }

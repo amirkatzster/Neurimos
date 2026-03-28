@@ -53,7 +53,6 @@ export default class ShoeCtrl extends BaseCtrl {
       if (imageGroup.images) {
         imageGroup.images.forEach((image, j) => {
           if (image.urlMedium.indexOf('data:image') === 0) {
-            console.log('converting image');
             const number = i * 2 + j * 3;
             const imageStream = image.urlMedium;
             image.urlSmall  = this.addImage(imageStream, shoe, 'S', 55, number);
@@ -81,14 +80,12 @@ export default class ShoeCtrl extends BaseCtrl {
   }
 
   insertProcess(shoe: any) {
-    console.log('insert Process shoe');
     this.updateProcess(shoe);
   }
 
   deleteProcess = async (req, res) => {
     try {
       const obj = await this.model.findOne({ _id: req.params.id });
-      console.log(obj);
       const storageService = new StorageService();
       const filePath = 'Images/Shoes/' + obj.id + '/';
       storageService.deleteImageFolder(filePath);
@@ -132,7 +129,6 @@ export default class ShoeCtrl extends BaseCtrl {
         image.urlSmall  = xlUrlWithPng.replace('/XL/', '/S/');
         try {
           await this.model.findOneAndUpdate({ _id: shoe._id }, shoe);
-          console.log('shoe updated', shoe);
         } catch (err) { console.error(err); }
       });
     }

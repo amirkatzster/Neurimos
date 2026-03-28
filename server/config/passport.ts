@@ -70,12 +70,10 @@ export default function setPassport(passport) {
             try {
                 let user: any = await User.findOne({ 'facebook.id': profile.id });
                 if (user) {
-                    console.log('login FB existing user');
                     user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
                     user.username = user.facebook.name;
                     return done(null, user);
                 }
-                console.log('login FB new user');
                 const newUser: any = new User();
                 newUser.facebook.id    = profile.id;
                 newUser.facebook.token = token;
