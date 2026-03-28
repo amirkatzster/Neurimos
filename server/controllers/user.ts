@@ -42,6 +42,19 @@ export default class UserCtrl extends BaseCtrl {
     })(req, res, next);
   }
 
+  googleAuth = (req, res, next) => {
+    passport.authenticate('google', {
+      scope : ['profile', 'email']
+    })(req, res, next);
+  }
+
+  googleAuthCallback = (req, res, next) => {
+    passport.authenticate('google', {
+      successRedirect : '/',
+      failureRedirect : '/signup'
+    })(req, res, next);
+  }
+
   updateAddress = async (req, res) => {
     try {
       const obj: any = await this.model.findOne({ _id: req.params.id });

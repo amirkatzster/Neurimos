@@ -14,9 +14,9 @@ const authConfig = {
             'callbackURL'       : 'http://localhost:8080/auth/twitter/callback'
         },
         'googleAuth' : {
-            'clientID'      : 'your-secret-clientID-here',
-            'clientSecret'  : 'your-client-secret-here',
-            'callbackURL'   : 'http://localhost:8080/auth/google/callback'
+            'clientID'      : process.env.GOOGLE_CLIENT_ID,
+            'clientSecret'  : process.env.GOOGLE_CLIENT_SECRET,
+            'callbackURL'   : process.env.GOOGLE_CALLBACK
         }
     };
 

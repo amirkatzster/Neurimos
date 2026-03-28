@@ -1,5 +1,6 @@
 import * as LocalStrategy from 'passport-local';
 import * as FacebookStrategy from 'passport-facebook';
+import * as GoogleStrategy from 'passport-google-oauth20';
 import User from '../models/user';
 import authConfig from './auth';
 
@@ -85,6 +86,36 @@ export default function setPassport(passport) {
                 if (profile.emails) {
                     newUser.email          = profile.emails[0].value;
                     newUser.facebook.email = profile.emails[0].value;
+                }
+                newUser.role = 'user';
+                await newUser.save();
+                return done(null, newUser);
+            } catch (err) { return done(err); }
+        });
+    }));
+
+    passport.use(new GoogleStrategy.Strategy({
+        clientID     : authConfig.googleAuth.clientID,
+        clientSecret : authConfig.googleAuth.clientSecret,
+        callbackURL  : authConfig.googleAuth.callbackURL
+    },
+    async function(token, refreshToken, profile, done) {
+        process.nextTick(async function() {
+            try {
+                let user: any = await User.findOne({ 'google.id': profile.id });
+                if (user) {
+                    user.google.name = profile.displayName;
+                    user.username = user.google.name;
+                    return done(null, user);
+                }
+                const newUser: any = new User();
+                newUser.google.id    = profile.id;
+                newUser.google.token = token;
+                newUser.google.name  = profile.displayName;
+                newUser.username = newUser.google.name;
+                if (profile.emails) {
+                    newUser.email        = profile.emails[0].value;
+                    newUser.google.email = profile.emails[0].value;
                 }
                 newUser.role = 'user';
                 await newUser.save();

@@ -68,6 +68,32 @@ $error:      #d93025;
   &:hover { background: #145dbf; color: #fff; }
 }
 
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px;
+  background: #fff;
+  color: #3c4043;
+  border: 1.5px solid $border;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover { background: #f8f9fa; border-color: #bbb; color: #3c4043; }
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .login-divider {
   display: flex;
   align-items: center;
