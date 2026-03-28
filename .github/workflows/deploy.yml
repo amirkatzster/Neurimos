@@ -25,6 +25,14 @@ jobs:
       - name: Build production
         run: npm run prod
 
+      - name: Clean old dist on EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: rm -rf /home/ec2-user/node/dist
+
       - name: Copy dist and config to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -56,6 +64,6 @@ jobs:
             # Update nginx config
             sudo bash /home/ec2-user/node/scripts/update-nginx.sh
 
-            # Zero-downtime rolling reload (cluster mode) or fresh start
-            pm2 reload neurimos || pm2 start ecosystem.config.js --env production
+            # Hard restart — ensures all workers run new code (brief downtime ~1s)
+            pm2 restart neurimos || pm2 start ecosystem.config.js --env production
             pm2 save
