@@ -36,9 +36,12 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   facebookAuthCallback = (req, res, next) => {
-    passport.authenticate('facebook', {
-      successRedirect : '/',
-      failureRedirect : '/signup'
+    passport.authenticate('facebook', (err, user) => {
+      if (err || !user) { return res.redirect('/signup'); }
+      req.logIn(user, (loginErr) => {
+        if (loginErr) { return res.redirect('/signup'); }
+        res.redirect('/?_=' + Date.now());
+      });
     })(req, res, next);
   }
 
@@ -49,9 +52,12 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   googleAuthCallback = (req, res, next) => {
-    passport.authenticate('google', {
-      successRedirect : '/',
-      failureRedirect : '/signup'
+    passport.authenticate('google', (err, user) => {
+      if (err || !user) { return res.redirect('/signup'); }
+      req.logIn(user, (loginErr) => {
+        if (loginErr) { return res.redirect('/signup'); }
+        res.redirect('/?_=' + Date.now());
+      });
     })(req, res, next);
   }
 
