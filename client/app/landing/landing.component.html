@@ -26,47 +26,31 @@
 
 <!-- Category tiles -->
 <section class="categories-section">
-  <h2 class="categories-title">קטגוריות</h2>
+  <h2 class="categories-title">קנה לפי קטגוריה</h2>
   <div class="categories-grid">
 
-    <a routerLink="/נעלי/גברים" class="cat-card cat-men">
-      <div class="cat-overlay"></div>
-      <div class="cat-content">
-        <span class="cat-icon">👟</span>
-        <span class="cat-label">גברים</span>
-        <span class="cat-sub">נעלי גברים</span>
-      </div>
-      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    <a routerLink="/נעלי/גברים" class="cat-card">
+      <div class="cat-icon-wrap cat-men-color"><span class="cat-emoji">👟</span></div>
+      <span class="cat-label">גברים</span>
+      <span class="cat-sub">לקולקציה</span>
     </a>
 
-    <a routerLink="/נעלי/נשים" class="cat-card cat-women">
-      <div class="cat-overlay"></div>
-      <div class="cat-content">
-        <span class="cat-icon">👠</span>
-        <span class="cat-label">נשים</span>
-        <span class="cat-sub">נעלי נשים</span>
-      </div>
-      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    <a routerLink="/נעלי/נשים" class="cat-card">
+      <div class="cat-icon-wrap cat-women-color"><span class="cat-emoji">👠</span></div>
+      <span class="cat-label">נשים</span>
+      <span class="cat-sub">לקולקציה</span>
     </a>
 
-    <a routerLink="/נעלי/ילדים" class="cat-card cat-boys">
-      <div class="cat-overlay"></div>
-      <div class="cat-content">
-        <span class="cat-icon">👦</span>
-        <span class="cat-label">ילדים</span>
-        <span class="cat-sub">נעלי ילדים</span>
-      </div>
-      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    <a routerLink="/נעלי/ילדים" class="cat-card">
+      <div class="cat-icon-wrap cat-boys-color"><span class="cat-emoji">👦</span></div>
+      <span class="cat-label">ילדים</span>
+      <span class="cat-sub">לקולקציה</span>
     </a>
 
-    <a routerLink="/נעלי/ילדות" class="cat-card cat-girls">
-      <div class="cat-overlay"></div>
-      <div class="cat-content">
-        <span class="cat-icon">👧</span>
-        <span class="cat-label">ילדות</span>
-        <span class="cat-sub">נעלי ילדות</span>
-      </div>
-      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    <a routerLink="/נעלי/ילדות" class="cat-card">
+      <div class="cat-icon-wrap cat-girls-color"><span class="cat-emoji">👧</span></div>
+      <span class="cat-label">ילדות</span>
+      <span class="cat-sub">לקולקציה</span>
     </a>
 
   </div>
@@ -74,14 +58,12 @@
 
 <!-- Brand logos -->
 <section class="brands-section">
-  <div class="container-fluid">
-    <h2 class="brands-title">המותגים שלנו</h2>
-    <div class="row g-2 justify-content-center">
-      <div *ngFor="let company of companies" class="col-4 col-md-2 brand-col">
-        <a [routerLink]="'/נעלי/' + company.name" class="brand-link">
-          <img [src]="company.image" [alt]="company.name" class="brand-img">
-        </a>
-      </div>
-    </div>
+  <p class="brands-eyebrow">המותגים שלנו</p>
+  <h2 class="brands-title">קנה לפי מותג</h2>
+  <div class="brands-grid">
+    <a *ngFor="let company of companies" [routerLink]="'/נעלי/' + company.name" class="brand-card">
+      <img [src]="company.image" [alt]="company.name" class="brand-img">
+      <span class="brand-name">{{ company.name }}</span>
+    </a>
   </div>
 </section>

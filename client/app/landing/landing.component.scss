@@ -162,161 +162,181 @@ $brand-darker:  #003952;
 
 // ── Category cards ────────────────────────────────────────────
 .categories-section {
-  padding: 40px 20px 48px;
-  background: #f8f9fb;
+  padding: 48px 24px 56px;
+  background: #fff;
 }
 
 .categories-title {
   text-align: center;
   color: $brand-darker;
-  font-size: 22px;
+  font-size: 13px;
   font-weight: 700;
-  margin-bottom: 24px;
-  letter-spacing: 0.3px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  opacity: 0.5;
 }
 
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  max-width: 1100px;
+  gap: 20px;
+  max-width: 960px;
   margin: 0 auto;
 
-  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 480px) { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 860px) { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 400px) { gap: 10px; }
 }
 
 .cat-card {
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
-  height: 200px;
-  border-radius: 16px;
-  overflow: hidden;
+  align-items: center;
+  gap: 14px;
+  padding: 28px 16px 24px;
+  background: #fff;
+  border: 1.5px solid #eef0f4;
+  border-radius: 20px;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 32px rgba(0,0,0,0.18);
+    border-color: $brand-primary;
+    box-shadow: 0 8px 28px rgba(0,118,190,0.14);
+    transform: translateY(-3px);
 
-    .cat-overlay { opacity: 1; }
-    .cat-arrow { opacity: 1; transform: translateX(-4px); }
+    .cat-sub { color: $brand-primary; }
+    .cat-icon-wrap { transform: scale(1.08); }
   }
 
-  @media (max-width: 480px) { height: 140px; border-radius: 12px; }
+  @media (max-width: 400px) { padding: 20px 10px 18px; gap: 10px; border-radius: 14px; }
 }
 
-// Per-category gradient backgrounds
-.cat-men    { background: linear-gradient(145deg, #1a3a5c 0%, #0076BE 100%); }
-.cat-women  { background: linear-gradient(145deg, #6b2d6b 0%, #c0558f 100%); }
-.cat-boys   { background: linear-gradient(145deg, #1a5c3a 0%, #27ae60 100%); }
-.cat-girls  { background: linear-gradient(145deg, #7b3a1a 0%, #e67e22 100%); }
-
-.cat-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.18);
-  opacity: 0;
-  transition: opacity 0.22s;
-}
-
-.cat-content {
-  position: relative;
-  z-index: 2;
-  padding: 16px 18px 12px;
+.cat-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+
+  @media (max-width: 400px) { width: 54px; height: 54px; }
 }
 
-.cat-icon {
-  font-size: 36px;
-  line-height: 1;
-  margin-bottom: 6px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+.cat-men-color   { background: #e8f2fb; }
+.cat-women-color { background: #fce8f5; }
+.cat-boys-color  { background: #e8f8ee; }
+.cat-girls-color { background: #fff3e8; }
 
-  @media (max-width: 480px) { font-size: 26px; }
+.cat-emoji {
+  font-size: 32px;
+  line-height: 1;
+
+  @media (max-width: 400px) { font-size: 24px; }
 }
 
 .cat-label {
-  color: #fff;
-  font-size: 22px;
+  color: $brand-darker;
+  font-size: 18px;
   font-weight: 800;
-  line-height: 1;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 
-  @media (max-width: 480px) { font-size: 16px; }
+  @media (max-width: 400px) { font-size: 15px; }
 }
 
 .cat-sub {
-  color: rgba(255,255,255,0.75);
+  color: #aab0bc;
   font-size: 12px;
   font-weight: 500;
-  margin-top: 3px;
+  transition: color 0.2s;
+  margin-top: -8px;
 
-  @media (max-width: 480px) { font-size: 10px; }
-}
-
-.cat-arrow {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  color: rgba(255,255,255,0.6);
-  font-size: 14px;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.2s, transform 0.2s;
+  @media (max-width: 400px) { font-size: 11px; }
 }
 
 // ── Brand logos ───────────────────────────────────────────────
 .brands-section {
-  padding: 32px 16px 40px;
-  background: #fafafa;
+  padding: 52px 24px 60px;
+  background: #f8f9fb;
+  text-align: center;
+}
+
+.brands-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: $brand-primary;
+  margin-bottom: 8px;
+  opacity: 0.75;
 }
 
 .brands-title {
-  text-align: center;
   color: $brand-darker;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 36px;
+  letter-spacing: 0.2px;
 }
 
-.brand-col {
+.brands-grid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @media (max-width: 600px) { gap: 10px; }
 }
 
-.brand-link {
+.brand-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  border: 2px solid #e0e6ed;
-  border-radius: 6px;
+  gap: 10px;
+  width: 140px;
+  padding: 20px 12px 16px;
   background: #fff;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  width: 100%;
+  border: 1.5px solid #eef0f4;
+  border-radius: 16px;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 
   &:hover {
     border-color: $brand-primary;
-    box-shadow: 0 2px 8px rgba(0,118,190,0.15);
+    box-shadow: 0 6px 22px rgba(0,118,190,0.13);
+    transform: translateY(-3px);
+
+    .brand-img { opacity: 1; filter: grayscale(0%); }
+    .brand-name { color: $brand-primary; }
   }
+
+  @media (max-width: 600px) { width: 100px; padding: 14px 8px 12px; border-radius: 12px; }
 }
 
 .brand-img {
-  max-width: 100%;
-  max-height: 80px;
+  max-width: 90px;
+  max-height: 52px;
   object-fit: contain;
-  opacity: 0.85;
-  transition: opacity 0.2s;
+  opacity: 0.7;
+  filter: grayscale(30%);
+  transition: opacity 0.2s, filter 0.2s;
 
-  &:hover { opacity: 1; }
+  @media (max-width: 600px) { max-width: 68px; max-height: 38px; }
+}
+
+.brand-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a95a3;
+  transition: color 0.2s;
+  letter-spacing: 0.3px;
+
+  @media (max-width: 600px) { font-size: 11px; }
 }
