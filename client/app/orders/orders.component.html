@@ -57,15 +57,17 @@
 
         <!-- Qty + remove -->
         <div class="cart-item-qty">
-          <label class="qty-label">כמות</label>
+          <label class="qty-label" [for]="'qty-' + order._id">כמות</label>
           <input type="number"
                  class="qty-input"
+                 [id]="'qty-' + order._id"
                  [(ngModel)]="order.amount"
                  (ngModelChange)="onAmountChange($event)"
                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                  min="1" max="20" step="1">
-          <button class="btn-remove" (click)="removeOrder(order)">
-            <i class="fa fa-trash"></i> הסר
+          <button class="btn-remove" (click)="removeOrder(order)"
+                  [attr.aria-label]="'הסר ' + order.shoe.name + ' מהעגלה'">
+            <i class="fa fa-trash" aria-hidden="true"></i> הסר
           </button>
         </div>
 

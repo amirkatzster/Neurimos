@@ -6,28 +6,31 @@
       <div class="cashier-main">
 
         <!-- ── Progress stepper ─────────────────────────── -->
-        <div class="stepper">
-      <div class="step" [class.step-active]="openStep >= 1" [class.step-done]="openStep > 1">
-        <div class="step-circle">
-          <i *ngIf="openStep > 1" class="fa fa-check"></i>
-          <span *ngIf="openStep <= 1">1</span>
-        </div>
-        <span class="step-label">פרטי משלוח</span>
-      </div>
-      <div class="step-line" [class.step-line-done]="openStep > 1"></div>
-      <div class="step" [class.step-active]="openStep >= 2" [class.step-done]="openStep > 2">
-        <div class="step-circle">
-          <i *ngIf="openStep > 2" class="fa fa-check"></i>
-          <span *ngIf="openStep <= 2">2</span>
-        </div>
-        <span class="step-label">תשלום</span>
-      </div>
-      <div class="step-line" [class.step-line-done]="openStep > 2"></div>
-      <div class="step" [class.step-active]="openStep >= 3">
-        <div class="step-circle">3</div>
-        <span class="step-label">סיכום</span>
-      </div>
-        </div>
+        <ol class="stepper" aria-label="שלבי הזמנה" role="list">
+          <li class="step" [class.step-active]="openStep >= 1" [class.step-done]="openStep > 1"
+              [attr.aria-current]="openStep === 1 ? 'step' : null">
+            <div class="step-circle">
+              <i *ngIf="openStep > 1" class="fa fa-check" aria-hidden="true"></i>
+              <span *ngIf="openStep <= 1" aria-hidden="true">1</span>
+            </div>
+            <span class="step-label">פרטי משלוח</span>
+          </li>
+          <li class="step-line" [class.step-line-done]="openStep > 1" role="presentation"></li>
+          <li class="step" [class.step-active]="openStep >= 2" [class.step-done]="openStep > 2"
+              [attr.aria-current]="openStep === 2 ? 'step' : null">
+            <div class="step-circle">
+              <i *ngIf="openStep > 2" class="fa fa-check" aria-hidden="true"></i>
+              <span *ngIf="openStep <= 2" aria-hidden="true">2</span>
+            </div>
+            <span class="step-label">תשלום</span>
+          </li>
+          <li class="step-line" [class.step-line-done]="openStep > 2" role="presentation"></li>
+          <li class="step" [class.step-active]="openStep >= 3"
+              [attr.aria-current]="openStep === 3 ? 'step' : null">
+            <div class="step-circle" aria-hidden="true">3</div>
+            <span class="step-label">סיכום</span>
+          </li>
+        </ol>
 
         <!-- Step 1: Shipping -->
         <div class="panel" [class.panel-open]="openStep === 1">
@@ -88,8 +91,9 @@
               </div>
 
               <div class="takanon-row">
-                <mat-checkbox name="approve" [(ngModel)]="user.approve" required></mat-checkbox>
-                <span>קראתי ואני מסכים עם <a routerLink="/takanon" target="_blank">התקנון</a></span>
+                <mat-checkbox name="approve" [(ngModel)]="user.approve" required>
+                  קראתי ואני מסכים עם <a routerLink="/takanon" target="_blank">התקנון <span class="visually-hidden">(נפתח בחלון חדש)</span></a>
+                </mat-checkbox>
               </div>
 
               <button type="submit" class="btn-continue" [disabled]="!shippmentForm.form.valid">

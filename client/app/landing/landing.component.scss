@@ -35,16 +35,37 @@ $brand-darker:  #003952;
   opacity: 0.88;
 }
 
-.carousel-dots {
+.carousel-controls {
   position: absolute;
   bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 10px;
   z-index: 10;
 
   @media (max-width: 768px) { bottom: 8px; }
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.carousel-pause-btn {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .carousel-dot {

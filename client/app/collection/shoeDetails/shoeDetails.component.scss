@@ -24,6 +24,21 @@ $text-muted:  #757575;
   }
 }
 
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-sep {
+  color: $text-muted;
+  user-select: none;
+}
+
 // ── DESKTOP LAYOUT ──────────────────────────────────────────────
 .pd-desktop {
   display: flex;
@@ -85,7 +100,12 @@ $text-muted:  #757575;
   gap: 6px;
   margin-bottom: 10px;
 
-  a { cursor: pointer; }
+  .thumb-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
 
   img.thumbnail {
     width: 56px;
@@ -375,6 +395,13 @@ $text-muted:  #757575;
   flex-wrap: wrap;
   gap: 6px;
   padding: 6px 8px;
+
+  .thumb-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
 
   img.thumbnail {
     width: 50px; height: 50px;

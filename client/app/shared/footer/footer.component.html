@@ -5,7 +5,7 @@
     <div class="row justify-content-center footer-links-row">
       <div class="col-6 col-md-2 footer-section">
         <h4 class="footer-heading"><a routerLink="/about">אודותינו</a></h4>
-        <a href="https://www.hashikma-holon.co.il/life-style/10626" target="_blank" class="footer-link">כתבות עלינו</a>
+        <a href="https://www.hashikma-holon.co.il/life-style/10626" target="_blank" class="footer-link">כתבות עלינו <span class="visually-hidden">(נפתח בחלון חדש)</span></a>
       </div>
       <div class="col-6 col-md-2 footer-section">
         <h4 class="footer-heading"><a routerLink="/sendusmsg">צרו קשר</a></h4>
@@ -24,10 +24,10 @@
     <!-- Social row -->
     <div class="row justify-content-center footer-social-row">
       <div class="col-auto">
-        <a href="https://twitter.com/neurimshoes?lang=en" target="_blank" class="social-btn twitter-btn" aria-label="Twitter">
+        <a href="https://twitter.com/neurimshoes?lang=en" target="_blank" class="social-btn twitter-btn" aria-label="Twitter (נפתח בחלון חדש)">
           <i class="fa fa-twitter" aria-hidden="true"></i>
         </a>
-        <a href="https://www.facebook.com/Neurimshoes/" target="_blank" class="social-btn fb-btn" aria-label="Facebook">
+        <a href="https://www.facebook.com/Neurimshoes/" target="_blank" class="social-btn fb-btn" aria-label="Facebook (נפתח בחלון חדש)">
           <i class="fa fa-facebook" aria-hidden="true"></i>
         </a>
       </div>
@@ -41,6 +41,19 @@
           &nbsp;&nbsp;
           <a href="tel:035052769" class="footer-phone"><i class="fa fa-phone" aria-hidden="true"></i> 03-5052769</a>
         </address>
+      </div>
+    </div>
+
+    <!-- Accessibility declaration -->
+    <div class="row justify-content-center footer-a11y-row">
+      <div class="col-auto">
+        <a routerLink="/sendusmsg" class="a11y-badge" aria-label="הצהרת נגישות — לדיווח על בעיית נגישות צרו קשר">
+          <span class="a11y-badge-icon" aria-hidden="true">♿</span>
+          <span class="a11y-badge-text">
+            <span class="a11y-badge-title">אתר נגיש</span>
+            <span class="a11y-badge-sub">תקן ישראלי 5568 | AA WCAG 2.1</span>
+          </span>
+        </a>
       </div>
     </div>
 

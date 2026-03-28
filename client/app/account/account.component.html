@@ -14,13 +14,13 @@
     <form #accountForm="ngForm" (ngSubmit)="save(user)">
 
       <div class="field-group">
-        <label class="field-label"><i class="fa fa-user"></i> שם משתמש</label>
-        <input class="field-input" type="text" name="username" [(ngModel)]="user.username" placeholder="שם משתמש" required>
+        <label class="field-label" for="accountUsername"><i class="fa fa-user" aria-hidden="true"></i> שם משתמש</label>
+        <input class="field-input" id="accountUsername" type="text" name="username" [(ngModel)]="user.username" placeholder="שם משתמש" required>
       </div>
 
       <div class="field-group">
-        <label class="field-label"><i class="fa fa-envelope"></i> דואר אלקטרוני</label>
-        <input class="field-input" type="email" name="email" [(ngModel)]="user.email" placeholder="כתובת אימייל" required>
+        <label class="field-label" for="accountEmail"><i class="fa fa-envelope" aria-hidden="true"></i> דואר אלקטרוני</label>
+        <input class="field-input" id="accountEmail" type="email" name="email" [(ngModel)]="user.email" placeholder="כתובת אימייל" required>
       </div>
 
       <button class="save-btn" type="submit" [disabled]="!accountForm.form.valid">

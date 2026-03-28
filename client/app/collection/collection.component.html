@@ -14,8 +14,8 @@
       </div>
 
       <div class="results-bar-sort d-none d-md-flex">
-        <label class="sort-label">מיון:</label>
         <mat-form-field appearance="outline" class="sort-field">
+          <mat-label>מיון</mat-label>
           <mat-select [(ngModel)]="sort" (ngModelChange)="sortChangeEvent($event)">
             <mat-option *ngFor="let s of sortList" [value]="s.value">{{ s.viewValue }}</mat-option>
           </mat-select>
@@ -31,11 +31,11 @@
       <div class="active-filters-chips">
         <span class="active-chip" *ngFor="let filter of filters">
           {{ filter }}
-          <button class="active-chip-remove" (click)="removeFilter(filter)" aria-label="הסר סינון">×</button>
+          <button class="active-chip-remove" (click)="removeFilter(filter)" [attr.aria-label]="'הסר סינון ' + filter">×</button>
         </span>
         <span class="active-chip active-chip-size" *ngFor="let size of selectedSizes">
           מידה {{ size }}
-          <button class="active-chip-remove" (click)="removeSizeFilter(size)" aria-label="הסר מידה">×</button>
+          <button class="active-chip-remove" (click)="removeSizeFilter(size)" [attr.aria-label]="'הסר מידה ' + size">×</button>
         </span>
       </div>
     </div>

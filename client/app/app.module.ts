@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
 
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -60,6 +61,7 @@ import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
     RoutingModule,
     SharedModule,
     AdminModule,
+    A11yModule,
   ],
   providers: [
     provideClientHydration(),

@@ -28,6 +28,11 @@ $text-muted:  #888;
   justify-content: center;
   margin-bottom: 32px;
   gap: 0;
+  list-style: none;
+  padding: 0;
+  margin-right: 0;
+
+  li::marker { display: none; content: ''; }
 }
 
 .step {
@@ -139,21 +144,11 @@ $text-muted:  #888;
 }
 
 .panel-num {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: $blue;
-  color: $white;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  display: none;
 }
 
 .panel-disabled .panel-num {
-  background: #ccc;
+  display: none;
 }
 
 .panel-title {
@@ -219,7 +214,6 @@ $text-muted:  #888;
     padding: 9px 12px;
     font-size: 14px;
     color: $text;
-    outline: none;
     transition: border-color 0.2s;
     width: 100%;
     box-sizing: border-box;

@@ -49,26 +49,26 @@
 
           <form #contactusform="ngForm" (ngSubmit)="sendMessage()">
             <div class="field-group">
-              <label>שם</label>
-              <input type="text" class="field-input" name="name"
+              <label for="contactName">שם</label>
+              <input id="contactName" type="text" class="field-input" name="name"
                      [(ngModel)]="msg.name" placeholder="השם שלכם" required>
             </div>
 
             <div class="field-group">
-              <label>דוא"ל</label>
-              <input type="email" class="field-input" name="mail"
+              <label for="contactMail">דוא"ל</label>
+              <input id="contactMail" type="email" class="field-input" name="mail"
                      [(ngModel)]="msg.mail" placeholder="example@email.com" required>
             </div>
 
             <div class="field-group">
-              <label>טלפון <span class="optional">(אופציונלי)</span></label>
-              <input type="tel" class="field-input" name="phone"
+              <label for="contactPhone">טלפון <span class="optional">(אופציונלי)</span></label>
+              <input id="contactPhone" type="tel" class="field-input" name="phone"
                      [(ngModel)]="msg.phone" placeholder="050-0000000">
             </div>
 
             <div class="field-group">
-              <label>הודעה</label>
-              <textarea class="field-input field-textarea" name="message" rows="5"
+              <label for="contactMessage">הודעה</label>
+              <textarea id="contactMessage" class="field-input field-textarea" name="message" rows="5"
                         [(ngModel)]="msg.message" placeholder="במה נוכל לעזור?" required></textarea>
             </div>
 

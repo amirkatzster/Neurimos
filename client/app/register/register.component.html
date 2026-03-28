@@ -23,16 +23,19 @@
 
     <form [formGroup]="registerForm" (ngSubmit)="register()" class="login-form">
       <div class="login-field" [class.field-error]="!username.pristine && !username.valid">
-        <i class="fa fa-user login-field-icon"></i>
-        <input class="login-input" type="text" name="username" formControlName="username" placeholder="שם מלא" autofocus>
+        <i class="fa fa-user login-field-icon" aria-hidden="true"></i>
+        <label for="registerUsername" class="visually-hidden">שם מלא</label>
+        <input class="login-input" id="registerUsername" type="text" name="username" formControlName="username" placeholder="שם מלא" autofocus>
       </div>
       <div class="login-field" [class.field-error]="!email.pristine && !email.valid">
-        <i class="fa fa-envelope login-field-icon"></i>
-        <input class="login-input" type="email" name="email" formControlName="email" placeholder='דוא"ל'>
+        <i class="fa fa-envelope login-field-icon" aria-hidden="true"></i>
+        <label for="registerEmail" class="visually-hidden">דוא"ל</label>
+        <input class="login-input" id="registerEmail" type="email" name="email" formControlName="email" placeholder='דוא"ל'>
       </div>
       <div class="login-field" [class.field-error]="!password.pristine && !password.valid">
-        <i class="fa fa-lock login-field-icon"></i>
-        <input class="login-input" type="password" name="password" formControlName="password" placeholder="סיסמה (6 תווים לפחות)">
+        <i class="fa fa-lock login-field-icon" aria-hidden="true"></i>
+        <label for="registerPassword" class="visually-hidden">סיסמה</label>
+        <input class="login-input" id="registerPassword" type="password" name="password" formControlName="password" placeholder="סיסמה (6 תווים לפחות)">
       </div>
       <button class="btn-login" type="submit" [disabled]="!registerForm.valid">
         <i class="fa fa-user-plus"></i> הרשמה

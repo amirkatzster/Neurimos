@@ -189,5 +189,20 @@
 @media (max-width: 480px) {
   .summary-card { padding: 36px 20px 28px; }
   .summary-title { font-size: 1.6rem; }
-  .pill { min-width: 66px; padding: 8px 10px; }
+
+  .summary-pills {
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .pill {
+    min-width: 0;
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 11px;
+    gap: 3px;
+    i { font-size: 15px; }
+  }
+
+  .pill-arrow { font-size: 12px; flex-shrink: 0; }
 }

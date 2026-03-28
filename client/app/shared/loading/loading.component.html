@@ -1,6 +1,6 @@
-<div class="loading-overlay" *ngIf="condition">
+<div class="loading-overlay" *ngIf="condition" role="status" aria-live="polite" aria-label="טוען, נא להמתין">
   <div class="loading-box">
-    <div class="loading-spinner">
+    <div class="loading-spinner" aria-hidden="true">
       <div class="spinner-ring"></div>
     </div>
     <span class="loading-text">טוען...</span>

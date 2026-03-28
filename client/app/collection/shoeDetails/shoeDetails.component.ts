@@ -21,6 +21,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   private sub: any;
   private subShoe: any;
   private subComp: any;
+  isLoading = true;
   posIndex: number;
   shoe: any;
   company: any;
@@ -71,11 +72,12 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
             compData => {
               this.company = compData;
               this.buildJsonLdForGoogle();
+              this.isLoading = false;
             },
-            err => console.log(err),
+            err => { console.log(err); this.isLoading = false; },
           );
         },
-        error => console.log(error),
+        error => { console.log(error); this.isLoading = false; },
       );
    });
   }

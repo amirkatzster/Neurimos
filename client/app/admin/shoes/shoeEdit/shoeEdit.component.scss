@@ -221,7 +221,6 @@
   color: #1e293b;
   background: #fff;
   width: 100%;
-  outline: none;
   transition: border-color 0.15s;
 
   &:focus { border-color: #3b82f6; }
@@ -269,7 +268,6 @@
 
 .price-input {
   border: none;
-  outline: none;
   width: 80px;
   padding: 0 8px;
   font-size: 0.92rem;

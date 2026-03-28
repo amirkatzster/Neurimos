@@ -10,12 +10,21 @@
            (load)="i === 0 && (showPromotion = true)">
     </div>
   </div>
-  <div class="carousel-dots">
-    <button *ngFor="let slide of slides; let i = index"
-            class="carousel-dot"
-            [class.active]="i === currentSlide"
-            (click)="currentSlide = i"
-            [attr.aria-label]="'תמונה ' + (i + 1)"></button>
+  <div class="carousel-controls">
+    <div class="carousel-dots">
+      <button *ngFor="let slide of slides; let i = index"
+              class="carousel-dot"
+              [class.active]="i === currentSlide"
+              (click)="currentSlide = i"
+              [attr.aria-label]="'תמונה ' + (i + 1)"
+              [attr.aria-current]="i === currentSlide ? 'true' : null"></button>
+    </div>
+    <button class="carousel-pause-btn"
+            type="button"
+            (click)="toggleCarousel()"
+            [attr.aria-label]="isPlaying ? 'עצור הגלרייה' : 'הפעל הגלרייה'">
+      <i [class]="isPlaying ? 'fa fa-pause' : 'fa fa-play'" aria-hidden="true"></i>
+    </button>
   </div>
   <div *ngIf="showPromotion" class="hero-card">
     <p><strong>נעלי נעורים מחזקת את חיילינו האמיצים ביחד ננצח ונחזור לימים טובים<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Israel.svg/250px-Flag_of_Israel.svg.png" alt="דגל ישראל" class="hero-flag"></strong></p>

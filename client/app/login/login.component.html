@@ -23,12 +23,14 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
       <div class="login-field" [class.field-error]="!email.pristine && !email.valid">
-        <i class="fa fa-envelope login-field-icon"></i>
-        <input class="login-input" type="email" name="email" formControlName="email" placeholder='דוא"ל' autofocus>
+        <i class="fa fa-envelope login-field-icon" aria-hidden="true"></i>
+        <label for="loginEmail" class="visually-hidden">דוא"ל</label>
+        <input class="login-input" id="loginEmail" type="email" name="email" formControlName="email" placeholder='דוא"ל' autofocus>
       </div>
       <div class="login-field" [class.field-error]="!password.pristine && !password.valid">
-        <i class="fa fa-lock login-field-icon"></i>
-        <input class="login-input" type="password" name="password" formControlName="password" placeholder="סיסמה">
+        <i class="fa fa-lock login-field-icon" aria-hidden="true"></i>
+        <label for="loginPassword" class="visually-hidden">סיסמה</label>
+        <input class="login-input" id="loginPassword" type="password" name="password" formControlName="password" placeholder="סיסמה">
       </div>
       <button class="btn-login" type="submit" [disabled]="!loginForm.valid">
         כניסה <i class="fa fa-arrow-left"></i>

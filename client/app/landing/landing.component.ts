@@ -23,6 +23,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     { url: 'https://images.unsplash.com/photo-1641482851820-bd7f7589f62b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'נעלי קולקציה' },
   ];
   currentSlide = 0;
+  isPlaying = true;
   private carouselInterval: any;
 
   constructor(
@@ -34,18 +35,37 @@ export class LandingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadCompanies();
     if (isPlatformBrowser(this.platformId)) {
-      this.ngZone.runOutsideAngular(() => {
-        this.carouselInterval = setInterval(() => {
-          this.ngZone.run(() => {
-            this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-          });
-        }, 3000);
-      });
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReduced) {
+        this.startCarousel();
+      } else {
+        this.isPlaying = false;
+      }
     }
   }
 
   ngOnDestroy() {
     clearInterval(this.carouselInterval);
+  }
+
+  private startCarousel() {
+    this.ngZone.runOutsideAngular(() => {
+      this.carouselInterval = setInterval(() => {
+        this.ngZone.run(() => {
+          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        });
+      }, 3000);
+    });
+    this.isPlaying = true;
+  }
+
+  toggleCarousel() {
+    if (this.isPlaying) {
+      clearInterval(this.carouselInterval);
+      this.isPlaying = false;
+    } else {
+      this.startCarousel();
+    }
   }
 
   loadCompanies() {

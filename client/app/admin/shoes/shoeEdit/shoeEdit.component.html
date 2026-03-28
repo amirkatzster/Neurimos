@@ -207,13 +207,14 @@
                 <i class="fa fa-trash"></i>
               </button>
             </div>
-            <div class="image-cell image-add-cell" (click)="pictureBtn.click()">
-              <i class="fa fa-plus-circle fa-2x"></i>
+            <button type="button" class="image-cell image-add-cell" (click)="pictureBtn.click()"
+                    aria-label="הוסף תמונה">
+              <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
               <span>הוסף תמונה</span>
               <input [hidden]="true" #pictureBtn type="file" accept="image/*" capture="camera"
                 [name]="'image_' + i" [(ngModel)]="currentShoe.image"
                 (change)="handleInputChange($event, ig)" />
-            </div>
+            </button>
           </div>
         </div>
 

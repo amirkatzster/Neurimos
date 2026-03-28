@@ -1,18 +1,24 @@
 <app-toast [message]="toast.message"></app-toast>
+<app-loading [condition]="isLoading"></app-loading>
 
 <div [innerHtml]="'<script type=\'application/ld+json\'>' + jsonLdStringifiedObj + '</script>' | safeHtml"></div>
 
-<div class="pd-page">
+<div class="pd-page" *ngIf="!isLoading">
   <div class="container">
 
     <!-- Breadcrumbs -->
     <div class="row">
-      <div class="col-12 breadCrumbs mt-3 mb-1">
-        <a class="link" (click)="backClicked()"><< חזרה</a> |
-        <a [routerLink]="'/נעלי/נעליים'">נעליים</a> >
-        <a [routerLink]="'/נעלי/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a> >
-        <a [routerLink]="'/נעלי/' + shoe?.company">{{shoe?.company}}</a>
-      </div>
+      <nav class="col-12 breadCrumbs mt-3 mb-1" aria-label="ניווט פירורי לחם">
+        <ol class="breadcrumb-list">
+          <li><a class="link" (click)="backClicked()">חזרה</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">›</li>
+          <li><a [routerLink]="'/נעלי/נעליים'">נעליים</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">›</li>
+          <li><a [routerLink]="'/נעלי/' + shoe?.classificationCache">{{shoe?.classificationCache}}</a></li>
+          <li aria-hidden="true" class="breadcrumb-sep">›</li>
+          <li><a [routerLink]="'/נעלי/' + shoe?.company">{{shoe?.company}}</a></li>
+        </ol>
+      </nav>
     </div>
 
     <!-- ── MOBILE VIEW ── -->
@@ -34,25 +40,34 @@
 
       <!-- Mobile main image -->
       <div class="mobile-main-image">
-        <img [src]="currentImage?.urlLarge" />
+        <img [src]="currentImage?.urlLarge"
+             [alt]="shoe?.company + ' ' + shoe?.name + ' - ' + currentImageGroup?.color" />
       </div>
 
       <!-- Mobile position thumbnails -->
       <div class="color-thumbs-row mt-1">
-        <a *ngFor="let positionImg of currentImageGroup?.images; let i = index"
+        <button type="button" *ngFor="let positionImg of currentImageGroup?.images; let i = index"
+           class="thumb-btn"
+           [attr.aria-label]="'תמונה ' + (i + 1) + ' של ' + shoe?.name"
+           [attr.aria-pressed]="positionImg.urlSmall === currentImage?.urlSmall"
            (click)="selectPosition(positionImg, i)">
           <img class="thumbnail" [src]="positionImg.urlSmall"
+               [alt]="'תמונה ' + (i + 1) + ' של ' + shoe?.name"
                [class.marked]="positionImg.urlSmall === currentImage?.urlSmall" />
-        </a>
+        </button>
       </div>
 
       <!-- Mobile color thumbnails (only when multiple colors exist) -->
       <div class="color-thumbs-row" *ngIf="shoe?.imagesGroup?.length > 1">
-        <a *ngFor="let colorImg of shoe?.imagesGroup; let i = index"
+        <button type="button" *ngFor="let colorImg of shoe?.imagesGroup; let i = index"
+           class="thumb-btn"
+           [attr.aria-label]="colorImg.color + ' - ' + shoe?.name"
+           [attr.aria-pressed]="colorImg == currentImageGroup"
            (click)="selectColor(colorImg, i)">
           <img class="thumbnail" [src]="colorImg.images[0].urlSmall"
+               [alt]="colorImg.color + ' - ' + shoe?.name"
                [class.marked]="colorImg == currentImageGroup" />
-        </a>
+        </button>
       </div>
 
       <!-- Mobile selectors + add to cart -->
@@ -61,6 +76,7 @@
           <button *ngFor="let size of currentImageGroup?.sizes"
                   class="pd-size-chip"
                   [class.selected]="selectedSize === size.size"
+                  [attr.aria-pressed]="selectedSize === size.size"
                   (click)="selectedSize = size.size"
                   type="button">
             {{ size.size }}
@@ -114,25 +130,34 @@
 
         <!-- Main image -->
         <div class="pd-main-image">
-          <img [src]="currentImage?.urlLarge" class="bigImg" />
+          <img [src]="currentImage?.urlLarge" class="bigImg"
+               [alt]="shoe?.company + ' ' + shoe?.name + ' - ' + currentImageGroup?.color" />
         </div>
 
         <!-- Position thumbnails (angles) -->
         <div class="pd-thumbs-row">
-          <a *ngFor="let positionImg of currentImageGroup?.images; let i = index"
+          <button type="button" *ngFor="let positionImg of currentImageGroup?.images; let i = index"
+             class="thumb-btn"
+             [attr.aria-label]="'תמונה ' + (i + 1) + ' של ' + shoe?.name"
+             [attr.aria-pressed]="positionImg.urlSmall === currentImage?.urlSmall"
              (click)="selectPosition(positionImg, i)">
             <img class="thumbnail" [src]="positionImg.urlSmall"
+                 [alt]="'תמונה ' + (i + 1) + ' של ' + shoe?.name"
                  [class.marked]="positionImg.urlSmall === currentImage?.urlSmall" />
-          </a>
+          </button>
         </div>
 
         <!-- Color thumbnails -->
         <div class="pd-thumbs-row pd-thumbs-colors">
-          <a *ngFor="let colorImg of shoe?.imagesGroup; let i = index"
+          <button type="button" *ngFor="let colorImg of shoe?.imagesGroup; let i = index"
+             class="thumb-btn"
+             [attr.aria-label]="colorImg.color + ' - ' + shoe?.name"
+             [attr.aria-pressed]="colorImg.color === currentImageGroup?.color"
              (click)="selectColor(colorImg, i)">
             <img class="thumbnail" [src]="colorImg.images[0].urlSmall"
+                 [alt]="colorImg.color + ' - ' + shoe?.name"
                  [class.marked]="colorImg.color === currentImageGroup?.color" />
-          </a>
+          </button>
         </div>
 
         <!-- Details card -->
@@ -170,10 +195,11 @@
         <div *ngIf="shoe?.stock > 0" class="pd-selectors">
 
           <!-- Color selector -->
-          <div class="pd-selector-label">צבע: <strong>{{ currentImageGroup?.color }}</strong></div>
+          <div class="pd-selector-label" id="colorLabel">צבע: <strong>{{ currentImageGroup?.color }}</strong></div>
           <mat-form-field appearance="outline" class="pd-select-field">
+            <mat-label>צבע</mat-label>
             <mat-select name="color" (ngModelChange)="colorChangeEvent($event)"
-                        placeholder="בחר צבע" [ngModel]="currentImageGroup?.color" required>
+                        [ngModel]="currentImageGroup?.color" required aria-labelledby="colorLabel">
               <mat-option *ngFor="let ig of shoe?.imagesGroup" [value]="ig.color">
                 {{ ig.color }}
               </mat-option>
@@ -181,11 +207,12 @@
           </mat-form-field>
 
           <!-- Size selector as chips -->
-          <div class="pd-selector-label">מידה:</div>
-          <div class="pd-size-chips">
+          <div class="pd-selector-label" id="sizeLabel">מידה:</div>
+          <div class="pd-size-chips" role="group" aria-labelledby="sizeLabel">
             <button *ngFor="let size of currentImageGroup?.sizes"
                     class="pd-size-chip"
                     [class.selected]="selectedSize === size.size"
+                    [attr.aria-pressed]="selectedSize === size.size"
                     (click)="selectedSize = size.size"
                     type="button">
               {{ size.size }}
