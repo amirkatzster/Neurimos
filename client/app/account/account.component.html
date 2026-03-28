@@ -1,23 +1,32 @@
 <app-loading [condition]="isLoading"></app-loading>
-
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card" *ngIf="!isLoading">
-  <h4 class="card-header">Account settings</h4>
-  <div class="card-block">
+<div class="account-page" *ngIf="!isLoading">
+  <div class="account-card">
+
+    <div class="account-avatar">
+      <i class="fa fa-user-circle"></i>
+    </div>
+
+    <h2 class="account-title">הגדרות חשבון</h2>
+    <p class="account-subtitle">עדכן את פרטי החשבון שלך</p>
+
     <form #accountForm="ngForm" (ngSubmit)="save(user)">
-      <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-        <input class="form-control" type="text" name="username" [(ngModel)]="user.username" placeholder="Username" required>
+
+      <div class="field-group">
+        <label class="field-label"><i class="fa fa-user"></i> שם משתמש</label>
+        <input class="field-input" type="text" name="username" [(ngModel)]="user.username" placeholder="שם משתמש" required>
       </div>
-      <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <input class="form-control" type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+
+      <div class="field-group">
+        <label class="field-label"><i class="fa fa-envelope"></i> דואר אלקטרוני</label>
+        <input class="field-input" type="email" name="email" [(ngModel)]="user.email" placeholder="כתובת אימייל" required>
       </div>
-      
-      <button class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
-        <i class="fa fa-save"></i> Save
+
+      <button class="save-btn" type="submit" [disabled]="!accountForm.form.valid">
+        <i class="fa fa-save"></i> שמור שינויים
       </button>
+
     </form>
   </div>
 </div>

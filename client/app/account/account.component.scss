@@ -1,0 +1,110 @@
+$brand-primary: #0076BE;
+$brand-dark:    #004f82;
+$brand-darker:  #003952;
+
+.account-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  background: linear-gradient(135deg, #f0f6fc 0%, #e8f2fb 100%);
+}
+
+.account-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 57, 82, 0.12);
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    padding: 32px 24px;
+  }
+}
+
+.account-avatar {
+  font-size: 72px;
+  color: $brand-primary;
+  margin-bottom: 16px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.account-title {
+  color: $brand-darker;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.account-subtitle {
+  color: #8a9bb0;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.field-group {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.field-label {
+  display: block;
+  color: $brand-darker;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+
+  i { margin-left: 6px; color: $brand-primary; }
+}
+
+.field-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #d0dce8;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #222;
+  background: #f7fafd;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-sizing: border-box;
+  direction: rtl;
+
+  &:focus {
+    border-color: $brand-primary;
+    box-shadow: 0 0 0 3px rgba(0,118,190,0.12);
+    background: #fff;
+  }
+}
+
+.save-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 13px;
+  background: $brand-primary;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  box-shadow: 0 3px 14px rgba(0,118,190,0.3);
+
+  &:hover:not(:disabled) {
+    background: $brand-dark;
+    box-shadow: 0 5px 18px rgba(0,118,190,0.4);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  i { margin-left: 8px; }
+}
