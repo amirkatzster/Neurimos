@@ -1,6 +1,8 @@
-<div class="card" *ngIf="condition">
-  <h4 class="card-header">מעלה.. נא להמתין ולא ללחוץ על כלום</h4>
-  <div class="card-block text-xs-center">
-    <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+<div class="loading-overlay" *ngIf="condition">
+  <div class="loading-box">
+    <div class="loading-spinner">
+      <div class="spinner-ring"></div>
+    </div>
+    <span class="loading-text">טוען...</span>
   </div>
 </div>

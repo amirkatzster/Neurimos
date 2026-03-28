@@ -4,7 +4,7 @@ import { ShoeService } from 'app/services/shoe.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { CompanyService } from 'app/services/company.service';
 import { ClassificationService } from 'app/services/classification.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -36,7 +36,8 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
               private ClassificationService: ClassificationService,
               public toast: ToastComponent,
               public route: ActivatedRoute,
-              private _location: Location) {
+              private _location: Location,
+              private router: Router) {
     this.sizes = new Array(31).fill(0).map((x, i) => i + 19);
   }
 
@@ -259,7 +260,11 @@ export class ShoeEditComponent implements OnInit, OnDestroy {
   }
 
   backClicked() {
-    this._location.back();
+    if (window.history.length > 1) {
+      this._location.back();
+    } else {
+      this.router.navigate(['/admin']);
+    }
   }
 
   removeInfoIfEmpty(event, index) {

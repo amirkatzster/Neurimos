@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
   template: `
   <div class="admin-layout" dir="rtl">
     <div class="admin-topbar">
-      <span class="admin-logo"><i class="fa fa-cog"></i> ניהול</span>
       <nav class="admin-tabs">
         <a class="admin-tab" [class.active]="activeTab === 'shoes'" (click)="setTab('shoes')">
           <i class="fa fa-shopping-bag"></i><span>נעליים</span>

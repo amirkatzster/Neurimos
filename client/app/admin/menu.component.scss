@@ -17,38 +17,23 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.admin-logo {
-  color: #e2e8f0;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 14px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  i { color: #94a3b8; }
-}
-
 .admin-tabs {
   display: flex;
   align-items: stretch;
-  gap: 0;
+  flex: 1;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
-
-  @media (max-width: 480px) {
-    flex: 1;
-    justify-content: flex-end;
-    .admin-logo { display: none; }
-  }
 }
 
 .admin-tab {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 14px 16px;
+  flex: 1;
+  padding: 14px 8px;
   color: #94a3b8;
   font-size: 0.85rem;
   font-weight: 500;
@@ -66,10 +51,6 @@
   }
 
   i { font-size: 0.9rem; }
-
-  span {
-    @media (max-width: 360px) { display: none; }
-  }
 }
 
 .admin-content {

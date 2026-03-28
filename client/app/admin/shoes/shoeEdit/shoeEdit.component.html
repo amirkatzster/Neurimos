@@ -32,7 +32,8 @@
       <div class="edit-card-body">
 
         <!-- Visibility toggle -->
-        <div class="visibility-toggle" [class.is-active]="currentShoe.active" (click)="currentShoe.active = !currentShoe.active">
+        <label class="visibility-toggle" [class.is-active]="currentShoe.active">
+          <input type="checkbox" name="active" [(ngModel)]="currentShoe.active" hidden>
           <i class="fa visibility-icon" [class.fa-eye]="currentShoe.active" [class.fa-eye-slash]="!currentShoe.active"></i>
           <div class="visibility-text">
             <span class="visibility-label">{{ currentShoe.active ? 'מוצג באתר' : 'מוסתר מהאתר' }}</span>
@@ -41,8 +42,7 @@
           <div class="toggle-switch" [class.on]="currentShoe.active">
             <div class="toggle-knob"></div>
           </div>
-          <input type="checkbox" name="active" [(ngModel)]="currentShoe.active" hidden>
-        </div>
+        </label>
 
         <div class="field-row">
           <div class="field-block">
