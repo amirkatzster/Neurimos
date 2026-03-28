@@ -21,6 +21,10 @@
         <div class="mobile-brand">
           <h1><a class="company" [routerLink]="linkToCompany">{{shoe?.company}}</a></h1>
           <h2><a class="model" [routerLink]="linkToShoe">{{shoe?.name}}</a></h2>
+          <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning mt-1"
+                  [routerLink]="'/admin/shoeedit/' + shoe?._id">
+            <i class="fa fa-pencil"></i> עריכה
+          </button>
         </div>
         <div class="mobile-price">
           <span class="price-final" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</span>
