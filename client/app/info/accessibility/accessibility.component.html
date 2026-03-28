@@ -1,0 +1,145 @@
+<div class="a11y-page" dir="rtl">
+
+  <!-- Hero -->
+  <section class="a11y-hero">
+    <div class="a11y-hero-inner">
+      <div class="a11y-hero-icon" aria-hidden="true">♿</div>
+      <h1 class="a11y-hero-title">הצהרת נגישות</h1>
+      <p class="a11y-hero-sub">נעלי נעורים בע"מ — מחויבים לנגישות דיגיטלית לכולם</p>
+    </div>
+  </section>
+
+  <div class="a11y-content container">
+
+    <!-- Intro -->
+    <section class="a11y-section" aria-labelledby="intro-heading">
+      <p class="a11y-intro">
+        בשנים האחרונות הפך אתר האינטרנט לפלטפורמה המרכזית לפרסום המידע והשירותים שאנו מציעים לציבור הרחב.
+        באתר זה ניתן למצוא מידע אודות נעלי נעורים, לעיין במגוון הנעליים ולרכוש אונליין עם משלוח עד הבית.
+      </p>
+      <p class="a11y-intro">
+        מטרתנו בהנגשת האתר היא יצירת שוויון הזדמנויות במרחב האינטרנטי לאנשים עם מוגבלויות מגוונות
+        ולאנשים הנעזרים בטכנולוגיות מסייעות בעת הגלישה ברשת.
+      </p>
+    </section>
+
+    <hr class="a11y-divider" />
+
+    <!-- Standard -->
+    <section class="a11y-section" aria-labelledby="standard-heading">
+      <h2 id="standard-heading" class="a11y-section-title">
+        <span class="a11y-section-icon" aria-hidden="true">📋</span>
+        התקן הישראלי לנגישות
+      </h2>
+      <p>
+        האתר הונגש בהתאם להמלצות <strong>התקן הישראלי ת"י 5568</strong> ולדרישות נגישות תכנים באינטרנט
+        ברמת <strong>AA</strong> של מסמך <strong>WCAG 2.1</strong> שפורסם על ידי הארגון הבינלאומי W3C.
+        הנגשת האתר נבדקה בדפדפנים הנפוצים: Google Chrome ו-Microsoft Edge.
+      </p>
+      <p>
+        לחוויית גלישה מיטבית עם תוכנת קורא מסך אנו ממליצים להשתמש ב-<strong>NVDA</strong> בגרסתה העדכנית ביותר.
+      </p>
+    </section>
+
+    <hr class="a11y-divider" />
+
+    <!-- What we did -->
+    <section class="a11y-section" aria-labelledby="adaptations-heading">
+      <h2 id="adaptations-heading" class="a11y-section-title">
+        <span class="a11y-section-icon" aria-hidden="true">✅</span>
+        התאמות הנגישות שבוצעו באתר
+      </h2>
+
+      <h3 class="a11y-subsection-title">ניווט ושימושיות</h3>
+      <ul class="a11y-list">
+        <li>ניווט מלא באמצעות מקלדת בלבד בכל עמודי האתר</li>
+        <li>קישור "דלג לתוכן הראשי" בראש כל עמוד לדילוג על תפריט הניווט</li>
+        <li>מסגרת פוקוס ברורה ובולטת בעת ניווט באמצעות מקלדת</li>
+        <li>ניגודיות צבעים מתאימה בין טקסט לרקע בכל עמודי האתר</li>
+        <li>כפתורים ואלמנטים אינטראקטיביים בגודל מינימלי נגיש ללחיצה</li>
+        <li>תמיכה בהגדרת <strong>prefers-reduced-motion</strong> — הגלרייה נעצרת אוטומטית למשתמשים הרגישים לתנועה</li>
+        <li>כפתור עצירה/הפעלה לגלרייה הנעה בעמוד הבית</li>
+      </ul>
+
+      <h3 class="a11y-subsection-title">טכנולוגיות מסייעות וקוראי מסך</h3>
+      <ul class="a11y-list">
+        <li>טקסט אלטרנטיבי מתאים לכל התמונות באתר</li>
+        <li>כותרות מסודרות היררכית (H1 ← H2 ← H3) בכל עמוד</li>
+        <li>תוויות (labels) ברורות לכל שדות הטופס — צור קשר, כניסה, הרשמה וקופה</li>
+        <li>שימוש ב-<code>aria-label</code>, <code>aria-pressed</code>, <code>aria-current</code> ו-<code>aria-live</code> בהתאמה</li>
+        <li>הכרזה על שם העמוד החדש בעת ניווט בין עמודים באמצעות Live Announcer</li>
+        <li>אייקונים דקורטיביים מסומנים עם <code>aria-hidden="true"</code></li>
+        <li>ציוני שלב (<code>aria-current="step"</code>) בתהליך הקנייה המודרך</li>
+        <li>אינדיקציה קולית לאלמנטים הניתנים לבחירה (<code>aria-selected</code>, <code>aria-pressed</code>)</li>
+      </ul>
+
+      <h3 class="a11y-subsection-title">טפסים ואינטראקציה</h3>
+      <ul class="a11y-list">
+        <li>כל שדות הטופס — צור קשר, כניסה, הרשמה, עגלת קניות וקופה — מסומנים בתוויות מקושרות</li>
+        <li>הודעות שגיאה ברורות וסמנטיות</li>
+        <li>ממשק בחירת מידה וצבע נגיש למקלדת ולקורא מסך</li>
+        <li>כפתורי הסרת פריטים מהעגלה מכילים תיאור ייחודי לכל פריט</li>
+      </ul>
+
+      <h3 class="a11y-subsection-title">מבנה ועמוד</h3>
+      <ul class="a11y-list">
+        <li>שימוש בסמנטיקת HTML5: <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code></li>
+        <li>ניווט ארי (breadcrumb) עם סמנטיקת <code>&lt;nav&gt;</code> ו-<code>&lt;ol&gt;</code></li>
+        <li>טבלאות מידות עם <code>&lt;caption&gt;</code> ו-<code>scope</code> לכותרות</li>
+        <li>קישורים החוצים לחלון חדש מסומנים בהתראה לקוראי מסך</li>
+        <li>שפת האתר מוגדרת כ-<code>lang="he" dir="rtl"</code></li>
+      </ul>
+    </section>
+
+    <hr class="a11y-divider" />
+
+    <!-- Partial -->
+    <section class="a11y-section" aria-labelledby="partial-heading">
+      <h2 id="partial-heading" class="a11y-section-title">
+        <span class="a11y-section-icon" aria-hidden="true">⚠️</span>
+        נגישות חלקית
+      </h2>
+      <p>
+        אנו שואפים לנגישות מלאה בכל חלקי האתר. עם זאת, ייתכן שיימצאו אלמנטים מסוימים שאינם מונגשים
+        במלואם או שנמצאים עדיין בתהליכי הנגשה. אנו פועלים לשיפור מתמיד ומקבלים כל משוב בנושא בברכה.
+      </p>
+    </section>
+
+    <hr class="a11y-divider" />
+
+    <!-- Contact -->
+    <section class="a11y-section a11y-contact-section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" class="a11y-section-title">
+        <span class="a11y-section-icon" aria-hidden="true">📞</span>
+        פרטי רכז הנגישות
+      </h2>
+      <p>
+        נתקלתם ברכיב שאינו נגיש? פנו אלינו ואנו מתחייבים לבדוק ולשפר בהקדם האפשרי.
+      </p>
+
+      <div class="a11y-contact-card">
+        <dl class="a11y-contact-list">
+          <div class="a11y-contact-row">
+            <dt><i class="fa fa-building" aria-hidden="true"></i> שם החברה</dt>
+            <dd>נעלי נעורים בע"מ</dd>
+          </div>
+          <div class="a11y-contact-row">
+            <dt><i class="fa fa-map-marker" aria-hidden="true"></i> כתובת</dt>
+            <dd>שנקר 52, חולון</dd>
+          </div>
+          <div class="a11y-contact-row">
+            <dt><i class="fa fa-phone" aria-hidden="true"></i> טלפון</dt>
+            <dd><a href="tel:035052769">03-5052769</a></dd>
+          </div>
+          <div class="a11y-contact-row">
+            <dt><i class="fa fa-envelope" aria-hidden="true"></i> דוא"ל</dt>
+            <dd><a routerLink="/sendusmsg">טופס יצירת קשר באתר</a></dd>
+          </div>
+        </dl>
+      </div>
+
+      <p class="a11y-updated">הצהרת נגישות זו עודכנה בתאריך: <time datetime="2026-03">מרץ 2026</time></p>
+    </section>
+
+  </div>
+</div>

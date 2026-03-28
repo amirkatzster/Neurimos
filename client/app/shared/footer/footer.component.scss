@@ -56,6 +56,12 @@ $muted-hover: rgba(255, 255, 255, 0.9);
   &:hover { color: $muted-hover; }
 }
 
+.footer-link-a11y {
+  color: rgba(100, 180, 255, 0.75);
+
+  &:hover { color: rgba(100, 180, 255, 1); }
+}
+
 // ─── Divider ─────────────────────────────────────────────────────────────────
 
 .footer-divider {

@@ -21,6 +21,7 @@ import { SendusmsgComponent } from 'app/info/sendusmsg/sendusmsg.component';
 import { AboutComponent } from 'app/info/about/about.component';
 import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
 import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
+import { AccessibilityComponent } from 'app/info/accessibility/accessibility.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'takanon', component: TakanonComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'סרגל_מידות', component: ShoeSizesComponent },
+  { path: 'נגישות', component: AccessibilityComponent },
   { path: 'נעלי/:query', component: CollectionComponent },
   { path: 'נעל/:desc/:id/צבע/:color', component: ShoeDetailsComponent },
   { path: '**', component: NotFoundComponent },

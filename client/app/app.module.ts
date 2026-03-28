@@ -33,6 +33,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { SafeHtmlPipe } from './shared/safeHtml/safe-html';
 import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
+import { AccessibilityComponent } from 'app/info/accessibility/accessibility.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
     FindusComponent,
     SendusmsgComponent,
     ShoeSizesComponent,
+    AccessibilityComponent,
     SafeHtmlPipe
   ],
   imports: [
