@@ -57,12 +57,15 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   googleAuthCallback = (req, res, next) => {
-    passport.authenticate('google', (err, user) => {
+    console.log('[google-cb] route hit, sessionID:', req.sessionID);
+    passport.authenticate('google', (err, user, info) => {
+      console.log('[google-cb] passport done — err:', err?.message || null, 'user:', !!user, 'info:', JSON.stringify(info));
       if (err || !user) { return res.redirect('/signup'); }
       req.logIn(user, (loginErr) => {
+        console.log('[google-cb] logIn done — loginErr:', loginErr?.message || null);
         if (loginErr) { return res.redirect('/signup'); }
         req.session.save((saveErr) => {
-          console.log('[google-cb] saveErr:', saveErr, 'sessionID:', req.sessionID, 'passport:', JSON.stringify(req.session?.passport));
+          console.log('[google-cb] save done — saveErr:', saveErr, 'sessionID:', req.sessionID, 'passport:', JSON.stringify(req.session?.passport));
           if (saveErr) { return res.redirect('/signup'); }
           const dest = process.env.CLIENT_URL || '/';
           res.send(`<html><body><script>window.location.replace("${dest}");</script></body></html>`);
