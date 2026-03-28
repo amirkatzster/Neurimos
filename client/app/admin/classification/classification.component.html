@@ -21,14 +21,14 @@
 
   <div class="classification-list">
     <div *ngFor="let classification of classifications; let i = index"
-      class="classification-row" (click)="enableEditing(classification, i)">
+      class="classification-row" role="button" tabindex="0" [attr.aria-label]="'ערוך סוג ' + classification.name" (click)="enableEditing(classification, i)" (keydown.enter)="enableEditing(classification, i)">
       <div class="classification-order">{{classification.order}}</div>
       <div class="classification-name">{{classification.name}}</div>
       <span *ngIf="classification.show" class="show-badge">
         <i class="fa fa-eye"></i> חלון ראווה
       </span>
-      <button class="icon-btn icon-btn-edit" (click)="$event.stopPropagation(); enableEditing(classification, i)">
-        <i class="fa fa-pencil"></i>
+      <button class="icon-btn icon-btn-edit" [attr.aria-label]="'ערוך ' + classification.name" (click)="$event.stopPropagation(); enableEditing(classification, i)">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
       </button>
     </div>
   </div>

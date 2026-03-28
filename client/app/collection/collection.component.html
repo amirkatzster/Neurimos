@@ -1,14 +1,15 @@
 <div class="collection-page">
+  <h1 class="visually-hidden">{{ queries.join(' ') }}</h1>
   <div class="container-fluid px-3">
 
     <!-- Results header -->
     <div class="results-bar">
       <div class="results-bar-text">
-        <div class="results-summary" *ngIf="shoes?.length > 0">
+        <div class="results-summary" *ngIf="shoes?.length > 0" aria-live="polite" aria-atomic="true">
           <span class="results-count">{{ shoes?.length }} נעליים</span>
         </div>
-        <div class="results-summary results-empty" *ngIf="shoes?.length === 0">
-          <i class="fa fa-search"></i>
+        <div class="results-summary results-empty" *ngIf="shoes?.length === 0" aria-live="polite" aria-atomic="true">
+          <i class="fa fa-search" aria-hidden="true"></i>
           לא נמצאו תוצאות עבור <strong>"{{ queries.join(' ') }}"</strong>
         </div>
       </div>
@@ -52,11 +53,12 @@
 
       <!-- Side filter panel (desktop) -->
       <div class="col-md-2 d-none d-md-block">
-        <div class="filter-panel">
+        <div class="filter-panel" role="search" aria-label="סינון מוצרים">
 
           <button *ngIf="filters.indexOf('SALE') == -1"
-                  class="sale-btn" (click)="addFiler('SALE')">
-            <i class="fa fa-tag"></i> רק מבצעים
+                  class="sale-btn" (click)="addFiler('SALE')"
+                  aria-pressed="false">
+            <i class="fa fa-tag" aria-hidden="true"></i> רק מבצעים
           </button>
 
           <mat-accordion [multi]="true">

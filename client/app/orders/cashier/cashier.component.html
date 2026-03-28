@@ -34,7 +34,7 @@
 
         <!-- Step 1: Shipping -->
         <div class="panel" [class.panel-open]="openStep === 1">
-          <div class="panel-header" (click)="openStep = openStep > 1 ? 1 : openStep">
+          <div class="panel-header" role="button" tabindex="0" aria-label="שלב 1: פרטי משלוח" (click)="openStep = openStep > 1 ? 1 : openStep" (keydown.enter)="openStep = openStep > 1 ? 1 : openStep">
             <span class="panel-num">1</span>
             <span class="panel-title">פרטי משלוח</span>
             <i *ngIf="openStep > 1" class="fa fa-pencil panel-edit"></i>
@@ -106,7 +106,7 @@
 
         <!-- Step 2: Payment -->
         <div class="panel" [class.panel-open]="openStep === 2" [class.panel-disabled]="openStep < 2">
-          <div class="panel-header">
+          <div class="panel-header" role="heading" aria-level="2">
             <span class="panel-num">2</span>
             <span class="panel-title">תשלום</span>
           </div>

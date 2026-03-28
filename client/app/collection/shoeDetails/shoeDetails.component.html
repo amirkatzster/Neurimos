@@ -29,7 +29,7 @@
           <h2><a class="model" [routerLink]="linkToShoe">{{shoe?.name}}</a></h2>
           <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning mt-1"
                   [routerLink]="'/admin/shoeedit/' + shoe?._id">
-            <i class="fa fa-pencil"></i> עריכה
+            <i class="fa fa-pencil" aria-hidden="true"></i> עריכה
           </button>
         </div>
         <div class="mobile-price">
@@ -120,8 +120,9 @@
       <div class="pd-images">
         <div class="pd-shoe-title">
           <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning me-2"
-                  [routerLink]="'/admin/shoeedit/' + shoe?._id">
-            <i class="fa fa-pencil"></i>
+                  [routerLink]="'/admin/shoeedit/' + shoe?._id"
+                  [attr.aria-label]="'ערוך ' + shoe?.name">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
           <a [routerLink]="linkToCompany" class="title-company">{{shoe?.company}}</a>
           <span class="title-sep"> – </span>
@@ -162,7 +163,7 @@
 
         <!-- Details card -->
         <div class="pd-details-card">
-          <div class="pd-details-header">פרטי המוצר</div>
+          <h3 class="pd-details-header">פרטי המוצר</h3>
           <ul class="pd-details-list">
             <li><i class="fa fa-arrows-alt"></i> <a routerLink="/סרגל_מידות">צפייה בסרגל מידות</a></li>
             <li><i class="fa fa-tag"></i> נעליים חברת {{ shoe?.company }}</li>

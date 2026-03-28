@@ -16,7 +16,7 @@
   </div>
 
   <div class="user-list">
-    <div *ngFor="let user of users" class="user-row" (click)="selectUser(user)">
+    <div *ngFor="let user of users" class="user-row" role="button" tabindex="0" [attr.aria-label]="'פרטי משתמש ' + user.username" (click)="selectUser(user)" (keydown.enter)="selectUser(user)">
       <div class="user-avatar" [class.avatar-admin]="user.role === 'admin'">
         <i class="fa fa-user"></i>
       </div>

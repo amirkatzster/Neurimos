@@ -20,8 +20,8 @@
 
   <!-- Mobile Cards -->
   <div class="shoe-cards d-md-none">
-    <div *ngFor="let shoe of filteredShoes" class="shoe-card" [routerLink]="'/admin/shoeedit/' + shoe._id">
-      <img *ngIf="shoe.imagesGroup?.[0]?.images?.[0]?.urlSmall" [src]="shoe.imagesGroup[0].images[0].urlSmall" class="shoe-card-img" alt="">
+    <div *ngFor="let shoe of filteredShoes" class="shoe-card" role="button" tabindex="0" [attr.aria-label]="shoe.name" [routerLink]="'/admin/shoeedit/' + shoe._id">
+      <img *ngIf="shoe.imagesGroup?.[0]?.images?.[0]?.urlSmall" [src]="shoe.imagesGroup[0].images[0].urlSmall" class="shoe-card-img" [attr.alt]="shoe.company + ' ' + shoe.name">
       <div class="shoe-card-body">
         <div class="shoe-card-name">{{shoe.name}}</div>
         <div class="shoe-card-meta">
@@ -39,8 +39,8 @@
           </span>
         </div>
       </div>
-      <button type="button" class="shoe-card-delete" (click)="$event.stopPropagation(); deleteShoeConfirm(shoe)">
-        <i class="fa fa-trash"></i>
+      <button type="button" class="shoe-card-delete" [attr.aria-label]="'מחק ' + shoe.name" (click)="$event.stopPropagation(); deleteShoeConfirm(shoe)">
+        <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -66,14 +66,14 @@
         </tr>
         <tr *ngFor="let shoe of filteredShoes">
           <td>
-            <button class="icon-btn icon-btn-edit" [routerLink]="'/admin/shoeedit/' + shoe._id">
-              <i class="fa fa-pencil"></i>
+            <button class="icon-btn icon-btn-edit" [routerLink]="'/admin/shoeedit/' + shoe._id" [attr.aria-label]="'ערוך ' + shoe.name">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
           </td>
           <td>
             <img *ngIf="shoe.imagesGroup?.[0]?.images?.[0]?.urlSmall"
               [src]="shoe.imagesGroup[0].images[0].urlSmall"
-              class="table-shoe-img" alt="">
+              class="table-shoe-img" [attr.alt]="shoe.company + ' ' + shoe.name">
           </td>
           <td class="fw-medium">{{shoe.name}}</td>
           <td>{{shoe.company}}</td>
@@ -89,8 +89,8 @@
             <i *ngIf="shoe.gender.indexOf('ילדים') > -1 || shoe.gender.indexOf('ילדות') > -1" class="fa fa-child fa-lg" title="ילדים"></i>
           </td>
           <td>
-            <button type="button" class="icon-btn icon-btn-danger" (click)="deleteShoeConfirm(shoe)">
-              <i class="fa fa-trash"></i>
+            <button type="button" class="icon-btn icon-btn-danger" [attr.aria-label]="'מחק ' + shoe.name" (click)="deleteShoeConfirm(shoe)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </td>
         </tr>

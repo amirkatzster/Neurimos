@@ -4,14 +4,14 @@
     <!-- Header -->
     <div class="cart-header">
       <h1 *ngIf="orders.length > 0">
-        <i class="fa fa-shopping-cart"></i>
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         יש לך <span class="cart-count">{{ orderService.totalAmount() }}</span> מוצרים בעגלה
       </h1>
       <h1 *ngIf="orders.length === 0">
-        <i class="fa fa-shopping-cart"></i> העגלה ריקה
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i> העגלה ריקה
       </h1>
       <p class="cart-trust-line">
-        <i class="fa fa-lock"></i> קנייה בנעורים היא בטוחה — מוניטין מאז 1965
+        <i class="fa fa-lock" aria-hidden="true"></i> קנייה בנעורים היא בטוחה — מוניטין מאז 1965
       </p>
     </div>
 
@@ -87,14 +87,14 @@
 
       <div class="summary-row delivery-row">
         <span>שיטת משלוח</span>
-        <mat-radio-group name="deliveryMethod" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)">
+        <mat-radio-group name="deliveryMethod" [(ngModel)]="orderService.orderContainer.delivery" (ngModelChange)="onDeliveryChange($event)" aria-label="שיטת משלוח">
           <mat-radio-button value="Delivery">
             משלוח מהיר
-            <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" #t1="matTooltip" (click)="t1.toggle()" class="fa fa-info-circle"></i>
+            <i matTooltip="שליח עד הבית בגוש דן ודואר אקספרס לשאר אזורי הארץ" #t1="matTooltip" (click)="t1.toggle()" class="fa fa-info-circle" aria-label="מידע על משלוח מהיר"></i>
           </mat-radio-button>
           <mat-radio-button value="SelfPick">
             איסוף עצמי
-            <i matTooltip="איסוף עצמי בשנקר 52 חולון" #t2="matTooltip" (click)="t2.toggle()" class="fa fa-info-circle"></i>
+            <i matTooltip="איסוף עצמי בשנקר 52 חולון" #t2="matTooltip" (click)="t2.toggle()" class="fa fa-info-circle" aria-label="מידע על איסוף עצמי"></i>
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -117,7 +117,7 @@
     <!-- Trust badges -->
     <div class="cart-trust">
       <div class="trust-text">
-        <i class="fa fa-phone"></i>
+        <i class="fa fa-phone" aria-hidden="true"></i>
         צוות נעורים ישמח לעזור בכל שאלה —
         <a href="tel:035052769">03-5052769</a>
       </div>
@@ -125,7 +125,7 @@
         <img src="https://seal.godaddy.com/images/3/en/siteseal_gd_3_h_d_m.gif" alt="SSL site seal" width="131" height="32">
         <span class="ssl-text">
           האתר מאובטח בטכנולוגיית SSL EV —
-          <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים</a>
+          <a href="https://seal.godaddy.com/verifySeal?sealID=wTcDL4Mw6hABSblRoYVv8H3DC2I8cQat32uozUFtpsvUhMRBnLCDdC8elPeP" target="_blank">לפרטים <span class="visually-hidden">(נפתח בחלון חדש)</span></a>
         </span>
       </div>
     </div>

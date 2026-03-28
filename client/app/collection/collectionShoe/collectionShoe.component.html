@@ -1,7 +1,8 @@
 <div class="shoe-card">
   <button *ngIf="auth.loggedIn && auth.isAdmin" class="btn btn-sm btn-warning admin-btn"
-          [routerLink]="'/admin/shoeedit/' + shoe._id">
-    <i class="fa fa-pencil"></i>
+          [routerLink]="'/admin/shoeedit/' + shoe._id"
+          [attr.aria-label]="'ערוך ' + shoe.name">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
   </button>
 
   <a [routerLink]="linkToDetails" class="card-link">

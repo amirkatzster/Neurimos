@@ -20,8 +20,8 @@
   </div>
 
   <div class="company-grid">
-    <div *ngFor="let company of companies; let i = index" class="company-card" (click)="enableEditing(company, i)">
-      <img *ngIf="company.image" [src]="company.image" class="company-logo" alt="לוגו">
+    <div *ngFor="let company of companies; let i = index" class="company-card" role="button" tabindex="0" [attr.aria-label]="'ערוך חברה ' + company.name" (click)="enableEditing(company, i)" (keydown.enter)="enableEditing(company, i)">
+      <img *ngIf="company.image" [src]="company.image" class="company-logo" [attr.alt]="'לוגו ' + company.name">
       <div *ngIf="!company.image" class="company-logo-placeholder">
         <i class="fa fa-building"></i>
       </div>
@@ -30,11 +30,11 @@
         <div class="company-desc">{{company.information}}</div>
       </div>
       <div class="company-actions" (click)="$event.stopPropagation()">
-        <button class="icon-btn icon-btn-shoes" (click)="filterByCompany.emit(company.name)" title="הצג נעליים">
-          <i class="fa fa-shopping-bag"></i>
+        <button class="icon-btn icon-btn-shoes" [attr.aria-label]="'הצג נעליים של ' + company.name" (click)="filterByCompany.emit(company.name)">
+          <i class="fa fa-shopping-bag" aria-hidden="true"></i>
         </button>
-        <button class="icon-btn icon-btn-edit" (click)="enableEditing(company, i)">
-          <i class="fa fa-pencil"></i>
+        <button class="icon-btn icon-btn-edit" [attr.aria-label]="'ערוך ' + company.name" (click)="enableEditing(company, i)">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
       </div>
     </div>
@@ -79,9 +79,9 @@
       <div class="edit-card-header"><i class="fa fa-image"></i> לוגו</div>
       <div class="edit-card-body">
         <div *ngIf="currentCompany.image" class="logo-preview">
-          <img [src]="currentCompany.image" class="logo-preview-img" alt="לוגו">
-          <button type="button" class="icon-btn icon-btn-danger" (click)="currentCompany.image = null">
-            <i class="fa fa-trash"></i>
+          <img [src]="currentCompany.image" class="logo-preview-img" [attr.alt]="'לוגו ' + (currentCompany.name || 'חברה')">
+          <button type="button" class="icon-btn icon-btn-danger" aria-label="הסר לוגו" (click)="currentCompany.image = null">
+            <i class="fa fa-trash" aria-hidden="true"></i>
           </button>
         </div>
         <label class="upload-area" [class.has-image]="currentCompany.image">
