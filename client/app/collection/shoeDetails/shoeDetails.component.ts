@@ -50,6 +50,11 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.titleService.setTitle('נעל | נעלי נעורים');
     this.sub = this.route.params.subscribe(params => {
+      this.isLoading = true;
+      this.shoe = null;
+      this.company = null;
+      this.currentImageGroup = null;
+      this.currentImage = null;
       this.subShoe = this.shoeService.getShoeByFriendlyId(params['id']).subscribe(
         data => {
           this.shoe = data;
