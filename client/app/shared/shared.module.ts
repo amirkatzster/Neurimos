@@ -18,6 +18,7 @@ import { ToastComponent } from './toast/toast.component';
 import { LoadingComponent } from './loading/loading.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 import { AuthService } from 'app/services/auth.service';
 import { RoutingModule } from 'app/routing.module';
 import { LocalStorage } from './local-storage.service';
@@ -59,13 +60,15 @@ import { GoogleAnalyticsEventsService } from './google-analytics-events.service'
     ToastComponent,
     LoadingComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CookieConsentComponent
   ],
   declarations: [
     ToastComponent,
     LoadingComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CookieConsentComponent
   ],
   providers: [
     AuthService,
