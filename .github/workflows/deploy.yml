@@ -53,6 +53,9 @@ jobs:
             # Reinstall only if package-lock changed
             npm ci --omit=dev --legacy-peer-deps
 
+            # Update nginx config
+            sudo bash /home/ec2-user/node/scripts/update-nginx.sh
+
             # Zero-downtime rolling reload (cluster mode) or fresh start
             pm2 reload neurimos || pm2 start ecosystem.config.js --env production
             pm2 save

@@ -25,39 +25,7 @@ pm2 startup   # run the printed command to enable auto-restart on reboot
 # ── Nginx ────────────────────────────────────────────────────
 sudo dnf install -y nginx
 sudo systemctl enable nginx
-
-# Create Nginx config (fill in domain + cert paths)
-sudo tee /etc/nginx/conf.d/neurimos.conf > /dev/null <<'EOF'
-server {
-    listen 80;
-    server_name neurimshoes.co.il www.neurimshoes.co.il;
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    server_name neurimshoes.co.il www.neurimshoes.co.il;
-
-    ssl_certificate     /home/ec2-user/ssl/neurimos_combined.crt;
-    ssl_certificate_key /home/ec2-user/ssl/private_decrypted.key;
-
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-EOF
-
-sudo nginx -t
-sudo systemctl start nginx
+# Config is written by update-nginx.sh after app clone below
 
 # ── Clone app ────────────────────────────────────────────────
 mkdir -p /home/ec2-user/node
@@ -69,6 +37,10 @@ npm run prod
 
 pm2 start ecosystem.config.js --env production
 pm2 save
+
+# ── Write nginx config from repo and start ────────────────────
+sudo bash /home/ec2-user/node/scripts/update-nginx.sh
+sudo systemctl start nginx
 
 # ── SSL certificate setup ────────────────────────────────────
 # 1. Upload GoDaddy files to /home/ec2-user/ssl/
