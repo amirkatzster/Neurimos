@@ -87,7 +87,7 @@
         <span class="nav-admin mobile-username">{{auth.currentUser.username}}</span>
         <span class="mobile-auth-sep"></span>
         <a routerLink="/account" class="nav-admin" routerLinkActive="active"><i class="fa fa-cog"></i></a>
-        <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.isAdmin"><i class="fa fa-lock"></i></a>
+        <a routerLink="/admin" class="admin-pill" routerLinkActive="active" *ngIf="auth.isAdmin"><i class="fa fa-lock"></i> ניהול</a>
         <a routerLink="/logout" class="nav-admin logout-mobile" routerLinkActive="active"><i class="fa fa-sign-out"></i> התנתק</a>
       </ng-container>
     </div>
