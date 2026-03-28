@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 @Component({
   standalone: false,
@@ -40,20 +39,16 @@ export class MenuComponent implements OnInit, OnDestroy {
   companyFilter = '';
   private sub: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.syncTab(this.router.url);
-    this.sub = this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe((e: NavigationEnd) => this.syncTab(e.urlAfterRedirects));
-  }
-
-  syncTab(url: string) {
-    if (url.includes('/admin/companies')) { this.activeTab = 'companies'; }
-    else if (url.includes('/admin/classifications')) { this.activeTab = 'classifications'; }
-    else if (url.includes('/admin/users')) { this.activeTab = 'users'; }
-    else { this.activeTab = 'shoes'; }
+    this.sub = this.route.paramMap.subscribe(params => {
+      this.activeTab = params.get('section') || 'shoes';
+      if (this.activeTab !== 'shoes') { this.companyFilter = ''; }
+    });
   }
 
   goToShoes(company: string) {
