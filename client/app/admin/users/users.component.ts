@@ -14,6 +14,7 @@ export class UsersComponent implements OnInit {
 
   users = [];
   isLoading = true;
+  selectedUser: any = null;
 
   constructor(public auth: AuthService,
               public toast: ToastComponent,
@@ -31,11 +32,39 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  selectUser(user) {
+    this.selectedUser = JSON.parse(JSON.stringify(user));
+  }
+
+  isOwnUser(): boolean {
+    return this.selectedUser && this.auth.currentUser._id === this.selectedUser._id;
+  }
+
+  saveUser(user) {
+    this.userService.editUser(user).subscribe(
+      () => {
+        this.toast.setMessage('פרטים עודכנו בהצלחה', 'success');
+        this.selectedUser = null;
+        this.getUsers();
+      },
+      error => console.log(error)
+    );
+  }
+
+  confirmDelete(user) {
+    if (confirm(`למחוק את ${user.username}?`)) {
+      this.deleteUser(user);
+    }
+  }
+
   deleteUser(user) {
     this.userService.deleteUser(user).subscribe(
-      data => this.toast.setMessage('user deleted successfully.', 'success'),
-      error => console.log(error),
-      () => this.getUsers()
+      () => {
+        this.toast.setMessage('משתמש הוסר בהצלחה', 'success');
+        this.selectedUser = null;
+        this.getUsers();
+      },
+      error => console.log(error)
     );
   }
 

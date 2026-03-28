@@ -1,7 +1,8 @@
 <app-loading [condition]="isLoading"></app-loading>
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="admin-section" dir="rtl" *ngIf="!isLoading">
+<!-- ─── List View ─────────────────────────────────────────────────────────── -->
+<div class="admin-section" dir="rtl" *ngIf="!isLoading && !selectedUser">
   <div class="section-header">
     <div>
       <h5 class="section-title">משתמשים</h5>
@@ -15,22 +16,110 @@
   </div>
 
   <div class="user-list">
-    <div *ngFor="let user of users" class="user-row">
-      <div class="user-avatar">
+    <div *ngFor="let user of users" class="user-row" (click)="selectUser(user)">
+      <div class="user-avatar" [class.avatar-admin]="user.role === 'admin'">
         <i class="fa fa-user"></i>
       </div>
       <div class="user-info">
-        <div class="user-name">{{user.username}}</div>
+        <div class="user-name">
+          {{user.username}}
+          <span *ngIf="auth.currentUser._id === user._id" class="you-badge">אתה</span>
+        </div>
         <div class="user-email">{{user.email}}</div>
       </div>
       <span class="user-role" [class.role-admin]="user.role === 'admin'">{{user.role}}</span>
-      <button *ngIf="user.role !== 'admin' && auth.currentUser._id !== user._id"
-        class="icon-btn icon-btn-danger"
-        (click)="deleteUser(user)"
-        title="מחק משתמש">
-        <i class="fa fa-trash"></i>
-      </button>
-      <div *ngIf="user.role === 'admin' || auth.currentUser._id === user._id" class="icon-btn-spacer"></div>
+      <i class="fa fa-chevron-left user-chevron"></i>
     </div>
   </div>
+</div>
+
+<!-- ─── Detail / Edit View ───────────────────────────────────────────────── -->
+<div class="admin-edit-container" dir="rtl" *ngIf="selectedUser">
+  <form #editForm="ngForm" (ngSubmit)="saveUser(selectedUser)">
+
+    <div class="admin-action-bar">
+      <div class="bar-group">
+        <button type="button" class="bar-btn bar-btn-ghost" (click)="selectedUser = null">
+          <i class="fa fa-arrow-right"></i>
+          <span class="bar-btn-label">חזרה</span>
+        </button>
+      </div>
+      <h5 class="bar-title">{{selectedUser.username}}</h5>
+      <div class="bar-group">
+        <button *ngIf="isOwnUser()" type="submit" class="bar-btn bar-btn-primary" [disabled]="!editForm.form.valid">
+          <i class="fa fa-save"></i>
+          <span class="bar-btn-label">שמור</span>
+        </button>
+        <button *ngIf="!isOwnUser() && selectedUser.role !== 'admin'" type="button"
+          class="bar-btn bar-btn-danger" (click)="confirmDelete(selectedUser)">
+          <i class="fa fa-trash"></i>
+          <span class="bar-btn-label">מחק</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="edit-card">
+      <div class="edit-card-header"><i class="fa fa-user"></i> פרופיל</div>
+      <div class="edit-card-body">
+        <div class="profile-hero">
+          <div class="profile-avatar" [class.avatar-admin]="selectedUser.role === 'admin'">
+            <i class="fa fa-user"></i>
+          </div>
+          <div>
+            <div class="profile-name">{{selectedUser.username}}</div>
+            <span class="user-role" [class.role-admin]="selectedUser.role === 'admin'">{{selectedUser.role}}</span>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-label">אימייל</span>
+            <span *ngIf="!isOwnUser()" class="detail-value">{{selectedUser.email}}</span>
+            <input *ngIf="isOwnUser()" class="field-input" type="email" name="email"
+              [(ngModel)]="selectedUser.email" required>
+          </div>
+          <div class="detail-item" *ngIf="selectedUser.phone">
+            <span class="detail-label">טלפון</span>
+            <span *ngIf="!isOwnUser()" class="detail-value">{{selectedUser.phone}}</span>
+            <input *ngIf="isOwnUser()" class="field-input" type="tel" name="phone"
+              [(ngModel)]="selectedUser.phone">
+          </div>
+          <div class="detail-item" *ngIf="selectedUser.facebook?.name">
+            <span class="detail-label">Facebook</span>
+            <span class="detail-value"><i class="fa fa-facebook"></i> {{selectedUser.facebook.name}}</span>
+          </div>
+          <div class="detail-item" *ngIf="selectedUser.google?.name">
+            <span class="detail-label">Google</span>
+            <span class="detail-value"><i class="fa fa-google"></i> {{selectedUser.google.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Addresses -->
+    <div class="edit-card" *ngIf="selectedUser.addresses?.length > 0">
+      <div class="edit-card-header"><i class="fa fa-map-marker"></i> כתובות</div>
+      <div class="edit-card-body">
+        <div *ngFor="let addr of selectedUser.addresses; let i = index" class="address-row">
+          <div class="address-num">{{i + 1}}</div>
+          <div class="address-body">
+            <div class="address-line">{{addr.address1}}</div>
+            <div class="address-line" *ngIf="addr.address2">{{addr.address2}}</div>
+            <div class="address-line secondary">{{addr.city}}<span *ngIf="addr.zip">, {{addr.zip}}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-bottom-bar">
+      <button type="button" class="btn btn-outline-secondary" (click)="selectedUser = null">
+        <i class="fa fa-arrow-right"></i> חזרה
+      </button>
+      <button *ngIf="isOwnUser()" type="submit" class="btn btn-primary px-4" [disabled]="!editForm.form.valid">
+        <i class="fa fa-save"></i> שמור
+      </button>
+    </div>
+
+  </form>
 </div>
