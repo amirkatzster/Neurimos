@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CompanyService } from 'app/services/company.service';
 
@@ -27,15 +27,20 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   constructor(
     public CompanyService: CompanyService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit() {
     this.loadCompanies();
     if (isPlatformBrowser(this.platformId)) {
-      this.carouselInterval = setInterval(() => {
-        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-      }, 3000);
+      this.ngZone.runOutsideAngular(() => {
+        this.carouselInterval = setInterval(() => {
+          this.ngZone.run(() => {
+            this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+          });
+        }, 3000);
+      });
     }
   }
 

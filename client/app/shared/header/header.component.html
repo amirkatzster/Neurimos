@@ -77,19 +77,19 @@
   <!-- Mobile: login row -->
   <div class="header-mobile-auth d-md-none">
     <div class="container-fluid">
-      <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
-      <span class="or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
-      <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
-      <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
-        <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
-      </a>
-      <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-        <i class="fa fa-lock" aria-hidden="true"></i> אדמין
-      </a>
-      <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
-        <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
-      </a>
-      <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">שלום :) {{auth.currentUser.username}}</span>
+      <ng-container *ngIf="!auth.loggedIn || auth.isGuest">
+        <a routerLink="/login" class="nav-admin" routerLinkActive="active">התחבר</a>
+        <span class="or"> | </span>
+        <a routerLink="/register" class="nav-admin" routerLinkActive="active">הרשם</a>
+      </ng-container>
+      <ng-container *ngIf="auth.loggedIn && !auth.isGuest">
+        <i class="fa fa-user-circle mobile-user-icon" aria-hidden="true"></i>
+        <span class="nav-admin mobile-username">{{auth.currentUser.username}}</span>
+        <span class="mobile-auth-sep"></span>
+        <a routerLink="/account" class="nav-admin" routerLinkActive="active"><i class="fa fa-cog"></i></a>
+        <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.isAdmin"><i class="fa fa-lock"></i></a>
+        <a routerLink="/logout" class="nav-admin logout-mobile" routerLinkActive="active"><i class="fa fa-sign-out"></i> התנתק</a>
+      </ng-container>
     </div>
   </div>
 
@@ -136,19 +136,45 @@
         <!-- Register/account links (desktop only) -->
         <div class="col-md-4 d-none d-md-block">
           <div class="register-container">
-            <span *ngIf="auth.loggedIn && !auth.isGuest" class="nav-admin">שלום :) {{auth.currentUser.username}}</span>
-            <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
-            <span class="or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
-            <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>
-            <a routerLink="/admin" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-              <i class="fa fa-lock" aria-hidden="true"></i> אדמין
-            </a>
-            <a routerLink="/account" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
-              <i class="fa fa-user" aria-hidden="true"></i> החשבון שלי
-            </a>
-            <a routerLink="/logout" class="nav-admin" routerLinkActive="active" *ngIf="auth.loggedIn && !auth.isGuest">
-              <i class="fa fa-sign-out" aria-hidden="true"></i> התנתק
-            </a>
+
+            <!-- Guest: login + register -->
+            <ng-container *ngIf="!auth.loggedIn || auth.isGuest">
+              <a routerLink="/login" class="nav-admin" routerLinkActive="active">התחבר</a>
+              <span class="or"> | </span>
+              <a routerLink="/register" class="nav-admin" routerLinkActive="active">הרשם</a>
+            </ng-container>
+
+            <!-- Logged in: admin pill + user chip with dropdown -->
+            <ng-container *ngIf="auth.loggedIn && !auth.isGuest">
+              <a *ngIf="auth.isAdmin" routerLink="/admin" class="admin-pill">
+                <i class="fa fa-lock"></i> ניהול
+              </a>
+              <div class="user-chip dropdown">
+                <button class="user-chip-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="user-avatar"><i class="fa fa-user"></i></span>
+                  <span class="user-name">{{auth.currentUser.username}}</span>
+                  <i class="fa fa-chevron-down user-chevron" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+                  <li class="user-dropdown-header">
+                    <i class="fa fa-user-circle"></i> {{auth.currentUser.username}}
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" routerLink="/account">
+                      <i class="fa fa-cog"></i> הגדרות חשבון
+                    </a>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item logout-item" routerLink="/logout">
+                      <i class="fa fa-sign-out"></i> התנתק
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
+
           </div>
         </div>
 

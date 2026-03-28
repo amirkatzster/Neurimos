@@ -392,6 +392,9 @@ $white:           #ffffff;
 .register-container {
   padding: 8px 12px;
   font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .nav-admin {
@@ -404,6 +407,154 @@ $white:           #ffffff;
 }
 
 .or {
-  color: #666;
+  color: #bbb;
   font-size: 13px;
+}
+
+// ── Admin pill ────────────────────────────────────────────────
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: #fff;
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 8px;
+  box-shadow: 0 2px 8px rgba(192,57,43,0.3);
+  transition: box-shadow 0.2s, transform 0.15s;
+  letter-spacing: 0.2px;
+
+  i { font-size: 11px; }
+
+  &:hover {
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(192,57,43,0.45);
+    transform: translateY(-1px);
+  }
+}
+
+// ── User chip (logged-in desktop) ─────────────────────────────
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+}
+
+.user-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, $brand-dark 0%, $brand-darker 100%);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 6px 14px 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(0,57,82,0.25);
+
+  &:hover {
+    box-shadow: 0 4px 14px rgba(0,57,82,0.38);
+    transform: translateY(-1px);
+    color: #fff;
+  }
+
+  &::after { display: none; } // remove Bootstrap default caret
+}
+
+.user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.user-name {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-chevron {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-right: 2px;
+}
+
+.user-dropdown {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.13);
+  padding: 6px 0;
+  min-width: 190px;
+  margin-top: 6px !important;
+
+  .user-dropdown-header {
+    padding: 10px 16px 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: $brand-darker;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i { color: $brand-primary; font-size: 18px; }
+  }
+
+  .dropdown-item {
+    font-size: 13px;
+    padding: 9px 16px;
+    color: $nav-text;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.15s, color 0.15s;
+
+    i { color: $brand-primary; width: 14px; text-align: center; }
+
+    &:hover {
+      background: #f0f6ff;
+      color: $brand-primary;
+    }
+  }
+
+  .logout-item {
+    color: #c0392b;
+    i { color: #c0392b; }
+    &:hover { background: #fff5f5; color: #a93226; }
+  }
+}
+
+// ── Mobile auth bar – logged-in state ────────────────────────
+.mobile-user-icon {
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  margin-left: 4px;
+}
+
+.mobile-username {
+  font-weight: 700;
+  color: #fff !important;
+  font-size: 13px;
+}
+
+.mobile-auth-sep {
+  flex: 1;
+}
+
+.logout-mobile {
+  color: #ffb3b3 !important;
+  font-weight: 600;
+  &:hover { color: #fff !important; }
 }
