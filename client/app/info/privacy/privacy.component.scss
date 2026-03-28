@@ -1,0 +1,273 @@
+$brand:    #0076BE;
+$brand-dk: #003952;
+$text:     #1e293b;
+$muted:    #64748b;
+$border:   #e2e8f0;
+$bg:       #f8fafc;
+$white:    #ffffff;
+$success:  #16a34a;
+
+// ─── Page ────────────────────────────────────────────────────────────────────
+
+.privacy-page {
+  background: $bg;
+  min-height: 80vh;
+  direction: rtl;
+}
+
+// ─── Hero ────────────────────────────────────────────────────────────────────
+
+.pr-hero {
+  background: linear-gradient(135deg, $brand-dk 0%, $brand 100%);
+  color: $white;
+  text-align: center;
+  padding: 56px 24px 48px;
+}
+
+.pr-hero-inner { max-width: 640px; margin: 0 auto; }
+
+.pr-hero-icon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.pr-hero-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+  letter-spacing: 0.3px;
+}
+
+.pr-hero-sub {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+}
+
+// ─── TOC ─────────────────────────────────────────────────────────────────────
+
+.pr-toc {
+  background: $white;
+  border-bottom: 1px solid $border;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.pr-toc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0 8px;
+  overflow-x: auto;
+
+  li { flex-shrink: 0; }
+
+  a {
+    display: block;
+    padding: 14px 14px;
+    color: $brand-dk;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      color: $brand;
+      border-bottom-color: $brand;
+    }
+
+    &:focus-visible {
+      outline: 3px solid $brand;
+      outline-offset: -3px;
+    }
+  }
+}
+
+// ─── Content ─────────────────────────────────────────────────────────────────
+
+.pr-content {
+  max-width: 860px;
+  padding: 40px 24px 64px;
+}
+
+// ─── Section ─────────────────────────────────────────────────────────────────
+
+.pr-section {
+  margin-bottom: 8px;
+  scroll-margin-top: 56px;
+}
+
+.pr-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $brand-dk;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pr-section-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+.pr-divider {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 36px 0;
+}
+
+// ─── Intro paragraph ─────────────────────────────────────────────────────────
+
+.pr-intro {
+  font-size: 1rem;
+  color: $text;
+  line-height: 1.8;
+  margin: 0 0 14px;
+}
+
+// ─── Subsection ──────────────────────────────────────────────────────────────
+
+.pr-subsection {
+  margin: 20px 0 0;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 10px;
+    padding-right: 12px;
+    border-right: 3px solid $brand;
+  }
+}
+
+// ─── Check list ──────────────────────────────────────────────────────────────
+
+.pr-check-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+
+  li {
+    font-size: 0.95rem;
+    color: $text;
+    line-height: 1.9;
+    padding-right: 26px;
+    position: relative;
+    margin-bottom: 2px;
+
+    &::before {
+      content: '✓';
+      position: absolute;
+      right: 0;
+      color: $success;
+      font-weight: 700;
+    }
+  }
+}
+
+// ─── Highlight box ───────────────────────────────────────────────────────────
+
+.pr-highlight-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fff7ed;
+  border: 1.5px solid #fdba74;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+
+.pr-highlight-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1.6; }
+
+.pr-highlight-text {
+  font-size: 0.95rem;
+  color: $text;
+  line-height: 1.7;
+}
+
+// ─── Cards ───────────────────────────────────────────────────────────────────
+
+.pr-card {
+  background: $white;
+  border: 1.5px solid $border;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  p { margin: 0 0 6px; font-size: 0.95rem; color: $text; line-height: 1.7; }
+}
+
+.pr-card-title {
+  font-weight: 700;
+  color: $brand-dk;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px !important;
+
+  i { color: $brand; }
+}
+
+// ─── Contact card ────────────────────────────────────────────────────────────
+
+.pr-contact-card {
+  background: $white;
+  border: 1.5px solid $border;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 20px 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.pr-contact-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pr-contact-row {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+
+  dt {
+    font-weight: 600;
+    color: $muted;
+    font-size: 0.88rem;
+    min-width: 120px;
+    flex-shrink: 0;
+
+    i { margin-left: 6px; }
+  }
+
+  dd {
+    margin: 0;
+    color: $text;
+    font-size: 0.95rem;
+
+    a {
+      color: $brand;
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
+
+      &:focus-visible {
+        outline: 3px solid $brand;
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+}

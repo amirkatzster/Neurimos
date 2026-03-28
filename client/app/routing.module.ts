@@ -22,6 +22,7 @@ import { AboutComponent } from 'app/info/about/about.component';
 import { ShoeEditComponent } from 'app/admin/shoes/shoeEdit/shoeEdit.component';
 import { ShoeSizesComponent } from 'app/info/shoe_sizes/shoe-sizes.component';
 import { AccessibilityComponent } from 'app/info/accessibility/accessibility.component';
+import { PrivacyComponent } from 'app/info/privacy/privacy.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'summary', component: SummaryComponent },
   { path: 'סרגל_מידות', component: ShoeSizesComponent },
   { path: 'נגישות', component: AccessibilityComponent },
+  { path: 'פרטיות', component: PrivacyComponent },
   { path: 'נעלי/:query', component: CollectionComponent },
   { path: 'נעל/:desc/:id/צבע/:color', component: ShoeDetailsComponent },
   { path: '**', component: NotFoundComponent },
