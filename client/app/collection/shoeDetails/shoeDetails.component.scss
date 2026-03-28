@@ -363,36 +363,10 @@ $text-muted:  #757575;
   }
 }
 
-.mobile-carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-
-  .mobile-carousel-track {
-    display: flex;
-    transition: transform 0.3s ease;
-
-    .mobile-carousel-slide {
-      min-width: 100%;
-      text-align: center;
-      img { max-width: 100%; max-height: 320px; object-fit: contain; }
-    }
-  }
-
-  .mobile-carousel-dots {
-    text-align: center;
-    padding: 8px 0;
-
-    .dot {
-      display: inline-block;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #ccc;
-      margin: 0 4px;
-      cursor: pointer;
-      &.active { background: $brand; }
-    }
-  }
+.mobile-main-image {
+  text-align: center;
+  padding: 8px;
+  img { max-width: 100%; max-height: 320px; object-fit: contain; }
 }
 
 .color-thumbs-row {
@@ -412,6 +386,14 @@ $text-muted:  #757575;
   }
 }
 
+.mobile-cart-section {
+  margin: 12px 8px 4px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 8px;
+}
+
 .mobile-info-card {
   margin: 16px 8px;
   background: #f8f9fb;
@@ -424,9 +406,13 @@ $text-muted:  #757575;
     padding: 0; margin: 0;
     li {
       font-size: 13px;
-      padding: 5px 0;
+      padding: 7px 0;
       border-bottom: 1px solid $border;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
       &:last-child { border-bottom: none; }
+      i { color: $brand; width: 14px; flex-shrink: 0; margin-top: 2px; }
       a { color: $brand-dark; text-decoration: none; &:hover { color: $accent; } }
     }
   }

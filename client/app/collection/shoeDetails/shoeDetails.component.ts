@@ -22,8 +22,6 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   private subShoe: any;
   private subComp: any;
   posIndex: number;
-  mobileImageIndex = 0;
-  private touchStartX = 0;
   shoe: any;
   company: any;
   linkToShoe: String;
@@ -97,20 +95,6 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
     this.currentImage = positionImg;
     this.posIndex = posIndex;
     return false;
-  }
-
-  onTouchStart(e: TouchEvent) {
-    this.touchStartX = e.changedTouches[0].clientX;
-  }
-
-  onTouchEnd(e: TouchEvent) {
-    const diff = this.touchStartX - e.changedTouches[0].clientX;
-    const total = this.currentImageGroup?.images?.length || 1;
-    if (diff > 50 && this.mobileImageIndex < total - 1) {
-      this.mobileImageIndex++;
-    } else if (diff < -50 && this.mobileImageIndex > 0) {
-      this.mobileImageIndex--;
-    }
   }
 
   selectColor(imageGroup, index) {

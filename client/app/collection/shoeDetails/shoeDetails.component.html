@@ -28,40 +28,66 @@
         </div>
       </div>
 
-      <!-- Mobile carousel -->
-      <div class="mobile-carousel"
-           (touchstart)="onTouchStart($event)"
-           (touchend)="onTouchEnd($event)">
-        <div class="mobile-carousel-track" [style.transform]="'translateX(-' + mobileImageIndex * 100 + '%)'">
-          <div class="mobile-carousel-slide" *ngFor="let positionImg of currentImageGroup?.images">
-            <img [src]="positionImg.urlMedium" />
-          </div>
-        </div>
-        <div class="mobile-carousel-dots">
-          <span *ngFor="let img of currentImageGroup?.images; let i = index"
-                class="dot" [class.active]="i === mobileImageIndex"
-                (click)="mobileImageIndex = i"></span>
-        </div>
+      <!-- Mobile main image -->
+      <div class="mobile-main-image">
+        <img [src]="currentImage?.urlLarge" />
       </div>
 
-      <!-- Mobile color thumbnails -->
-      <div class="color-thumbs-row mt-2">
+      <!-- Mobile position thumbnails -->
+      <div class="color-thumbs-row mt-1">
+        <a *ngFor="let positionImg of currentImageGroup?.images; let i = index"
+           (click)="selectPosition(positionImg, i)">
+          <img class="thumbnail" [src]="positionImg.urlSmall"
+               [class.marked]="positionImg.urlSmall === currentImage?.urlSmall" />
+        </a>
+      </div>
+
+      <!-- Mobile color thumbnails (only when multiple colors exist) -->
+      <div class="color-thumbs-row" *ngIf="shoe?.imagesGroup?.length > 1">
         <a *ngFor="let colorImg of shoe?.imagesGroup; let i = index"
-           (click)="selectColor(colorImg, i); mobileImageIndex = 0">
+           (click)="selectColor(colorImg, i)">
           <img class="thumbnail" [src]="colorImg.images[0].urlSmall"
                [class.marked]="colorImg == currentImageGroup" />
         </a>
       </div>
 
+      <!-- Mobile selectors + add to cart -->
+      <div class="mobile-cart-section" *ngIf="shoe?.stock > 0">
+        <div class="pd-size-chips">
+          <button *ngFor="let size of currentImageGroup?.sizes"
+                  class="pd-size-chip"
+                  [class.selected]="selectedSize === size.size"
+                  (click)="selectedSize = size.size"
+                  type="button">
+            {{ size.size }}
+          </button>
+        </div>
+
+        <button type="button" class="pd-btn-cart mt-2"
+                [disabled]="!selectedSize"
+                (click)="addToCart()">
+          <i class="fa fa-shopping-cart"></i> הוסף לעגלה
+        </button>
+      </div>
+
+      <div class="mobile-cart-section" *ngIf="shoe?.stock == 0">
+        <div class="pd-out-of-stock">
+          <span>אזל המלאי</span>
+          <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="orderMore()">
+            תזמינו עוד בבקשה
+          </button>
+        </div>
+      </div>
+
       <!-- Mobile info card -->
       <div class="mobile-info-card">
         <ul>
-          <li><a routerLink="/סרגל_מידות">צפייה בסרגל מידות</a></li>
-          <li>נעליים חברת {{ shoe?.company }}</li>
-          <li>מסוג {{ shoe?.classificationCache }}</li>
-          <li *ngFor="let info of shoe?.information">אנחנו ממליצים כי {{ info }}</li>
-          <li>{{ company?.information }}</li>
-          <li><a routerLink="/sendusmsg">על כל שאלה נשמח לענות</a></li>
+          <li><i class="fa fa-arrows-alt"></i> <a routerLink="/סרגל_מידות">צפייה בסרגל מידות</a></li>
+          <li><i class="fa fa-tag"></i> נעליים חברת {{ shoe?.company }}</li>
+          <li><i class="fa fa-th-large"></i> מסוג {{ shoe?.classificationCache }}</li>
+          <li *ngFor="let info of shoe?.information"><i class="fa fa-check"></i> אנחנו ממליצים כי {{ info }}</li>
+          <li *ngIf="company?.information"><i class="fa fa-info-circle"></i> {{ company?.information }}</li>
+          <li><i class="fa fa-envelope"></i> <a routerLink="/sendusmsg">על כל שאלה נשמח לענות</a></li>
         </ul>
       </div>
     </div>

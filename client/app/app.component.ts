@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
@@ -10,9 +11,9 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
 
-  constructor(public auth: AuthService, router: Router) {
+  constructor(public auth: AuthService, router: Router, @Inject(PLATFORM_ID) platformId: Object) {
     router.events.subscribe(e => {
-      if (e instanceof NavigationEnd) {
+      if (e instanceof NavigationEnd && isPlatformBrowser(platformId)) {
         document.documentElement.scrollTop = 0;
       }
     });

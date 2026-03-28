@@ -250,10 +250,41 @@ $white:           #ffffff;
 
 // ── Mobile bars ──────────────────────────────────────────────
 .header-mobile-auth {
-  background-color: $brand-dark;
-  color: $white;
-  font-size: 12px;
-  padding: 4px 12px;
+  background-color: $brand-darker;
+  color: rgba(255,255,255,0.75);
+  font-size: 12.5px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  .container-fluid {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-height: 32px;
+    padding: 0 8px;
+  }
+
+  .nav-admin {
+    color: rgba(255,255,255,0.82);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    i { font-size: 11px; opacity: 0.8; }
+  }
+
+  .or {
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    padding: 0;
+  }
 }
 
 .header-mobile-logo {
@@ -306,6 +337,11 @@ $white:           #ffffff;
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: 767px) {
+    gap: 0;
+    justify-content: space-around;
+  }
 }
 
 .nav-cat-link {
@@ -323,6 +359,11 @@ $white:           #ffffff;
     color: $brand-primary;
     border-bottom-color: $brand-primary;
   }
+
+  @media (max-width: 767px) {
+    padding: 10px 2px 10px 0;
+    font-size: 13px;
+  }
 }
 
 .nav-cat-arrow {
@@ -339,6 +380,10 @@ $white:           #ffffff;
   &:hover {
     color: $brand-primary;
     border-bottom-color: $brand-primary;
+  }
+
+  @media (max-width: 767px) {
+    padding: 10px 4px 10px 2px;
   }
 }
 

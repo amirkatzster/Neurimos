@@ -76,7 +76,7 @@
 
   <!-- Mobile: login row -->
   <div class="header-mobile-auth d-md-none">
-    <div class="container-fluid py-1">
+    <div class="container-fluid">
       <a routerLink="/login" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">התחבר</a>
       <span class="or" *ngIf="!auth.loggedIn || auth.isGuest"> או </span>
       <a routerLink="/register" class="nav-admin" routerLinkActive="active" *ngIf="!auth.loggedIn || auth.isGuest">הרשם</a>

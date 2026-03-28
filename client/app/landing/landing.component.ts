@@ -35,7 +35,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.carouselInterval = setInterval(() => {
         this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-      }, 30000);
+      }, 3000);
     }
   }
 
