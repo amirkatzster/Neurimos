@@ -102,20 +102,39 @@ export default function setPassport(passport) {
     async function(token, refreshToken, profile, done) {
         process.nextTick(async function() {
             try {
+                const email = profile.emails ? profile.emails[0].value : null;
+
+                // Returning Google user
                 let user: any = await User.findOne({ 'google.id': profile.id });
                 if (user) {
                     user.google.name = profile.displayName;
                     user.username = user.google.name;
                     return done(null, user);
                 }
+
+                // Existing account with same email — link Google to it
+                if (email) {
+                    user = await User.findOne({ email });
+                    if (user) {
+                        user.google.id    = profile.id;
+                        user.google.token = token;
+                        user.google.name  = profile.displayName;
+                        user.google.email = email;
+                        user.username = user.username || profile.displayName;
+                        await user.save();
+                        return done(null, user);
+                    }
+                }
+
+                // New user
                 const newUser: any = new User();
                 newUser.google.id    = profile.id;
                 newUser.google.token = token;
                 newUser.google.name  = profile.displayName;
-                newUser.username = newUser.google.name;
-                if (profile.emails) {
-                    newUser.email        = profile.emails[0].value;
-                    newUser.google.email = profile.emails[0].value;
+                newUser.username     = profile.displayName;
+                if (email) {
+                    newUser.email        = email;
+                    newUser.google.email = email;
                 }
                 newUser.role = 'user';
                 await newUser.save();
