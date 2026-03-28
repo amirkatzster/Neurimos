@@ -1,7 +1,5 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, Location } from '@angular/common';
 
 @Component({
   standalone: false,
@@ -12,16 +10,16 @@ import { Subscription } from 'rxjs';
     <div class="admin-topbar">
       <span class="admin-logo"><i class="fa fa-cog"></i> ניהול</span>
       <nav class="admin-tabs">
-        <a class="admin-tab" [class.active]="activeTab === 'shoes'" [routerLink]="['/admin/shoes']">
+        <a class="admin-tab" [class.active]="activeTab === 'shoes'" (click)="setTab('shoes')">
           <i class="fa fa-shopping-bag"></i><span>נעליים</span>
         </a>
-        <a class="admin-tab" [class.active]="activeTab === 'companies'" [routerLink]="['/admin/companies']">
+        <a class="admin-tab" [class.active]="activeTab === 'companies'" (click)="setTab('companies')">
           <i class="fa fa-building"></i><span>חברות</span>
         </a>
-        <a class="admin-tab" [class.active]="activeTab === 'classifications'" [routerLink]="['/admin/classifications']">
+        <a class="admin-tab" [class.active]="activeTab === 'classifications'" (click)="setTab('classifications')">
           <i class="fa fa-tags"></i><span>סוגים</span>
         </a>
-        <a class="admin-tab" [class.active]="activeTab === 'users'" [routerLink]="['/admin/users']">
+        <a class="admin-tab" [class.active]="activeTab === 'users'" (click)="setTab('users')">
           <i class="fa fa-users"></i><span>משתמשים</span>
         </a>
       </nav>
@@ -35,31 +33,30 @@ import { Subscription } from 'rxjs';
   </div>
   `
 })
-export class MenuComponent implements OnInit, OnDestroy {
+export class MenuComponent implements OnInit {
   activeTab = 'shoes';
   companyFilter = '';
-  private sub: Subscription;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
+    private location: Location,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
     if (!isPlatformBrowser(this.platformId)) { return; }
-    this.sub = this.route.paramMap.subscribe(params => {
-      this.activeTab = params.get('section') || 'shoes';
-      if (this.activeTab !== 'shoes') { this.companyFilter = ''; }
-    });
+    const path = this.location.path();
+    const match = path.match(/\/admin\/(\w+)/);
+    if (match) { this.activeTab = match[1]; }
+  }
+
+  setTab(tab: string) {
+    this.activeTab = tab;
+    if (tab !== 'shoes') { this.companyFilter = ''; }
+    this.location.replaceState('/admin/' + tab);
   }
 
   goToShoes(company: string) {
     this.companyFilter = company;
-    this.router.navigate(['/admin/shoes']);
-  }
-
-  ngOnDestroy() {
-    if (this.sub) { this.sub.unsubscribe(); }
+    this.setTab('shoes');
   }
 }
