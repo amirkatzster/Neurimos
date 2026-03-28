@@ -188,13 +188,12 @@ $brand-darker:  #003952;
 
 .categories-title {
   text-align: center;
-  color: $brand-darker;
+  color: #6b7280;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   margin-bottom: 32px;
-  opacity: 0.4;
 }
 
 .categories-grid {
@@ -291,11 +290,10 @@ $brand-darker:  #003952;
 }
 
 .cat-cta {
-  color: #8a95a3;
+  color: #5a6472;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  opacity: 0.7;
   transform: translateX(6px);
   transition: opacity 0.2s, transform 0.2s, color 0.2s;
 
@@ -319,9 +317,8 @@ $brand-darker:  #003952;
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: $brand-primary;
+  color: #005a8e;
   margin-bottom: 8px;
-  opacity: 0.75;
 }
 
 .brands-title {
@@ -384,7 +381,7 @@ $brand-darker:  #003952;
 .brand-name {
   font-size: 12px;
   font-weight: 600;
-  color: #8a95a3;
+  color: #4b5563;
   transition: color 0.2s;
   letter-spacing: 0.3px;
 

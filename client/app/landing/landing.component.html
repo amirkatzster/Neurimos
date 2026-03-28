@@ -1,5 +1,7 @@
+<h1 class="visually-hidden">נעלי נעורים — חנות נעליים מאז 1965</h1>
+
 <!-- Hero banner carousel -->
-<div class="hero-banner">
+<div class="hero-banner" role="region" aria-label="תמונות פרסומת">
   <div class="hero-carousel">
     <div *ngFor="let slide of slides; let i = index"
          class="hero-slide"
@@ -10,14 +12,15 @@
            (load)="i === 0 && (showPromotion = true)">
     </div>
   </div>
-  <div class="carousel-controls">
-    <div class="carousel-dots">
+  <div class="carousel-controls" role="group" aria-label="ניווט בגלרייה">
+    <div class="carousel-dots" role="tablist">
       <button *ngFor="let slide of slides; let i = index"
               class="carousel-dot"
+              role="tab"
               [class.active]="i === currentSlide"
               (click)="currentSlide = i"
-              [attr.aria-label]="'תמונה ' + (i + 1)"
-              [attr.aria-current]="i === currentSlide ? 'true' : null"></button>
+              [attr.aria-label]="'עבור לתמונה ' + (i + 1) + ' מתוך ' + slides.length"
+              [attr.aria-selected]="i === currentSlide"></button>
     </div>
     <button class="carousel-pause-btn"
             type="button"
@@ -37,35 +40,35 @@
   <h2 class="categories-title">קנה לפי קטגוריה</h2>
   <div class="categories-grid">
 
-    <a routerLink="/נעלי/גברים" class="cat-card cat-men">
+    <a routerLink="/נעלי/גברים" class="cat-card cat-men" aria-label="נעלי גברים — לקולקציה">
       <i class="fa fa-male cat-watermark" aria-hidden="true"></i>
       <div class="cat-body">
         <span class="cat-label">גברים</span>
-        <span class="cat-cta">לקולקציה <i class="fa fa-arrow-left"></i></span>
+        <span class="cat-cta" aria-hidden="true">לקולקציה <i class="fa fa-arrow-left"></i></span>
       </div>
     </a>
 
-    <a routerLink="/נעלי/נשים" class="cat-card cat-women">
+    <a routerLink="/נעלי/נשים" class="cat-card cat-women" aria-label="נעלי נשים — לקולקציה">
       <i class="fa fa-female cat-watermark" aria-hidden="true"></i>
       <div class="cat-body">
         <span class="cat-label">נשים</span>
-        <span class="cat-cta">לקולקציה <i class="fa fa-arrow-left"></i></span>
+        <span class="cat-cta" aria-hidden="true">לקולקציה <i class="fa fa-arrow-left"></i></span>
       </div>
     </a>
 
-    <a routerLink="/נעלי/ילדים" class="cat-card cat-boys">
+    <a routerLink="/נעלי/ילדים" class="cat-card cat-boys" aria-label="נעלי ילדים — לקולקציה">
       <i class="fa fa-child cat-watermark" aria-hidden="true"></i>
       <div class="cat-body">
         <span class="cat-label">ילדים</span>
-        <span class="cat-cta">לקולקציה <i class="fa fa-arrow-left"></i></span>
+        <span class="cat-cta" aria-hidden="true">לקולקציה <i class="fa fa-arrow-left"></i></span>
       </div>
     </a>
 
-    <a routerLink="/נעלי/ילדות" class="cat-card cat-girls">
+    <a routerLink="/נעלי/ילדות" class="cat-card cat-girls" aria-label="נעלי ילדות — לקולקציה">
       <i class="fa fa-female cat-watermark" aria-hidden="true"></i>
       <div class="cat-body">
         <span class="cat-label">ילדות</span>
-        <span class="cat-cta">לקולקציה <i class="fa fa-arrow-left"></i></span>
+        <span class="cat-cta" aria-hidden="true">לקולקציה <i class="fa fa-arrow-left"></i></span>
       </div>
     </a>
 
@@ -77,8 +80,9 @@
   <p class="brands-eyebrow">המותגים שלנו</p>
   <h2 class="brands-title">קנה לפי מותג</h2>
   <div class="brands-grid">
-    <a *ngFor="let company of companies" [routerLink]="'/נעלי/' + company.name" class="brand-card">
-      <img [src]="company.image" [alt]="company.name" class="brand-img">
+    <a *ngFor="let company of companies" [routerLink]="'/נעלי/' + company.name" class="brand-card"
+       [attr.aria-label]="'נעלי ' + company.name">
+      <img [src]="company.image" alt="" class="brand-img" aria-hidden="true">
       <span class="brand-name">{{ company.name }}</span>
     </a>
   </div>
