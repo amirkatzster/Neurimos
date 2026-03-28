@@ -18,7 +18,6 @@ export default class UserCtrl extends BaseCtrl {
   };
 
   me = (req, res) => {
-    console.log('[me] sessionID:', req.sessionID, 'passport:', JSON.stringify(req.session?.passport), 'authenticated:', req.isAuthenticated());
     res.send(req.isAuthenticated() ? req.user : '0');
   };
 
@@ -39,7 +38,7 @@ export default class UserCtrl extends BaseCtrl {
   facebookAuthCallback = (req, res, next) => {
     passport.authenticate('facebook', (err, user) => {
       if (err || !user) { return res.redirect('/signup'); }
-      req.logIn(user, (loginErr) => {
+      req.logIn(user, { keepSessionInfo: true }, (loginErr) => {
         if (loginErr) { return res.redirect('/signup'); }
         req.session.save((saveErr) => {
           if (saveErr) { return res.redirect('/signup'); }
@@ -57,15 +56,11 @@ export default class UserCtrl extends BaseCtrl {
   }
 
   googleAuthCallback = (req, res, next) => {
-    console.log('[google-cb] route hit, sessionID:', req.sessionID);
-    passport.authenticate('google', (err, user, info) => {
-      console.log('[google-cb] passport done — err:', err?.message || null, 'user:', !!user, 'info:', JSON.stringify(info));
+    passport.authenticate('google', (err, user) => {
       if (err || !user) { return res.redirect('/signup'); }
-      req.logIn(user, (loginErr) => {
-        console.log('[google-cb] logIn done — loginErr:', loginErr?.message || null);
+      req.logIn(user, { keepSessionInfo: true }, (loginErr) => {
         if (loginErr) { return res.redirect('/signup'); }
         req.session.save((saveErr) => {
-          console.log('[google-cb] save done — saveErr:', saveErr, 'sessionID:', req.sessionID, 'passport:', JSON.stringify(req.session?.passport));
           if (saveErr) { return res.redirect('/signup'); }
           const dest = process.env.CLIENT_URL || '/';
           res.send(`<html><body><script>window.location.replace("${dest}");</script></body></html>`);
