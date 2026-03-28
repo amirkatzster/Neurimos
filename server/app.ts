@@ -7,6 +7,7 @@ import * as path from 'path';
 import * as passport from 'passport';
 import * as flash from 'connect-flash';
 import * as session from 'express-session';
+import MongoStore from 'connect-mongo';
 import { join } from 'path';
 import { pathToFileURL } from 'url';
 import setRoutes from './routes';
@@ -16,6 +17,9 @@ const app = express();
 dotenv.config({ path: '.env' });
 app.set('port', (process.env.PORT || 3000));
 
+// Trust nginx reverse proxy so cookies work correctly behind HTTPS
+app.set('trust proxy', 1);
+
 app.use(bodyParser.json({ limit: '300mb' }));
 app.use(bodyParser.urlencoded({ limit: '300mb', extended: false }));
 app.use(morgan('dev'));
@@ -23,8 +27,13 @@ app.use(morgan('dev'));
 setPassport(passport);
 app.use(session({
   secret: process.env.SECRET_TOKEN || 'dev-secret',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
+  cookie: {
+    httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000  // 7 days
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
