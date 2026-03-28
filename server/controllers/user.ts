@@ -18,6 +18,7 @@ export default class UserCtrl extends BaseCtrl {
   };
 
   me = (req, res) => {
+    console.log('[me] sessionID:', req.sessionID, 'passport:', JSON.stringify(req.session?.passport), 'authenticated:', req.isAuthenticated());
     res.send(req.isAuthenticated() ? req.user : '0');
   };
 
