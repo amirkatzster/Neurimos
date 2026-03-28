@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -41,10 +42,12 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) { return; }
     this.sub = this.route.paramMap.subscribe(params => {
       this.activeTab = params.get('section') || 'shoes';
       if (this.activeTab !== 'shoes') { this.companyFilter = ''; }
