@@ -7,12 +7,10 @@ import authConfig from './auth';
 export default function setPassport(passport) {
 
     passport.serializeUser(function(user, done) {
-        console.log('serializeUser' + user);
         done(null, user.id);
     });
 
     passport.deserializeUser(async function(id, done) {
-        console.log('deserializeUser' + id);
         try {
             const user = await User.findById(id);
             done(null, user);
@@ -102,14 +100,11 @@ export default function setPassport(passport) {
     async function(token, refreshToken, profile, done) {
         process.nextTick(async function() {
             try {
-                console.log('[Google] profile received:', profile.id, profile.displayName);
                 const email = profile.emails ? profile.emails[0].value : null;
-                console.log('[Google] email:', email);
 
                 // Returning Google user
                 let user: any = await User.findOne({ 'google.id': profile.id });
                 if (user) {
-                    console.log('[Google] existing google user found:', user._id);
                     user.google.name = profile.displayName;
                     user.username = user.google.name;
                     return done(null, user);
@@ -119,7 +114,6 @@ export default function setPassport(passport) {
                 if (email) {
                     user = await User.findOne({ email });
                     if (user) {
-                        console.log('[Google] linking to existing email account:', user._id);
                         user.google.id    = profile.id;
                         user.google.token = token;
                         user.google.name  = profile.displayName;
@@ -131,7 +125,6 @@ export default function setPassport(passport) {
                 }
 
                 // New user
-                console.log('[Google] creating new user');
                 const newUser: any = new User();
                 newUser.google.id    = profile.id;
                 newUser.google.token = token;
@@ -143,12 +136,8 @@ export default function setPassport(passport) {
                 }
                 newUser.role = 'user';
                 await newUser.save();
-                console.log('[Google] new user saved:', newUser._id);
                 return done(null, newUser);
-            } catch (err) {
-                console.error('[Google] strategy error:', err);
-                return done(err);
-            }
+            } catch (err) { return done(err); }
         });
     }));
 }

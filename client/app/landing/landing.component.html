@@ -26,33 +26,49 @@
 
 <!-- Category tiles -->
 <section class="categories-section">
-  <div class="container-fluid">
-    <div class="row g-3 justify-content-center">
-      <div class="col-6 col-md-3">
-        <a routerLink="/נעלי/גברים" class="category-tile">
-          <div class="category-icon"><i class="fa fa-male" aria-hidden="true"></i></div>
-          <span class="category-label">גברים</span>
-        </a>
+  <h2 class="categories-title">קטגוריות</h2>
+  <div class="categories-grid">
+
+    <a routerLink="/נעלי/גברים" class="cat-card cat-men">
+      <div class="cat-overlay"></div>
+      <div class="cat-content">
+        <span class="cat-icon">👟</span>
+        <span class="cat-label">גברים</span>
+        <span class="cat-sub">נעלי גברים</span>
       </div>
-      <div class="col-6 col-md-3">
-        <a routerLink="/נעלי/נשים" class="category-tile">
-          <div class="category-icon"><i class="fa fa-female" aria-hidden="true"></i></div>
-          <span class="category-label">נשים</span>
-        </a>
+      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a routerLink="/נעלי/נשים" class="cat-card cat-women">
+      <div class="cat-overlay"></div>
+      <div class="cat-content">
+        <span class="cat-icon">👠</span>
+        <span class="cat-label">נשים</span>
+        <span class="cat-sub">נעלי נשים</span>
       </div>
-      <div class="col-6 col-md-3">
-        <a routerLink="/נעלי/ילדים" class="category-tile">
-          <div class="category-icon"><i class="fa fa-child" aria-hidden="true"></i></div>
-          <span class="category-label">ילדים</span>
-        </a>
+      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a routerLink="/נעלי/ילדים" class="cat-card cat-boys">
+      <div class="cat-overlay"></div>
+      <div class="cat-content">
+        <span class="cat-icon">👦</span>
+        <span class="cat-label">ילדים</span>
+        <span class="cat-sub">נעלי ילדים</span>
       </div>
-      <div class="col-6 col-md-3">
-        <a routerLink="/נעלי/ילדות" class="category-tile">
-          <div class="category-icon"><i class="fa fa-child" aria-hidden="true"></i></div>
-          <span class="category-label">ילדות</span>
-        </a>
+      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a routerLink="/נעלי/ילדות" class="cat-card cat-girls">
+      <div class="cat-overlay"></div>
+      <div class="cat-content">
+        <span class="cat-icon">👧</span>
+        <span class="cat-label">ילדות</span>
+        <span class="cat-sub">נעלי ילדות</span>
       </div>
-    </div>
+      <i class="fa fa-arrow-left cat-arrow" aria-hidden="true"></i>
+    </a>
+
   </div>
 </section>
 
