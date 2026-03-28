@@ -1,4 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0076BE"/>
-  <text x="16" y="24" font-family="'Trebuchet MS', Arial, sans-serif" font-weight="800" font-size="22" fill="white" text-anchor="middle">N</text>
+  <defs>
+    <!-- Vertical gradient matching logo shoe-sole palette -->
+    <linearGradient id="bg-grad" x1="0.4" y1="0" x2="0.6" y2="1">
+      <stop offset="0%"   stop-color="#1a90d8"/>
+      <stop offset="100%" stop-color="#003d6b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow layer (same technique as logo sole shadow) -->
+  <rect width="32" height="32" rx="7"
+        fill="#001e35" opacity="0.18"
+        transform="translate(1,1.5)"/>
+
+  <!-- Gradient badge background -->
+  <rect width="32" height="32" rx="7" fill="url(#bg-grad)"/>
+
+  <!-- Specular highlight — upper-left, matching logo sole treatment -->
+  <ellipse cx="10" cy="9" rx="8" ry="6" fill="white" opacity="0.14"/>
+
+  <!-- N — Trebuchet MS 800, matching logo font -->
+  <text x="16" y="24"
+        font-family="'Trebuchet MS', Arial, sans-serif"
+        font-weight="800"
+        font-size="22"
+        fill="white"
+        text-anchor="middle">N</text>
 </svg>
