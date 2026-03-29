@@ -16,7 +16,7 @@
     <!-- Image -->
     <div class="card-image-wrap" *ngIf="shoe.imagesGroup?.[0]?.images?.[0]">
       <img *ngIf="loading" src="assets/Double Ring-2.6s-46px.svg" alt="טוען..." class="loader-img" />
-      <img [hidden]="loading"
+      <img [class.img-loading]="loading"
            (load)="onLoad()" (error)="onLoad()"
            [src]="shoe.imagesGroup[0].images[0].urlMedium"
            [alt]="shoe.company + ' ' + shoe.name"
