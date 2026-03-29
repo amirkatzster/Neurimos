@@ -1,5 +1,5 @@
-$brand:      #0076BE;
-$brand-dark: #003952;
+$brand:      #1e8a3c;
+$brand-dark: #0d4a1e;
 $border:     #e2e6ea;
 $error:      #d93025;
 
@@ -162,13 +162,13 @@ $error:      #d93025;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 3px 10px rgba(0, 57, 82, 0.25);
+  box-shadow: 0 3px 10px rgba(13, 74, 30, 0.25);
   transition: transform 0.15s, box-shadow 0.15s;
   margin-top: 4px;
 
   &:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 5px 16px rgba(0, 57, 82, 0.35);
+    box-shadow: 0 5px 16px rgba(13, 74, 30, 0.35);
   }
 
   &:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }

@@ -1,6 +1,6 @@
-$brand-primary: #0076BE;
-$brand-dark:    #004f82;
-$brand-darker:  #003952;
+$brand-primary: #1e8a3c;
+$brand-dark:    #156b2d;
+$brand-darker:  #0d4a1e;
 
 .account-page {
   min-height: 80vh;
@@ -14,7 +14,7 @@ $brand-darker:  #003952;
 .account-card {
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0, 57, 82, 0.12);
+  box-shadow: 0 8px 40px rgba(13, 74, 30, 0.12);
   padding: 48px 44px;
   width: 100%;
   max-width: 440px;
@@ -75,7 +75,7 @@ $brand-darker:  #003952;
 
   &:focus {
     border-color: $brand-primary;
-    box-shadow: 0 0 0 3px rgba(0,118,190,0.12);
+    box-shadow: 0 0 0 3px rgba(30, 138, 60,0.12);
     background: #fff;
   }
 }
@@ -92,11 +92,11 @@ $brand-darker:  #003952;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-  box-shadow: 0 3px 14px rgba(0,118,190,0.3);
+  box-shadow: 0 3px 14px rgba(30, 138, 60,0.3);
 
   &:hover:not(:disabled) {
     background: $brand-dark;
-    box-shadow: 0 5px 18px rgba(0,118,190,0.4);
+    box-shadow: 0 5px 18px rgba(30, 138, 60,0.4);
     transform: translateY(-1px);
   }
 

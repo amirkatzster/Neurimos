@@ -1,6 +1,6 @@
 // ── Palette ─────────────────────────────────────────────────────
-$brand:      #0076BE;
-$brand-dark: #003952;
+$brand:      #1e8a3c;
+$brand-dark: #0d4a1e;
 $accent:     #fe5400;
 $border:     #e8ecf0;
 $muted:      #757575;
@@ -150,7 +150,7 @@ $muted:      #757575;
 .sale-btn {
   width: 100%;
   padding: 9px;
-  background: #d44000;
+  background: linear-gradient(135deg, #2a7fc1 0%, #1a5a8f 100%);
   color: #fff;
   border: none;
   border-radius: 7px;
@@ -162,9 +162,13 @@ $muted:      #757575;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(26, 90, 143, 0.35);
+  transition: background 0.15s, box-shadow 0.15s;
 
-  &:hover { background: darken(#fe5400, 10%); }
+  &:hover {
+    background: linear-gradient(135deg, #1a6eb0 0%, #144f7f 100%);
+    box-shadow: 0 4px 14px rgba(26, 90, 143, 0.5);
+  }
 }
 
 .filter-panel-header {

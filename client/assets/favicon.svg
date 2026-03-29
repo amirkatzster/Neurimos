@@ -2,14 +2,14 @@
   <defs>
     <!-- Vertical gradient matching logo shoe-sole palette -->
     <linearGradient id="bg-grad" x1="0.4" y1="0" x2="0.6" y2="1">
-      <stop offset="0%"   stop-color="#1a90d8"/>
-      <stop offset="100%" stop-color="#003d6b"/>
+      <stop offset="0%"   stop-color="#2eb85c"/>
+      <stop offset="100%" stop-color="#0d4a1e"/>
     </linearGradient>
   </defs>
 
   <!-- Shadow layer (same technique as logo sole shadow) -->
   <rect width="32" height="32" rx="7"
-        fill="#001e35" opacity="0.18"
+        fill="#051a0b" opacity="0.18"
         transform="translate(1,1.5)"/>
 
   <!-- Gradient badge background -->

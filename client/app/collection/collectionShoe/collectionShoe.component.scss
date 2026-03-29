@@ -1,6 +1,6 @@
 // ── Palette ─────────────────────────────────────────────────────
-$brand:      #0076BE;
-$brand-dark: #003952;
+$brand:      #1e8a3c;
+$brand-dark: #0d4a1e;
 $accent:     #fe5400;
 $border:     #e8ecf0;
 $muted:      #6b7280;
@@ -18,7 +18,7 @@ $muted:      #6b7280;
   transition: box-shadow 0.18s, transform 0.18s;
 
   &:hover {
-    box-shadow: 0 6px 24px rgba(0, 57, 82, 0.13);
+    box-shadow: 0 6px 24px rgba(13, 74, 30, 0.13);
     transform: translateY(-3px);
   }
 }

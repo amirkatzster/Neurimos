@@ -1,6 +1,6 @@
 // ── Palette ─────────────────────────────────────────────────────
-$brand:      #0076BE;
-$brand-dark: #003952;
+$brand:      #1e8a3c;
+$brand-dark: #0d4a1e;
 $accent:     #fe5400;
 $border:     #e2e6ea;
 $muted:      #757575;
@@ -163,7 +163,7 @@ $muted:      #757575;
 
   &:focus {
     border-color: $brand;
-    box-shadow: 0 0 0 3px rgba(0, 118, 190, 0.12);
+    box-shadow: 0 0 0 3px rgba(30, 138, 60, 0.12);
     background: #fff;
   }
 }

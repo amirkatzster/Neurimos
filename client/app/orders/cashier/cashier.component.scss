@@ -1,6 +1,6 @@
-$blue:        #0076BE;
-$blue-dark:   #004f82;
-$navy:        #003952;
+$blue:        #1e8a3c;
+$blue-dark:   #156b2d;
+$navy:        #0d4a1e;
 $green:       #15803d;
 $bg:          #f0f4f8;
 $white:       #fff;
@@ -125,7 +125,7 @@ $text-muted:  #6b7280;
   transition: box-shadow 0.2s;
 
   &.panel-open {
-    box-shadow: 0 4px 20px rgba(0, 118, 190, 0.10);
+    box-shadow: 0 4px 20px rgba(30, 138, 60, 0.10);
     border-color: #b3d4ee;
   }
 

@@ -5,14 +5,14 @@
         font-family: 'Trebuchet MS', 'Arial', sans-serif;
         font-weight: 800;
         font-size: 53px;
-        fill: #0076BE;
+        fill: #1e8a3c;
       }
     </style>
 
     <!-- Vertical gradient: lighter heel (top) → darker toe (bottom) -->
     <linearGradient id="sole-grad" x1="0.5" y1="0" x2="0.5" y2="1">
-      <stop offset="0%"   stop-color="#1a90d8"/>
-      <stop offset="100%" stop-color="#003d6b"/>
+      <stop offset="0%"   stop-color="#2eb85c"/>
+      <stop offset="100%" stop-color="#0d4a1e"/>
     </linearGradient>
 
     <!-- Clip path matches sole outline exactly -->
@@ -38,7 +38,7 @@
            C 141.5 63.5, 134.5 63.5, 133 62.5
            C 130 59, 128 52, 128 43
            C 128 36.5, 134 33, 138 33 Z"
-        fill="#001e35" opacity="0.18" transform="translate(1.5,2)"/>
+        fill="#051a0b" opacity="0.18" transform="translate(1.5,2)"/>
 
   <!-- Sole body with gradient fill -->
   <path d="M 138 32
@@ -62,7 +62,7 @@
            fill="white" opacity="0.22" clip-path="url(#sole-clip)"/>
 
   <!-- ── "i" dot ─────────────────────────────────────── -->
-  <circle cx="138" cy="19" r="6" fill="#0076BE"/>
+  <circle cx="138" cy="19" r="6" fill="#1e8a3c"/>
 
   <!-- "m" -->
   <text class="logo-text" x="152" y="61">m</text>

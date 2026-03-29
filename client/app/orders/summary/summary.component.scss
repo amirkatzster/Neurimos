@@ -13,7 +13,7 @@
 .summary-card {
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0, 118, 190, 0.12);
+  box-shadow: 0 8px 40px rgba(30, 138, 60, 0.12);
   padding: 48px 40px 36px;
   max-width: 520px;
   width: 100%;
@@ -67,7 +67,7 @@
 .summary-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #003952;
+  color: #0d4a1e;
   margin-bottom: 8px;
   animation: fadeUp 0.5s ease 0.9s both;
 }
@@ -78,7 +78,7 @@
   margin-bottom: 28px;
   animation: fadeUp 0.5s ease 1s both;
 
-  strong { color: #003952; }
+  strong { color: #0d4a1e; }
 }
 
 @keyframes fadeUp {
@@ -154,7 +154,7 @@
 // ── CTA button ───────────────────────────────────────────────
 .btn-back-shop {
   display: inline-block;
-  background: #0076BE;
+  background: #1e8a3c;
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -169,7 +169,7 @@
   i { margin-left: 8px; }
 
   &:hover {
-    background: #004f82;
+    background: #156b2d;
     transform: translateY(-2px);
   }
 }
@@ -181,7 +181,7 @@
   margin: 0;
   animation: fadeUp 0.5s ease 1.4s both;
 
-  a { color: #0076BE; text-decoration: none; }
+  a { color: #1e8a3c; text-decoration: none; }
   i { margin-left: 4px; }
 }
 

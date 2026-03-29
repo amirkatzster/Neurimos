@@ -4,7 +4,7 @@
 
 // Global focus management: suppress browser outline for mouse, restore for keyboard
 :focus { outline: none; }
-:focus-visible { outline: 3px solid #0076BE; outline-offset: 2px; }
+:focus-visible { outline: 3px solid #1e8a3c; outline-offset: 2px; }
 
 // Screen-reader-only utility
 .visually-hidden {
@@ -26,7 +26,7 @@
   right: 0;
   z-index: 9999;
   padding: 8px 16px;
-  background: #003952;
+  background: #0d4a1e;
   color: #fff;
   font-size: 1rem;
   border-radius: 0 0 4px 4px;
@@ -76,5 +76,5 @@ body { position: relative; }
 }
 
 .indexFooter {
-  background-color: #0076BE;
+  background-color: #1e8a3c;
 }

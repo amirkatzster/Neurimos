@@ -1,6 +1,6 @@
-$brand-primary: #0076BE;
-$brand-dark:    #004f82;
-$brand-darker:  #003952;
+$brand-primary: #1e8a3c;
+$brand-dark:    #156b2d;
+$brand-darker:  #0d4a1e;
 
 // ── Hero banner carousel ───────────────────────────────────────
 .hero-banner {
@@ -162,14 +162,14 @@ $brand-darker:  #003952;
   font-size: 15px;
   text-decoration: none;
   letter-spacing: 0.3px;
-  box-shadow: 0 2px 12px rgba(0,118,190,0.4);
+  box-shadow: 0 2px 12px rgba(30, 138, 60,0.4);
   transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
   display: inline-block;
 
   &:hover {
     background-color: $brand-darker;
     color: white;
-    box-shadow: 0 4px 18px rgba(0,118,190,0.55);
+    box-shadow: 0 4px 18px rgba(30, 138, 60,0.55);
     transform: translateY(-1px);
   }
 
@@ -234,9 +234,9 @@ $brand-darker:  #003952;
 
 .cat-men {
   background: #e8f3fd;
-  border-top-color: #0076BE;
-  .cat-watermark { color: #0076BE; }
-  .cat-label { color: #004f82; }
+  border-top-color: #1e8a3c;
+  .cat-watermark { color: #1e8a3c; }
+  .cat-label { color: #156b2d; }
 }
 .cat-women {
   background: #f3eafd;
@@ -300,7 +300,7 @@ $brand-darker:  #003952;
   i { font-size: 10px; margin-right: 2px; }
 }
 
-.cat-men:hover    .cat-cta { color: #0076BE; opacity: 1; }
+.cat-men:hover    .cat-cta { color: #1e8a3c; opacity: 1; }
 .cat-women:hover  .cat-cta { color: #7c3aed; opacity: 1; }
 .cat-boys:hover   .cat-cta { color: #16a34a; opacity: 1; }
 .cat-girls:hover  .cat-cta { color: #db2777; opacity: 1; }
@@ -358,7 +358,7 @@ $brand-darker:  #003952;
 
   &:hover {
     border-color: $brand-primary;
-    box-shadow: 0 6px 22px rgba(0,118,190,0.13);
+    box-shadow: 0 6px 22px rgba(30, 138, 60,0.13);
     transform: translateY(-3px);
 
     .brand-img { opacity: 1; filter: grayscale(0%); }
