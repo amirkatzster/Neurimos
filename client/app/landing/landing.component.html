@@ -47,6 +47,30 @@
   </div>
 </div>
 
+<!-- Trust strip -->
+<div class="trust-strip" role="list" aria-label="יתרונות הקנייה בנעלי נעורים">
+  <div class="trust-item" role="listitem">
+    <i class="fa fa-truck" aria-hidden="true"></i>
+    <span class="trust-title">משלוח</span>
+    <span class="trust-sub">לכל הארץ</span>
+  </div>
+  <div class="trust-item" role="listitem">
+    <i class="fa fa-undo" aria-hidden="true"></i>
+    <span class="trust-title">החזרה קלה</span>
+    <span class="trust-sub">תוך 14 יום</span>
+  </div>
+  <div class="trust-item" role="listitem">
+    <i class="fa fa-lock" aria-hidden="true"></i>
+    <span class="trust-title">קנייה מאובטחת</span>
+    <span class="trust-sub">SSL מאובטח</span>
+  </div>
+  <div class="trust-item" role="listitem">
+    <i class="fa fa-phone" aria-hidden="true"></i>
+    <span class="trust-title">שירות אישי</span>
+    <span class="trust-sub">03-5052769</span>
+  </div>
+</div>
+
 <!-- Shop intro -->
 <p class="shop-intro">
   נעלי נעורים — חנות נעליים בחולון מאז 1965. מבחר נעלי נוחות לנשים, נעלי צעד ראשון לתינוקות, נעלי ילדים וגברים ממותגים מובילים. משלוח עד הבית.
@@ -89,6 +113,19 @@
       </div>
     </a>
 
+  </div>
+</section>
+
+<!-- New arrivals -->
+<section class="new-arrivals-section" aria-labelledby="new-arrivals-heading" *ngIf="newArrivals.length > 0">
+  <div class="new-arrivals-header">
+    <h2 id="new-arrivals-heading" class="new-arrivals-title">חדש בחנות</h2>
+    <a routerLink="/נעלי/נעליים" class="new-arrivals-all" aria-label="לכל הנעליים החדשות">לכל הקולקציה <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+  </div>
+  <div class="new-arrivals-scroll" role="list">
+    <div class="new-arrivals-item" *ngFor="let shoe of newArrivals; let i = index" role="listitem">
+      <app-collection-shoe [shoe]="shoe" [index]="i"></app-collection-shoe>
+    </div>
   </div>
 </section>
 

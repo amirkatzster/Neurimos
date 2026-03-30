@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CompanyService } from 'app/services/company.service';
+import { ShoeService } from 'app/services/shoe.service';
 import { SeoService } from 'app/shared/seo.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { SeoService } from 'app/shared/seo.service';
 export class LandingComponent implements OnInit, OnDestroy {
 
   companies = [];
+  newArrivals: any[] = [];
   showPromotion = false;
 
   slides = [
@@ -49,6 +51,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   constructor(
     public CompanyService: CompanyService,
+    private shoeService: ShoeService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private ngZone: NgZone,
     private seoService: SeoService
@@ -57,6 +60,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.seoService.setCanonical('/');
     this.loadCompanies();
+    this.loadNewArrivals();
     if (isPlatformBrowser(this.platformId)) {
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!prefersReduced) {
@@ -100,5 +104,14 @@ export class LandingComponent implements OnInit, OnDestroy {
       },
       error => console.log(error)
     );
+  }
+
+  loadNewArrivals() {
+    this.shoeService.searchShoes(['נעלי'], '?sort=new').subscribe({
+      next: (data: any[]) => {
+        if (data) { this.newArrivals = data.slice(0, 8); }
+      },
+      error: err => console.log(err)
+    });
   }
 }

@@ -88,6 +88,11 @@
                 (click)="addToCart()">
           <i class="fa fa-shopping-cart"></i> הוסף לעגלה
         </button>
+        <ul class="pd-trust-strip" aria-label="יתרונות הקנייה">
+          <li><i class="fa fa-truck" aria-hidden="true"></i> משלוח</li>
+          <li><i class="fa fa-undo" aria-hidden="true"></i> החזרה תוך 14 יום</li>
+          <li><i class="fa fa-lock" aria-hidden="true"></i> תשלום מאובטח</li>
+        </ul>
       </div>
 
       <div class="mobile-cart-section" *ngIf="shoe?.stock == 0">
@@ -233,6 +238,20 @@
                 [disabled]="!selectedSize || shoe?.stock == 0"
                 (click)="addToCart()">
           <i class="fa fa-shopping-cart"></i> הוסף לעגלה
+        </button>
+
+        <!-- Trust badges -->
+        <ul class="pd-trust-strip" aria-label="יתרונות הקנייה">
+          <li><i class="fa fa-truck" aria-hidden="true"></i> משלוח לכל הארץ</li>
+          <li><i class="fa fa-undo" aria-hidden="true"></i> החזרה קלה תוך 14 יום</li>
+          <li><i class="fa fa-lock" aria-hidden="true"></i> תשלום מאובטח</li>
+        </ul>
+
+        <!-- Share button -->
+        <button type="button" class="pd-share-btn" (click)="shareUrl()"
+                [attr.aria-label]="copied ? 'הקישור הועתק!' : 'שתף מוצר זה'">
+          <i class="fa" [class.fa-check]="copied" [class.fa-share-alt]="!copied" aria-hidden="true"></i>
+          {{ copied ? 'הקישור הועתק!' : 'שתף' }}
         </button>
 
         <!-- Security badges -->

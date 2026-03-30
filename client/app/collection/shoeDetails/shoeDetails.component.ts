@@ -34,6 +34,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   jsonLdStringifiedObj: String;
   title: string;
   description: string;
+  copied = false;
 
   constructor(private route: ActivatedRoute,
               public shoeService: ShoeService,
@@ -145,6 +146,15 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
 
   orderMore() {
     this.toast.setMessage('!אנחנו נזמין עוד מהדגם הנוכחי', 'success');
+  }
+
+  shareUrl() {
+    if (isPlatformBrowser(this.platformId)) {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        this.copied = true;
+        setTimeout(() => { this.copied = false; }, 2500);
+      });
+    }
   }
 
   buildJsonLdForGoogle(): any {

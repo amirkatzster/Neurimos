@@ -159,6 +159,34 @@ $muted:      #6b7280;
   }
 }
 
+// ── Color swatches ───────────────────────────────────────────────
+.card-color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #e0e0e0;
+  transition: border-color 0.15s, transform 0.15s;
+
+  .card-link:hover & { border-color: $brand; }
+
+  &:hover { transform: scale(1.15); border-color: $brand-dark; }
+}
+
+.color-swatch-more {
+  font-size: 10px;
+  font-weight: 600;
+  color: $muted;
+}
+
 // ── Admin ────────────────────────────────────────────────────────
 .cp-price {
   font-size: 11px;

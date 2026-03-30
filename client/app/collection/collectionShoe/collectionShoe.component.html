@@ -35,6 +35,17 @@
         <span class="price-final" *ngIf="shoe.price !== shoe.finalPrice">{{ shoe.finalPrice }} ₪</span>
         <span class="price-main" [class.price-strike]="shoe.price !== shoe.finalPrice">{{ shoe.price }} ₪</span>
       </div>
+      <!-- Color swatches -->
+      <div class="card-color-swatches" *ngIf="shoe.imagesGroup?.length > 1"
+           [attr.aria-label]="shoe.imagesGroup.length + ' צבעים זמינים'">
+        <img *ngFor="let ig of shoe.imagesGroup | slice:0:5"
+             class="color-swatch"
+             [src]="ig.images[0].urlSmall"
+             [alt]="ig.color"
+             [title]="ig.color" />
+        <span class="color-swatch-more" *ngIf="shoe.imagesGroup.length > 5"
+              aria-hidden="true">+{{ shoe.imagesGroup.length - 5 }}</span>
+      </div>
       <div *ngIf="auth.loggedIn && auth.isAdmin"
            [class.cp-price]="true" [class.cp-good]="shoe.finalPrice <= shoe.companyPrice">
         > {{ shoe.companyPrice }} <
