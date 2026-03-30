@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SeoService } from 'app/shared/seo.service';
 
 @Component({
   standalone: false,
@@ -8,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoeSizesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private seoService: SeoService) { }
 
   ngOnInit() {
+    this.seoService.setCanonical('/סרגל_מידות');
   }
 
 }

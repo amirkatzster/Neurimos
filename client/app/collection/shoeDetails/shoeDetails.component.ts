@@ -9,6 +9,7 @@ import { AuthService } from 'app/services/auth.service';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { Title, Meta, DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Pipe, PipeTransform} from '@angular/core';
+import { SeoService } from 'app/shared/seo.service';
 
 @Component({
   standalone: false,
@@ -44,6 +45,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               public auth: AuthService,
               private titleService: Title,
               private meta: Meta,
+              private seoService: SeoService,
               @Inject(PLATFORM_ID) private platformId: Object) {  }
 
 
@@ -61,6 +63,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
           const colors = this.shoe.imagesGroup.map(ig => ig.color).join('-');
           this.linkToShoe = this.shoeService.getShoeLink(this.shoe);
           this.linkToCompany = `/נעלי/${this.shoe.company}/`;
+          this.seoService.setCanonical(this.linkToShoe as string);
           this.title = `נעל ${this.shoe.company} ${this.shoe.name} ${colors} | נעלי נעורים`;
           this.titleService.setTitle(this.title);
           // tslint:disable-next-line:max-line-length

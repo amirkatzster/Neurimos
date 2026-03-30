@@ -1,3 +1,4 @@
+<div [innerHtml]="'<script type=\'application/ld+json\'>' + localBusinessJsonLd + '</script>' | safeHtml"></div>
 <h1 class="visually-hidden">נעלי נעורים — חנות נעליים מאז 1965</h1>
 
 <!-- Hero banner carousel -->
@@ -46,6 +47,11 @@
   </div>
 </div>
 
+<!-- Shop intro -->
+<p class="shop-intro">
+  נעלי נעורים — חנות נעליים בחולון מאז 1965. מבחר נעלי נוחות לנשים, נעלי צעד ראשון לתינוקות, נעלי ילדים וגברים ממותגים מובילים. משלוח עד הבית.
+</p>
+
 <!-- Category tiles -->
 <section class="categories-section" aria-labelledby="categories-heading">
   <h2 id="categories-heading" class="categories-title">קנה לפי קטגוריה</h2>
@@ -93,7 +99,7 @@
   <div class="brands-grid">
     <a *ngFor="let company of companies" [routerLink]="'/נעלי/' + company.name" class="brand-card"
        [attr.aria-label]="'נעלי ' + company.name">
-      <img [src]="company.image" alt="" class="brand-img" aria-hidden="true">
+      <img [src]="company.image" [alt]="company.name" class="brand-img">
       <span class="brand-name">{{ company.name }}</span>
     </a>
   </div>

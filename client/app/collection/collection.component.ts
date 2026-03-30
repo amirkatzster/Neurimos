@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { ShoeService } from 'app/services/shoe.service';
 import { combineLatest } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
+import { SeoService } from 'app/shared/seo.service';
 
 @Component({
   standalone: false,
@@ -38,7 +39,8 @@ export class CollectionComponent implements OnInit, OnDestroy {
               private router: Router,
               private shoeService: ShoeService,
               private titleService: Title,
-              private meta: Meta) {
+              private meta: Meta,
+              private seoService: SeoService) {
     this.initQueries = '';
     this.queries = [];
     this.filters = [];
@@ -51,6 +53,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('קולקצית נעליים | נעלי נעורים');
     const obsComb = combineLatest([this.route.params, this.route.queryParams]);
     this.sub1 = obsComb.subscribe(([params, qparams]) => {
+      this.seoService.setCanonical(`/נעלי/${params['query']}`);
       if (qparams.sort) {
         this.sort = qparams.sort;
       }

@@ -1,6 +1,6 @@
 import Shoe from '../models/shoe';
 
-const BASE_URL = 'https://neurimshoes.co.il';
+const BASE_URL = 'https://www.neurimshoes.co.il';
 
 const staticUrls = [
   { loc: '/',               changefreq: 'weekly',  priority: '1.0' },

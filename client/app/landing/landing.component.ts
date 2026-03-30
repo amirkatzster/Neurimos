@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CompanyService } from 'app/services/company.service';
+import { SeoService } from 'app/shared/seo.service';
 
 @Component({
   standalone: false,
@@ -26,13 +27,35 @@ export class LandingComponent implements OnInit, OnDestroy {
   isPlaying = true;
   private carouselInterval: any;
 
+  readonly localBusinessJsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'ShoeStore'],
+    'name': 'נעלי נעורים',
+    'url': 'https://www.neurimshoes.co.il',
+    'telephone': '03-5052769',
+    'image': 'https://www.neurimshoes.co.il/assets/images/og-image.jpg',
+    'foundingDate': '1965',
+    'address': {
+      '@type': 'PostalAddress',
+      'streetAddress': 'שדרות ירושלים 47',
+      'addressLocality': 'חולון',
+      'addressCountry': 'IL'
+    },
+    'openingHoursSpecification': [
+      { '@type': 'OpeningHoursSpecification', 'dayOfWeek': ['Sunday','Monday','Tuesday','Wednesday','Thursday'], 'opens': '09:00', 'closes': '19:00' },
+      { '@type': 'OpeningHoursSpecification', 'dayOfWeek': 'Friday', 'opens': '09:00', 'closes': '14:00' }
+    ]
+  });
+
   constructor(
     public CompanyService: CompanyService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private seoService: SeoService
   ) {}
 
   ngOnInit() {
+    this.seoService.setCanonical('/');
     this.loadCompanies();
     if (isPlatformBrowser(this.platformId)) {
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -3,6 +3,7 @@ import { ContactUsService } from 'app/services/contactus.service';
 import { OnDestroy } from '@angular/core';
 import { ToastComponent } from 'app/shared/toast/toast.component';
 import { Title, Meta } from '@angular/platform-browser';
+import { SeoService } from 'app/shared/seo.service';
 
 @Component({
   standalone: false,
@@ -19,9 +20,10 @@ export class SendusmsgComponent implements OnInit, OnDestroy {
   sub;
 
   constructor(public ContactUsService: ContactUsService,
-    public toast: ToastComponent, private titleService: Title, private meta: Meta) { }
+    public toast: ToastComponent, private titleService: Title, private meta: Meta, private seoService: SeoService) { }
 
   ngOnInit() {
+    this.seoService.setCanonical('/sendusmsg');
     this.titleService.setTitle('צרו קשר | נעלי נעורים');
     this.meta.updateTag({ name: 'keywords', content: 'שליחת הודעה יצירת קשר, מפת הגעה, נעלי נעורים, נעליים חולון, צעד ראשון חולון' });
                 this.meta.updateTag(

@@ -1,4 +1,5 @@
 import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
 import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as morgan from 'morgan';
@@ -19,6 +20,15 @@ app.set('port', (process.env.PORT || 3000));
 
 // Trust nginx reverse proxy so cookies work correctly behind HTTPS
 app.set('trust proxy', 1);
+
+// Gzip compression for all responses
+app.use(compression());
+
+// HSTS — force HTTPS for 1 year (nginx also sets this, Express covers direct access)
+app.use((req, res, next) => {
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  next();
+});
 
 app.use(bodyParser.json({ limit: '300mb' }));
 app.use(bodyParser.urlencoded({ limit: '300mb', extended: false }));
