@@ -204,7 +204,7 @@
 
           <!-- Color selector -->
           <div class="pd-selector-label" id="colorLabel">צבע: <strong>{{ currentImageGroup?.color }}</strong></div>
-          <mat-form-field appearance="outline" class="pd-select-field">
+          <mat-form-field appearance="outline" subscriptSizing="dynamic" class="pd-select-field">
             <mat-label>צבע</mat-label>
             <mat-select name="color" (ngModelChange)="colorChangeEvent($event)"
                         [ngModel]="currentImageGroup?.color" required aria-labelledby="colorLabel">
