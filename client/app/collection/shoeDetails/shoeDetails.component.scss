@@ -84,6 +84,7 @@ $text-muted:  #757575;
 .pd-main-image {
   text-align: center;
   margin-bottom: 12px;
+  min-height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -433,6 +434,7 @@ $text-muted:  #757575;
 .mobile-main-image {
   text-align: center;
   padding: 8px;
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
