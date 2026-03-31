@@ -41,6 +41,7 @@
       <!-- Mobile main image -->
       <div class="mobile-main-image">
         <img [src]="currentImage?.urlLarge"
+             fetchpriority="high"
              [alt]="shoe?.company + ' ' + shoe?.name + ' - ' + currentImageGroup?.color" />
       </div>
 
@@ -137,6 +138,7 @@
         <!-- Main image -->
         <div class="pd-main-image">
           <img [src]="currentImage?.urlLarge" class="bigImg"
+               fetchpriority="high"
                [alt]="shoe?.company + ' ' + shoe?.name + ' - ' + currentImageGroup?.color" />
         </div>
 

@@ -59,6 +59,7 @@ body { position: relative; }
 .app-content {
   flex: 1;
   width: 100%;
+  min-height: 100vh; /* keep footer below fold during async loading states */
 }
 
 // Remove Bootstrap container side padding at root level

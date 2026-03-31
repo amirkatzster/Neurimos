@@ -84,6 +84,10 @@ $text-muted:  #757575;
 .pd-main-image {
   text-align: center;
   margin-bottom: 12px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bigImg {
@@ -430,6 +434,10 @@ $text-muted:  #757575;
 .mobile-main-image {
   text-align: center;
   padding: 8px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img { max-width: 100%; max-height: 320px; object-fit: contain; }
 }
 
