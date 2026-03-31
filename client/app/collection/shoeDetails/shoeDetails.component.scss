@@ -84,7 +84,6 @@ $text-muted:  #757575;
 .pd-main-image {
   text-align: center;
   margin-bottom: 12px;
-  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,10 +194,10 @@ $text-muted:  #757575;
   background: #fff;
   border: 1px solid $border;
   border-radius: 10px;
-  padding: 24px 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   position: sticky;
   top: 16px;
 }
@@ -229,7 +228,7 @@ $text-muted:  #757575;
   flex-wrap: wrap;
   border-top: 1px solid $border;
   border-bottom: 1px solid $border;
-  padding: 14px 0;
+  padding: 8px 0;
 }
 
 .pd-price-final {
@@ -273,7 +272,7 @@ $text-muted:  #757575;
   font-size: 13px;
   color: $brand-dark;
   font-weight: 600;
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .pd-select-field {
@@ -354,7 +353,7 @@ $text-muted:  #757575;
   flex-direction: column;
   gap: 6px;
   border-top: 1px solid $border;
-  padding-top: 12px;
+  padding-top: 8px;
 
   li {
     font-size: 12px;
@@ -396,7 +395,7 @@ $text-muted:  #757575;
   align-items: center;
   gap: 6px;
   border-top: 1px solid $border;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .pd-security-text {
@@ -434,7 +433,6 @@ $text-muted:  #757575;
 .mobile-main-image {
   text-align: center;
   padding: 8px;
-  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
