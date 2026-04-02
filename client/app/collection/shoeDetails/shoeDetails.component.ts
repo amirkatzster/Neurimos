@@ -36,8 +36,10 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   description: string;
   copied = false;
   recommendations: any[] = [];
+  recommendationsLoading = false;
   private subRec: any;
   touchStartX = 0;
+  readonly recSkeletons = Array(6).fill(0);
 
   constructor(private route: ActivatedRoute,
               public shoeService: ShoeService,
@@ -116,11 +118,13 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
     if (this.subRec) { this.subRec.unsubscribe(); }
     const classification = this.shoe?.classificationCache;
     if (!classification) { return; }
+    this.recommendationsLoading = true;
     this.subRec = this.shoeService.searchShoes([classification], '?sort=new').subscribe({
       next: (data: any[]) => {
         this.recommendations = (data || []).filter(s => s.id !== this.shoe.id).slice(0, 6);
+        this.recommendationsLoading = false;
       },
-      error: err => console.log(err)
+      error: err => { console.log(err); this.recommendationsLoading = false; }
     });
   }
 

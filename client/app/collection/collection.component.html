@@ -117,7 +117,21 @@
     <div class="row g-0">
       <!-- Shoe grid -->
       <div class="col-md-10 col-12">
-        <div class="shoe-grid-wrap" [class.filtering]="isFiltering">
+        <!-- Skeleton grid — visible until first API response -->
+        <div class="row g-2 shoe-grid" *ngIf="isInitialLoad" aria-hidden="true">
+          <div *ngFor="let _ of skeletonCards" class="col-6 col-sm-4 col-md-4 col-lg-3">
+            <div class="skeleton-card">
+              <div class="skeleton-img shimmer"></div>
+              <div class="skeleton-body">
+                <div class="skeleton-line shimmer" style="width:55%"></div>
+                <div class="skeleton-line shimmer" style="width:80%;margin-top:5px"></div>
+                <div class="skeleton-line shimmer" style="width:35%;margin-top:8px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shoe-grid-wrap" [class.filtering]="isFiltering" *ngIf="!isInitialLoad">
           <div class="row g-2 shoe-grid">
             <div *ngFor="let shoe of displayedShoes; let i = index; trackBy: trackShoe"
                  class="col-6 col-sm-4 col-md-4 col-lg-3">

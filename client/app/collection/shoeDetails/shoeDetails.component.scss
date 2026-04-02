@@ -606,6 +606,41 @@ $text-muted:  #757575;
   }
 }
 
+// ── Shimmer animation ────────────────────────────────────────────
+@keyframes shimmer-rec {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.shimmer-rec {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 800px 100%;
+  animation: shimmer-rec 1.4s infinite linear;
+}
+
+.rec-skeleton-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid $border;
+  overflow: hidden;
+}
+
+.rec-skeleton-img {
+  width: 100%;
+  height: 160px;
+  background-color: #eee;
+}
+
+.rec-skeleton-body {
+  padding: 10px;
+}
+
+.rec-skeleton-line {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #eee;
+}
+
 // ── Recommendations ──────────────────────────────────────────────
 .pd-recommendations {
   padding: 32px 0 0;

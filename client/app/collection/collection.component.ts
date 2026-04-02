@@ -26,6 +26,7 @@ export class CollectionComponent implements OnInit, AfterViewInit, OnDestroy {
   filters: String[];
   shoes: any[];
   isFiltering = false;
+  isInitialLoad = true;
   displayCount = 24;
   showMobileFilter = false;
   isLoading: boolean;
@@ -45,6 +46,8 @@ export class CollectionComponent implements OnInit, AfterViewInit, OnDestroy {
   get displayedShoes(): any[] {
     return this.shoes?.slice(0, this.displayCount) || [];
   }
+
+  readonly skeletonCards = Array(12).fill(0);
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -160,9 +163,10 @@ export class CollectionComponent implements OnInit, AfterViewInit, OnDestroy {
           : data;
         this.setFilters();
         this.isFiltering = false;
+        this.isInitialLoad = false;
         this.isLoading = false;
       },
-      error: err => { console.log(err); this.isFiltering = false; this.isLoading = false; }
+      error: err => { console.log(err); this.isFiltering = false; this.isInitialLoad = false; this.isLoading = false; }
     });
   }
 

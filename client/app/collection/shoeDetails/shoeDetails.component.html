@@ -295,10 +295,24 @@
     </div>
     <!-- ── END DESKTOP ── -->
 
-    <!-- Recommendations -->
-    <section class="pd-recommendations" *ngIf="recommendations.length > 0" aria-labelledby="rec-heading">
+    <!-- Recommendations — always rendered after page load to avoid CLS -->
+    <section class="pd-recommendations" *ngIf="recommendationsLoading || recommendations.length > 0"
+             aria-labelledby="rec-heading">
       <h3 id="rec-heading" class="pd-rec-title">נעליים שאולי תאהבו</h3>
-      <div class="pd-rec-scroll" role="list">
+      <!-- Skeleton while loading -->
+      <div class="pd-rec-scroll" *ngIf="recommendationsLoading" aria-hidden="true">
+        <div class="pd-rec-item rec-skeleton-item" *ngFor="let _ of recSkeletons">
+          <div class="rec-skeleton-card">
+            <div class="rec-skeleton-img shimmer-rec"></div>
+            <div class="rec-skeleton-body">
+              <div class="rec-skeleton-line shimmer-rec" style="width:55%"></div>
+              <div class="rec-skeleton-line shimmer-rec" style="width:80%;margin-top:5px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Real items -->
+      <div class="pd-rec-scroll" *ngIf="!recommendationsLoading" role="list">
         <div class="pd-rec-item" *ngFor="let rec of recommendations; let i = index" role="listitem">
           <app-collection-shoe [shoe]="rec" [index]="i + 10"></app-collection-shoe>
         </div>
