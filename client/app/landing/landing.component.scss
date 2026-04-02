@@ -48,11 +48,6 @@ $brand-darker:  #0d4a1e;
   @media (max-width: 768px) { bottom: 8px; }
 }
 
-.carousel-dots {
-  display: flex;
-  gap: 4px;
-}
-
 .carousel-pause-btn {
   background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255,255,255,0.6);
@@ -68,22 +63,6 @@ $brand-darker:  #0d4a1e;
   flex-shrink: 0;
 }
 
-.carousel-dot {
-  // visual dot
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.7);
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.3s;
-  // enlarge tap target without changing visual size
-  padding: 8px;
-  background-clip: content-box;
-
-  &.active  { background-color: #fff; }
-  &:hover   { background-color: rgba(255,255,255,0.6); }
-}
 
 .hero-card {
   position: absolute;

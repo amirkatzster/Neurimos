@@ -16,22 +16,14 @@
          [attr.aria-label]="(i + 1) + ' מתוך ' + slides.length + ': ' + slide.alt"
          [class.active]="i === currentSlide"
          [attr.aria-hidden]="i !== currentSlide">
-      <img [src]="slide.url"
+      <img [src]="i <= currentSlide + 1 ? slide.url : null"
            [attr.alt]="i === currentSlide ? slide.alt : ''"
            class="hero-img"
+           [attr.fetchpriority]="i === 0 ? 'high' : null"
            (load)="i === 0 && (showPromotion = true)">
     </div>
   </div>
   <div class="carousel-controls" role="group" aria-label="ניווט בגלרייה">
-    <div class="carousel-dots" role="tablist" aria-label="בחירת שקופית">
-      <button *ngFor="let slide of slides; let i = index"
-              class="carousel-dot"
-              role="tab"
-              [class.active]="i === currentSlide"
-              (click)="currentSlide = i"
-              [attr.aria-label]="'שקופית ' + (i + 1) + ' מתוך ' + slides.length + ': ' + slide.alt"
-              [attr.aria-selected]="i === currentSlide"></button>
-    </div>
     <button class="carousel-pause-btn"
             type="button"
             (click)="toggleCarousel()"
