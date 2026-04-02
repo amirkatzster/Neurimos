@@ -8,21 +8,94 @@
         <div class="results-summary" *ngIf="shoes?.length > 0" aria-live="polite" aria-atomic="true">
           <span class="results-count">{{ shoes?.length }} נעליים</span>
         </div>
-        <div class="results-summary results-empty" *ngIf="shoes?.length === 0" aria-live="polite" aria-atomic="true">
+        <div class="results-summary results-empty" *ngIf="shoes?.length === 0 && !isFiltering" aria-live="polite" aria-atomic="true">
           <i class="fa fa-search" aria-hidden="true"></i>
           לא נמצאו תוצאות עבור <strong>"{{ queries.join(' ') }}"</strong>
         </div>
       </div>
 
-      <div class="results-bar-sort d-none d-md-flex">
-        <mat-form-field appearance="outline" class="sort-field">
+      <div class="results-bar-actions">
+        <!-- Mobile: filter + sort buttons -->
+        <button type="button" class="mobile-action-btn d-md-none" (click)="toggleMobileFilter()"
+                [attr.aria-expanded]="showMobileFilter" aria-controls="mobile-filter-drawer">
+          <i class="fa fa-sliders" aria-hidden="true"></i> סינון
+          <span *ngIf="filters.length + selectedSizes.length > 0" class="mobile-filter-badge">
+            {{ filters.length + selectedSizes.length }}
+          </span>
+        </button>
+        <mat-form-field appearance="outline" class="sort-field d-md-none mobile-sort-field">
           <mat-label>מיון</mat-label>
-          <mat-select [(ngModel)]="sort" (ngModelChange)="sortChangeEvent($event)">
+          <mat-select [(ngModel)]="sort" (ngModelChange)="sortChangeEvent($event)" aria-label="מיון תוצאות">
             <mat-option *ngFor="let s of sortList" [value]="s.value">{{ s.viewValue }}</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <!-- Desktop sort -->
+        <div class="d-none d-md-flex">
+          <mat-form-field appearance="outline" class="sort-field">
+            <mat-label>מיון</mat-label>
+            <mat-select [(ngModel)]="sort" (ngModelChange)="sortChangeEvent($event)">
+              <mat-option *ngFor="let s of sortList" [value]="s.value">{{ s.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </div>
+
+    <!-- Mobile filter drawer -->
+    <div id="mobile-filter-drawer" class="mobile-filter-drawer d-md-none"
+         [class.open]="showMobileFilter" role="dialog" aria-label="סינון מוצרים">
+      <div class="mobile-filter-header">
+        <span class="mobile-filter-title">סינון</span>
+        <button type="button" class="mobile-filter-close" (click)="toggleMobileFilter()" aria-label="סגור סינון">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="mobile-filter-body">
+        <button *ngIf="filters.indexOf('SALE') == -1"
+                class="sale-btn" (click)="addFiler('SALE'); toggleMobileFilter()"
+                aria-pressed="false">
+          <i class="fa fa-tag" aria-hidden="true"></i> רק מבצעים
+        </button>
+        <mat-accordion [multi]="true">
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header class="filter-panel-header">מידה</mat-expansion-panel-header>
+            <div class="size-chips">
+              <button class="size-chip" *ngFor="let size of sizes"
+                      [class.active]="selectedSizes.includes(size.toString())"
+                      (click)="addSizeFilter(size.toString())">
+                {{ size }}
+              </button>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header class="filter-panel-header">חברה</mat-expansion-panel-header>
+            <div class="filter-link-list">
+              <button class="filter-link" *ngFor="let company of companies"
+                      (click)="addFiler(company.key); toggleMobileFilter()">
+                {{ company.key }} <span class="filter-count">({{ company.count }})</span>
+              </button>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header class="filter-panel-header">צבע</mat-expansion-panel-header>
+            <div class="filter-link-list">
+              <button class="filter-link" *ngFor="let color of colors"
+                      (click)="addFiler(color.key); toggleMobileFilter()">
+                {{ color.key }} <span class="filter-count">({{ color.count }})</span>
+              </button>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="mobile-filter-footer">
+        <button type="button" class="mobile-filter-apply" (click)="toggleMobileFilter()">
+          הצג {{ shoes?.length || 0 }} תוצאות
+        </button>
+      </div>
+    </div>
+    <div class="mobile-filter-backdrop d-md-none" *ngIf="showMobileFilter"
+         (click)="toggleMobileFilter()" aria-hidden="true"></div>
 
     <!-- Active filter chips -->
     <div class="active-filters" *ngIf="filters?.length > 0 || selectedSizes?.length > 0">
@@ -44,10 +117,21 @@
     <div class="row g-0">
       <!-- Shoe grid -->
       <div class="col-md-10 col-12">
-        <div class="row g-2 shoe-grid">
-          <div *ngFor="let shoe of shoes; let i = index" class="col-6 col-sm-4 col-md-4 col-lg-3">
-            <app-collection-shoe [shoe]="shoe" [index]="i"></app-collection-shoe>
+        <div class="shoe-grid-wrap" [class.filtering]="isFiltering">
+          <div class="row g-2 shoe-grid">
+            <div *ngFor="let shoe of displayedShoes; let i = index; trackBy: trackShoe"
+                 class="col-6 col-sm-4 col-md-4 col-lg-3">
+              <app-collection-shoe [shoe]="shoe" [index]="i"></app-collection-shoe>
+            </div>
           </div>
+          <div class="filtering-overlay" *ngIf="isFiltering" aria-hidden="true">
+            <div class="filtering-spinner"></div>
+          </div>
+        </div>
+        <!-- Infinite scroll sentinel -->
+        <div #scrollSentinel class="scroll-sentinel"></div>
+        <div class="load-more-hint" *ngIf="displayCount < (shoes?.length || 0)" aria-live="polite">
+          {{ shoes.length - displayCount }} נעליים נוספות
         </div>
       </div>
 

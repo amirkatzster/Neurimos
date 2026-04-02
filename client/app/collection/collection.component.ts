@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, NgZone, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -13,7 +14,10 @@ import { SeoService } from 'app/shared/seo.service';
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.scss']
 })
-export class CollectionComponent implements OnInit, OnDestroy {
+export class CollectionComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('scrollSentinel', { static: false }) scrollSentinel: ElementRef;
+  private scrollObserver: IntersectionObserver;
 
   private sub1: any;
   private sub2: any;
@@ -21,6 +25,9 @@ export class CollectionComponent implements OnInit, OnDestroy {
   queries: String[];
   filters: String[];
   shoes: any[];
+  isFiltering = false;
+  displayCount = 24;
+  showMobileFilter = false;
   isLoading: boolean;
   searchToShow: String[];
   sizes: String[];
@@ -35,12 +42,18 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
   separatorKeysCodes = [ENTER, 188];
 
+  get displayedShoes(): any[] {
+    return this.shoes?.slice(0, this.displayCount) || [];
+  }
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private shoeService: ShoeService,
               private titleService: Title,
               private meta: Meta,
-              private seoService: SeoService) {
+              private seoService: SeoService,
+              private ngZone: NgZone,
+              @Inject(PLATFORM_ID) private platformId: Object) {
     this.initQueries = '';
     this.queries = [];
     this.filters = [];
@@ -106,13 +119,38 @@ export class CollectionComponent implements OnInit, OnDestroy {
     return searchQuery;
   }
 
+  ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) { return; }
+    this.ngZone.runOutsideAngular(() => {
+      this.scrollObserver = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          this.ngZone.run(() => this.loadMore());
+        }
+      }, { rootMargin: '300px' });
+      if (this.scrollSentinel) {
+        this.scrollObserver.observe(this.scrollSentinel.nativeElement);
+      }
+    });
+  }
+
+  loadMore() {
+    if (this.displayCount < (this.shoes?.length || 0)) {
+      this.displayCount += 12;
+    }
+  }
+
+  trackShoe(_index: number, shoe: any) { return shoe._id; }
+
   updateCollection(qs: Params) {
     let queryString = '';
     if (qs.sort) {
       queryString = '?sort=' + qs.sort;
     }
-    this.sub2 = this.shoeService.searchShoes(this.queries, queryString).subscribe(
-      data => {
+    this.isFiltering = true;
+    this.displayCount = 24;
+    if (this.sub2) { this.sub2.unsubscribe(); }
+    this.sub2 = this.shoeService.searchShoes(this.queries, queryString).subscribe({
+      next: data => {
         this.shoes = this.selectedSizes.length > 0
           ? data.filter(shoe =>
               this.selectedSizes.some(size =>
@@ -121,10 +159,11 @@ export class CollectionComponent implements OnInit, OnDestroy {
             )
           : data;
         this.setFilters();
+        this.isFiltering = false;
+        this.isLoading = false;
       },
-      error => console.log(error),
-      () => this.isLoading = false
-    );
+      error: err => { console.log(err); this.isFiltering = false; this.isLoading = false; }
+    });
   }
 
   setFilters() {
@@ -212,12 +251,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(str);
   }
 
+  toggleMobileFilter() {
+    this.showMobileFilter = !this.showMobileFilter;
+  }
+
   ngOnDestroy() {
-    if (this.sub1) {
-      this.sub1.unsubscribe();
-    }
-    if (this.sub2) {
-      this.sub2.unsubscribe();
-    }
+    if (this.sub1) { this.sub1.unsubscribe(); }
+    if (this.sub2) { this.sub2.unsubscribe(); }
+    if (this.scrollObserver) { this.scrollObserver.disconnect(); }
   }
 }

@@ -224,6 +224,64 @@ $brand-darker:  #0d4a1e;
   color: #6b7280;
 }
 
+// ── Sale section ─────────────────────────────────────────────
+.sale-section {
+  padding: 48px 24px 52px;
+  background: #fff8f5;
+  border-top: 3px solid #fe5400;
+}
+
+.sale-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+}
+
+.sale-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sale-flame {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.sale-title {
+  color: #b83300;
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.sale-all {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fe5400;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &:hover { color: #b83300; }
+}
+
+.sale-scroll {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 900px) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 600px) { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+.sale-item { min-width: 0; }
+
 // ── New arrivals ──────────────────────────────────────────────
 .new-arrivals-section {
   padding: 48px 24px 52px;

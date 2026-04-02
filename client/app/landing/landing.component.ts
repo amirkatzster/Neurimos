@@ -14,6 +14,7 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   companies = [];
   newArrivals: any[] = [];
+  saleShoes: any[] = [];
   showPromotion = false;
 
   slides = [
@@ -61,6 +62,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.seoService.setCanonical('/');
     this.loadCompanies();
     this.loadNewArrivals();
+    this.loadSaleShoes();
     if (isPlatformBrowser(this.platformId)) {
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!prefersReduced) {
@@ -96,20 +98,25 @@ export class LandingComponent implements OnInit, OnDestroy {
   }
 
   loadCompanies() {
-    this.CompanyService.getCompanies().subscribe(
-      data => {
-        if (data != null) {
-          this.companies = data;
-        }
-      },
-      error => console.log(error)
-    );
+    this.CompanyService.getCompanies().subscribe({
+      next: data => { if (data) { this.companies = data; } },
+      error: err => console.log(err)
+    });
   }
 
   loadNewArrivals() {
     this.shoeService.searchShoes(['נעלי'], '?sort=new').subscribe({
       next: (data: any[]) => {
         if (data) { this.newArrivals = data.slice(0, 8); }
+      },
+      error: err => console.log(err)
+    });
+  }
+
+  loadSaleShoes() {
+    this.shoeService.searchShoes(['SALE'], '').subscribe({
+      next: (data: any[]) => {
+        if (data) { this.saleShoes = data.slice(0, 8); }
       },
       error: err => console.log(err)
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoeService } from 'app/services/shoe.service';
 import { CompanyService } from 'app/services/company.service';
@@ -35,6 +35,9 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   title: string;
   description: string;
   copied = false;
+  recommendations: any[] = [];
+  private subRec: any;
+  touchStartX = 0;
 
   constructor(private route: ActivatedRoute,
               public shoeService: ShoeService,
@@ -47,6 +50,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               private titleService: Title,
               private meta: Meta,
               private seoService: SeoService,
+              private ngZone: NgZone,
               @Inject(PLATFORM_ID) private platformId: Object) {  }
 
 
@@ -82,6 +86,7 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
               this.company = compData;
               this.buildJsonLdForGoogle();
               this.isLoading = false;
+              this.loadRecommendations();
             },
             err => { console.log(err); this.isLoading = false; },
           );
@@ -92,8 +97,31 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
   }
 
 
-  loadItemsFn() {
-    console.log('carousel load');
+  onTouchStart(e: TouchEvent) {
+    this.touchStartX = e.changedTouches[0].clientX;
+  }
+
+  onTouchEnd(e: TouchEvent) {
+    const delta = e.changedTouches[0].clientX - this.touchStartX;
+    const images = this.currentImageGroup?.images;
+    if (!images || Math.abs(delta) < 40) { return; }
+    const current = this.posIndex || 0;
+    const next = delta < 0
+      ? Math.min(current + 1, images.length - 1)
+      : Math.max(current - 1, 0);
+    if (next !== current) { this.selectPosition(images[next], next); }
+  }
+
+  loadRecommendations() {
+    if (this.subRec) { this.subRec.unsubscribe(); }
+    const classification = this.shoe?.classificationCache;
+    if (!classification) { return; }
+    this.subRec = this.shoeService.searchShoes([classification], '?sort=new').subscribe({
+      next: (data: any[]) => {
+        this.recommendations = (data || []).filter(s => s.id !== this.shoe.id).slice(0, 6);
+      },
+      error: err => console.log(err)
+    });
   }
 
 
@@ -130,6 +158,9 @@ export class ShoeDetailsComponent implements OnInit, OnDestroy {
     }
     if (this.subShoe) {
       this.subShoe.unsubscribe();
+    }
+    if (this.subRec) {
+      this.subRec.unsubscribe();
     }
     if (this.subComp) {
       this.subComp.unsubscribe();

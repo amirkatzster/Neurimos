@@ -116,6 +116,22 @@
   </div>
 </section>
 
+<!-- Sale section -->
+<section class="sale-section" aria-labelledby="sale-heading" *ngIf="saleShoes.length > 0">
+  <div class="sale-section-header">
+    <div class="sale-eyebrow">
+      <span class="sale-flame" aria-hidden="true">🔥</span>
+      <h2 id="sale-heading" class="sale-title">מבצעי השבוע</h2>
+    </div>
+    <a routerLink="/נעלי/SALE" class="sale-all" aria-label="לכל המבצעים">לכל המבצעים <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+  </div>
+  <div class="sale-scroll" role="list">
+    <div class="sale-item" *ngFor="let shoe of saleShoes; let i = index" role="listitem">
+      <app-collection-shoe [shoe]="shoe" [index]="i + 20"></app-collection-shoe>
+    </div>
+  </div>
+</section>
+
 <!-- New arrivals -->
 <section class="new-arrivals-section" aria-labelledby="new-arrivals-heading" *ngIf="newArrivals.length > 0">
   <div class="new-arrivals-header">

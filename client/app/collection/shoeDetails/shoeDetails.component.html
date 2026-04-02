@@ -23,6 +23,8 @@
 
     <!-- ── MOBILE VIEW ── -->
     <div class="d-md-none">
+
+      <!-- Brand + model (price moved below gallery) -->
       <div class="mobile-header">
         <div class="mobile-brand">
           <h1><a class="company" [routerLink]="linkToCompany">{{shoe?.company}}</a></h1>
@@ -32,21 +34,24 @@
             <i class="fa fa-pencil" aria-hidden="true"></i> עריכה
           </button>
         </div>
-        <div class="mobile-price">
-          <span class="price-final" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</span>
-          <span class="price-main" [class.strikethrough]="shoe?.price !== shoe?.finalPrice">{{shoe?.price}} ₪</span>
-        </div>
       </div>
 
-      <!-- Mobile main image -->
-      <div class="mobile-main-image">
+      <!-- Swipeable main image with position dots -->
+      <div class="mobile-main-image"
+           (touchstart)="onTouchStart($event)"
+           (touchend)="onTouchEnd($event)">
         <img [src]="currentImage?.urlLarge"
              fetchpriority="high"
              [alt]="shoe?.company + ' ' + shoe?.name + ' - ' + currentImageGroup?.color" />
+        <div class="mobile-image-dots" *ngIf="currentImageGroup?.images?.length > 1" aria-hidden="true">
+          <span *ngFor="let img of currentImageGroup?.images; let i = index"
+                class="mobile-image-dot"
+                [class.active]="img.urlSmall === currentImage?.urlSmall"></span>
+        </div>
       </div>
 
-      <!-- Mobile position thumbnails -->
-      <div class="color-thumbs-row mt-1">
+      <!-- Position thumbnails -->
+      <div class="color-thumbs-row mt-1" role="group" [attr.aria-label]="'זוויות תצוגה של ' + shoe?.name">
         <button type="button" *ngFor="let positionImg of currentImageGroup?.images; let i = index"
            class="thumb-btn"
            [attr.aria-label]="'תמונה ' + (i + 1) + ' של ' + shoe?.name"
@@ -58,8 +63,9 @@
         </button>
       </div>
 
-      <!-- Mobile color thumbnails (only when multiple colors exist) -->
-      <div class="color-thumbs-row" *ngIf="shoe?.imagesGroup?.length > 1">
+      <!-- Color thumbnails (multiple colors only) -->
+      <div class="color-thumbs-row" *ngIf="shoe?.imagesGroup?.length > 1"
+           role="group" [attr.aria-label]="'צבעים זמינים עבור ' + shoe?.name">
         <button type="button" *ngFor="let colorImg of shoe?.imagesGroup; let i = index"
            class="thumb-btn"
            [attr.aria-label]="colorImg.color + ' - ' + shoe?.name"
@@ -71,9 +77,21 @@
         </button>
       </div>
 
-      <!-- Mobile selectors + add to cart -->
-      <div class="mobile-cart-section" *ngIf="shoe?.stock > 0">
-        <div class="pd-size-chips">
+      <!-- Price — prominent standalone row -->
+      <div class="mobile-price-block">
+        <span class="price-final" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</span>
+        <span class="price-main" [class.strikethrough]="shoe?.price !== shoe?.finalPrice">{{shoe?.price}} ₪</span>
+        <span class="pd-badge-sale" *ngIf="shoe?.price !== shoe?.finalPrice">מבצע</span>
+      </div>
+
+      <!-- Size selector -->
+      <div class="mobile-size-section" *ngIf="shoe?.stock > 0">
+        <div class="mobile-size-label" id="mobileSizeLabel">
+          מידה:
+          <strong *ngIf="selectedSize">{{ selectedSize }}</strong>
+          <span *ngIf="!selectedSize" class="mobile-size-hint">בחר מידה</span>
+        </div>
+        <div class="pd-size-chips" role="group" aria-labelledby="mobileSizeLabel">
           <button *ngFor="let size of currentImageGroup?.sizes"
                   class="pd-size-chip"
                   [class.selected]="selectedSize === size.size"
@@ -83,19 +101,9 @@
             {{ size.size }}
           </button>
         </div>
-
-        <button type="button" class="pd-btn-cart mt-2"
-                [disabled]="!selectedSize"
-                (click)="addToCart()">
-          <i class="fa fa-shopping-cart"></i> הוסף לעגלה
-        </button>
-        <ul class="pd-trust-strip" aria-label="יתרונות הקנייה">
-          <li><i class="fa fa-truck" aria-hidden="true"></i> משלוח</li>
-          <li><i class="fa fa-undo" aria-hidden="true"></i> החזרה תוך 14 יום</li>
-          <li><i class="fa fa-lock" aria-hidden="true"></i> תשלום מאובטח</li>
-        </ul>
       </div>
 
+      <!-- Out of stock -->
       <div class="mobile-cart-section" *ngIf="shoe?.stock == 0">
         <div class="pd-out-of-stock">
           <span>אזל המלאי</span>
@@ -105,7 +113,7 @@
         </div>
       </div>
 
-      <!-- Mobile info card -->
+      <!-- Info card -->
       <div class="mobile-info-card">
         <ul>
           <li><i class="fa fa-arrows-alt"></i> <a routerLink="/סרגל_מידות">צפייה בסרגל מידות</a></li>
@@ -116,8 +124,26 @@
           <li><i class="fa fa-envelope"></i> <a routerLink="/sendusmsg">על כל שאלה נשמח לענות</a></li>
         </ul>
       </div>
+
+      <!-- Spacer so sticky bar never obscures content -->
+      <div class="mobile-sticky-spacer"></div>
     </div>
     <!-- ── END MOBILE ── -->
+
+    <!-- Sticky add-to-cart bar — mobile only -->
+    <div class="mobile-sticky-cta d-md-none">
+      <div class="mobile-sticky-price">
+        <span class="sticky-price-final" *ngIf="shoe?.price !== shoe?.finalPrice">{{shoe?.finalPrice}} ₪</span>
+        <span class="sticky-price-main" [class.sticky-strike]="shoe?.price !== shoe?.finalPrice">{{shoe?.price}} ₪</span>
+      </div>
+      <button type="button" class="mobile-sticky-btn"
+              [disabled]="(shoe?.stock > 0 && !selectedSize) || shoe?.stock == 0"
+              (click)="addToCart()"
+              [attr.aria-label]="shoe?.stock == 0 ? 'אזל המלאי' : (!selectedSize ? 'בחרו מידה תחילה' : 'הוסף לעגלה')">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        {{ shoe?.stock == 0 ? 'אזל המלאי' : (!selectedSize ? 'בחרו מידה' : 'הוסף לעגלה') }}
+      </button>
+    </div>
 
     <!-- ── DESKTOP VIEW ── -->
     <div class="pd-desktop d-none d-md-flex">
@@ -268,6 +294,16 @@
       </div>
     </div>
     <!-- ── END DESKTOP ── -->
+
+    <!-- Recommendations -->
+    <section class="pd-recommendations" *ngIf="recommendations.length > 0" aria-labelledby="rec-heading">
+      <h3 id="rec-heading" class="pd-rec-title">נעליים שאולי תאהבו</h3>
+      <div class="pd-rec-scroll" role="list">
+        <div class="pd-rec-item" *ngFor="let rec of recommendations; let i = index" role="listitem">
+          <app-collection-shoe [shoe]="rec" [index]="i + 10"></app-collection-shoe>
+        </div>
+      </div>
+    </section>
 
   </div>
 </div>
