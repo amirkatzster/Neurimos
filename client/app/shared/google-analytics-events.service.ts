@@ -1,7 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-declare let ga: Function;
+declare let gtag: Function;
 
 @Injectable()
 export class GoogleAnalyticsEventsService {
@@ -12,12 +12,10 @@ export class GoogleAnalyticsEventsService {
                    eventAction: string,
                    eventLabel: string = null,
                    eventValue: number = null) {
-    if (!isPlatformBrowser(this.platformId)) { return; }
-    ga('send', 'event', {
-      eventCategory: eventCategory,
-      eventLabel: eventLabel,
-      eventAction: eventAction,
-      eventValue: eventValue
-    });
+    if (!isPlatformBrowser(this.platformId) || typeof gtag === 'undefined') { return; }
+    const params: Record<string, any> = { event_category: eventCategory };
+    if (eventLabel !== null) { params['event_label'] = eventLabel; }
+    if (eventValue !== null) { params['value'] = eventValue; }
+    gtag('event', eventAction, params);
   }
 }

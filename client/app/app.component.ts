@@ -36,6 +36,12 @@ export class AppComponent {
         const main = document.querySelector<HTMLElement>('#main-content');
         if (main) { main.focus({ preventScroll: true }); }
         this.liveAnnouncer.announce('עברת לדף: ' + this.title.getTitle(), 'polite');
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'page_view', {
+            page_path: e.urlAfterRedirects,
+            page_title: this.title.getTitle()
+          });
+        }
       }
     });
   }
