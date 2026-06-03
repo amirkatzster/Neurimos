@@ -34,13 +34,15 @@ export class LandingComponent implements OnInit, OnDestroy {
     '@context': 'https://schema.org',
     '@type': ['LocalBusiness', 'ShoeStore'],
     'name': 'נעלי נעורים',
+    'description': 'חנות נעלי נוחות בחולון מאז 1965. נעליים למבוגרים, לנשים, גברים וילדים. מותגים מובילים.',
     'url': 'https://www.neurimshoes.co.il',
     'telephone': '03-5052769',
+    'priceRange': '₪₪',
     'image': 'https://www.neurimshoes.co.il/assets/images/og-image.jpg',
     'foundingDate': '1965',
     'address': {
       '@type': 'PostalAddress',
-      'streetAddress': 'שדרות ירושלים 47',
+      'streetAddress': 'שנקר 52',
       'addressLocality': 'חולון',
       'addressCountry': 'IL'
     },
@@ -59,7 +61,12 @@ export class LandingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.seoService.setCanonical('/');
+    this.seoService.setMeta({
+      title: 'נעלי נעורים חולון | נעלי נוחות למבוגרים מאז 1965',
+      description: 'נעלי נעורים — חנות נעלי נוחות בחולון מאז 1965. נעליים למבוגרים לנשים וגברים, נעלי צעד ראשון לתינוקות, נעלי ילדים. מותגים מובילים, משלוח עד הבית. 03-5052769',
+      keywords: 'נעלי נוחות בחולון, נעליים למבוגרים, נעלי נוחות למבוגרים, נעליים חולון, נעל חולון, נעלי נוחות לנשים, נעלי נוחות לנשים מבוגרות, נעלי אורטופדיות, נעלי בריאות, נעלי צעד ראשון, נעלי תינוקות, נעלי ילדים חולון, נעלי גברים חולון, חנות נעלים חולון, נייק, אדידס, נעלי נעורים',
+      canonical: '/'
+    });
     this.loadCompanies();
     this.loadNewArrivals();
     this.loadSaleShoes();

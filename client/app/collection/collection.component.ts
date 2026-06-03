@@ -80,9 +80,13 @@ export class CollectionComponent implements OnInit, AfterViewInit, OnDestroy {
       this.filters = this.queries;
       this.updateCollection(qparams);
       if (this.queries.length === 1 && this.queries[0] === 'נעליים') {
-        this.titleService.setTitle('קטלוג | נעלי נעורים');
+        this.titleService.setTitle('קטלוג נעליים | נעלי נעורים חולון');
+      } else if (this.queries.length === 1 && this.queries[0] === 'נשים') {
+        this.titleService.setTitle('נעלי נוחות לנשים מבוגרות | נעלי נעורים חולון');
+      } else if (this.queries.length === 1 && this.queries[0] === 'גברים') {
+        this.titleService.setTitle('נעלי נוחות לגברים | נעלי נעורים חולון');
       } else {
-        this.titleService.setTitle('נעלי ' + this.queries + ' | נעלי נעורים');
+        this.titleService.setTitle('נעלי ' + this.queries + ' | נעלי נעורים חולון');
       }
       this.meta.updateTag({ name: 'keywords', content: this.buildKeywords(this.queries) });
       this.meta.updateTag({ name: 'description', content: this.buildDescription(this.queries) });
@@ -93,14 +97,26 @@ export class CollectionComponent implements OnInit, AfterViewInit, OnDestroy {
     const q = queries.join(', ');
     const base = `נעלי ${q}, נעל ${q}, ${q} חולון, קניית נעלי ${q}, נעלי נעורים`;
     const extras: string[] = [];
-    if (queries.some(s => s === 'נשים'))   extras.push('נעלי נוחות לנשים, נעלי אורטופדיות לנשים, נעלי נשים מבוגרות');
-    if (queries.some(s => s === 'גברים'))  extras.push('נעלי נוחות לגברים, נעלי עור לגברים');
-    if (queries.some(s => s === 'ילדים' || s === 'ילדות')) extras.push('נעלי צעד ראשון, נעלי תינוקות, נעלי פעוטות');
+    if (queries.some(s => s === 'נשים')) {
+      extras.push('נעלי נוחות לנשים, נעלי אורטופדיות לנשים, נעלי נשים מבוגרות, נעלי נוחות בחולון, נעליים למבוגרים, נעלי נוחות למבוגרות');
+    }
+    if (queries.some(s => s === 'גברים')) {
+      extras.push('נעלי נוחות לגברים, נעלי עור לגברים, נעלי נוחות בחולון, נעליים למבוגרים');
+    }
+    if (queries.some(s => s === 'ילדים' || s === 'ילדות')) {
+      extras.push('נעלי צעד ראשון, נעלי תינוקות, נעלי פעוטות');
+    }
     return [base, ...extras].join(', ');
   }
 
   private buildDescription(queries: String[]): string {
     const q = queries.join(' ');
+    if (queries.some(s => s === 'נשים')) {
+      return 'נעלי נוחות לנשים מבוגרות בחולון — נעלי נעורים. מבחר נעלי נוחות אורטופדיות ואופנתיות, נעליים למבוגרות בכל המידות. משלוח עד הבית מחולון לכל הארץ.';
+    }
+    if (queries.some(s => s === 'גברים')) {
+      return 'נעלי נוחות לגברים בחולון — נעלי נעורים. מבחר נעלי גברים איכותיות, נעליים למבוגרים בכל המידות. משלוח עד הבית מחולון לכל הארץ.';
+    }
     return `מבחר נעלי ${q} במחירים מעולים — נעלי נעורים חולון מאז 1965. משלוח עד הבית בקנייה מעל ₪200. ${q} בכל המידות והצבעים.`;
   }
 

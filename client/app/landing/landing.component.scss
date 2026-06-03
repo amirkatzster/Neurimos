@@ -517,3 +517,56 @@ $brand-darker:  #0d4a1e;
 
   @media (max-width: 600px) { font-size: 11px; }
 }
+
+// ── Comfort & Seniors section ─────────────────────────────────
+.comfort-section {
+  padding: 48px 24px 52px;
+  background: #f0f7f2;
+  border-top: 3px solid $brand-primary;
+  text-align: center;
+}
+
+.comfort-title {
+  color: $brand-darker;
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 16px;
+}
+
+.comfort-text {
+  max-width: 680px;
+  margin: 0 auto 28px;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.comfort-ctas {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.comfort-btn {
+  display: inline-block;
+  padding: 11px 28px;
+  background: $brand-primary;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+
+  &:hover {
+    background: $brand-darker;
+    transform: translateY(-2px);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #0076BE;
+    outline-offset: 2px;
+  }
+}
